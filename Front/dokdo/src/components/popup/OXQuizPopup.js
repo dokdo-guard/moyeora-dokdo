@@ -1,5 +1,5 @@
 import React from "react";
-import "../css/OXQuizPopup";
+import "../css/OXQuizPopup.css";
 function OXQuizPopup() {
   return (
     <>

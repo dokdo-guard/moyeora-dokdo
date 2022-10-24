@@ -1,5 +1,6 @@
 .OXQuizContainer {
-  min-width: 850px;
-  min-height: 1500px;
+  display: flex;
+  width: 1500px;
+  height: 850px;
   background-color: #faffe0;
 }
