@@ -17,6 +17,6 @@ public class PlantService {
         return plantRepository.findAll();
     }
     public Optional<Plant> getPlant(String name){
-        return  plantRepository.findStudentByName(name);
+        return  plantRepository.findPlantByName(name);
     }
 }

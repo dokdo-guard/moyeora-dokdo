@@ -6,7 +6,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 @Data
 @Document
-public class Plant {
+public class Bird {
     @Id
     private String id;
     private String name;
