@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import ProgressBar from "./ProgressBar";
 
 import "../css/OXQuizPopup.css";
 
@@ -15,8 +16,8 @@ const dummy_data = [
   },
   {
     id: 3,
-    quizText: "독도는 지리적, 역사적, 국제법적으로 대한민국의 고유영토이다.3",
-    answer: true,
+    quizText: "답 X.3",
+    answer: false,
   },
   {
     id: 4,
@@ -78,6 +79,11 @@ const dummy_data = [
     quizText: "독도는 지리적, 역사적, 국제법적으로 대한민국의 고유영토이다.15",
     answer: true,
   },
+  {
+    id: 16,
+    quizText: "쓰레기 값",
+    asnwer: false,
+  },
 ];
 
 function OXQuizPopup() {
@@ -125,42 +131,75 @@ function OXQuizPopup() {
       </div>
     );
   };
+  const EndQuiz = () => {
+    return (
+      <div className='endQuizContainer'>
+        Quiz END!
+        <div>
+          Score
+          {answerCorrect}
+        </div>
+        <div>
+          <button
+            onClick={() => {
+              setSelected(false);
+              setQuizNum(0);
+              setQuizProgress(0);
+              setAnswerCorrect(0);
+            }}
+          >
+            돌아가기
+          </button>
+        </div>
+      </div>
+    );
+  };
 
   return (
     <>
       {selected ? (
         <div className='OXQuizContainer'>
-          <div className='QuizTitle'>Quiz</div>
-          <div className='QuizProgressBar'>Progress Bar</div>
-          <div className='QuizText'>
-            <div>
-              {dummy_data[quizProgress].id}
-              {dummy_data[quizProgress].quizText}
+          <div className={quizProgress < quizNum ? "notHidden" : "hidden"}>
+            <div className='QuizTitle'>Quiz</div>
+            <div className='QuizProgressBar'>
+              <ProgressBar progress={quizProgress / quizNum} />
+            </div>
+            <div className='QuizText'>
+              <div>
+                {dummy_data[quizProgress].id}
+                {dummy_data[quizProgress].quizText}
+              </div>
+            </div>
+            <div className='QuizOX'>
+              <button
+                className='OX_O'
+                onClick={() => {
+                  setQuizProgress(quizProgress + 1);
+                  if (dummy_data[quizProgress].answer) {
+                    setAnswerCorrect(answerCorrect + 1);
+                  }
+                }}
+              >
+                O
+              </button>
+              <button
+                className='OX_X'
+                onClick={() => {
+                  setQuizProgress(quizProgress + 1);
+                  if (quizProgress >= 15) {
+                    return;
+                  }
+                  if (!dummy_data[quizProgress].answer) {
+                    setAnswerCorrect(answerCorrect + 1);
+                  }
+                }}
+              >
+                X
+              </button>
             </div>
           </div>
-          <div className='QuizOX'>
-            <button
-              className='OX_O'
-              onClick={() => {
-                setQuizProgress(quizProgress + 1);
-                if (dummy_data[quizProgress]) {
-                  setAnswerCorrect(answerCorrect + 1);
-                }
-              }}
-            >
-              O
-            </button>
-            <button
-              className='OX_X'
-              onClick={() => {
-                setQuizProgress(quizProgress + 1);
-                if (!dummy_data[quizProgress]) {
-                  setAnswerCorrect(answerCorrect + 1);
-                }
-              }}
-            >
-              X
-            </button>
+          <div className={quizProgress < quizNum ? "hidden" : null}>
+            <EndQuiz />
           </div>
         </div>
       ) : (

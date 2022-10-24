@@ -2,6 +2,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  text-align: center;
   width: 1500px;
   height: 850px;
   background-color: #faffe0;
@@ -31,8 +32,8 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 80%;
   height: 150px;
+  width: 80%;
   background-color: white;
   border-radius: 10px;
 }
@@ -60,4 +61,23 @@
 .OX_X {
   font-size: 150px;
   color: red;
+}
+.endQuizContainer {
+  height: 100%;
+  font-size: 50px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.hidden {
+  display: none;
+}
+.notHidden {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
 }
