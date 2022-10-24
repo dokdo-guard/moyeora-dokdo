@@ -1,11 +1,15 @@
 package com.ssafy.dokdo.Entity;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Data
-@Document
+@NoArgsConstructor
+@AllArgsConstructor
+@Document(collection = "seaplant")
 public class SeaPlant {
     @Id
     private String id;
