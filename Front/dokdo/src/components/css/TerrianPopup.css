@@ -1,0 +1,18 @@
+.TerrianPopupContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  width: 1500px;
+  height: 850px;
+  background-color: #faffe0;
+  box-shadow: 5px 5px 30px lightgray;
+  border-radius: 10px;
+}
+.TerrianPopupTitle {
+  display: fix;
+  font-size: 70px;
+  font-weight: 700;
+  margin: 10px;
+  top: 10px;
+}

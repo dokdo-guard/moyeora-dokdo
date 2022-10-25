@@ -4,7 +4,7 @@ import { styled } from "@mui/material/styles";
 import LinearProgress, {
   linearProgressClasses,
 } from "@mui/material/LinearProgress";
-import Typography from "@mui/material/Typography";
+// import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 
 import "../css/OXQuizPopup.css";
