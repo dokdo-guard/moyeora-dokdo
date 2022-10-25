@@ -1,5 +1,4 @@
 package com.ssafy.dokdo.Model;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
@@ -15,19 +14,11 @@ public class User {
     private Long id;
 
     @Column(nullable = false)
-    private String name;
+    private String nickname;
 
     @Email
     @Column(nullable = false)
     private String email;
-
-    private String imageUrl;
-
-    @Column(nullable = false)
-    private Boolean emailVerified = false;
-
-    @JsonIgnore
-    private String password;
 
     @NotNull
     @Enumerated(EnumType.STRING)
@@ -43,12 +34,12 @@ public class User {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getNickname() {
+        return nickname;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setNickname(String name) {
+        this.nickname = name;
     }
 
     public String getEmail() {
@@ -57,30 +48,6 @@ public class User {
 
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    public String getImageUrl() {
-        return imageUrl;
-    }
-
-    public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
-    }
-
-    public Boolean getEmailVerified() {
-        return emailVerified;
-    }
-
-    public void setEmailVerified(Boolean emailVerified) {
-        this.emailVerified = emailVerified;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
     }
 
     public AuthProvider getProvider() {
