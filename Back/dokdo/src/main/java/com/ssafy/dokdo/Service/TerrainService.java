@@ -18,7 +18,7 @@ public class TerrainService {
     public List<Terrain> getAllTerrain(){
         return terrainRepository.findAll();
     }
-    public Optional<Bird> getBird(String name){
-        return  terrainRepository.findTerrainByName();
+    public Optional<Terrain> getBird(String name){
+        return  terrainRepository.findTerrainByName(name);
     }
 }
