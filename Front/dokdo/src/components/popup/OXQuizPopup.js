@@ -198,7 +198,9 @@ function OXQuizPopup() {
               </button>
             </div>
           </div>
-          <div className={quizProgress < quizNum ? "hidden" : null}>
+          <div
+            className={quizProgress < quizNum ? "hidden" : "OXQuizContainer"}
+          >
             <EndQuiz />
           </div>
         </div>

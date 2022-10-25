@@ -37,14 +37,19 @@
   }
 }
 @font-face {
-  font-family: "MaplestoryOTFBold";
+  font-family: "Maplestory";
   src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/MaplestoryOTFBold.woff")
     format("woff");
-  font-weight: normal;
+  font-weight: 700;
+  font-style: normal;
+}
+@font-face {
+  font-family: "Maplestory";
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/MaplestoryOTFLight.woff")
+    format("woff");
+  font-weight: 300;
   font-style: normal;
 }
 * {
-  font-family: "MaplestoryOTFBold";
-  font-weight: normal;
-  font-style: normal;
+  font-family: "Maplestory";
 }
