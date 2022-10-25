@@ -99,7 +99,6 @@ function OXQuizPopup() {
   const [selected, setSelected] = useState(false);
   const [quizProgress, setQuizProgress] = useState(0);
   const [answerCorrect, setAnswerCorrect] = useState(0);
-  const [curProgress, setCurProgress] = useState(0);
   const SelectQuizNum = () => {
     return (
       <div className='OXQuizInWrapper'>
@@ -111,7 +110,7 @@ function OXQuizPopup() {
               setSelected(true);
             }}
           >
-            5
+            5 문제
           </button>
         </div>
         <div>
@@ -122,7 +121,7 @@ function OXQuizPopup() {
               setSelected(true);
             }}
           >
-            10
+            10 문제
           </button>
         </div>
         <div>
@@ -133,7 +132,7 @@ function OXQuizPopup() {
               setSelected(true);
             }}
           >
-            15
+            15 문제
           </button>
         </div>
       </div>

@@ -16,3 +16,25 @@
   margin: 10px;
   top: 10px;
 }
+.TerrianPopupWrapper {
+  display: flex;
+  flex-direction: row;
+  width: 95%;
+  height: 95%;
+  background-color: white;
+  box-shadow: 5px 5px 30px lightgray;
+  border-radius: 10px;
+  margin: 10px;
+}
+.TerrianPopupInfoTable {
+  width: 700px;
+  height: 100%;
+  background-color: #eff2de;
+  z-index: 2;
+}
+.TerrianPopupMap {
+  width: 100%;
+  height: 100%;
+  /* background-color: aqua; */
+  z-index: 0;
+}
