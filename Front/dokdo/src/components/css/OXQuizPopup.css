@@ -1,6 +1,83 @@
 .OXQuizContainer {
   display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
   width: 1500px;
   height: 850px;
   background-color: #faffe0;
+}
+.QuizNumSelectContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-self: center;
+  width: 1500px;
+  height: 850px;
+  background-color: #faffe0;
+}
+.selectQuizButton {
+  font-size: 50px;
+  width: 500px;
+  height: 200px;
+  margin: 10px;
+  border-radius: 10px;
+}
+.QuizTitle {
+  font-size: 50px;
+}
+.QuizProgressBar {
+}
+.QuizText {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 150px;
+  width: 80%;
+  background-color: white;
+  border-radius: 10px;
+}
+.QuizOX {
+  margin: 10px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  height: 60%;
+  width: 60%;
+}
+.QuizOX button {
+  border-radius: 10px;
+  background-color: white;
+  width: 50%;
+  height: 100%;
+  margin-left: 25px;
+  margin-right: 25px;
+}
+.OX_O {
+  font-size: 150px;
+  color: blue;
+}
+.OX_X {
+  font-size: 150px;
+  color: red;
+}
+.endQuizContainer {
+  height: 100%;
+  font-size: 50px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.hidden {
+  display: none;
+}
+.notHidden {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
 }
