@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import popupStyles from '../css/MyPagePopup.module.css';
 import PropTypes from 'prop-types';
 
-const Popup = (props) => {
+const BadgePopup = (props) => {
   const dummy_data = [
     {
       name: 'badge1',
@@ -36,7 +36,6 @@ const Popup = (props) => {
       name: 'badge1',
       url: '/src/components/imgs/badge1.png',
     },
-    
   ];
 
   const [show, setShow] = useState(false);
@@ -73,10 +72,9 @@ const Popup = (props) => {
   );
 };
 
-Popup.propTypes = {
-  title: PropTypes.string.isRequired,
+BadgePopup.propTypes = {
   show: PropTypes.bool.isRequired,
   onClose: PropTypes.func.isRequired,
 };
 
-export default Popup;
+export default BadgePopup;

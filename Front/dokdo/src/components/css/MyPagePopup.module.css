@@ -24,10 +24,6 @@
     top: -30px;
     right: -150px;
     transition: all 200ms;
-    font-size: 30px;
-    font-weight: bold;
-    text-decoration: none;
-    color: #333;
     width: 80px;
     height: 80px;
     background: url('../imgs/close.png') no-repeat;
@@ -57,4 +53,58 @@
     margin: 30px;
     background: url('/src/components/imgs/badge1.png') no-repeat;
     background-size: contain;
+}
+
+.popup .birds {
+    position: absolute;
+    top: -50px;
+    left: 20px;
+    width: 100px;
+    height: 100px;
+    transition: all 200ms;
+    background: url('/src/components/imgs/bird_icon.png') no-repeat;
+    background-size: 60px;
+    background-position: center;
+    background-color: #fff;
+    border-radius: 50%;
+}
+
+.popup .birds:hover {
+    background-color: gray;
+}
+
+.popup .seaAnimals{
+    position: absolute;
+    top: -50px;
+    left: 125px;
+    width: 100px;
+    height: 100px;
+    transition: all 200ms;
+    background: url('/src/components/imgs/fish_icon.png') no-repeat;
+    background-size: 60px;
+    background-position: center;
+    background-color: #fff;
+    border-radius: 50%;
+}
+
+.popup .seaAnimals:hover{
+    background-color: gray;
+}
+
+.popup .plants {
+    position: absolute;
+    top: -50px;
+    left: 230px;
+    width: 100px;
+    height: 100px;
+    transition: all 200ms;
+    background: url('/src/components/imgs/tree_icon.png') no-repeat;
+    background-size: 60px;
+    background-position: center;
+    background-color: #fff;
+    border-radius: 50%;
+}
+
+.popup .plants:hover {
+    background-color: gray;
 }
