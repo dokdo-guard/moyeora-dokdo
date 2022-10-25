@@ -1,0 +1,60 @@
+.overlay {
+    visibility: hidden;
+    opacity: 0;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(255, 255, 255, 0.6);
+}
+.popup {
+    margin: 70px auto;
+    padding: 30px;
+    background: #FAFFE0;
+    border-radius: 5px;
+    width: 1500px;
+    height: 800px;
+    position: relative;
+    box-shadow: 1px 1px 10px grey;
+}
+
+.popup .close {
+    position: absolute;
+    top: -30px;
+    right: -150px;
+    transition: all 200ms;
+    font-size: 30px;
+    font-weight: bold;
+    text-decoration: none;
+    color: #333;
+    width: 80px;
+    height: 80px;
+    background: url('../imgs/close.png') no-repeat;
+    background-size: contain;
+}
+.popup .close:hover {
+    cursor: pointer;
+    width: 85px;
+    height: 85px;
+}
+
+.popup .content {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.circle {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background: #FEB653;
+}
+
+.popup .content .badge {
+    width:  150px;
+    height: 150px;
+    margin: 30px;
+    background: url('/src/components/imgs/badge1.png') no-repeat;
+    background-size: contain;
+}

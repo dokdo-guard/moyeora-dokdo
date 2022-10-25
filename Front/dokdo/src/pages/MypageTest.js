@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import MyPage from '../components/mypage/mypage';
+import Popup from '../components/mypage/badge';
 
 function MypageTest() {
   const [visibility, setVisibility] = useState(false);
@@ -7,11 +7,12 @@ function MypageTest() {
   return (
     <>
       <button onClick={() => setVisibility(true)}>open</button>
-      <MyPage onClose={()=> setVisibility(false)} show={visibility} title="Hello Siryeong">
+      <Popup onClose={()=> setVisibility(false)} show={visibility}>
+
         <div>
-          안녕하세요
+          내용을 적어주세요
         </div>
-      </MyPage>
+      </Popup>
     </>
   );
 }
