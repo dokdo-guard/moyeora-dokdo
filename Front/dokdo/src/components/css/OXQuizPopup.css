@@ -29,6 +29,8 @@
   top: 10px;
 }
 .QuizProgressBar {
+  width: 80%;
+  height: 20px;
 }
 .QuizText {
   display: flex;

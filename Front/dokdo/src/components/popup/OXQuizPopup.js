@@ -1,8 +1,15 @@
 import React, { useState } from "react";
-import ProgressBar from "./ProgressBar";
+import PropTypes from "prop-types";
+import { styled } from "@mui/material/styles";
+import LinearProgress, {
+  linearProgressClasses,
+} from "@mui/material/LinearProgress";
+import Typography from "@mui/material/Typography";
+import Box from "@mui/material/Box";
 
 import "../css/OXQuizPopup.css";
 
+// 더미 데이터
 const dummy_data = [
   {
     id: 1,
@@ -86,11 +93,13 @@ const dummy_data = [
   },
 ];
 
+// 문제 개수 선택 화면
 function OXQuizPopup() {
   const [quizNum, setQuizNum] = useState(0);
   const [selected, setSelected] = useState(false);
   const [quizProgress, setQuizProgress] = useState(0);
   const [answerCorrect, setAnswerCorrect] = useState(0);
+  const [curProgress, setCurProgress] = useState(0);
   const SelectQuizNum = () => {
     return (
       <div className='OXQuizInWrapper'>
@@ -130,6 +139,8 @@ function OXQuizPopup() {
       </div>
     );
   };
+
+  // Quiz 끝나면 점수와 함께 보여줄 화면
   const EndQuiz = () => {
     return (
       <div>
@@ -155,6 +166,37 @@ function OXQuizPopup() {
     );
   };
 
+  // Custom Progress Bar
+  const BorderLinearProgress = styled(LinearProgress)(({ theme }) => ({
+    height: 10,
+    borderRadius: 5,
+    [`&.${linearProgressClasses.colorPrimary}`]: {
+      backgroundColor:
+        theme.palette.grey[theme.palette.mode === "light" ? 200 : 800],
+    },
+    [`& .${linearProgressClasses.bar}`]: {
+      borderRadius: 5,
+      backgroundColor: theme.palette.mode === "light" ? "#FFF562" : "#308fe8",
+    },
+  }));
+
+  // Progress Bar
+  const LinearProgressWithLabel = (props) => {
+    return (
+      <Box sx={{ display: "flex", alignItems: "center" }}>
+        <Box sx={{ width: "100%", mr: 1 }}>
+          <BorderLinearProgress variant='determinate' {...props} />
+        </Box>
+      </Box>
+    );
+  };
+  LinearProgressWithLabel.propTypes = {
+    /**
+     * The value of the progress indicator for the determinate and buffer variants.
+     * Value between 0 and 100.
+     */
+    value: PropTypes.number.isRequired,
+  };
   return (
     <>
       <div className='OXQuizContainer'>
@@ -163,7 +205,9 @@ function OXQuizPopup() {
           <div className='OXQuizInWrapper'>
             <div className={quizProgress < quizNum ? "notHidden" : "hidden"}>
               <div className='QuizProgressBar'>
-                <ProgressBar progress={quizProgress / quizNum} />
+                <LinearProgressWithLabel
+                  value={(quizProgress / quizNum) * 100}
+                />
               </div>
               <div className='QuizText'>
                 {dummy_data[quizProgress].id}
