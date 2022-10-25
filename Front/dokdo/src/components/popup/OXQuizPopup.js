@@ -93,8 +93,7 @@ function OXQuizPopup() {
   const [answerCorrect, setAnswerCorrect] = useState(0);
   const SelectQuizNum = () => {
     return (
-      <div className='QuizNumSelectContainer'>
-        <div className='QuizTitle'>Quiz</div>
+      <div className='OXQuizInWrapper'>
         <div>
           <button
             className='selectQuizButton'
@@ -133,14 +132,14 @@ function OXQuizPopup() {
   };
   const EndQuiz = () => {
     return (
-      <div className='endQuizContainer'>
-        Quiz END!
-        <div>
+      <div>
+        <div className='QuizTitle'>
           Score
           {answerCorrect}
         </div>
         <div>
           <button
+            className='endQuizButton'
             onClick={() => {
               setSelected(false);
               setQuizNum(0);
@@ -148,8 +147,9 @@ function OXQuizPopup() {
               setAnswerCorrect(0);
             }}
           >
-            돌아가기
+            다시 풀기
           </button>
+          <button className='endQuizButton2'>종료하기</button>
         </div>
       </div>
     );
@@ -157,56 +157,54 @@ function OXQuizPopup() {
 
   return (
     <>
-      {selected ? (
-        <div className='OXQuizContainer'>
-          <div className={quizProgress < quizNum ? "notHidden" : "hidden"}>
-            <div className='QuizTitle'>Quiz</div>
-            <div className='QuizProgressBar'>
-              <ProgressBar progress={quizProgress / quizNum} />
-            </div>
-            <div className='QuizText'>
-              <div>
+      <div className='OXQuizContainer'>
+        <div className='QuizTitle'>Quiz</div>
+        {selected ? (
+          <div className='OXQuizInWrapper'>
+            <div className={quizProgress < quizNum ? "notHidden" : "hidden"}>
+              <div className='QuizProgressBar'>
+                <ProgressBar progress={quizProgress / quizNum} />
+              </div>
+              <div className='QuizText'>
                 {dummy_data[quizProgress].id}
                 {dummy_data[quizProgress].quizText}
               </div>
+              <div className='QuizOX'>
+                <button
+                  className='OX_O'
+                  onClick={() => {
+                    setQuizProgress(quizProgress + 1);
+                    if (dummy_data[quizProgress].answer) {
+                      setAnswerCorrect(answerCorrect + 1);
+                    }
+                  }}
+                >
+                  O
+                </button>
+                <button
+                  className='OX_X'
+                  onClick={() => {
+                    setQuizProgress(quizProgress + 1);
+                    if (quizProgress >= 15) {
+                      return;
+                    }
+                    if (!dummy_data[quizProgress].answer) {
+                      setAnswerCorrect(answerCorrect + 1);
+                    }
+                  }}
+                >
+                  X
+                </button>
+              </div>
             </div>
-            <div className='QuizOX'>
-              <button
-                className='OX_O'
-                onClick={() => {
-                  setQuizProgress(quizProgress + 1);
-                  if (dummy_data[quizProgress].answer) {
-                    setAnswerCorrect(answerCorrect + 1);
-                  }
-                }}
-              >
-                O
-              </button>
-              <button
-                className='OX_X'
-                onClick={() => {
-                  setQuizProgress(quizProgress + 1);
-                  if (quizProgress >= 15) {
-                    return;
-                  }
-                  if (!dummy_data[quizProgress].answer) {
-                    setAnswerCorrect(answerCorrect + 1);
-                  }
-                }}
-              >
-                X
-              </button>
+            <div className={quizProgress < quizNum ? "hidden" : "notHidden"}>
+              <EndQuiz />
             </div>
           </div>
-          <div
-            className={quizProgress < quizNum ? "hidden" : "OXQuizContainer"}
-          >
-            <EndQuiz />
-          </div>
-        </div>
-      ) : (
-        <SelectQuizNum />
-      )}
+        ) : (
+          <SelectQuizNum />
+        )}
+      </div>
     </>
   );
 }
