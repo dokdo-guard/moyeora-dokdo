@@ -27,11 +27,4 @@ public class KakaoOAuth2UserInfo extends OAuth2UserInfo {
             System.out.println("\n\n>>> email is null <<<\n");
         return (String) attributes.get("account_email");
     }
-
-    @Override
-    public String getImageUrl() {
-        Map<String, Object> properties = (Map<String, Object>) attributes.get("properties");
-        if (properties == null)     return null;
-        return (String) properties.get("thumbnail_image");
-    }
 }
