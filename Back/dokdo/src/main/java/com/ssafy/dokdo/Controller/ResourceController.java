@@ -1,12 +1,7 @@
 package com.ssafy.dokdo.Controller;
 
 import com.ssafy.dokdo.Entity.Resource;
-import com.ssafy.dokdo.Entity.SeaAnimal;
 import com.ssafy.dokdo.Service.ResourceService;
-<<<<<<< HEAD
-=======
-import io.swagger.annotations.Api;
->>>>>>> a8070911800ec9d97612c56f0de16c4bc450ea79
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import lombok.RequiredArgsConstructor;
