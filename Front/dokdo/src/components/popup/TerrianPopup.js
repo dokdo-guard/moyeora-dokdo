@@ -117,29 +117,65 @@ import "../css/TerrianPopup.css";
 function TerrianPopup() {
   const mapElement = useRef(null);
   useEffect(() => {
-    const { naver } = window;
-    if (!mapElement.current || !naver) return;
+    // kakao map Start
+    const { kakao } = window;
+    if (!mapElement.current || !kakao) return;
 
-    const location = new naver.maps.LatLng(37.2435048, 131.866653);
+    const location = new kakao.maps.LatLng(
+      37.241235486993396,
+      131.86688952423148,
+    );
     const mapOptions = {
       center: location,
-      zoom: 16,
-      scrollWheel: false,
-      draggable: false,
-      keyboardShortcuts: false,
-      zoomControlOptions: {
-        position: naver.maps.Position.TOP_RIGHT,
-      },
+      draggable: true,
+      zoomable: false,
+      level: 3,
     };
-    const map = new naver.maps.Map(mapElement.current, mapOptions);
-    console.log(map.getCenter());
+    const map = new kakao.maps.Map(mapElement.current, mapOptions);
+    // kakao.maps.event.addListener(map, "click", function (mouseEvent) {
+    //   // 클릭한 위도, 경도 정보를 가져옵니다
+    //   var latlng = mouseEvent.latLng;
+
+    //   var message = "클릭한 위치의 위도는 " + latlng.getLat() + " 이고, ";
+    //   message += "경도는 " + latlng.getLng() + " 입니다";
+    //   console.log(message);
+    // });
+
+    // Search
+    const ps = new kakao.maps.services.Places();
+    ps.keywordSearch("독도", function (data, status, pagination) {
+      if (status === kakao.maps.services.Status.OK) {
+        // 검색된 장소 위치를 기준으로 지도 범위를 재설정하기위해
+        // LatLngBounds 객체에 좌표를 추가합니다
+        var bounds = new kakao.maps.LatLngBounds();
+
+        for (var i = 0; i < data.length; i++) {
+          var marker = new kakao.maps.Marker({
+            map: map,
+            position: new kakao.maps.LatLng(data[i].y, data[i].x),
+          });
+          bounds.extend(new kakao.maps.LatLng(data[i].y, data[i].x));
+          console.log(data[i].y, +" " + data[i].x);
+        }
+
+        // 검색된 장소 위치를 기준으로 지도 범위를 재설정합니다
+        map.setBounds(bounds);
+      }
+    });
+
+    // kakao map End
   }, []);
+  const BaseInfo = () => {
+    return <></>;
+  };
   return (
     <div className='TerrianPopupContainer'>
-      <div className='TerrianPopupTitle'>독도의 지리 및 지형</div>
+      <div className='TerrianPopupTitle'>독도의 지리 및 지리</div>
       <div className='TerrianPopupWrapper'>
         <div ref={mapElement} className='TerrianPopupMap'></div>
-        <div className='TerrianPopupInfoTable'></div>
+        <div className='TerrianPopupInfoTable'>
+          <BaseInfo />
+        </div>
       </div>
     </div>
   );
