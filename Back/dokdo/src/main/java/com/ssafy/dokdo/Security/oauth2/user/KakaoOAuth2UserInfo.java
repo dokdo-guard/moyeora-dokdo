@@ -28,16 +28,7 @@ public class KakaoOAuth2UserInfo extends OAuth2UserInfo {
 
     @Override
     public String getEmail() {
-        // 수정한부분
-        for(Object key: attributes.keySet()){
-            System.out.println(key);
-        }
-        System.out.println("=====kakao_account=====");
         HashMap hashMap = (HashMap) attributes.get("kakao_account");
-        System.out.println(hashMap);
-//        for(Object key: lhs.keySet()){
-//            System.out.println(key);
-//        }
         return (String) hashMap.get("email");
     }
 }
