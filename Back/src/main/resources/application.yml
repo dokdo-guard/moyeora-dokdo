@@ -4,7 +4,7 @@ spring:
       authentication-database: admin
       username: ssafy
       password: D204ssafy
-      database: local
+      database: ssafy
       port: 27017
       host: k7d204.p.ssafy.io
 
