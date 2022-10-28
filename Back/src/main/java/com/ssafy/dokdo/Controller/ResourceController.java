@@ -4,6 +4,7 @@ import com.ssafy.dokdo.Entity.Resource;
 import com.ssafy.dokdo.Service.ResourceService;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
+import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,7 +12,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequiredArgsConstructor
+@AllArgsConstructor
 @RequestMapping("info")
 @CrossOrigin("*")
 public class ResourceController {
