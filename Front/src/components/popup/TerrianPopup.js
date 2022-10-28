@@ -328,7 +328,7 @@ function TerrianPopup() {
         title: place.name,
       });
       var infowindow = new kakao.maps.InfoWindow({
-        content: `<div style="padding:5px; width:100%;text-align:center;font-weight:300;">${place.name}</div>`,
+        content: `<div style="padding:5px; width:100%;text-align:center;font-weight:300;border-radius:10px;">${place.name}</div>`,
         removable: true,
       });
 
@@ -356,7 +356,7 @@ function TerrianPopup() {
       });
     });
     var infowindow = new kakao.maps.InfoWindow({
-      content: `<div style="padding:5px; width:100%;text-align:center;font-weight:300;">${curPlace.name}</div>`,
+      content: `<div style="padding:5px; width:100%;text-align:center;font-weight:300;border-radius:10px;">${curPlace.name}</div>`,
       removable: true,
     });
     if (curMarker !== null) {
