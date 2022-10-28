@@ -14,7 +14,6 @@ import java.util.Optional;
 @RestController
 @AllArgsConstructor
 @RequestMapping("info")
-@CrossOrigin("*")
 public class SeaAnimalController {
 
     private final SeaAnimalService seaAnimalService;
