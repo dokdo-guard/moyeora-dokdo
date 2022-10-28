@@ -19,13 +19,13 @@ public class ResourceController {
     private final ResourceService resourceService;
 
     @ApiOperation(value = "자원 목록 조회", notes = "자원 목록의 상세 정보를 조회한다.")
-    @GetMapping("/resources")
+    @GetMapping("resources")
     public List<Resource> getAllResources(){
         return resourceService.getAllResources();
     }
 
     @ApiOperation(value = "자원 조회", notes = "자원 하나의 상세 정보를 조회한다.")
-    @GetMapping("/resource")
+    @GetMapping("resource")
     public Optional<Resource> getResource(
             @RequestParam @ApiParam("해당 자원의 상세 정보를 불러온다.") String name){
         return resourceService.getResource(name);
