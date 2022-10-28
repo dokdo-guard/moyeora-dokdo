@@ -19,13 +19,13 @@ public class SeaPlantController {
     private final SeaPlantService seaPlantService;
 
     @ApiOperation(value = "해조류 목록 조회", notes = "해조류 목록의 상세 정보를 조회한다.")
-    @GetMapping("/sea-plants")
+    @GetMapping("sea-plants")
     public List<SeaPlant> getAllSeaPlants(){
         return seaPlantService.getAllSeaPlants();
     }
 
     @ApiOperation(value = "해조류 조회", notes = "해조류 하나의 상세 정보를 조회한다.")
-    @GetMapping("/sea-plant")
+    @GetMapping("sea-plant")
     public Optional<SeaPlant> getSeaPlant(
             @RequestParam @ApiParam("해당 해조류의 상세 정보를 불러온다.") String name){
         return seaPlantService.getSeaPlant(name);
