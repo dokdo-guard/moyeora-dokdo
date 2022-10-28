@@ -22,16 +22,15 @@ const Popup = (props) => {
       }}
       className={popupStyles.overlay}
     >
+      <span className={popupStyles.close} onClick={closeHandler} />
       <div className={popupStyles.popup}>
-        <span className={popupStyles.close} onClick={closeHandler} />
-        <div className={popupStyles.content}>{props.children}</div>
+        <div className={popupStyles.content}></div>
       </div>
     </div>
   );
 };
 
 Popup.propTypes = {
-  title: PropTypes.string.isRequired,
   show: PropTypes.bool.isRequired,
   onClose: PropTypes.func.isRequired,
 };

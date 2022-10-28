@@ -16,9 +16,9 @@ const Popup = (props) => {
     props.onClose(false);
   };
 
-  const getBirds = (e) => {}
-  const getSeaAnimals = (e) => {}
-  const getPlants = (e) => {}
+  const getBirds = (e) => {};
+  const getSeaAnimals = (e) => {};
+  const getPlants = (e) => {};
 
   useEffect(() => {
     setShow(props.show);
@@ -32,15 +32,16 @@ const Popup = (props) => {
       }}
       className={popupStyles.overlay}
     >
+      <span className={popupStyles.close} onClick={closeHandler} />
       <div className={popupStyles.popup}>
-        <span className={popupStyles.close} onClick={closeHandler} />
         <div className={popupStyles.birds} onClick={getBirds}></div>
         <div className={popupStyles.seaAnimals} onClick={getSeaAnimals}></div>
         <div className={popupStyles.plants} onClick={getPlants}></div>
+
         <div className={popupStyles.content}>
           {dummy_data.map((item) => {
             return (
-              <div className={popupStyles.badge}>
+              <div className={popupStyles.badge} key={item}>
                 <img src={item.url}></img>
               </div>
             );
@@ -52,7 +53,6 @@ const Popup = (props) => {
 };
 
 Popup.propTypes = {
-  title: PropTypes.string.isRequired,
   show: PropTypes.bool.isRequired,
   onClose: PropTypes.func.isRequired,
 };

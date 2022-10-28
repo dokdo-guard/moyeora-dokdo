@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import popupStyles from '../css/MyPagePopup.module.css';
 import PropTypes from 'prop-types';
 
-const BadgePopup = (props) => {
+const Popup = (props) => {
   const dummy_data = [
     {
       name: 'badge1',
@@ -56,8 +56,8 @@ const BadgePopup = (props) => {
       }}
       className={popupStyles.overlay}
     >
+      <span className={popupStyles.close} onClick={closeHandler} />
       <div className={popupStyles.popup}>
-        <span className={popupStyles.close} onClick={closeHandler} />
         <div className={popupStyles.content}>
           {dummy_data.map((item) => {
             return (
@@ -72,9 +72,9 @@ const BadgePopup = (props) => {
   );
 };
 
-BadgePopup.propTypes = {
+Popup.propTypes = {
   show: PropTypes.bool.isRequired,
   onClose: PropTypes.func.isRequired,
 };
 
-export default BadgePopup;
+export default Popup;
