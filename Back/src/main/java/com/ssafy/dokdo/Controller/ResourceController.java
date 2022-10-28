@@ -14,7 +14,6 @@ import java.util.Optional;
 @RestController
 @AllArgsConstructor
 @RequestMapping("info")
-@CrossOrigin("*")
 public class ResourceController {
 
     private final ResourceService resourceService;
