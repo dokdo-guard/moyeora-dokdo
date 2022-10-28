@@ -300,8 +300,10 @@ function TerrianPopup() {
   const [places, setPlaces] = useState(dummy_data);
   const [showPlace, setShowPlace] = useState(false);
   const [curPlace, setCurPlace] = useState("");
+  const [curMarker, setCurMarker] = useState(null);
 
   useEffect(() => {
+    console.log("useEffect Call");
     // kakao map Start
     const { kakao } = window;
     if (!mapElement.current || !kakao) return;
@@ -314,6 +316,7 @@ function TerrianPopup() {
       center: location,
       draggable: false,
       zoomable: false,
+      disableDoubleClick: true,
       level: 4,
     };
     const map = new kakao.maps.Map(mapElement.current, mapOptions);
@@ -329,9 +332,12 @@ function TerrianPopup() {
         removable: true,
       });
 
+      // Infowindow on Marker Click Event
+
       kakao.maps.event.addListener(marker, "click", function () {
         setShowPlace(true);
         setCurPlace(place);
+        setCurMarker(marker);
       });
       kakao.maps.event.addListener(marker, "mouseover", function () {
         infowindow.open(map, marker);
@@ -341,9 +347,7 @@ function TerrianPopup() {
       });
       // console.log(marker);
     }
-
-    // Infowindow on Marker Click Event
-
+    // 현재 선택된 위치 마커 위 인포윈도우 올려두기
     // Load Kakao Map
     kakao.maps.load(() => {
       places.map((place) => {
@@ -351,14 +355,21 @@ function TerrianPopup() {
         return place;
       });
     });
+    var infowindow = new kakao.maps.InfoWindow({
+      content: `<div style="padding:5px; width:100%;text-align:center;font-weight:300;">${curPlace.name}</div>`,
+      removable: true,
+    });
+    if (curMarker !== null) {
+      infowindow.open(map, curMarker);
+    }
 
     // 중심좌표 이동시 중심 좌표 콘솔에 출력
     // kakao.maps.event.addListener(map, "center_changed", function () {
     //   console.log(map.getCenter());
     // });
-
     // kakao map End
-  }, [places]);
+  }, [curMarker]);
+
   const BaseInfo = () => {
     return (
       <div className='baseInfoContainer'>
@@ -366,7 +377,7 @@ function TerrianPopup() {
         <hr></hr>
         <div className='baseInfoContent'>
           <div className='baseInfoContentHeader'>위치</div>
-          <div className='baseInfoContent'>
+          <div className='baseInfoDetailt'>
             동도
             <br />
             북위 37° 14′ 26.8″
@@ -383,19 +394,19 @@ function TerrianPopup() {
         <hr></hr>
         <div className='baseInfoContent'>
           <div className='baseInfoContentHeader'>구성 도서</div>
-          <div className='baseInfoContent'>91개의 섬</div>
+          <div className='baseInfoDetail'>91개의 섬</div>
         </div>
         <hr></hr>
 
         <div className='baseInfoContent'>
           <div className='baseInfoContentHeader'>주요 도서</div>
-          <div className='baseInfoContent'> 동도(東島) · 서도(西島)</div>
+          <div className='baseInfoDetail'> 동도(東島) · 서도(西島)</div>
         </div>
         <hr></hr>
 
         <div className='baseInfoContent'>
           <div className='baseInfoContentHeader'>면적</div>
-          <div className='baseInfoContent'>
+          <div className='baseInfoDetail'>
             동도 73,297m²
             <br />
             서도 88,740m²
@@ -403,15 +414,19 @@ function TerrianPopup() {
             부속도서 25,517m²
           </div>
         </div>
+        <div className='baseInfoTitle'>왼쪽 마커를 클릭해보세요!</div>
       </div>
     );
   };
   const PlaceInfo = () => {
     return (
-      <div>
-        <div>{curPlace.name}</div>
-        <div>{curPlace.summary}</div>
-        <div>{curPlace.loaction}</div>
+      <div className='placeInfoContainer'>
+        <div className='placeInfoTitle'>{curPlace.name}</div>
+        <div className='placeInfoImage'>이미지 컨테이너</div>
+        <div className='placeInfoImage'>이미지 컨테이너2</div>
+        <div className='placeInfoImage'>이미지 컨테이너3</div>
+        <div className='placeInfoLocation'>{curPlace.location}</div>
+        <div className='placeInfoSummary'>{curPlace.summary}</div>
       </div>
     );
   };
