@@ -2,7 +2,7 @@ package com.ssafy.dokdo.Security.oauth2;
 
 import com.ssafy.dokdo.Exception.OAuth2AuthenticationProcessingException;
 import com.ssafy.dokdo.Model.AuthProvider;
-import com.ssafy.dokdo.Model.User;
+import com.ssafy.dokdo.Entity.User;
 import com.ssafy.dokdo.Repository.UserRepository;
 import com.ssafy.dokdo.Security.UserPrincipal;
 import com.ssafy.dokdo.Security.oauth2.user.OAuth2UserInfo;
