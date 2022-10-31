@@ -1,10 +1,16 @@
 import React from "react";
-import { OXQuizPopup, TerrianPopup } from "../components/index";
+import {
+  OXQuizPopup,
+  TerrianPopup,
+  EcoSystemPopup,
+  HistoryPopup,
+} from "../components/index";
 
 function PopupTest() {
   return (
     <>
-      {/* <OXQuizPopup /> */}
+      <EcoSystemPopup />
+      <HistoryPopup />
       <TerrianPopup />
       <OXQuizPopup />
     </>

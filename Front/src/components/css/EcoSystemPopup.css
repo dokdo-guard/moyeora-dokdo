@@ -9,3 +9,106 @@
   box-shadow: 5px 5px 30px lightgray;
   border-radius: 10px;
 }
+.EcosystemTitle {
+  font-size: 70px;
+  font-weight: 700;
+  margin: 10px;
+  top: 10px;
+}
+.EcosystemSelectBtnWrapper {
+  width: 80%;
+  height: 80%;
+  display: grid;
+  justify-items: center;
+  align-items: center;
+  grid-template-columns: 50% 50%;
+  grid-template-areas: 50% 50%;
+  border-radius: 5px;
+}
+.EcosystemSelectBtn {
+  width: 300px;
+  height: 300px;
+  background-color: white;
+  text-align: center;
+  border-radius: 10px;
+  box-shadow: 5px 5px 20px lightgray;
+}
+.EcoSystemListWrapper {
+  overflow: auto;
+  display: flex;
+  width: 90%;
+  height: 80%;
+  background-color: white;
+  border-radius: 5px;
+  box-shadow: 5px 5px 20px lightgray;
+  justify-content: flex-start;
+}
+.EcoSystemListWrapper::-webkit-scrollbar {
+  display: none;
+  width: 0;
+}
+
+.EcoSystemDataList {
+  display: grid;
+  width: 100%;
+  margin: 10px;
+  grid-template-columns: 40% 40%;
+  justify-content: center;
+  row-gap: 10px;
+}
+.EcoSystemListData {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 400px;
+  margin: 30px;
+  box-shadow: 2px 2px 30px lightgray;
+  justify-content: center;
+  align-items: center;
+}
+.EcoSystemListName {
+  font-weight: 700;
+  font-size: 30px;
+  margin: 10px;
+}
+.EcoSystemListImage {
+  width: 400px;
+  height: 300px;
+  margin: 10px;
+}
+.EcoSystemBackBtn > button {
+  position: fixed;
+  height: 100px;
+  width: 100px;
+  margin: 10px;
+  border-radius: 10px;
+  background-color: #feb653;
+  border: 1px solid lightgray;
+}
+.EcoSystemDetailInfo {
+  display: flex;
+  flex-direction: column;
+  margin: 20px 20px 20px 150px;
+  width: 100%;
+  height: 90%;
+}
+.EcoSystemDetailImage {
+  width: 100%;
+  height: 300px;
+}
+.EcoSystemDetailName {
+  margin: 10px;
+  font-weight: 700;
+  font-size: 40px;
+  text-align: start;
+}
+.EcoSystemDetailSummary {
+  margin: 10px;
+  text-align: start;
+  font-size: 20px;
+}
+.EcoSystemDetailSpecies {
+  margin: 10px;
+  text-align: start;
+  font-size: 20px;
+}
