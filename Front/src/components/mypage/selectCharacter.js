@@ -1,41 +1,78 @@
-import { useEffect, useState, Suspense, useRef } from 'react';
+import { useEffect, useState } from 'react';
 import popupStyles from '../css/Character.module.css';
 import PropTypes from 'prop-types';
-import { Camera, Canvas, useLoader } from '@react-three/fiber';
+import { Canvas, useLoader, useFrame } from '@react-three/fiber';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
+import * as THREE from 'three';
 
-const Character = (props) => {
-  const gltf = useLoader(GLTFLoader, '/assets/glTF/character/' + props.character);
-  console.log(gltf)
-
-  return (
-    <>
-      <primitive object={gltf.scene} scale={1}></primitive>
-    </>
-  );
+const globalDataSet = {
+  models: {},
+  actions: {},
+  mixers: {},
 };
 
+const Character = (props) => {
+  const modelUrl = '/assets/glTF/character/' + props.character + '.glb';
+  const model = useLoader(GLTFLoader, modelUrl);
+  globalDataSet.models[props.character] = model;
 
-const MyCanvas = (props) => {
-  return (
-    <Canvas>
-      <ambientLight intensity={0.7}></ambientLight>
-      <directionalLight></directionalLight>
-      <Suspense fallback={null}>
-        <Character {...props}></Character>
-        <Character {...props}></Character>
-        <Character {...props}></Character>
-        <Character {...props}></Character>
-      </Suspense>
-    </Canvas>
-  );
+  const gltf = globalDataSet.models[props.character];
+
+  let mixer;
+  if (gltf.animations.length) {
+    mixer = new THREE.AnimationMixer(gltf.scene);
+    globalDataSet.mixers[props.character] = mixer;
+
+    const action = mixer.clipAction(gltf.animations[props.animation_num]);
+    globalDataSet.actions[props.character] = action;
+
+    action.setLoop(THREE.LoopOnce);
+    action.play();
+  }
+
+  useFrame((state, delta) => {
+    console.log(globalDataSet.actions[props.character]?.enabled);
+    if (!globalDataSet.actions[props.character]?.enabled) {
+      
+      const action = mixer.clipAction(gltf.animations[0]);
+      action.setLoop(THREE.LoopRepeat);
+      globalDataSet.actions[props.character].stop();
+      globalDataSet.actions[props.character] = action;
+      globalDataSet.actions[props.character].play();
+    }
+    mixer?.update(delta);
+  });
+
+  return <primitive object={gltf.scene} scale={3} position={[0, -2, 0]} />;
 };
 
 const Popup = (props) => {
+  const characters = [
+    'siryeong',
+    'sojung',
+    'hyoseon',
+    'youngjin',
+    'seongryeong',
+    'chaehyeon',
+  ];
+
   const [show, setShow] = useState(false);
+  const [myCharacter, setCharacter] = useState('siryeong');
+
   const closeHandler = (e) => {
     setShow(false);
     props.onClose(false);
+  };
+
+  const actionHandler = (e) => {
+    let gltf = globalDataSet.models[myCharacter];
+    let mixer = globalDataSet.mixers[myCharacter];
+
+    const action = mixer.clipAction(gltf.animations[e]);
+    action.setLoop(THREE.LoopOnce);
+    globalDataSet.actions[myCharacter].stop();
+    globalDataSet.actions[myCharacter] = action;
+    globalDataSet.actions[myCharacter].play();
   };
 
   useEffect(() => {
@@ -51,9 +88,50 @@ const Popup = (props) => {
       className={popupStyles.overlay}
     >
       <span className={popupStyles.close} onClick={closeHandler} />
-      <div></div>
-      <div className={popupStyles.models}>
-        <MyCanvas character="siryeong.glb"></MyCanvas>
+      <div className={popupStyles.emotion}>
+        <img
+          src={require('../imgs/badge1.png')}
+          onClick={() => {
+            actionHandler(5);
+          }}
+        ></img>
+        <img
+          src={require('../imgs/badge1.png')}
+          onClick={() => {
+            actionHandler(3);
+          }}
+        ></img>
+        <img
+          src={require('../imgs/badge1.png')}
+          onClick={() => {
+            actionHandler(2);
+          }}
+        ></img>
+      </div>
+      <div className={popupStyles.character}>
+        <Canvas>
+          <ambientLight intensity={0.5}></ambientLight>
+          <directionalLight
+            intensity={1}
+            position={[0, 1, 1]}
+            castShadow
+          ></directionalLight>
+          <mesh>
+            <Character character={myCharacter} animation_num={0}></Character>
+          </mesh>
+        </Canvas>
+      </div>
+      <div className={popupStyles.characters}>
+        {characters.map((c_name, idx) => {
+          return (
+            <div key={idx}>
+              <img
+                src={require('../imgs/characters/' + c_name + '.png')}
+                onClick={() => setCharacter(c_name)}
+              ></img>
+            </div>
+          );
+        })}
       </div>
     </div>
   );
@@ -66,6 +144,6 @@ Popup.propTypes = {
 
 Character.propTypes = {
   character: PropTypes.string.isRequired,
-}
+};
 
 export default Popup;
