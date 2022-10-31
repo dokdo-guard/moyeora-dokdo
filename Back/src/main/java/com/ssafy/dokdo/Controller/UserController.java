@@ -1,7 +1,7 @@
 package com.ssafy.dokdo.Controller;
 
 import com.ssafy.dokdo.Exception.ResourceNotFoundException;
-import com.ssafy.dokdo.Model.User;
+import com.ssafy.dokdo.Entity.User;
 import com.ssafy.dokdo.Repository.UserRepository;
 import com.ssafy.dokdo.Security.CurrentUser;
 import com.ssafy.dokdo.Security.UserPrincipal;
