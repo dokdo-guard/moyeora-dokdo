@@ -23,6 +23,7 @@ public class User {
     @Column(name = "user_id")
     private Long id;
 
+    @NotNull
     @Column(nullable = false)
     private String name;
 
@@ -38,8 +39,10 @@ public class User {
 
     @NotNull
     @Enumerated(EnumType.STRING)
+    @JsonIgnore
     private AuthProvider provider;
 
+    @JsonIgnore
     private String providerId;
 
     //Visited 참조
