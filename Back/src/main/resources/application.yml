@@ -2,16 +2,16 @@ spring:
   data:
     mongodb:
       authentication-database: admin
-      username: ssafy
-      password: D204ssafy
+      username: ssafyNoHack
+      password: D204ssafyNoHack
       database: ssafy
-      port: 27017
+      port: 37017
       host: k7d204.p.ssafy.io
 
   datasource:
-    url: jdbc:mysql://k7d204.p.ssafy.io:3306/ssafy?useSSL=false&useUnicode=true&serverTimezone=Asia/Seoul
-    username: ssafy
-    password: D204ssafy
+    url: jdbc:mysql://k7d204.p.ssafy.io:33306/ssafy?useSSL=false&useUnicode=true&serverTimezone=Asia/Seoul
+    username: ssafyNoHack
+    password: D204ssafyNoHack
   mvc:
     path match:
       matching-strategy: ant_path_matcher
