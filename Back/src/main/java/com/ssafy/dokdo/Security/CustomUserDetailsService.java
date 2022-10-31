@@ -2,7 +2,7 @@ package com.ssafy.dokdo.Security;
 
 
 import com.ssafy.dokdo.Exception.ResourceNotFoundException;
-import com.ssafy.dokdo.Model.User;
+import com.ssafy.dokdo.Entity.User;
 import com.ssafy.dokdo.Repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;

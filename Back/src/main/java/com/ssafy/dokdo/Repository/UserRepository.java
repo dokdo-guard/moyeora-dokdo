@@ -1,6 +1,6 @@
 package com.ssafy.dokdo.Repository;
 
-import com.ssafy.dokdo.Model.User;
+import com.ssafy.dokdo.Entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;
