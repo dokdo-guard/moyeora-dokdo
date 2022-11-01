@@ -17,11 +17,11 @@ public class BirdController {
 
     private final BirdService birdService;
     @GetMapping("birds")
-    public List<Bird> fetchAllPlants(){
+    public List<Bird> fetchAllBirds(){
         return birdService.getAllBirds();
     }
     @GetMapping("bird")
-    public Optional<Bird> fetchPlant(@RequestParam(value = "name") String name){
+    public Optional<Bird> fetchBird(@RequestParam(value = "name") String name){
         return birdService.getBird(name);
     }
 }
