@@ -1,8 +1,7 @@
 package com.ssafy.dokdo.Entity;
 
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.*;
 
 import javax.persistence.*;
@@ -14,7 +13,6 @@ import javax.persistence.*;
 @AllArgsConstructor
 @Builder
 @Getter
-@JsonIdentityInfo(generator = ObjectIdGenerators.IntSequenceGenerator.class, property = "id")
 @Table(name = "Dogam")
 public class Dogam {
 
@@ -26,6 +24,7 @@ public class Dogam {
 
     @ManyToOne
     @JoinColumn(name="user_id")
+    @JsonBackReference
     private User user;
 
     public void setUser(User user){
