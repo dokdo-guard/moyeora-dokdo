@@ -1,8 +1,8 @@
 import { useState } from 'react';
-import Popup from '../components/mypage/selectCharacter';
+import Popup from '../components/tutorial/tutorial';
 
 function MypageTest() {
-  const [visibility, setVisibility] = useState(false);
+  const [visibility, setVisibility] = useState(true);
 
   return (
     <>

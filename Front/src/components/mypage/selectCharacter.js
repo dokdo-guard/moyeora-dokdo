@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 import { Canvas, useLoader, useFrame } from '@react-three/fiber';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 import * as THREE from 'three';
-import { OrthographicCamera } from '@react-three/drei';
 
 const globalDataSet = {
   models: {},
