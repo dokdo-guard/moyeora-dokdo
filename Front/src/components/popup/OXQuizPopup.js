@@ -18,25 +18,19 @@ function OXQuizPopup() {
   const [quizProgress, setQuizProgress] = useState(0);
   const [answerCorrect, setAnswerCorrect] = useState(0);
   useEffect(() => {
-    // console.log("USE EFFECT CALL");
-    getQuiz(quizNum)
-      .then((res) => {
-        setQuiz([
-          { ...res },
-          {
-            id: "END",
-            answer: "END",
-            quizText: "END",
-          },
-        ]);
-        // console.log(res);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-
-    // console.log(quizNum);
+    if (quizNum !== 0) {
+      getQuiz(quizNum)
+        .then((res) => {
+          setQuiz(res.data);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
   }, [quizNum]);
+  // useEffect(() => {
+  //   // console.log(quiz);
+  // }, [quiz]);
 
   const SelectQuizNum = () => {
     return (
@@ -149,13 +143,13 @@ function OXQuizPopup() {
                   value={(quizProgress / quizNum) * 100}
                 />
               </div>
-              {/* <div className='QuizText'>{quiz[quizProgress].quizText}</div> */}
+              <div className='QuizText'>{quiz[quizProgress]?.quizText}</div>
               <div className='QuizOX'>
                 <button
                   className='OX_O'
                   onClick={() => {
                     setQuizProgress(quizProgress + 1);
-                    if (quiz[quizProgress].answer === "O") {
+                    if (quiz[quizProgress]?.answer === "O") {
                       setAnswerCorrect(answerCorrect + 1);
                     }
                   }}
@@ -169,7 +163,7 @@ function OXQuizPopup() {
                     if (quizProgress >= 15) {
                       return;
                     }
-                    if (quiz[quizProgress].answer === "X") {
+                    if (quiz[quizProgress]?.answer === "X") {
                       setAnswerCorrect(answerCorrect + 1);
                     }
                   }}
