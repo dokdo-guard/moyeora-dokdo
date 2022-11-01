@@ -40,14 +40,14 @@ public class UserController {
 //                .orElseThrow(() -> new ResourceNotFoundException("User", "id", userPrincipal.getId()));
 //        return findUser.getDogamList();
 ////        return dogamRepository.findAllByUserId(userPrincipal.getId())
-////                .orElseThrow(() -> new ResourceNotFoundException("Dogam", "user_id", userPrincipal.getId()));
+////                        .orElseThr() -> new ResourceNotFoundException("Dogam", "user_id", userPrincipal.getId()));
 //    }
 
     @PutMapping("quiz")
     public ResponseEntity<?> setQuiz(@CurrentUser UserPrincipal userPrincipal, @RequestBody Map<String, Integer> body) {
         try{
             return new ResponseEntity<>(
-//                    userService.updateQuizResult(userPrincipal.getId(), body.get("quiz")),
+                    convertToDto(userService.updateQuizResult(userPrincipal.getId(), body.get("quiz"))),
                     HttpStatus.OK);
         } catch (NoSuchElementException noSuchElementException){
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
@@ -60,8 +60,8 @@ public class UserController {
     public ResponseEntity<?> setCharacter(@CurrentUser UserPrincipal userPrincipal, @RequestBody User user) {
         try{
             return new ResponseEntity<>(
-//                userService.updateUserCharacter(userPrincipal.getId(), user.getUserCharacter()),
-                HttpStatus.OK);
+                    convertToDto(userService.updateUserCharacter(userPrincipal.getId(), user.getUserCharacter())),
+                    HttpStatus.OK);
         } catch (ResourceNotFoundException resourceNotFoundException){
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         } catch (Exception e) {
@@ -73,7 +73,7 @@ public class UserController {
     public ResponseEntity<?> setNickname(@CurrentUser UserPrincipal userPrincipal, @RequestBody User user) {
         try{
             return new ResponseEntity<>(
-//                    userService.updateName(userPrincipal.getId(), user.getName()),
+                    convertToDto(userService.updateName(userPrincipal.getId(), user.getName())),
                     HttpStatus.OK);
         } catch (ResourceNotFoundException resourceNotFoundException){
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
@@ -83,6 +83,7 @@ public class UserController {
     }
 
     private UserDto convertToDto(User findUser){
+        if (findUser == null) return null;
         UserDto dto = new UserDto();
         dto.setName(findUser.getName());
         dto.setEmail(findUser.getEmail());
