@@ -1,0 +1,49 @@
+.mainPage {
+	overflow: hidden;
+	margin: 0;
+}
+#three-canvas {
+	position: fixed;
+	left: 0;
+	top: 0;
+}
+
+
+.mainPage .screenShot {
+	cursor: pointer;
+	margin-left: 95%;
+	margin-top: 580px
+}
+
+.mainPage .screenShotButton {
+	position: absolute;
+	z-index: 10;
+	width: 35px;
+
+	margin-left: 10px;
+	margin-top: 8px;
+}
+
+.mainPage .ButtonBackGround {
+	width: 55px;
+	height: 55px;
+	background-color: white;
+	border-radius: 50%;
+	position: absolute;
+	z-index: 9;
+}
+
+.mainPage .tutorial {
+	cursor: pointer;
+	margin-left: 95%;
+	margin-top: 650px
+}
+
+.mainPage .tutorialMark {
+	position: absolute;
+	z-index: 10;
+	width: 35px;
+
+	margin-left: 10px;
+	margin-top: 8px;
+}

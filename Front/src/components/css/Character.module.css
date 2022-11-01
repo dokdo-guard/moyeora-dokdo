@@ -1,0 +1,101 @@
+.overlay {
+  width: 1920px;
+  visibility: hidden;
+  opacity: 0;
+  position: fixed;
+  transition: all 200ms;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(255, 255, 255, 0.6);
+  display: flex;
+}
+
+.characters {
+  margin: auto 200px auto auto;
+  padding: 30px;
+  background: rgba(0, 0, 0, 0.6);
+  border-radius: 5px;
+  width: 350px;
+  height: 700px;
+  position: relative;
+  box-shadow: 1px 1px 10px grey;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.characters div {
+  width: 50%;
+  text-align: center;
+}
+
+.characters img{
+  height: 200px;
+  margin:auto;
+  transition: all 100ms;
+}
+
+.characters img:hover {
+  cursor: pointer;
+  height: 210px;
+}
+
+.character {
+  margin: auto auto;
+  padding: 30px;
+  background: rgba(255, 0, 0, 0.6);
+  border-radius: 5px;
+  width: 400px;
+  height: 700px;
+  position: relative;
+  box-shadow: 1px 1px 10px grey;
+}
+
+.emotion {
+  margin: auto auto auto 200px;
+  padding: 30px;
+  background: rgba(0, 255, 0, 0.6);
+  border-radius: 5px;
+  width: 350px;
+  height: 100px;
+  position: relative;
+  box-shadow: 1px 1px 10px grey;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.emotion img {
+  width: 100px;
+  margin: auto;
+  transition: all 100ms;
+}
+
+.emotion img:hover {
+  cursor: pointer;
+  width: 105px;
+  margin: auto;
+}
+
+.close {
+  position: absolute;
+  top: 30px;
+  right: 30px;
+  transition: all 200ms;
+  width: 80px;
+  height: 80px;
+  background: url('../imgs/close.png') no-repeat;
+  background-size: contain;
+}
+.close:hover {
+  cursor: pointer;
+  top: 28.5px;
+  right: 28.5px;
+  width: 85px;
+  height: 85px;
+}
+
+.currentCharacter {
+  width: 100px;
+  height: 100px;
+}
