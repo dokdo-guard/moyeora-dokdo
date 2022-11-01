@@ -13,10 +13,10 @@ import java.util.Optional;
 @AllArgsConstructor
 public class DogamService {
 
-    private final DogamRepository dogamRepository;
-    public List<Dogam> getAllDogams(String user_id){return  dogamRepository.findAllByUser_Id(user_id);}
-    public void saveDogam(Dogam dogam){
-         dogamRepository.save(dogam);
-    }
+//    private final DogamRepository dogamRepository;
+////    public List<Dogam> getAllDogams(String user_id){return  dogamRepository.findAllByUser_Id(user_id);}
+//    public void saveDogam(Dogam dogam){
+//         dogamRepository.save(dogam);
+//    }
 
 }
