@@ -1,14 +1,16 @@
-import { useEffect, useState } from 'react';
+import { Suspense, useEffect, useState } from 'react';
 import popupStyles from '../css/Character.module.css';
 import PropTypes from 'prop-types';
 import { Canvas, useLoader, useFrame } from '@react-three/fiber';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 import * as THREE from 'three';
+import { OrthographicCamera } from '@react-three/drei';
 
 const globalDataSet = {
   models: {},
   actions: {},
   mixers: {},
+  isAnimated: true,
 };
 
 const Character = (props) => {
@@ -31,14 +33,17 @@ const Character = (props) => {
   }
 
   useFrame((state, delta) => {
-    console.log(globalDataSet.actions[props.character]?.enabled);
-    if (!globalDataSet.actions[props.character]?.enabled) {
-      
+    if (
+      globalDataSet.isAnimated &&
+      !globalDataSet.actions[props.character]?.enabled
+    ) {
+      console.log('idle');
       const action = mixer.clipAction(gltf.animations[0]);
       action.setLoop(THREE.LoopRepeat);
       globalDataSet.actions[props.character].stop();
       globalDataSet.actions[props.character] = action;
       globalDataSet.actions[props.character].play();
+      globalDataSet.isAnimated = false;
     }
     mixer?.update(delta);
   });
@@ -65,6 +70,7 @@ const Popup = (props) => {
   };
 
   const actionHandler = (e) => {
+    console.log('motion');
     let gltf = globalDataSet.models[myCharacter];
     let mixer = globalDataSet.mixers[myCharacter];
 
@@ -73,6 +79,7 @@ const Popup = (props) => {
     globalDataSet.actions[myCharacter].stop();
     globalDataSet.actions[myCharacter] = action;
     globalDataSet.actions[myCharacter].play();
+    globalDataSet.isAnimated = true;
   };
 
   useEffect(() => {
@@ -90,36 +97,38 @@ const Popup = (props) => {
       <span className={popupStyles.close} onClick={closeHandler} />
       <div className={popupStyles.emotion}>
         <img
-          src={require('../imgs/badge1.png')}
+          src={require('../imgs/emotion/win.png')}
           onClick={() => {
             actionHandler(5);
           }}
         ></img>
         <img
-          src={require('../imgs/badge1.png')}
+          src={require('../imgs/emotion/dance.png')}
           onClick={() => {
             actionHandler(3);
           }}
         ></img>
         <img
-          src={require('../imgs/badge1.png')}
+          src={require('../imgs/emotion/sad.png')}
           onClick={() => {
             actionHandler(2);
           }}
         ></img>
       </div>
       <div className={popupStyles.character}>
-        <Canvas>
-          <ambientLight intensity={0.5}></ambientLight>
-          <directionalLight
-            intensity={1}
-            position={[0, 1, 1]}
-            castShadow
-          ></directionalLight>
-          <mesh>
-            <Character character={myCharacter} animation_num={0}></Character>
-          </mesh>
-        </Canvas>
+        <Suspense fallback={<div>기다리는중...</div>}>
+          <Canvas>
+            <ambientLight intensity={0.3}></ambientLight>
+            <directionalLight
+              intensity={1}
+              position={[0, 0.5, 1]}
+              castShadow
+            ></directionalLight>
+            <mesh>
+              <Character character={myCharacter} animation_num={0}></Character>
+            </mesh>
+          </Canvas>
+        </Suspense>
       </div>
       <div className={popupStyles.characters}>
         {characters.map((c_name, idx) => {
