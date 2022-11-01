@@ -11,10 +11,10 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface DogamRepository  extends JpaRepository <Dogam, Long> {
+public interface DogamRepository extends JpaRepository <Dogam, Long> {
 
 
-    List<Dogam> findAllByUser_Id(String user_id);
+//    List<Dogam> findAllByUser_Id(String user_id);
 
 
 }

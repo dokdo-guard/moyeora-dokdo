@@ -24,6 +24,7 @@ public class Dogam {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "dogam_id")
     private Long id;
+    private Long user_id;
     private String domain;
     private String mongo_id;
 }
