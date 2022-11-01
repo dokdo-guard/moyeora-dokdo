@@ -58,7 +58,7 @@ public class User {
 
     //Dogam 참조
     @OneToMany
-    @JoinColumn(name = "dogam_id")
+    @JoinColumn(name = "user_id")
     private List<Dogam> dogamList = new ArrayList<>();
 
     @ManyToMany

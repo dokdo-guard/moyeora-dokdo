@@ -14,7 +14,4 @@ import java.util.Optional;
 public interface DogamRepository extends JpaRepository <Dogam, Long> {
 
 
-//    List<Dogam> findAllByUser_Id(String user_id);
-
-
 }
