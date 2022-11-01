@@ -16,4 +16,7 @@ public class Terrain {
     private String img2;
     private String img3;
     private String img4;
+    private String lat;
+    private String lng;
+
 }
