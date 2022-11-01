@@ -1,13 +1,10 @@
 package com.ssafy.dokdo.Entity;
 
 
-
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.*;
 
-
 import javax.persistence.*;
-import java.util.HashSet;
-import java.util.Set;
 
 
 @Entity
@@ -27,6 +24,7 @@ public class Dogam {
 
     @ManyToOne
     @JoinColumn(name="user_id")
+    @JsonBackReference
     private User user;
 
     public void setUser(User user){
