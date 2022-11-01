@@ -6,7 +6,6 @@ import lombok.NoArgsConstructor;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import javax.persistence.Id;
-import java.sql.Timestamp;
 
 @Data
 @NoArgsConstructor
@@ -16,6 +15,7 @@ public class Board {
     @Id
     private String id;
     private String writer;
+    private String content;
     private String image_url;
-    private Timestamp created_at;
+    private String created_at;
 }

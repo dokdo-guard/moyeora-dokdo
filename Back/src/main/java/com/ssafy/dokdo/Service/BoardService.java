@@ -16,6 +16,10 @@ public class BoardService {
         return boardRepository.findAll();
     }
 
+    public void postBoard(Board board){
+        boardRepository.save(board);
+    }
+
 //    public Optional<Board> getBoard(String name){
 //        return boardRepository.findBoardByName(name);
 //    }

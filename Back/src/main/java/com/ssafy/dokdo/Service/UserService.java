@@ -12,7 +12,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.NoSuchElementException;
-import java.util.Optional;
 
 @AllArgsConstructor
 @Service
@@ -66,6 +65,12 @@ public class UserService {
         return convertToDto(userRepository.save(user));
     }
 
+    public List<Dogam> getDogamList(Long id){
+        User user = userRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("User", "id", id));
+        return user.getDogamList();
+    }
+
     private UserDto convertToDto(User findUser){
         if (findUser == null) return null;
         UserDto dto = new UserDto();
@@ -73,12 +78,5 @@ public class UserService {
         dto.setEmail(findUser.getEmail());
         dto.setUserCharacter(findUser.getUserCharacter());
         return dto;
-    }
-
-    public List<Dogam> getDogamList(Long id){
-        User user = userRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("User", "id", id));
-
-        return user.getDogamList();
     }
 }
