@@ -1,13 +1,11 @@
 package com.ssafy.dokdo.Entity;
 
 
-
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.*;
 
-
 import javax.persistence.*;
-import java.util.HashSet;
-import java.util.Set;
 
 
 @Entity
@@ -16,6 +14,7 @@ import java.util.Set;
 @AllArgsConstructor
 @Builder
 @Getter
+@JsonIdentityInfo(generator = ObjectIdGenerators.IntSequenceGenerator.class, property = "id")
 @Table(name = "Dogam")
 public class Dogam {
 

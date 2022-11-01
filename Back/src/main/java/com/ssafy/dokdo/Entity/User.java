@@ -1,5 +1,8 @@
 package com.ssafy.dokdo.Entity;
+
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.ssafy.dokdo.Model.AuthProvider;
 import lombok.Getter;
 import lombok.Setter;
@@ -13,6 +16,7 @@ import java.util.List;
 @Setter
 @Getter
 @Entity
+@JsonIdentityInfo(generator = ObjectIdGenerators.IntSequenceGenerator.class, property = "id")
 @Table(name = "user", uniqueConstraints = {
         @UniqueConstraint(columnNames = "email"),
         @UniqueConstraint(columnNames = "name")
