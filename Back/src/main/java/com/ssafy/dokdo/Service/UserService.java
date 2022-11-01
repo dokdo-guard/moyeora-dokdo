@@ -3,6 +3,7 @@ package com.ssafy.dokdo.Service;
 import com.ssafy.dokdo.Entity.QuizUser;
 import com.ssafy.dokdo.Entity.User;
 import com.ssafy.dokdo.Exception.ResourceNotFoundException;
+import com.ssafy.dokdo.Model.UserDto;
 import com.ssafy.dokdo.Repository.QuizUserRepository;
 import com.ssafy.dokdo.Repository.UserRepository;
 import lombok.AllArgsConstructor;
@@ -16,13 +17,18 @@ public class UserService {
     private final UserRepository userRepository;
     private final QuizUserRepository quizUserRepository;
 
-    public User updateQuizResult(Long id, int quiz){
+    public UserDto getCurrentUser(Long id){
+        return convertToDto(userRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("User", "id", id)));
+    }
+
+    public QuizUser updateQuizResult(Long id, int quiz){
         User user = userRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("User", "id", id));
 
         QuizUser quizUser = user.getQuizUser();
         if(quizUser==null){
-            quizUser = new QuizUser();
+            quizUser = new QuizUser(false, false, false);
         }
         switch (quiz){
             case 5:
@@ -39,20 +45,30 @@ public class UserService {
         }
         quizUserRepository.save(quizUser);
         user.setQuizUser(quizUser);
-        return userRepository.save(user);
+        userRepository.save(user);
+        return quizUser;
     }
 
-    public User updateUserCharacter(Long id, String userCharacter){
+    public UserDto updateUserCharacter(Long id, String userCharacter){
         User user = userRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("User", "id", id));
         user.setUserCharacter(userCharacter);
-        return userRepository.save(user);
+        return convertToDto(userRepository.save(user));
     }
 
-    public User updateName(Long id, String name){
+    public UserDto updateName(Long id, String name){
         User user = userRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("User", "id", id));
         user.setName(name);
-        return userRepository.save(user);
+        return convertToDto(userRepository.save(user));
+    }
+
+    private UserDto convertToDto(User findUser){
+        if (findUser == null) return null;
+        UserDto dto = new UserDto();
+        dto.setName(findUser.getName());
+        dto.setEmail(findUser.getEmail());
+        dto.setUserCharacter(findUser.getUserCharacter());
+        return dto;
     }
 }

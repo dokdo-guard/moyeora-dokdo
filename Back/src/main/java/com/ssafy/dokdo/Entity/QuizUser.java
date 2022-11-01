@@ -23,4 +23,10 @@ public class QuizUser {
     private boolean five =false;
     private boolean ten =false;
     private boolean fifteen =false;
+
+    public QuizUser(boolean five, boolean ten, boolean fifteen) {
+        this.five = five;
+        this.ten = ten;
+        this.fifteen = fifteen;
+    }
 }
