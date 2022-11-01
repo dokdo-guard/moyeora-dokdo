@@ -58,14 +58,10 @@ public class User {
 
     //Dogam 참조
     @OneToMany(mappedBy = "user")
+    @JoinColumn(name = "dogam_id")
     private List<Dogam> dogamList = new ArrayList<>();
 
-    public void addDogam(Dogam dogam){
-        this.dogamList.add(dogam);
-        if(dogam.getUser() != this) { // 무한루프에 빠지지 않도록 체크
-            dogam.setUser(this);
-        }
-    }
+
 
     @OneToMany(mappedBy = "user")
     private List<UserBadge> badgeList = new ArrayList<>();
