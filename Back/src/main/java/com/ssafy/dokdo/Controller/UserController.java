@@ -46,9 +46,8 @@ public class UserController {
     @PutMapping("quiz")
     public ResponseEntity<?> setQuiz(@CurrentUser UserPrincipal userPrincipal, @RequestBody Map<String, Integer> body) {
         try{
-            return new ResponseEntity<>(
-                    convertToDto(userService.updateQuizResult(userPrincipal.getId(), body.get("quiz"))),
-                    HttpStatus.OK);
+            User user = userService.updateQuizResult(userPrincipal.getId(), body.get("quiz"));
+            return new ResponseEntity<>(user.getQuizUser(), HttpStatus.OK);
         } catch (NoSuchElementException noSuchElementException){
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         } catch (Exception e) {
