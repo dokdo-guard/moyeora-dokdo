@@ -1,5 +1,6 @@
 package com.ssafy.dokdo.Service;
 
+import com.ssafy.dokdo.Entity.Dogam;
 import com.ssafy.dokdo.Entity.QuizUser;
 import com.ssafy.dokdo.Entity.User;
 import com.ssafy.dokdo.Exception.ResourceNotFoundException;
@@ -8,7 +9,9 @@ import com.ssafy.dokdo.Repository.UserRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.Optional;
 
 @AllArgsConstructor
 @Service
@@ -54,5 +57,12 @@ public class UserService {
                 .orElseThrow(() -> new ResourceNotFoundException("User", "id", id));
         user.setName(name);
         return userRepository.save(user);
+    }
+
+    public List<Dogam> getDogamList(Long id){
+        User user = userRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("User", "id", id));
+
+        return user.getDogamList();
     }
 }
