@@ -1,3 +1,5 @@
+import * as CANNON from 'cannon-es';
+
 export class Nature {
 	constructor(info) {
 		this.x = info.x;
@@ -18,6 +20,7 @@ export class Nature {
 				this.modelMesh.scale.multiplyScalar(1);
                 // this.modelMesh.rotation.y = -0.1
 				info.scene.add(this.modelMesh);
+
 			}
 		);
 	}
