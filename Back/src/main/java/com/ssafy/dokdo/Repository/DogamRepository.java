@@ -8,7 +8,4 @@ import org.springframework.stereotype.Repository;
 public interface DogamRepository extends JpaRepository <Dogam, Long> {
 
 
-//    List<Dogam> findAllByUser_Id(String user_id);
-
-
 }
