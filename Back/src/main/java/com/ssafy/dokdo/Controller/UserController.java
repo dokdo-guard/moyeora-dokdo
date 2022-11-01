@@ -7,13 +7,16 @@ import com.ssafy.dokdo.Security.CurrentUser;
 import com.ssafy.dokdo.Security.UserPrincipal;
 import com.ssafy.dokdo.Service.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.Optional;
+import java.util.Map;
+import java.util.NoSuchElementException;
 
 @RestController
 @PreAuthorize("hasRole('USER')")
@@ -30,24 +33,42 @@ public class UserController {
     }
 
     @PutMapping("quiz")
-    public User setQuiz(@CurrentUser UserPrincipal userPrincipal, @RequestBody int quiz) {
-        Optional<User> user = userRepository.findById(userPrincipal.getId());
-        user.ifPresent(selectUser -> {
-//            user.setQuiz
-        });
-
-        return userRepository.findById(userPrincipal.getId())
-                .orElseThrow(() -> new ResourceNotFoundException("User", "id", userPrincipal.getId()));
+    public ResponseEntity<?> setQuiz(@CurrentUser UserPrincipal userPrincipal, @RequestBody Map<String, Integer> body) {
+        try{
+            return new ResponseEntity<>(
+                    userService.updateQuizResult(userPrincipal.getId(), body.get("quiz")),
+                    HttpStatus.OK);
+        } catch (NoSuchElementException noSuchElementException){
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @PutMapping("character")
-    public User setCharacter(@CurrentUser UserPrincipal userPrincipal, @RequestBody User user) {
-        return userService.updateUserCharacter(userPrincipal.getId(), user.getUserCharacter());
+    public ResponseEntity<?> setCharacter(@CurrentUser UserPrincipal userPrincipal, @RequestBody User user) {
+        try{
+            return new ResponseEntity<>(
+                userService.updateUserCharacter(userPrincipal.getId(), user.getUserCharacter()),
+                HttpStatus.OK);
+        } catch (ResourceNotFoundException resourceNotFoundException){
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @PutMapping("nickname")
-    public User setNickname(@CurrentUser UserPrincipal userPrincipal, @RequestBody User user) {
-        return userService.updateName(userPrincipal.getId(), user.getName());
+    public ResponseEntity<?> setNickname(@CurrentUser UserPrincipal userPrincipal, @RequestBody User user) {
+        try{
+            return new ResponseEntity<>(
+                    userService.updateName(userPrincipal.getId(), user.getName()),
+                    HttpStatus.OK);
+        } catch (ResourceNotFoundException resourceNotFoundException){
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
 }
