@@ -4,7 +4,6 @@ import com.ssafy.dokdo.Entity.Dogam;
 import com.ssafy.dokdo.Entity.User;
 import com.ssafy.dokdo.Entity.Visited;
 import com.ssafy.dokdo.Exception.ResourceNotFoundException;
-import com.ssafy.dokdo.Model.BadgeDto;
 import com.ssafy.dokdo.Repository.DogamRepository;
 import com.ssafy.dokdo.Repository.UserRepository;
 import com.ssafy.dokdo.Repository.VisistedRepository;
