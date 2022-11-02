@@ -1,17 +1,14 @@
 package com.ssafy.dokdo.Controller;
 
-import com.ssafy.dokdo.Entity.Board;
 import com.ssafy.dokdo.Model.BoardDto;
 import com.ssafy.dokdo.Security.CurrentUser;
 import com.ssafy.dokdo.Security.UserPrincipal;
 import com.ssafy.dokdo.Service.BoardService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
-
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.List;
 
 @RestController
 @PreAuthorize("hasRole('USER')")
@@ -20,21 +17,22 @@ import java.util.List;
 public class BoardController {
     private final BoardService boardService;
     @GetMapping
-    public List<Board> getAllCard(){
-        return boardService.getAllBoards();
+    public ResponseEntity<?> getAllCard() {
+        try{
+            return new ResponseEntity<>(boardService.getAllBoards(), HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @PostMapping
-    public void postCard(@CurrentUser UserPrincipal userPrincipal, @RequestBody BoardDto boardDto){
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy/MM/dd");
-        String strNowDate = simpleDateFormat.format(new Date());
+    public ResponseEntity<?> postCard(@CurrentUser UserPrincipal userPrincipal, @RequestBody BoardDto boardDto){
 
-        Board board = new Board();
-        board.setWriter(userPrincipal.getName());
-        board.setContent(boardDto.getContent());
-        board.setImage_url(boardDto.getImage_url());
-        board.setCreated_at(strNowDate);
-
-        boardService.postBoard(board);
+        try {
+            boardService.postBoard(userPrincipal.getUsername(), boardDto);
+            return new ResponseEntity<>(HttpStatus.CREATED);
+        } catch (Exception e){
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 }
