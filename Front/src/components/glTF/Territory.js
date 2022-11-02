@@ -15,7 +15,7 @@ export class Territory {
 						child.castShadow = true;
 					} 
 				});
-				this.modelMesh = glb.scene.children[0];
+				this.modelMesh = glb.scene;
 				this.modelMesh.castShadow = true;
 				this.modelMesh.position.set(this.x, this.y, this.z);
 				this.modelMesh.scale.multiplyScalar(0.4);

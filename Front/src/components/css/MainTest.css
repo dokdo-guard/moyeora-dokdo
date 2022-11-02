@@ -6,8 +6,8 @@
 	position: fixed;
 	left: 0;
 	top: 0;
+	width: 20000px
 }
-
 
 .mainPage .screenShot {
 	cursor: pointer;
@@ -35,7 +35,7 @@
 
 .mainPage .tutorial {
 	cursor: pointer;
-	margin-left: 95%;
+	margin-left: 10%;
 	margin-top: 650px
 }
 
@@ -46,4 +46,13 @@
 
 	margin-left: 10px;
 	margin-top: 8px;
+}
+
+
+
+.mainPage .menu {
+	position: absolute;
+	z-index: 1000;
+	margin-left: 50px;
+	margin-top: -50px;
 }
