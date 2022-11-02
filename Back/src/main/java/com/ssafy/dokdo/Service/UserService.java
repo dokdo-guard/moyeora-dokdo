@@ -1,5 +1,6 @@
 package com.ssafy.dokdo.Service;
 
+import com.ssafy.dokdo.Entity.Badge;
 import com.ssafy.dokdo.Entity.Dogam;
 import com.ssafy.dokdo.Entity.QuizUser;
 import com.ssafy.dokdo.Entity.User;
@@ -64,5 +65,12 @@ public class UserService {
                 .orElseThrow(() -> new ResourceNotFoundException("User", "id", id));
 
         return user.getDogamList();
+    }
+
+    public List<Badge> getAllBadges(Long id) {
+        User user = userRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("User", "id", id));
+
+        return user.getBadgeList();
     }
 }

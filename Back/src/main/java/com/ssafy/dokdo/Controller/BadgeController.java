@@ -40,12 +40,4 @@ public class BadgeController {
 
     }
 
-
-    @GetMapping("/badge")
-    public List<Badge> getAllBadges(@CurrentUser UserPrincipal userPrincipal) {
-
-        Long user_id = userPrincipal.getId();
-
-        return badgeService.getAllBadges(user_id);
-    }
 }

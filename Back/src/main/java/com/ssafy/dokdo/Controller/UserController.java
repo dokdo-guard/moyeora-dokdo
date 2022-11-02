@@ -1,5 +1,6 @@
 package com.ssafy.dokdo.Controller;
 
+import com.ssafy.dokdo.Entity.Badge;
 import com.ssafy.dokdo.Entity.Dogam;
 import com.ssafy.dokdo.Entity.User;
 import com.ssafy.dokdo.Exception.ResourceNotFoundException;
@@ -73,6 +74,14 @@ public class UserController {
     @GetMapping("/user/dogam")
     public List<Dogam> getDogamList(@CurrentUser UserPrincipal userPrincipal){
         return userService.getDogamList(userPrincipal.getId());
+    }
+
+    @GetMapping("/badge")
+    public List<Badge> getAllBadges(@CurrentUser UserPrincipal userPrincipal) {
+
+        Long user_id = userPrincipal.getId();
+
+        return userService.getAllBadges(user_id);
     }
 
 }
