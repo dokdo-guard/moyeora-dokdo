@@ -684,11 +684,8 @@ function checkIntersects() {
 			console.log('바다다')
 		}
 		else if (item.object.name === '팻말') {
-			console.log('팻말이다')
-			console.log(clickPopup)
-			if (clickPopup === 0) {
-				setClickPopup(!clickPopup)
-			}
+			const historyPop = document.getElementById('historyPopup')
+			historyPop.style.display = 'block'
 		}
 		break;
 	}
@@ -818,10 +815,6 @@ const saveBlob = (function() {
     // }
   });
 
-  useEffect(()=> {
-	let style = document.querySelector('style')
-	console.log(style)
-  })
 
 
 
@@ -837,11 +830,12 @@ const saveBlob = (function() {
 
   return (
 <>
-{/* <Canvas id="three-canvas" class="canvas"></Canvas> */}
   <div className="mainPage">
-	{clickPopup? (<div style={{position:'absolute',zIndex:'100',width:'400px',
-	height:'400px',backgroundColor:'green'
-}}></div>) : (<></>)}
+	<div className='historyPopup' id='historyPopup' style={{display:'none'}}>
+		<img src="/assets/icons/close.png" id='quitButton'></img>
+		<HistoryPopup ></HistoryPopup>
+	</div>
+
 	{/* <div style={{position:'absolute',zIndex:'100',width:'400px',height:'400px',backgroundColor:'pink'}}></div> */}
 	{/* <div className='screenShot' onClick={clickScreenCapture} id="screenshot">
 		<img className='screenShotButton'

@@ -6,7 +6,6 @@
 	position: fixed;
 	left: 0;
 	top: 0;
-	width: 20000px
 }
 
 .mainPage .screenShot {
@@ -55,4 +54,11 @@
 	z-index: 1000;
 	margin-left: 50px;
 	margin-top: -50px;
+}
+
+.mainPage #quitButton {
+	width: 100px;
+	position: absolute;
+	z-index: 1;
+	cursor: pointer;
 }
