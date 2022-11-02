@@ -1,4 +1,4 @@
-import React, { useState, useLayoutEffect } from "react";
+import React, { useState, useLayoutEffect, useEffect } from "react";
 import {
   getAllBirds,
   getAllPlants,
@@ -16,7 +16,7 @@ function EcoSystemPopup() {
 
   // useEffect(() => {}, []);
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     if (category === "bird") {
       getAllBirds()
         .then((res) => {
