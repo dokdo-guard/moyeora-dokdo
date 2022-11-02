@@ -36,9 +36,6 @@ public class User {
     @NotNull
     private String userCharacter = "default";
 
-    @JsonIgnore
-    private String password;
-
     @NotNull
     @Enumerated(EnumType.STRING)
     @JsonIgnore
