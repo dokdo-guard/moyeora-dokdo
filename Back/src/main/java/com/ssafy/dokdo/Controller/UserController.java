@@ -61,6 +61,7 @@ public class UserController {
     @PutMapping("nickname")
     public ResponseEntity<?> setNickname(@CurrentUser UserPrincipal userPrincipal, @RequestBody User user) {
         try{
+            // 게시판 닉네임 변경 로직...??
             return new ResponseEntity<>(
                     userService.updateName(userPrincipal.getId(), user.getName()),
                     HttpStatus.OK);
