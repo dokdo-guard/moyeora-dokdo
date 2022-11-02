@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import Popup from '../components/tutorial/tutorial';
+import { useState } from "react";
+import Popup from "../components/tutorial/tutorial";
 
 function MypageTest() {
   const [visibility, setVisibility] = useState(true);
@@ -7,8 +7,7 @@ function MypageTest() {
   return (
     <>
       <button onClick={() => setVisibility(true)}>open</button>
-      <Popup onClose={()=> setVisibility(false)} show={visibility}>
-      </Popup>
+      <Popup onClose={() => setVisibility(false)} show={visibility}></Popup>
     </>
   );
 }

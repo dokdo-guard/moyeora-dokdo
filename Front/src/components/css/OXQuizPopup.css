@@ -20,6 +20,12 @@
   border: none;
   font-weight: 700;
   box-shadow: 1px 1px 10px lightgray;
+  transition: transform 250ms;
+}
+.selectQuizButton:hover {
+  background-color: #ffce8a;
+  transition: background-color 0.2s;
+  transform: translateY(-5px);
 }
 .QuizTitle {
   display: fix;
@@ -42,6 +48,9 @@
   border-radius: 5px;
   border: none;
   box-shadow: 1px 1px 10px lightgray;
+  font-size: 30px;
+  margin: 10px;
+  padding: 20px;
 }
 .QuizOX {
   margin: 10px;
@@ -66,13 +75,24 @@
   color: blue;
   box-shadow: 1px 1px 10px lightgray;
   border: none;
+  transition: transform 250ms;
 }
+
 .OX_X {
   font-weight: 700;
   font-size: 200px;
   color: red;
   box-shadow: 1px 1px 10px lightgray;
   border: none;
+  transition: transform 250ms;
+}
+.OX_O:hover,
+.OX_X:hover {
+  background-color: #ffce8a;
+  font-size: 230px;
+  transition: background-color 0.2s;
+  transition: font-size 0.2s;
+  transform: translateY(-5px);
 }
 .endQuizContainer {
   height: 100%;
@@ -125,4 +145,15 @@
   border-radius: 10px;
   border: none;
   box-shadow: 1px 1px 10px lightgray;
+}
+.fadein {
+  animation: fadein 1s;
+}
+@keyframes fadein {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }

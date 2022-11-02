@@ -1,18 +1,16 @@
 import React from "react";
 import {
-  OXQuizPopup,
-  TerrianPopup,
+  // OXQuizPopup,
+  // TerrianPopup,
   EcoSystemPopup,
-  HistoryPopup,
+  // HistoryPopup,
 } from "../components/index";
 
 function PopupTest() {
   return (
     <>
+      {/* <OXQuizPopup /> */}
       <EcoSystemPopup />
-      <HistoryPopup />
-      <TerrianPopup />
-      <OXQuizPopup />
     </>
   );
 }
