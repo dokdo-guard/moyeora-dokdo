@@ -30,9 +30,6 @@ public class UserService {
                 .orElseThrow(() -> new ResourceNotFoundException("User", "id", id));
 
         QuizUser quizUser = user.getQuizUser();
-        if(quizUser==null){
-            quizUser = new QuizUser(false, false, false);
-        }
         switch (quiz){
             case 5:
                 quizUser.setFive(true);
