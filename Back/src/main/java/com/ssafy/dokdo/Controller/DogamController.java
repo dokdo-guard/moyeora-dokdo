@@ -8,6 +8,7 @@ import com.ssafy.dokdo.Repository.UserRepository;
 import com.ssafy.dokdo.Security.CurrentUser;
 import com.ssafy.dokdo.Security.UserPrincipal;
 import lombok.AllArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
@@ -15,6 +16,7 @@ import java.util.Optional;
 @RestController
 @RequestMapping("dogam")
 @AllArgsConstructor
+@PreAuthorize("hasRole('USER')")
 public class DogamController {
 
 

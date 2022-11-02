@@ -65,4 +65,22 @@ public class UserService {
 
         return user.getDogamList();
     }
+
+    public Boolean checkDogam(Long id,String domain,String mongoId){
+        User user = userRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("User", "id", id));
+
+        List<Dogam> dogamList = user.getDogamList();
+
+        boolean flag = false;
+
+        for(Dogam dogam : dogamList){
+            if(dogam.getDomain().equals(domain) && dogam.getMongo_id().equals(mongoId)){
+                flag = true;
+                break;
+            }
+        }
+
+        return flag;
+    }
 }
