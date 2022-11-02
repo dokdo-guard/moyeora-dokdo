@@ -72,9 +72,13 @@ public class UserController {
         }
     }
 
-    @GetMapping("/user/dogam")
+    @GetMapping("/user/dogams")
     public List<Dogam> getDogamList(@CurrentUser UserPrincipal userPrincipal){
         return userService.getDogamList(userPrincipal.getId());
     }
 
+    @GetMapping("/user/dogam")
+    public boolean getDogamList(@CurrentUser UserPrincipal userPrincipal,@RequestParam String domain, @RequestParam(name = "mongo_id") String mongoId){
+        return userService.checkDogam(userPrincipal.getId(),domain,mongoId);
+    }
 }

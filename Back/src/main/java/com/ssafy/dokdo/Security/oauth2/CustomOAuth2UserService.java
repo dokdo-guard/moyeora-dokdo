@@ -88,6 +88,7 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
         quizUserRepository.saveAndFlush(quizUser);
 
         return userRepository.save(user);
+
     }
 
     private User updateExistingUser(User existingUser, OAuth2UserInfo oAuth2UserInfo) {
