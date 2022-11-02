@@ -30,7 +30,7 @@
 .vertical-timeline-element-subtitle {
   font-weight: 300;
 }
-.historyTimelineImage {
+.historyTimelineImage > img {
   width: 300px;
   height: 300px;
 }
