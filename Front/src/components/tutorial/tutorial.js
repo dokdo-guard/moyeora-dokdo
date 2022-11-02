@@ -27,7 +27,7 @@ const Popup = (props) => {
       </div>
       <div className={popupStyles.contents}>
         <div>
-
+          <img src="/assets/images/characters/siryeong.png"></img>
         </div>
       </div>
     </div>
