@@ -1,6 +1,7 @@
 package com.ssafy.dokdo.Entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -21,7 +22,7 @@ public class QuizUser {
     private boolean fifteen;
 
     public QuizUser(){}
-
+    @Builder
     public QuizUser(boolean five, boolean ten, boolean fifteen) {
         this.five = five;
         this.ten = ten;

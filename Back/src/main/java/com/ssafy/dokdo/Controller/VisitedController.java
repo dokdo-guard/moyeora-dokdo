@@ -32,6 +32,7 @@ public class VisitedController {
     @PutMapping
     public  ResponseEntity updateVisited(@CurrentUser UserPrincipal userPrincipal, @RequestParam String name){
         try {
+
             Optional<Visited> visited = visistedRepository.findVisitedById(userPrincipal.getId());
 
             if(!visited.isPresent()){
@@ -45,6 +46,7 @@ public class VisitedController {
         }catch (Exception e){
             return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
         }
+
     }
     @GetMapping
     public ResponseEntity<Visited> getVisited(@CurrentUser UserPrincipal userPrincipal){
