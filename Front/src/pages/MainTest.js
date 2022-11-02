@@ -16,16 +16,11 @@ import { EcoSystem } from '../components/glTF/EcoSystem';
 import {NPC} from '../components/glTF/NPC'
 import { Quiz } from '../components/glTF/Quiz';
 
-import { useEffect,useState } from 'react';
 import HistoryPopup from '../components/popup/HistoryPopup';
-import { Canvas } from '@react-three/fiber';
-// import * as React from 'react';
-// import Button from '@mui/material/Button';
-// import Menu from '@mui/material/Menu';
-// import MenuItem from '@mui/material/MenuItem';
-// import Fade from '@mui/material/Fade';
+import TerrianPopup from '../components/popup/TerrianPopup';
+import OXQuizPopup from '../components/popup/OXQuizPopup'
+import EcoSystemPopup from '../components/popup/EcosystemPopup';
 
-// import { Canvas, useLoader, useFrame } from '@react-three/fiber';
 
 function MainTest() {
 
@@ -105,6 +100,7 @@ const oceanBlockTexture = textureLoader.load('/assets/images/oceanBlock.png')
 
 // Mesh
 const meshes = [];
+// 동도 구역
 const eastFloorMesh = new THREE.Mesh(
 	new THREE.PlaneGeometry(51.38, 87.06),
 	new THREE.MeshStandardMaterial({
@@ -134,6 +130,7 @@ eastFloorBody.quaternion.setFromAxisAngle(
 cannonWorld.addBody(eastFloorBody)
 
 
+// 서도 구역
 const westFloorMesh = new THREE.Mesh(
 	new THREE.PlaneGeometry(65.86, 93.72),
 	new THREE.MeshStandardMaterial({
@@ -157,6 +154,7 @@ const oceanMesh = new THREE.Mesh(
 	})
 )
 
+// 바다구역
 oceanMesh.name = 'ocean';
 oceanMesh.rotation.x = -Math.PI/2;
 oceanMesh.position.y = -0.7
@@ -164,7 +162,9 @@ oceanMesh.receiveShadow = true;
 scene.add(oceanMesh);
 meshes.push(oceanMesh);
 
-// 남는 바다 코드
+// 위 바다구역만으로는 가려지지 않는 바다 구역들이 있음(png를 인식 못하고 전체 이미지 크기 영역대로 인식해서)
+// 그래서 다른 플레인들을 추가적으로 설치하여 섬 모양대로 깎음
+// 여기서 이용된 플레인 개체 수 5장
 const oceanBlock1Mesh = new THREE.Mesh(
 	new THREE.PlaneGeometry(30, 30),
 	new THREE.MeshStandardMaterial({
@@ -251,12 +251,13 @@ meshes.push(oceanBlock5Mesh);
 
 
 // 마우스 포인터
+// 이 메쉬를 활용해서 마우스가 어디를 클릭해서 플레이어를 이동시키는지 확인 가능
 const pointerMesh = new THREE.Mesh(
-	new THREE.PlaneGeometry(1, 1),
+	new THREE.PlaneGeometry(0.001, 0.001),
 	new THREE.MeshBasicMaterial({
-		// color: 'crimson',
-		transparent: true,
-		opacity: 0
+		color: 'crimson',
+		// transparent: true,
+		opacity: 50
 	})
 );
 pointerMesh.rotation.x = -Math.PI/2;
@@ -268,13 +269,15 @@ pointerMesh.position.z = -4;
 pointerMesh.receiveShadow = true;
 scene.add(pointerMesh);
 
-// 퀴즈관 이벤트 위치
+
+// 지형관 이벤트 위치
+// 이 이벤트 영역 안에 들어오면 카메라 앵글 바뀌고 팻말이 등장
 const spotMesh1 = new THREE.Mesh(
 	new THREE.PlaneGeometry(3, 3),
 	new THREE.MeshStandardMaterial({
 		color: 'yellow',
-		transparent: true,
-		opacity: 0.5
+		// transparent: true,
+		// opacity: 0.5
 	})
 );
 spotMesh1.position.set(27, 0.19, -21);
@@ -282,7 +285,7 @@ spotMesh1.rotation.x = -Math.PI/2;
 spotMesh1.receiveShadow = true;
 scene.add(spotMesh1);
 
-// 지형관 이벤트 위치
+// 퀴즈관 이벤트 위치
 const spotMesh2 = new THREE.Mesh(
 	new THREE.PlaneGeometry(3, 3),
 	new THREE.MeshStandardMaterial({
@@ -435,45 +438,105 @@ const ecosystem = new EcoSystem({
 	gltfLoader,
 	  scene,
 	  cannonWorld,
-	  modelSrc: '/assets/glTF/eco.glb',
+	  modelSrc: '/assets/glTF/ecosystem.glb',
 	  x: 15,
-	  y: 0.5,
+	  y: -2.25,
 	  z: 12,
   })
 
 
 
-// 
-const dokdoShrimpTexture = textureLoader.load('/assets/images/woodenSign.png')
-const dokdoShrimpMesh = new THREE.Mesh(
+// 퀴즈관 나무 팻말
+const QuixSignTexture = textureLoader.load('/assets/images/woodenSign.png')
+const QuizSignMesh= new THREE.Mesh(
 	new THREE.PlaneGeometry(30, 30),
 	new THREE.MeshStandardMaterial({
-		map: dokdoShrimpTexture,
+		map: QuixSignTexture,
 		transparent: true,
 	})
 )
-// dokdoShrimpMesh.name = 'ocean'
-// dokdoShrimpMesh.rotation.x = -Math.PI/2;
-dokdoShrimpMesh.rotation.y = 1.5;
-dokdoShrimpMesh.scale.x = 0.1;
-dokdoShrimpMesh.scale.y = 0.1;
-dokdoShrimpMesh.scale.z = 0.1;
-dokdoShrimpMesh.name = '팻말'
+QuizSignMesh.rotation.y = 1.5;
+QuizSignMesh.scale.x = 0.1;
+QuizSignMesh.scale.y = 0.1;
+QuizSignMesh.scale.z = 0.1;
+QuizSignMesh.name = '퀴즈팻말'
 
-dokdoShrimpMesh.rotation.y = 0;
-dokdoShrimpMesh.position.y = -3
-dokdoShrimpMesh.position.x = 47.3
-dokdoShrimpMesh.position.z = -5
-scene.add(dokdoShrimpMesh);
-meshes.push(dokdoShrimpMesh);
+QuizSignMesh.rotation.y = 0;
+QuizSignMesh.position.y = -3
+QuizSignMesh.position.x = 47.3
+QuizSignMesh.position.z = -5
+scene.add(QuizSignMesh);
+meshes.push(QuizSignMesh);
+
+// 지질관 나무 팻말
+const TerritorySignTexture = textureLoader.load('/assets/images/woodenSign.png')
+const TerritorySignMesh= new THREE.Mesh(
+	new THREE.PlaneGeometry(30, 30),
+	new THREE.MeshStandardMaterial({
+		map: TerritorySignTexture,
+		transparent: true,
+	})
+)
+TerritorySignMesh.rotation.y = 1.5;
+TerritorySignMesh.scale.x = 0.1;
+TerritorySignMesh.scale.y = 0.1;
+TerritorySignMesh.scale.z = 0.1;
+TerritorySignMesh.name = '지질팻말'
+
+TerritorySignMesh.rotation.y = 0;
+TerritorySignMesh.position.x = 30
+TerritorySignMesh.position.y = -3
+TerritorySignMesh.position.z = -22
+scene.add(TerritorySignMesh);
+meshes.push(TerritorySignMesh);
 
 
+// 생태관 나무 팻말
+const EcoSignTexture = textureLoader.load('/assets/images/woodenSign.png')
+const EcoSignMesh= new THREE.Mesh(
+	new THREE.PlaneGeometry(30, 30),
+	new THREE.MeshStandardMaterial({
+		map: EcoSignTexture,
+		transparent: true,
+	})
+)
+EcoSignMesh.rotation.y = 3;
+EcoSignMesh.scale.x = 0.1;
+EcoSignMesh.scale.y = 0.1;
+EcoSignMesh.scale.z = 0.1;
+EcoSignMesh.name = '생태팻말'
+EcoSignMesh.rotation.y = 0.5;
+EcoSignMesh.position.x = 20
+EcoSignMesh.position.y = -3
+EcoSignMesh.position.z = 8
+scene.add(EcoSignMesh);
+meshes.push(EcoSignMesh);
+
+// 역사관 나무 팻말
+const HistorySignTexture = textureLoader.load('/assets/images/woodenSign.png')
+const HistorySignMesh= new THREE.Mesh(
+	new THREE.PlaneGeometry(30, 30),
+	new THREE.MeshStandardMaterial({
+		map: HistorySignTexture,
+		transparent: true,
+	})
+)
+HistorySignMesh.rotation.y = 3;
+HistorySignMesh.scale.x = 0.1;
+HistorySignMesh.scale.y = 0.1;
+HistorySignMesh.scale.z = 0.1;
+HistorySignMesh.name = '역사팻말'
+HistorySignMesh.rotation.y = 1;
+HistorySignMesh.position.x = 37
+HistorySignMesh.position.y = -3
+HistorySignMesh.position.z = 28.7
+scene.add(HistorySignMesh);
+meshes.push(HistorySignMesh);
 
 
 
 
 // 레이캐스터(마우스 클릭 이벤트)
-
 const raycaster = new THREE.Raycaster();
 let mouse = new THREE.Vector2();
 let destinationPoint = new THREE.Vector3();
@@ -481,8 +544,8 @@ let angle = 0;
 let isPressed = false; // 마우스를 누르고 있는 상태
 
 // 그리기
+// 시계를 활용해서 계속 돌아가는 코드임 -> 애니메이션을 위해!
 const clock = new THREE.Clock();
-// console.log(cannonWorld)
 
 function draw() {
 	render()
@@ -513,30 +576,14 @@ function draw() {
 		cannonWorld.addBody(player.cannonBody)
 	}
 
-	// if (bridge.modelMesh) {
-	// 	bridge.modelMesh.position.copy(bridge.cannonBody.position);
-	// 	cannonWorld.addBody(bridge.cannonBody)
-	// }
-
-	// if (history.cannonBody) {
-	// 	history.modelMesh.position.copy(history.cannonBody.position);
-	// 	cannonWorld.addBody(history.cannonBody)
-	// }
-
 	if (territory.cannonBody) {
 		territory.modelMesh.position.copy(territory.cannonBody.position);
 		cannonWorld.addBody(territory.cannonBody)
 	}
 
-	if (ecosystem.cannonBody) {
-		ecosystem.modelMesh.position.copy(ecosystem.cannonBody.position);
-		cannonWorld.addBody(ecosystem.cannonBody)
-	}
-
-	
-	// if (bridge.cannonBody) {
-	// 	bridge.modelMesh.position.copy(bridge.cannonBody.position);
-	// 	cannonWorld.addBody(bridge.cannonBody)
+	// if (ecosystem.cannonBody) {
+	// 	ecosystem.modelMesh.position.copy(ecosystem.cannonBody.position);
+	// 	cannonWorld.addBody(ecosystem.cannonBody)
 	// }
 
 	if (player.modelMesh) {
@@ -557,7 +604,7 @@ function draw() {
 
 			camera.position.x = cameraPosition.x + player.modelMesh.position.x;
 			camera.position.z = cameraPosition.z + player.modelMesh.position.z;
-			
+ 			
 			player.actions[0].stop();
 			player.actions[1].play();
 			
@@ -570,7 +617,7 @@ function draw() {
 				console.log('멈춤');
 			}
 
-      // 만약 플레이어 캐릭터가 노란색 영역 안에 들어갔을 경우에 행할 것
+      // 만약 플레이어 캐릭터가 각 건물의 이벤트 안에 들어갔을 경우에 행할 것
 			if (
 				(Math.abs(spotMesh1.position.x - player.modelMesh.position.x) < 1.5 &&
 				Math.abs(spotMesh1.position.z - player.modelMesh.position.z) < 1.5)
@@ -588,17 +635,49 @@ function draw() {
 					camera.position,
           {
             duration: 1,
-            y: 3
+            y: 2.5,
           }
 		);
 		gsap.to(
-			dokdoShrimpMesh.position,
+			QuizSignMesh.position,
 			{
 				y : 1,
 				duration: 1,
 				ease: 'Bounce.eastOut'
 			}
-			)
+		);
+		gsap.to(
+			TerritorySignMesh.position,
+			{
+				y : 1,
+				duration: 1,
+				ease: 'Bounce.eastOut'
+			}
+		)
+		gsap.to(
+			EcoSignMesh.position,
+			{
+				y : 1,
+				duration: 1,
+				ease: 'Bounce.eastOut'
+			}
+		)
+		gsap.to(
+			HistorySignMesh.position,
+			{
+				y : 1,
+				duration: 1,
+				ease: 'Bounce.eastOut'
+			}
+		)
+		gsap.to(
+			ecosystem.modelMesh.position,
+			{
+				y : 2.3,
+				duration: 1,
+				ease: 'Bounce.eastOut'
+			}
+		)
 			
 			} else  {
 				gsap.to(
@@ -609,9 +688,37 @@ function draw() {
 					}
 				);
 				gsap.to(
-					dokdoShrimpMesh.position,
+					QuizSignMesh.position,
 			{
 				y : -8,
+				duration: 1,
+			}
+				)
+				gsap.to(
+					TerritorySignMesh.position,
+			{
+				y : -8,
+				duration: 1,
+			}
+				)
+				gsap.to(
+					EcoSignMesh.position,
+			{
+				y : -8,
+				duration: 1,
+			}
+				)
+				gsap.to(
+					HistorySignMesh.position,
+			{
+				y : -8,
+				duration: 1,
+			}
+				)
+				gsap.to(
+					ecosystem.modelMesh.position,
+			{
+				y : -2.16,
 				duration: 1,
 			}
 				)
@@ -632,13 +739,12 @@ function draw() {
 
 
 
-const [clickPopup, setClickPopup] = useState(false)
-
 // 마우스로 클릭
 function checkIntersects() {
 	// raycaster.setFromCamera(mouse, camera);
 	const intersects = raycaster.intersectObjects(meshes);
 	for (const item of intersects) {
+		console.log(item)
 		if (item.object.name === 'floor') {
 			destinationPoint.x = item.point.x;
 			destinationPoint.y = 0.3;
@@ -683,12 +789,52 @@ function checkIntersects() {
 		else if (item.object.name === 'ocean') {
 			console.log('바다다')
 		}
-		else if (item.object.name === '팻말') {
-			const historyPop = document.getElementById('historyPopup')
-			historyPop.style.display = 'block'
+		else if (item.object.name === '퀴즈팻말') {
+			const QuizPop = document.getElementById('QuizPopup')
+			QuizPop.style.display = 'block'
+			QuizPop.addEventListener('mouseup', () => {
+				isPressed = false;
+			});
+			console.log('보인다')
+		}
+		else if (item.object.name === '지질팻말') {
+			const TerrianPop = document.getElementById('TerrianPopup')
+			TerrianPop.style.display = 'block'
+			TerrianPop.addEventListener('mouseup', () => {
+				isPressed = false;
+			});
+			console.log('보인다')
+		}
+		else if (item.object.name === '생태팻말') {
+			const EcoPop = document.getElementById('EcoPopup')
+			EcoPop.style.display = 'block'
+			EcoPop.addEventListener('mouseup', () => {
+				isPressed = false;
+			});
+			console.log('보인다')
+		}
+		else if (item.object.name === '역사팻말') {
+			const HistoryPop = document.getElementById('HistoryPopup')
+			HistoryPop.style.display = 'block'
+			HistoryPop.addEventListener('mouseup', () => {
+				isPressed = false;
+			});
+			console.log('보인다')
 		}
 		break;
 	}
+}
+
+const quitPopup =() => {
+	const QuizPop = document.getElementById('QuizPopup')
+	const TerrianPop = document.getElementById('TerrianPopup')
+	const EcoPop = document.getElementById('EcoPopup')
+	const HistoryPop = document.getElementById('HistoryPopup')
+	TerrianPop.style.display = 'none'
+	QuizPop.style.display = 'none'
+	EcoPop.style.display = 'none'
+	HistoryPop.style.display = 'none'
+	console.log('나가자!!!')
 }
 
 
@@ -752,7 +898,7 @@ canvas.addEventListener('touchmove', e => {
 draw();
 
 
-
+// 스크린 캡처 코드를 위해 render 함수를 따로 분리해서 설정해줌
 function resizeRendererToDisplaySize(renderer) {
 	const canvas = renderer.domElement;
 	const width = canvas.clientWidth;
@@ -794,94 +940,58 @@ const saveBlob = (function() {
 
 
 
-  useEffect(() => {
-    let aTag = document.querySelectorAll("a");
-    var aTagList = Array.prototype.slice.call(aTag);
-	console.log(aTagList.length)
-	if (aTagList.length >= 1) {
-		aTagList.forEach(function (element) {
-			console.log(element)
-			element.remove()
-		})
-	}
-    // if (aTagList) {
-	// 	aTagList.remove();
-	// // 	aTagList.forEach(function (element) {
-    // //     // element.style.display = 'none'
-    // //     if (element.id !== 'mapDolphin' && element.id !== 'mapLion' && element.id !== 'mapRabbit' && element.id !== "mapAlien" && element.id !== 'mapSanta') {
-    // //       element.remove();
-    // //     }
-    // //   });
-    // }
-  });
-
-
-
-
-//   const [anchorEl, setAnchorEl] = React.useState(null);
-//   const open = Boolean(anchorEl);
-//   const handleClick = (event) => {
-//     setAnchorEl(event.currentTarget);
-//   };
-//   const handleClose = () => {
-//     setAnchorEl(null);
-//   };
-
-
   return (
 <>
   <div className="mainPage">
-	<div className='historyPopup' id='historyPopup' style={{display:'none'}}>
-		<img src="/assets/icons/close.png" id='quitButton'></img>
-		<HistoryPopup ></HistoryPopup>
+
+	{/* 팝업 컴포넌트들 */}
+	<div className='QuizPopup' id='QuizPopup' style={{display:'none'}}>
+		<img src="/assets/icons/close.png" id='quitButton'
+			onClick={quitPopup}
+		></img>
+		<OXQuizPopup></OXQuizPopup>
 	</div>
 
-	{/* <div style={{position:'absolute',zIndex:'100',width:'400px',height:'400px',backgroundColor:'pink'}}></div> */}
+	<div className='TerrianPopup' id='TerrianPopup' style={{display:'none'}}>
+		<img src="/assets/icons/close.png" id='quitButton'
+			onClick={quitPopup}
+		></img>
+		<TerrianPopup></TerrianPopup>
+	</div>
+
+	<div className='EcoPopup' id='EcoPopup' style={{display:'none'}}>
+		<img src="/assets/icons/close.png" id='quitButton'
+			onClick={quitPopup}
+		></img>
+		<EcoSystemPopup></EcoSystemPopup>
+	</div>
+
+	<div className='HistoryPopup' id='HistoryPopup' style={{display:'none'}}>
+		<img src="/assets/icons/close.png" id='quitButton'
+			onClick={quitPopup}
+		></img>
+		<HistoryPopup></HistoryPopup>
+	</div>
+
 	{/* <div className='screenShot' onClick={clickScreenCapture} id="screenshot">
 		<img className='screenShotButton'
 			src='/assets/images/camera.png'
 		></img>
 		<div className='ButtonBackGround'></div>
-	</div>
+	</div> */}
 
-	<div className='tutorial'>
+	{/* <div className='tutorial'>
 		<img className='tutorialMark'
 			src='/assets/images/tutorial.png'
 		></img>
 		<div className='ButtonBackGround'></div>
 	</div> */}
 
-	{/* <div className='menu'>
-		<Button
-			id="fade-button"
-			aria-controls={open ? 'fade-menu' : undefined}
-			aria-haspopup="true"
-			aria-expanded={open ? 'true' : undefined}
-			onClick={handleClick}
-			className='menu'
-		>
-			Dashboard
-		</Button>
-		<Menu
-			id="fade-menu"
-			MenuListProps={{
-			'aria-labelledby': 'fade-button',
-			}}
-			anchorEl={anchorEl}
-			open={open}
-			onClose={handleClose}
-			TransitionComponent={Fade}
-		>
-			<MenuItem onClick={handleClose}>Profile</MenuItem>
-			<MenuItem onClick={handleClose}>My account</MenuItem>
-			<MenuItem onClick={handleClose}>Logout</MenuItem>
-		</Menu>
-	</div> */}
   </div>;
 </>
   )
 }
-// export default MainTest;
+
 
 const Main =() => {
 	return (<>
