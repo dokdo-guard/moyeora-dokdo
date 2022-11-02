@@ -1,0 +1,37 @@
+.overlay {
+  width: 100%;
+  visibility: hidden;
+  opacity: 0;
+  position: fixed;
+  transition: all 200ms;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+}
+
+.close img{
+  position: absolute;
+  top: 30px;
+  right: 30px;
+  transition: all 200ms;
+  width: 50px;
+  height: 50px;
+}
+.close img:hover {
+  cursor: pointer;
+  top: 28.5px;
+  right: 28.5px;
+  width: 55px;
+  height: 55px;
+}
+
+.contents {
+  background-color: white;
+  width: 600px;
+  height: 600px;
+  border-radius: 5px;
+  margin: auto auto;
+}

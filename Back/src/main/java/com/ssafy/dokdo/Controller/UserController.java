@@ -4,7 +4,7 @@ import com.ssafy.dokdo.Entity.Badge;
 import com.ssafy.dokdo.Entity.Dogam;
 import com.ssafy.dokdo.Entity.User;
 import com.ssafy.dokdo.Exception.ResourceNotFoundException;
-import com.ssafy.dokdo.Repository.UserRepository;
+import com.ssafy.dokdo.Model.UserDto;
 import com.ssafy.dokdo.Security.CurrentUser;
 import com.ssafy.dokdo.Security.UserPrincipal;
 import com.ssafy.dokdo.Service.UserService;
@@ -12,7 +12,10 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 import java.util.Map;
@@ -23,13 +26,11 @@ import java.util.NoSuchElementException;
 @RequiredArgsConstructor
 public class UserController {
 
-    private final UserRepository userRepository;
     private final UserService userService;
 
     @GetMapping("user")
-    public User getCurrentUser(@CurrentUser UserPrincipal userPrincipal) {
-        return userRepository.findById(userPrincipal.getId())
-                .orElseThrow(() -> new ResourceNotFoundException("User", "id", userPrincipal.getId()));
+    public UserDto getCurrentUser(@CurrentUser UserPrincipal userPrincipal) {
+        return userService.getCurrentUser(userPrincipal.getId());
     }
 
     @PutMapping("quiz")
@@ -49,8 +50,8 @@ public class UserController {
     public ResponseEntity<?> setCharacter(@CurrentUser UserPrincipal userPrincipal, @RequestBody User user) {
         try{
             return new ResponseEntity<>(
-                userService.updateUserCharacter(userPrincipal.getId(), user.getUserCharacter()),
-                HttpStatus.OK);
+                    userService.updateUserCharacter(userPrincipal.getId(), user.getUserCharacter()),
+                    HttpStatus.OK);
         } catch (ResourceNotFoundException resourceNotFoundException){
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         } catch (Exception e) {
@@ -61,6 +62,7 @@ public class UserController {
     @PutMapping("nickname")
     public ResponseEntity<?> setNickname(@CurrentUser UserPrincipal userPrincipal, @RequestBody User user) {
         try{
+            // 게시판 닉네임 변경 로직...??
             return new ResponseEntity<>(
                     userService.updateName(userPrincipal.getId(), user.getName()),
                     HttpStatus.OK);
@@ -71,7 +73,7 @@ public class UserController {
         }
     }
 
-    @GetMapping("/user/dogam")
+    @GetMapping("/user/dogams")
     public List<Dogam> getDogamList(@CurrentUser UserPrincipal userPrincipal){
         return userService.getDogamList(userPrincipal.getId());
     }
@@ -82,6 +84,11 @@ public class UserController {
         Long user_id = userPrincipal.getId();
 
         return userService.getAllBadges(user_id);
+    }
+
+    @GetMapping("/user/dogam")
+    public boolean getDogamList(@CurrentUser UserPrincipal userPrincipal,@RequestParam String domain, @RequestParam(name = "mongo_id") String mongoId){
+        return userService.checkDogam(userPrincipal.getId(),domain,mongoId);
     }
 
 }
