@@ -1,18 +1,14 @@
 package com.ssafy.dokdo.Entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
 
 @Entity
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
-@Builder
+@Getter
+@Setter
 @Table(name = "QuizUser")
 public class QuizUser {
     @Id
@@ -20,7 +16,15 @@ public class QuizUser {
     @Column(name = "quiz_id")
     @JsonIgnore
     private Long id;
-    private boolean five =false;
-    private boolean ten =false;
-    private boolean fifteen =false;
+    private boolean five;
+    private boolean ten;
+    private boolean fifteen;
+
+    public QuizUser(){}
+
+    public QuizUser(boolean five, boolean ten, boolean fifteen) {
+        this.five = five;
+        this.ten = ten;
+        this.fifteen = fifteen;
+    }
 }
