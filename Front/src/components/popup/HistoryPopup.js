@@ -95,6 +95,7 @@ function HistoryPopup() {
                   className='vertical-timeline-element--work'
                   date={data.era}
                   iconStyle={{ background: "#FFF562", color: "#fff" }}
+                  key={data.era}
                 >
                   <h3 className='vertical-timeline-element-title'>
                     {data.era}
@@ -104,7 +105,12 @@ function HistoryPopup() {
                       data.img === undefined ? "hidden" : "historyTimelineImage"
                     }
                   >
-                    {data.img}
+                    <img
+                      src={
+                        "https://ssafy-d204-dokdo.s3.ap-northeast-2.amazonaws.com/" +
+                        data.img
+                      }
+                    />
                   </div>
                   <p>{data.content}</p>
                 </VerticalTimelineElement>

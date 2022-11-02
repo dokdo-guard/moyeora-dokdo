@@ -26,12 +26,20 @@
   border-radius: 5px;
 }
 .EcosystemSelectBtn {
+  display: flex;
   width: 300px;
   height: 300px;
   background-color: white;
   text-align: center;
   border-radius: 10px;
   box-shadow: 5px 5px 20px lightgray;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+.EcosystemSelectBtn > img {
+  width: 200px;
+  height: 200px;
 }
 .EcoSystemListWrapper {
   overflow: auto;
@@ -65,6 +73,7 @@
   box-shadow: 2px 2px 30px lightgray;
   justify-content: center;
   align-items: center;
+  cursor: pointer;
 }
 .EcoSystemListName {
   font-weight: 700;
@@ -85,6 +94,7 @@
   border-radius: 10px;
   background-color: #feb653;
   border: 1px solid lightgray;
+  cursor: pointer;
 }
 .EcoSystemDetailInfo {
   display: flex;

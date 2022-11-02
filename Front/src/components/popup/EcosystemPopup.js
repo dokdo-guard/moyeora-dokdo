@@ -61,6 +61,7 @@ function EcoSystemPopup() {
             onClick={() => {
               setSelectedData("");
               setDetailSelected(false);
+              setCategory("");
             }}
           >
             Back
@@ -157,7 +158,9 @@ function EcoSystemPopup() {
                 setCategory("plant");
               }}
             >
-              나무
+              <img
+                src={process.env.PUBLIC_URL + "/assets/icons/plant_Icon.png"}
+              />
             </div>
             <div
               className='EcosystemSelectBtn'
@@ -166,7 +169,12 @@ function EcoSystemPopup() {
                 setCategory("sea-animal");
               }}
             >
-              물개
+              {" "}
+              <img
+                src={
+                  process.env.PUBLIC_URL + "/assets/icons/seaAnimal_Icon.png"
+                }
+              />
             </div>
             <div
               className='EcosystemSelectBtn'
@@ -175,7 +183,9 @@ function EcoSystemPopup() {
                 setCategory("bird");
               }}
             >
-              조류
+              <img
+                src={process.env.PUBLIC_URL + "/assets/icons/Bird_Icon.png"}
+              />
             </div>
             <div
               className='EcosystemSelectBtn'
@@ -184,7 +194,9 @@ function EcoSystemPopup() {
                 setCategory("sea-plant");
               }}
             >
-              해양식물
+              <img
+                src={process.env.PUBLIC_URL + "/assets/icons/seaPlant_Icon.png"}
+              />
             </div>
           </div>
         )}
