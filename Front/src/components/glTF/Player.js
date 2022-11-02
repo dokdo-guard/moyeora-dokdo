@@ -22,6 +22,8 @@ export class Player{
 				this.modelMesh.position.y = 0.5;
 				this.modelMesh.position.z = -4;
 
+				this.modelMesh.rotation.x = -0.3;
+
 				this.modelMesh.scale.x = 1.5
 				this.modelMesh.scale.y = 1.5
 				this.modelMesh.scale.z = 1.5

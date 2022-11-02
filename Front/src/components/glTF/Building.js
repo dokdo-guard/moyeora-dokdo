@@ -34,7 +34,6 @@ export class Building {
 					shape,
 				})
 				this.cannonBody.quaternion.setFromEuler(0, 0.8, 0);
-				console.log(this.cannonBody.quaternion)
 				this.modelMesh.cannonBody = this.cannonBody;
 				this.cannonWorld.addBody(this.cannonBody);
 				this.cannonWorld.allowSleep = false

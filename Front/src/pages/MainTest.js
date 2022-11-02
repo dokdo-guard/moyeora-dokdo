@@ -16,6 +16,17 @@ import { EcoSystem } from '../components/glTF/EcoSystem';
 import {NPC} from '../components/glTF/NPC'
 import { Quiz } from '../components/glTF/Quiz';
 
+import { useEffect,useState } from 'react';
+import HistoryPopup from '../components/popup/HistoryPopup';
+import { Canvas } from '@react-three/fiber';
+// import * as React from 'react';
+// import Button from '@mui/material/Button';
+// import Menu from '@mui/material/Menu';
+// import MenuItem from '@mui/material/MenuItem';
+// import Fade from '@mui/material/Fade';
+
+// import { Canvas, useLoader, useFrame } from '@react-three/fiber';
+
 function MainTest() {
 
 
@@ -54,7 +65,7 @@ const camera = new THREE.OrthographicCamera(
 
 const cameraPosition = new THREE.Vector3(1, 5, 5);
 camera.position.set(cameraPosition.x, cameraPosition.y, cameraPosition.z);
-camera.zoom = 0.16;
+camera.zoom = 0.15;
 camera.updateProjectionMatrix();
 scene.add(camera);
 
@@ -347,19 +358,29 @@ const player = new Player({
 	meshes,
 	gltfLoader,
 	cannonWorld,
-	modelSrc: '/assets/glTF/sojung.glb',
+	modelSrc: '/assets/glTF/character/sojung.glb',
 });
 
 
-// NPC
-const npc = new NPC({
+// 상호작용할 동물들
+const 강치 = new NPC({
 	gltfLoader,
 	  scene,
 	  meshes,
-	  modelSrc: '/assets/glTF/FennecFox.gltf',
-	  x: 25,
+	  modelSrc: '/assets/glTF/강치.gltf',
+	  x: -10,
 	  y: 0,
-	  z: -8,
+	  z: -13,
+  })
+
+const 돌고래 = new NPC({
+	gltfLoader,
+	  scene,
+	  meshes,
+	  modelSrc: '/assets/glTF/돌고래.gltf',
+	  x: -7,
+	  y: -1.2,
+	  z: 22,
   })
 
 
@@ -369,7 +390,7 @@ const bridge = new Bridge({
 	scene,
 	cannonWorld,
 	meshes,
-	modelSrc: '/assets/glTF/bridge4.gltf',
+	modelSrc: '/assets/glTF/bridge.gltf',
   	x: 2,
 	y: -0.1,
 	z : -3,
@@ -414,9 +435,9 @@ const ecosystem = new EcoSystem({
 	gltfLoader,
 	  scene,
 	  cannonWorld,
-	  modelSrc: '/assets/glTF/ecosystem.glb',
+	  modelSrc: '/assets/glTF/eco.glb',
 	  x: 15,
-	  y: 2.2,
+	  y: 0.5,
 	  z: 12,
   })
 
@@ -437,6 +458,7 @@ dokdoShrimpMesh.rotation.y = 1.5;
 dokdoShrimpMesh.scale.x = 0.1;
 dokdoShrimpMesh.scale.y = 0.1;
 dokdoShrimpMesh.scale.z = 0.1;
+dokdoShrimpMesh.name = '팻말'
 
 dokdoShrimpMesh.rotation.y = 0;
 dokdoShrimpMesh.position.y = -3
@@ -460,7 +482,7 @@ let isPressed = false; // 마우스를 누르고 있는 상태
 
 // 그리기
 const clock = new THREE.Clock();
-console.log(cannonWorld)
+// console.log(cannonWorld)
 
 function draw() {
 	render()
@@ -472,9 +494,14 @@ function draw() {
 		player.mixer.update(delta);
 	}
 
-	if (npc.mixer) {
-		npc.mixer.update(delta)
-		npc.actions[0].play()
+	if (강치.mixer) {
+		강치.mixer.update(delta)
+		강치.actions[0].play()
+	}
+
+	if (돌고래.mixer) {
+		돌고래.mixer.update(delta)
+		돌고래.actions[0].play()
 	}
 
 	if (player.modelMesh) {
@@ -557,21 +584,22 @@ function draw() {
         (Math.abs(spotMesh4.position.x - player.modelMesh.position.x) < 1.5 &&
 				Math.abs(spotMesh4.position.z - player.modelMesh.position.z) < 1.5)
 			) {
-        gsap.to(
-          camera.position,
+				gsap.to(
+					camera.position,
           {
             duration: 1,
             y: 3
           }
-		  );
+		);
 		gsap.to(
 			dokdoShrimpMesh.position,
 			{
-				y : 1.5,
+				y : 1,
 				duration: 1,
 				ease: 'Bounce.eastOut'
 			}
-		)
+			)
+			
 			} else  {
 				gsap.to(
 					camera.position,
@@ -583,7 +611,7 @@ function draw() {
 				gsap.to(
 					dokdoShrimpMesh.position,
 			{
-				y : -3,
+				y : -8,
 				duration: 1,
 			}
 				)
@@ -603,6 +631,9 @@ function draw() {
 }
 
 
+
+const [clickPopup, setClickPopup] = useState(false)
+
 // 마우스로 클릭
 function checkIntersects() {
 	// raycaster.setFromCamera(mouse, camera);
@@ -620,6 +651,7 @@ function checkIntersects() {
 			pointerMesh.position.z = destinationPoint.z;
 			
 			console.log('땅이다')
+
 		}
 		else if (item.object.name === 'land_79030' || item.object.name === 'land_79020'
 		||item.object.name === 'land_79043') {
@@ -634,26 +666,33 @@ function checkIntersects() {
 			pointerMesh.position.z = destinationPoint.z;
 			
 			console.log('다리다')
-			// console.log(item.object.scale)
 		}
-		else if (item.object.name === 'FennecFox') {
-			console.log('페넥여우를 터치하였습니다!')
-			// setTimeout(()=> {
-			npc.actions[1].setLoop(THREE.LoopOnce)
-			npc.actions[1].stop()
-			npc.actions[1].play()
-			// npc.actions[0].stop()
-			// },2)
+		else if (item.object.name === 'SeaLion') {
+			console.log('강치를 터치하였습니다!')
+			강치.actions[1].setLoop(THREE.LoopOnce)
+			강치.actions[1].stop()
+			강치.actions[1].play()
+		}
+		else if (item.object.name === 'Dolphin') {
+			console.log('돌고래를 터치하였습니다!')
+			돌고래.actions[1].setLoop(THREE.LoopOnce)
+			돌고래.actions[1].stop()
+			돌고래.actions[1].play()
 		}
 		
 		else if (item.object.name === 'ocean') {
 			console.log('바다다')
 		}
+		else if (item.object.name === '팻말') {
+			console.log('팻말이다')
+			console.log(clickPopup)
+			if (clickPopup === 0) {
+				setClickPopup(!clickPopup)
+			}
+		}
 		break;
 	}
-
 }
-
 
 
 function setSize() {
@@ -716,10 +755,6 @@ canvas.addEventListener('touchmove', e => {
 draw();
 
 
-const state = {
-	time: 0,
-  };
-
 
 function resizeRendererToDisplaySize(renderer) {
 	const canvas = renderer.domElement;
@@ -762,19 +797,102 @@ const saveBlob = (function() {
 
 
 
-  return <div className="mainPage">
-	<div className='screenShot' onClick={clickScreenCapture} id="screenshot">
+  useEffect(() => {
+    let aTag = document.querySelectorAll("a");
+    var aTagList = Array.prototype.slice.call(aTag);
+	console.log(aTagList.length)
+	if (aTagList.length >= 1) {
+		aTagList.forEach(function (element) {
+			console.log(element)
+			element.remove()
+		})
+	}
+    // if (aTagList) {
+	// 	aTagList.remove();
+	// // 	aTagList.forEach(function (element) {
+    // //     // element.style.display = 'none'
+    // //     if (element.id !== 'mapDolphin' && element.id !== 'mapLion' && element.id !== 'mapRabbit' && element.id !== "mapAlien" && element.id !== 'mapSanta') {
+    // //       element.remove();
+    // //     }
+    // //   });
+    // }
+  });
+
+  useEffect(()=> {
+	let style = document.querySelector('style')
+	console.log(style)
+  })
+
+
+
+//   const [anchorEl, setAnchorEl] = React.useState(null);
+//   const open = Boolean(anchorEl);
+//   const handleClick = (event) => {
+//     setAnchorEl(event.currentTarget);
+//   };
+//   const handleClose = () => {
+//     setAnchorEl(null);
+//   };
+
+
+  return (
+<>
+{/* <Canvas id="three-canvas" class="canvas"></Canvas> */}
+  <div className="mainPage">
+	{clickPopup? (<div style={{position:'absolute',zIndex:'100',width:'400px',
+	height:'400px',backgroundColor:'green'
+}}></div>) : (<></>)}
+	{/* <div style={{position:'absolute',zIndex:'100',width:'400px',height:'400px',backgroundColor:'pink'}}></div> */}
+	{/* <div className='screenShot' onClick={clickScreenCapture} id="screenshot">
 		<img className='screenShotButton'
 			src='/assets/images/camera.png'
 		></img>
 		<div className='ButtonBackGround'></div>
 	</div>
+
 	<div className='tutorial'>
 		<img className='tutorialMark'
 			src='/assets/images/tutorial.png'
 		></img>
 		<div className='ButtonBackGround'></div>
-	</div>
+	</div> */}
+
+	{/* <div className='menu'>
+		<Button
+			id="fade-button"
+			aria-controls={open ? 'fade-menu' : undefined}
+			aria-haspopup="true"
+			aria-expanded={open ? 'true' : undefined}
+			onClick={handleClick}
+			className='menu'
+		>
+			Dashboard
+		</Button>
+		<Menu
+			id="fade-menu"
+			MenuListProps={{
+			'aria-labelledby': 'fade-button',
+			}}
+			anchorEl={anchorEl}
+			open={open}
+			onClose={handleClose}
+			TransitionComponent={Fade}
+		>
+			<MenuItem onClick={handleClose}>Profile</MenuItem>
+			<MenuItem onClick={handleClose}>My account</MenuItem>
+			<MenuItem onClick={handleClose}>Logout</MenuItem>
+		</Menu>
+	</div> */}
   </div>;
+</>
+  )
 }
-export default MainTest;
+// export default MainTest;
+
+const Main =() => {
+	return (<>
+		<MainTest></MainTest>
+	</>)
+}
+
+export default Main;
