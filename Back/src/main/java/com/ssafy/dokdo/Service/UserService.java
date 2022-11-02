@@ -43,7 +43,7 @@ public class UserService {
                 quizUser.setFifteen(true);
                 break;
             default:
-                new NoSuchElementException();
+                throw new NoSuchElementException();
         }
         quizUserRepository.save(quizUser);
         user.setQuizUser(quizUser);
