@@ -4,7 +4,6 @@ import com.ssafy.dokdo.Entity.Badge;
 import com.ssafy.dokdo.Entity.Dogam;
 import com.ssafy.dokdo.Entity.User;
 import com.ssafy.dokdo.Exception.ResourceNotFoundException;
-import com.ssafy.dokdo.Model.UserDto;
 import com.ssafy.dokdo.Security.CurrentUser;
 import com.ssafy.dokdo.Security.UserPrincipal;
 import com.ssafy.dokdo.Service.UserService;
@@ -26,8 +25,16 @@ public class UserController {
     private final UserService userService;
 
     @GetMapping("user")
-    public UserDto getCurrentUser(@CurrentUser UserPrincipal userPrincipal) {
-        return userService.getCurrentUser(userPrincipal.getId());
+    public ResponseEntity<?> getCurrentUser(@CurrentUser UserPrincipal userPrincipal) {
+        try{
+            return new ResponseEntity<>(
+                    userService.getCurrentUser(userPrincipal.getId()),
+                    HttpStatus.OK);
+        } catch (ResourceNotFoundException resourceNotFoundException){
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @PutMapping("quiz")
@@ -71,21 +78,43 @@ public class UserController {
     }
 
     @GetMapping("/user/dogams")
-    public List<Dogam> getDogamList(@CurrentUser UserPrincipal userPrincipal){
-        return userService.getDogamList(userPrincipal.getId());
+    public ResponseEntity<?> getDogamList(@CurrentUser UserPrincipal userPrincipal){
+        try{
+            return new ResponseEntity<>(
+                    userService.getDogamList(userPrincipal.getId()),
+                    HttpStatus.OK);
+        } catch (NoSuchElementException noSuchElementException){
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @GetMapping("/badge")
-    public List<Badge> getAllBadges(@CurrentUser UserPrincipal userPrincipal) {
+    public ResponseEntity<?> getAllBadges(@CurrentUser UserPrincipal userPrincipal) {
 
-        Long user_id = userPrincipal.getId();
-
-        return userService.getAllBadges(user_id);
+        try{
+            return new ResponseEntity<>(
+                    userService.getAllBadges(userPrincipal.getId()),
+                    HttpStatus.OK);
+        } catch (NoSuchElementException noSuchElementException){
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @GetMapping("/user/dogam")
-    public boolean getDogamList(@CurrentUser UserPrincipal userPrincipal, @RequestParam String domain, @RequestParam(name = "mongo_id") String mongoId){
-        return userService.checkDogam(userPrincipal.getId(),domain,mongoId);
+    public ResponseEntity<Boolean> getDogamList(@CurrentUser UserPrincipal userPrincipal, @RequestParam String domain, @RequestParam(name = "mongo_id") String mongoId){
+        try{
+            return new ResponseEntity<>(
+                    userService.checkDogam(userPrincipal.getId(),domain,mongoId),
+                    HttpStatus.OK);
+        } catch (NoSuchElementException noSuchElementException){
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
 }
