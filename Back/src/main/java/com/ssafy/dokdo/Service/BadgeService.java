@@ -27,11 +27,4 @@ public class BadgeService {
 
     }
 
-
-    public List<Badge> getAllBadges(Long id) {
-        User user = userRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("User", "id", id));
-
-        return user.getBadgeList();
-    }
 }

@@ -1,5 +1,6 @@
 package com.ssafy.dokdo.Service;
 
+import com.ssafy.dokdo.Entity.Badge;
 import com.ssafy.dokdo.Entity.Dogam;
 import com.ssafy.dokdo.Entity.QuizUser;
 import com.ssafy.dokdo.Entity.User;
@@ -29,9 +30,6 @@ public class UserService {
                 .orElseThrow(() -> new ResourceNotFoundException("User", "id", id));
 
         QuizUser quizUser = user.getQuizUser();
-        if(quizUser==null){
-            quizUser = new QuizUser(false, false, false);
-        }
         switch (quiz){
             case 5:
                 quizUser.setFive(true);
@@ -71,6 +69,11 @@ public class UserService {
         return user.getDogamList();
     }
 
+    public List<Badge> getAllBadges(Long id) {
+        User user = userRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("User", "id", id));
+
+        return user.getBadgeList();
 
     public Boolean checkDogam(Long id,String domain,String mongoId){
         User user = userRepository.findById(id)
