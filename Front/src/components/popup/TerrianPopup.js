@@ -1,12 +1,8 @@
-import React, { useEffect, useRef, useState, useLayoutEffect } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import "../css/TerrianPopup.css";
 import { getAllTerrians } from "../../api/terrainApi";
 
 let map = null;
-
-export const mapReLoading = () => {
-  map.relayout();
-};
 
 function TerrianPopup(isShown) {
   const mapElement = useRef(null);
@@ -16,7 +12,6 @@ function TerrianPopup(isShown) {
   const [showPlace, setShowPlace] = useState(false);
   const [curPlace, setCurPlace] = useState("");
   const [curMarker, setCurMarker] = useState(null);
-  const [className, setClassName] = useState("");
 
   useEffect(() => {
     const allwithClass = document.getElementsByClassName("TerrianPopup");
@@ -112,8 +107,6 @@ function TerrianPopup(isShown) {
       console.log(map.getCenter());
     });
 
-    // 지도 리사이즈
-
     // kakao map End
   }, [isShown, isLoaded]);
 
@@ -197,4 +190,7 @@ function TerrianPopup(isShown) {
     </div>
   );
 }
+export const mapReLoading = () => {
+  map.relayout();
+};
 export default TerrianPopup;

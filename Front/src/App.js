@@ -2,7 +2,7 @@ import "./App.css";
 import { Routes, Route } from "react-router-dom";
 import React from "react";
 
-import { PopupTest, MypageTest, MainTest } from "./pages/index";
+import { PopupTest, MypageTest, MainTest, LoadingTest } from "./pages/index";
 
 function App() {
   return (
@@ -11,6 +11,7 @@ function App() {
         <Route path='/popup/popupTest' element={<PopupTest />} />
         <Route path='/mypage/mypageTest' element={<MypageTest />} />
         <Route path='/main/mainTest' element={<MainTest />} />
+        <Route path='/LoadingTest' element={<LoadingTest />} />
       </Routes>
     </>
   );
