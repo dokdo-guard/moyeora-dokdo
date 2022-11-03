@@ -15,6 +15,11 @@ function LoadingComponent() {
   return (
     <div className='LoadingCompoenetContainer'>
       <div className='LoadingTipBox'>
+        <img
+          className='tipIcon'
+          src={process.env.PUBLIC_URL + "/assets/icons/TipIcon.png"}
+          alt=''
+        ></img>
         <div>{tipText[tipNum].text}</div>
       </div>
       <div className='LoadingCenter'></div>
