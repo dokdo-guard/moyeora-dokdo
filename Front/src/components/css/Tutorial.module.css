@@ -69,11 +69,15 @@
   font-size: 24px;
   font-weight: bold;
   border-radius: 10px;
+  transition: all 100ms;
   background-color: #FEB653;
+  
 }
 
 .contents :nth-child(4):hover {
   cursor: pointer;
+  color: white;
+  background-color: #644820;
 }
 
 .contents img{
