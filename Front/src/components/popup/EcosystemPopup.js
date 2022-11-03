@@ -51,6 +51,7 @@ function EcoSystemPopup() {
         });
     } else {
       console.log("no category");
+      setData([]);
     }
   }, [category]);
   const ShowDetail = () => {
@@ -61,7 +62,9 @@ function EcoSystemPopup() {
             onClick={() => {
               setSelectedData("");
               setDetailSelected(false);
-              setCategory("");
+              if (!detailSelected) {
+                setCategory("");
+              }
             }}
           >
             Back
