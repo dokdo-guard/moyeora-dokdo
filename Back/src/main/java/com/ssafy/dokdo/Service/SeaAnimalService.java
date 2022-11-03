@@ -1,9 +1,7 @@
 package com.ssafy.dokdo.Service;
 
 import com.ssafy.dokdo.Entity.SeaAnimal;
-import com.ssafy.dokdo.Entity.SeaPlant;
 import com.ssafy.dokdo.Repository.SeaAnimalRepository;
-import com.ssafy.dokdo.Repository.SeaPlantRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

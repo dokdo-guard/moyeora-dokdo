@@ -10,7 +10,7 @@ import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
-// http://localhost:8080/api/swagger-ui.html
+// http://localhost:8443/api/swagger-ui.html
 @Configuration
 @EnableSwagger2
 public class SwaggerConfig {
@@ -18,6 +18,7 @@ public class SwaggerConfig {
     @Bean
     public Docket restAPI() {
         return new Docket(DocumentationType.SWAGGER_2)
+                .host("k7d204.p.ssafy.io")
                 .apiInfo(apiInfo())
                 .select()
                 .apis(RequestHandlerSelectors.basePackage("com.ssafy.dokdo.Controller"))

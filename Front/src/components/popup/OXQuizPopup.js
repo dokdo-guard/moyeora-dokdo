@@ -1,105 +1,43 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { styled } from "@mui/material/styles";
 import LinearProgress, {
   linearProgressClasses,
 } from "@mui/material/LinearProgress";
-import Typography from "@mui/material/Typography";
+// import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 
+import { getQuiz } from "../../api/quizApi.js";
 import "../css/OXQuizPopup.css";
-
-// 더미 데이터
-const dummy_data = [
-  {
-    id: 1,
-    quizText: "독도는 지리적, 역사적, 국제법적으로 대한민국의 고유영토이다.",
-    answer: true,
-  },
-  {
-    id: 2,
-    quizText: "답 X.2",
-    answer: false,
-  },
-  {
-    id: 3,
-    quizText: "답 X.3",
-    answer: false,
-  },
-  {
-    id: 4,
-    quizText: "독도는 지리적, 역사적, 국제법적으로 대한민국의 고유영토이다.4",
-    answer: true,
-  },
-  {
-    id: 5,
-    quizText: "답 X.5",
-    answer: false,
-  },
-  {
-    id: 6,
-    quizText: "독도는 지리적, 역사적, 국제법적으로 대한민국의 고유영토이다.6",
-    answer: true,
-  },
-  {
-    id: 7,
-    quizText: "독도는 지리적, 역사적, 국제법적으로 대한민국의 고유영토이다.7",
-    answer: true,
-  },
-  {
-    id: 8,
-    quizText: "독도는 지리적, 역사적, 국제법적으로 대한민국의 고유영토이다.8",
-    answer: true,
-  },
-  {
-    id: 9,
-    quizText: "독도는 지리적, 역사적, 국제법적으로 대한민국의 고유영토이다.9",
-    answer: true,
-  },
-  {
-    id: 10,
-    quizText: "답 X.10",
-    answer: false,
-  },
-  {
-    id: 11,
-    quizText: "독도는 지리적, 역사적, 국제법적으로 대한민국의 고유영토이다.11",
-    answer: true,
-  },
-  {
-    id: 12,
-    quizText: "독도는 지리적, 역사적, 국제법적으로 대한민국의 고유영토이다.12",
-    answer: true,
-  },
-  {
-    id: 13,
-    quizText: "독도는 지리적, 역사적, 국제법적으로 대한민국의 고유영토이다.13",
-    answer: true,
-  },
-  {
-    id: 14,
-    quizText: "독도는 지리적, 역사적, 국제법적으로 대한민국의 고유영토이다.14",
-    answer: true,
-  },
-  {
-    id: 15,
-    quizText: "독도는 지리적, 역사적, 국제법적으로 대한민국의 고유영토이다.15",
-    answer: true,
-  },
-  {
-    id: 16,
-    quizText: "쓰레기 값",
-    asnwer: false,
-  },
-];
 
 // 문제 개수 선택 화면
 function OXQuizPopup() {
   const [quizNum, setQuizNum] = useState(0);
   const [selected, setSelected] = useState(false);
+  const [quiz, setQuiz] = useState([]);
   const [quizProgress, setQuizProgress] = useState(0);
   const [answerCorrect, setAnswerCorrect] = useState(0);
-  const [curProgress, setCurProgress] = useState(0);
+  useEffect(() => {
+    // console.log("USE EFFECT CALL");
+    getQuiz(quizNum)
+      .then((res) => {
+        setQuiz([
+          { ...res },
+          {
+            id: "END",
+            answer: "END",
+            quizText: "END",
+          },
+        ]);
+        // console.log(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+
+    // console.log(quizNum);
+  }, [quizNum]);
+
   const SelectQuizNum = () => {
     return (
       <div className='OXQuizInWrapper'>
@@ -111,7 +49,7 @@ function OXQuizPopup() {
               setSelected(true);
             }}
           >
-            5
+            5 문제
           </button>
         </div>
         <div>
@@ -122,7 +60,7 @@ function OXQuizPopup() {
               setSelected(true);
             }}
           >
-            10
+            10 문제
           </button>
         </div>
         <div>
@@ -133,7 +71,7 @@ function OXQuizPopup() {
               setSelected(true);
             }}
           >
-            15
+            15 문제
           </button>
         </div>
       </div>
@@ -149,6 +87,7 @@ function OXQuizPopup() {
           {answerCorrect}
         </div>
         <div>
+          {/* 처음으로 돌아가기 버튼 */}
           <button
             className='endQuizButton'
             onClick={() => {
@@ -160,6 +99,7 @@ function OXQuizPopup() {
           >
             다시 풀기
           </button>
+          {/* 점수 등록 할 것 */}
           <button className='endQuizButton2'>종료하기</button>
         </div>
       </div>
@@ -209,16 +149,13 @@ function OXQuizPopup() {
                   value={(quizProgress / quizNum) * 100}
                 />
               </div>
-              <div className='QuizText'>
-                {dummy_data[quizProgress].id}
-                {dummy_data[quizProgress].quizText}
-              </div>
+              {/* <div className='QuizText'>{quiz[quizProgress].quizText}</div> */}
               <div className='QuizOX'>
                 <button
                   className='OX_O'
                   onClick={() => {
                     setQuizProgress(quizProgress + 1);
-                    if (dummy_data[quizProgress].answer) {
+                    if (quiz[quizProgress].answer === "O") {
                       setAnswerCorrect(answerCorrect + 1);
                     }
                   }}
@@ -232,7 +169,7 @@ function OXQuizPopup() {
                     if (quizProgress >= 15) {
                       return;
                     }
-                    if (!dummy_data[quizProgress].answer) {
+                    if (quiz[quizProgress].answer === "X") {
                       setAnswerCorrect(answerCorrect + 1);
                     }
                   }}

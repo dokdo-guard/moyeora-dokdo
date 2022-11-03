@@ -1,10 +1,11 @@
 package com.ssafy.dokdo.Entity;
 
 import lombok.Data;
+import lombok.Getter;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-@Data
+@Getter
 @Document
 public class Terrain {
     @Id
@@ -16,4 +17,7 @@ public class Terrain {
     private String img2;
     private String img3;
     private String img4;
+    private String lat;
+    private String lng;
+
 }

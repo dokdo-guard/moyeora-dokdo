@@ -1,13 +1,17 @@
 package com.ssafy.dokdo.Security.oauth2;
 
+import com.ssafy.dokdo.Entity.QuizUser;
+import com.ssafy.dokdo.Entity.User;
+import com.ssafy.dokdo.Entity.Visited;
 import com.ssafy.dokdo.Exception.OAuth2AuthenticationProcessingException;
 import com.ssafy.dokdo.Model.AuthProvider;
-import com.ssafy.dokdo.Model.User;
+import com.ssafy.dokdo.Repository.QuizUserRepository;
 import com.ssafy.dokdo.Repository.UserRepository;
+import com.ssafy.dokdo.Repository.VisitedRepository;
 import com.ssafy.dokdo.Security.UserPrincipal;
 import com.ssafy.dokdo.Security.oauth2.user.OAuth2UserInfo;
 import com.ssafy.dokdo.Security.oauth2.user.OAuth2UserInfoFactory;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.security.authentication.InternalAuthenticationServiceException;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
@@ -22,10 +26,12 @@ import java.time.format.DateTimeFormatter;
 import java.util.Optional;
 
 @Service
+@AllArgsConstructor
 public class CustomOAuth2UserService extends DefaultOAuth2UserService {
 
-    @Autowired
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
+    private final QuizUserRepository quizUserRepository;
+    private final VisitedRepository visitedRepository;
 
     @Override
     public OAuth2User loadUser(OAuth2UserRequest oAuth2UserRequest) throws OAuth2AuthenticationException {
@@ -67,11 +73,22 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
     private User registerNewUser(OAuth2UserRequest oAuth2UserRequest, OAuth2UserInfo oAuth2UserInfo) {
         User user = new User();
 
-        user.setProvider(AuthProvider.valueOf(oAuth2UserRequest.getClientRegistration().getRegistrationId()));
-        user.setProviderId(oAuth2UserInfo.getId());
         user.setName(oAuth2UserInfo.getName() + LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss")));
         user.setEmail(oAuth2UserInfo.getEmail());
+        user.setUserCharacter("default");
+        user.setProvider(AuthProvider.valueOf(oAuth2UserRequest.getClientRegistration().getRegistrationId()));
+        user.setProviderId(oAuth2UserInfo.getId());
+
+        Visited visited = new Visited();
+        user.setVisited(visited);
+        visitedRepository.saveAndFlush(visited);
+
+        QuizUser quizUser = new QuizUser();
+        user.setQuizUser(quizUser);
+        quizUserRepository.saveAndFlush(quizUser);
+
         return userRepository.save(user);
+
     }
 
     private User updateExistingUser(User existingUser, OAuth2UserInfo oAuth2UserInfo) {

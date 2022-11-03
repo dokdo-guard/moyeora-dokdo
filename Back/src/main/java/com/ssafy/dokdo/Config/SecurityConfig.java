@@ -1,6 +1,8 @@
 package com.ssafy.dokdo.Config;
 
-import com.ssafy.dokdo.Security.*;
+import com.ssafy.dokdo.Security.CustomUserDetailsService;
+import com.ssafy.dokdo.Security.RestAuthenticationEntryPoint;
+import com.ssafy.dokdo.Security.TokenAuthenticationFilter;
 import com.ssafy.dokdo.Security.oauth2.CustomOAuth2UserService;
 import com.ssafy.dokdo.Security.oauth2.HttpCookieOAuth2AuthorizationRequestRepository;
 import com.ssafy.dokdo.Security.oauth2.OAuth2AuthenticationFailureHandler;
@@ -19,6 +21,9 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 @Configuration
 @EnableWebSecurity
@@ -82,6 +87,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .cors()
+                    .configurationSource(corsConfigurationSource())
                     .and()
                 .sessionManagement()
                     .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
@@ -111,6 +117,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         .permitAll()
                     .antMatchers("/info/**")
                         .permitAll()
+                    .antMatchers("/swagger-resources/**","/configuration/ui","/configuration/security", "/v2/api-docs", "/swagger-ui.html","/webjars/**").permitAll()
                     .anyRequest()
                         .authenticated()
                     .and()
@@ -130,5 +137,20 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         // Add our custom Token based authentication filter
         http.addFilterBefore(tokenAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
+    }
+
+    // CORS 허용 적용
+    @Bean
+    public CorsConfigurationSource corsConfigurationSource() {
+        CorsConfiguration configuration = new CorsConfiguration();
+
+        configuration.addAllowedOriginPattern("*");
+        configuration.addAllowedHeader("*");
+        configuration.addAllowedMethod("*");
+        configuration.setAllowCredentials(true);
+
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", configuration);
+        return source;
     }
 }

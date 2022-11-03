@@ -1,5 +1,10 @@
 import React from "react";
-import { OXQuizPopup } from "../components/index";
+import {
+  OXQuizPopup,
+  // TerrianPopup,
+  // EcoSystemPopup,
+  // HistoryPopup,
+} from "../components/index";
 
 function PopupTest() {
   return (

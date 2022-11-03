@@ -1,9 +1,7 @@
 package com.ssafy.dokdo.Service;
 
 import com.ssafy.dokdo.Entity.Bird;
-import com.ssafy.dokdo.Entity.Plant;
 import com.ssafy.dokdo.Repository.BirdRepository;
-import com.ssafy.dokdo.Repository.PlantRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
