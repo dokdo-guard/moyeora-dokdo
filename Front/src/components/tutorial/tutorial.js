@@ -1,13 +1,17 @@
 import { useEffect, useState } from 'react';
 import popupStyles from '../css/Tutorial.module.css';
 import PropTypes from 'prop-types';
+import Interact from './howToInteract';
+import Move from './howToMove';
 
 const Popup = (props) => {
   const [show, setShow] = useState(false);
+  const [page, setPage] = useState(0);
 
   const closeHandler = (e) => {
     setShow(false);
     props.onClose(false);
+    setPage(0);
   };
 
   useEffect(() => {
@@ -26,9 +30,30 @@ const Popup = (props) => {
         <img src="/assets/icons/cancel.png" onClick={closeHandler}></img>
       </div>
       <div className={popupStyles.contents}>
-        <div>
-          <img src="/assets/images/characters/siryeong.png"></img>
-        </div>
+        {page == 0 && (
+          <>
+            <Move></Move>
+            <button
+              onClick={() => {
+                setPage(1);
+              }}
+            >
+              다 음
+            </button>
+          </>
+        )}
+        {page == 1 && (
+          <>
+            <Interact />
+            <button
+              onClick={() => {
+                closeHandler();
+              }}
+            >
+              완 료
+            </button>
+          </>
+        )}
       </div>
     </div>
   );
