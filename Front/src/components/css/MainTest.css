@@ -10,8 +10,9 @@
 
 .mainPage .screenShot {
 	cursor: pointer;
-	margin-left: 95%;
-	margin-top: 580px
+	left: 94%;
+	top:80%;
+	position: absolute;
 }
 
 .mainPage .screenShotButton {
@@ -34,8 +35,9 @@
 
 .mainPage .tutorial {
 	cursor: pointer;
-	margin-left: 10%;
-	margin-top: 650px
+	left: 94%;
+	top: 90%;
+	position: absolute;
 }
 
 .mainPage .tutorialMark {
@@ -51,7 +53,7 @@
 
 .mainPage .menu {
 	position: absolute;
-	z-index: 1000;
+	z-index: 10;
 	margin-left: 50px;
 	margin-top: -50px;
 }
@@ -61,4 +63,10 @@
 	position: absolute;
 	z-index: 1;
 	cursor: pointer;
+}
+
+
+.mainPage .myPage {
+	position: absolute;
+	z-index: 2;
 }
