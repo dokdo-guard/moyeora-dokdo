@@ -8,6 +8,5 @@ import java.util.Optional;
 
 @Repository
 public interface QuizUserRepository extends JpaRepository<QuizUser,String> {
-    @Override
-    Optional<QuizUser> findById(String s);
+    Optional<QuizUser> findById(Long id);
 }

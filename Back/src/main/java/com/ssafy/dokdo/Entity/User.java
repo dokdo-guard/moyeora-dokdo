@@ -1,4 +1,5 @@
 package com.ssafy.dokdo.Entity;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.ssafy.dokdo.Model.AuthProvider;
 import lombok.Getter;
@@ -34,9 +35,6 @@ public class User {
 
     @NotNull
     private String userCharacter = "default";
-
-    @JsonIgnore
-    private String password;
 
     @NotNull
     @Enumerated(EnumType.STRING)
