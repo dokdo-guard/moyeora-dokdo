@@ -20,6 +20,11 @@ import HistoryPopup from "../components/popup/HistoryPopup";
 import TerrianPopup from "../components/popup/TerrianPopup";
 import OXQuizPopup from "../components/popup/OXQuizPopup";
 import EcoSystemPopup from "../components/popup/EcosystemPopup";
+// import Popup from '../components/mypage/selectCharacter';
+import Stats from "stats.js";
+import { useEffect, useState } from "react";
+
+import { mapReLoading } from "../components/popup/TerrianPopup";
 
 function MainTest() {
   // Cannon(물리엔진)
@@ -333,7 +338,7 @@ function MainTest() {
   const nature = new Nature({
     gltfLoader,
     scene,
-    modelSrc: "/assets/glTF/scene.glb",
+    modelSrc: "/assets/glTF/entireScene.glb",
     x: 0,
     y: 0,
     z: 0,
@@ -382,37 +387,37 @@ function MainTest() {
   });
 
   // 역사관
-  const history = new Building({
-    gltfLoader,
-    scene,
-    cannonWorld,
-    modelSrc: "/assets/glTF/history.glb",
-    x: 35,
-    y: 0.3,
-    z: 26,
-  });
+  // const history = new Building({
+  //   gltfLoader,
+  // 	scene,
+  // 	cannonWorld,
+  // 	modelSrc: '/assets/glTF/history.glb',
+  // 	x: 35,
+  // 	y: 0.3,
+  // 	z: 26,
+  // })
 
   // 지형관
-  const territory = new Territory({
-    gltfLoader,
-    scene,
-    cannonWorld,
-    modelSrc: "/assets/glTF/territory.gltf",
-    x: 28,
-    y: 1,
-    z: -25,
-  });
+  // const territory = new Territory({
+  //   gltfLoader,
+  // 	scene,
+  // 	cannonWorld,
+  // 	modelSrc: '/assets/glTF/territory.gltf',
+  // 	x: 28,
+  // 	y: 1,
+  // 	z: -25,
+  // })
 
   // 퀴즈관
-  const quiz = new Quiz({
-    gltfLoader,
-    scene,
-    cannonWorld,
-    modelSrc: "/assets/glTF/quiz.gltf",
-    x: 50,
-    y: 1,
-    z: 0,
-  });
+  // const quiz = new Quiz({
+  // 	gltfLoader,
+  // 	  scene,
+  // 	  cannonWorld,
+  // 	  modelSrc: '/assets/glTF/quiz.gltf',
+  // 	  x: 50,
+  // 	  y: 1,
+  // 	  z: 0,
+  //   })
 
   // 생태관
   const ecosystem = new EcoSystem({
@@ -526,8 +531,13 @@ function MainTest() {
   // 시계를 활용해서 계속 돌아가는 코드임 -> 애니메이션을 위해!
   const clock = new THREE.Clock();
 
+  // fps 체크
+  const stats = new Stats();
+  document.body.append(stats.domElement);
+
   function draw() {
     render();
+    stats.update();
     const delta = clock.getDelta();
     cannonWorld.step(1 / 60, delta, 1);
     eastFloorMesh.position.copy(eastFloorBody.position);
@@ -555,10 +565,10 @@ function MainTest() {
       cannonWorld.addBody(player.cannonBody);
     }
 
-    if (territory.cannonBody) {
-      territory.modelMesh.position.copy(territory.cannonBody.position);
-      cannonWorld.addBody(territory.cannonBody);
-    }
+    // if (territory.cannonBody) {
+    // 	territory.modelMesh.position.copy(territory.cannonBody.position);
+    // 	cannonWorld.addBody(territory.cannonBody)
+    // }
 
     // if (ecosystem.cannonBody) {
     // 	ecosystem.modelMesh.position.copy(ecosystem.cannonBody.position);
@@ -591,7 +601,6 @@ function MainTest() {
           Math.abs(destinationPoint.z - player.modelMesh.position.z) < 0.03
         ) {
           player.moving = false;
-          console.log("멈춤");
         }
 
         // 만약 플레이어 캐릭터가 각 건물의 이벤트 안에 들어갔을 경우에 행할 것
@@ -681,7 +690,6 @@ function MainTest() {
     // raycaster.setFromCamera(mouse, camera);
     const intersects = raycaster.intersectObjects(meshes);
     for (const item of intersects) {
-      console.log(item);
       if (item.object.name === "floor") {
         destinationPoint.x = item.point.x;
         destinationPoint.y = 0.3;
@@ -692,8 +700,6 @@ function MainTest() {
 
         pointerMesh.position.x = destinationPoint.x;
         pointerMesh.position.z = destinationPoint.z;
-
-        console.log("땅이다");
       } else if (
         item.object.name === "land_79030" ||
         item.object.name === "land_79020" ||
@@ -708,15 +714,11 @@ function MainTest() {
 
         pointerMesh.position.x = destinationPoint.x;
         pointerMesh.position.z = destinationPoint.z;
-
-        console.log("다리다");
       } else if (item.object.name === "SeaLion") {
-        console.log("강치를 터치하였습니다!");
         강치.actions[1].setLoop(THREE.LoopOnce);
         강치.actions[1].stop();
         강치.actions[1].play();
       } else if (item.object.name === "Dolphin") {
-        console.log("돌고래를 터치하였습니다!");
         돌고래.actions[1].setLoop(THREE.LoopOnce);
         돌고래.actions[1].stop();
         돌고래.actions[1].play();
@@ -728,28 +730,26 @@ function MainTest() {
         QuizPop.addEventListener("mouseup", () => {
           isPressed = false;
         });
-        console.log("보인다");
       } else if (item.object.name === "지질팻말") {
         const TerrianPop = document.getElementById("TerrianPopup");
         TerrianPop.style.display = "block";
         TerrianPop.addEventListener("mouseup", () => {
           isPressed = false;
         });
-        console.log("보인다");
+        // setPopUp(!popUp);
+        mapReLoading();
       } else if (item.object.name === "생태팻말") {
         const EcoPop = document.getElementById("EcoPopup");
         EcoPop.style.display = "block";
         EcoPop.addEventListener("mouseup", () => {
           isPressed = false;
         });
-        console.log("보인다");
       } else if (item.object.name === "역사팻말") {
         const HistoryPop = document.getElementById("HistoryPopup");
         HistoryPop.style.display = "block";
         HistoryPop.addEventListener("mouseup", () => {
           isPressed = false;
         });
-        console.log("보인다");
       }
       break;
     }
@@ -757,14 +757,18 @@ function MainTest() {
 
   const quitPopup = () => {
     const QuizPop = document.getElementById("QuizPopup");
-    const TerrianPop = document.getElementById("TerrianPopup");
     const EcoPop = document.getElementById("EcoPopup");
     const HistoryPop = document.getElementById("HistoryPopup");
-    TerrianPop.style.display = "none";
     QuizPop.style.display = "none";
     EcoPop.style.display = "none";
     HistoryPop.style.display = "none";
-    console.log("나가자!!!");
+  };
+
+  const TerrianQuitPopup = () => {
+    const TerrianPop = document.getElementById("TerrianPopup");
+    TerrianPop.style.display = "none";
+    // setPopUp(!popUp);
+    popUp = !popUp;
   };
 
   function setSize() {
@@ -863,11 +867,32 @@ function MainTest() {
     };
   })();
 
+  // 마이페이지 호출 버튼
+  const clickMyPage = () => {
+    const MyPagePop = document.getElementById("myPage");
+    MyPagePop.style.display = "block";
+    MyPagePop.addEventListener("mouseup", () => {
+      isPressed = false;
+    });
+  };
+
+  // 지형관 상태 변경 감지 코드
+  //   const [popUp, setPopUp] = useState(false);
+  var popUp = false;
+  const TerrianPop = document.getElementById("TerrianPopup");
+  useEffect(() => {
+    console.log("USEEFFECT CALL imn MAINTEST");
+  });
+
   return (
     <>
       <div className='mainPage'>
         {/* 팝업 컴포넌트들 */}
-        <div className='QuizPopup' id='QuizPopup' style={{ display: "none" }}>
+        <div
+          className='QuizPopup'
+          id='QuizPopup'
+          style={{ display: "none", marginTop: "40px", marginLeft: "115px" }}
+        >
           <img
             src='/assets/icons/close.png'
             id='quitButton'
@@ -879,17 +904,21 @@ function MainTest() {
         <div
           className='TerrianPopup'
           id='TerrianPopup'
-          style={{ display: "none" }}
+          style={{ display: "none", marginTop: "40px", marginLeft: "115px" }}
         >
           <img
             src='/assets/icons/close.png'
             id='quitButton'
-            onClick={quitPopup}
+            onClick={TerrianQuitPopup}
           ></img>
-          <TerrianPopup></TerrianPopup>
+          <TerrianPopup isShown={popUp}></TerrianPopup>
         </div>
 
-        <div className='EcoPopup' id='EcoPopup' style={{ display: "none" }}>
+        <div
+          className='EcoPopup'
+          id='EcoPopup'
+          style={{ display: "none", marginTop: "40px", marginLeft: "115px" }}
+        >
           <img
             src='/assets/icons/close.png'
             id='quitButton'
@@ -901,7 +930,7 @@ function MainTest() {
         <div
           className='HistoryPopup'
           id='HistoryPopup'
-          style={{ display: "none" }}
+          style={{ display: "none", marginTop: "40px", marginLeft: "115px" }}
         >
           <img
             src='/assets/icons/close.png'
@@ -911,19 +940,29 @@ function MainTest() {
           <HistoryPopup></HistoryPopup>
         </div>
 
-        {/* <div className='screenShot' onClick={clickScreenCapture} id="screenshot">
-		<img className='screenShotButton'
-			src='/assets/images/camera.png'
-		></img>
+        {/* 마이페이지 버튼 */}
+        {/* <div className='myPage' onClick={clickMyPage} id='myPage'>
 		<div className='ButtonBackGround'></div>
+		<Popup></Popup>
 	</div> */}
 
-        {/* <div className='tutorial'>
-		<img className='tutorialMark'
-			src='/assets/images/tutorial.png'
-		></img>
-		<div className='ButtonBackGround'></div>
-	</div> */}
+        {/* 하단의 스크린샷 버튼과 튜토리얼 버튼 */}
+        <div
+          className='screenShot'
+          onClick={clickScreenCapture}
+          id='screenshot'
+        >
+          <img
+            className='screenShotButton'
+            src='/assets/images/camera.png'
+          ></img>
+          <div className='ButtonBackGround'></div>
+        </div>
+
+        <div className='tutorial'>
+          <img className='tutorialMark' src='/assets/images/tutorial.png'></img>
+          <div className='ButtonBackGround'></div>
+        </div>
       </div>
       ;
     </>
