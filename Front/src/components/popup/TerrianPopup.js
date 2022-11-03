@@ -1,15 +1,17 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState, useLayoutEffect } from "react";
 import "../css/TerrianPopup.css";
 import { getAllTerrians, getTerrain } from "../../api/terrainApi";
 
-function TerrianPopup() {
+function TerrianPopup(isShown) {
   const mapElement = useRef(null);
   const [places, setPlaces] = useState([]);
   const [isLoaded, setIsLoaded] = useState(false);
+  const [mapLoaded, setMapLoaded] = useState(false);
   const [showPlace, setShowPlace] = useState(false);
   const [curPlace, setCurPlace] = useState("");
   const [curMarker, setCurMarker] = useState(null);
   useEffect(() => {
+    // console.log("API useEffect Call(TerrianData)");
     getAllTerrians()
       .then((res) => {
         setPlaces(res.data);
@@ -18,9 +20,9 @@ function TerrianPopup() {
       .catch((err) => {
         console.log(err);
       });
-  }, []);
+  }, [mapLoaded]);
   useEffect(() => {
-    // console.log("useEffect Call");
+    // console.log("MAP useEffect Call(TerrianData)");
     // kakao map Start
     const { kakao } = window;
     if (!mapElement.current || !kakao) return;
@@ -31,12 +33,17 @@ function TerrianPopup() {
     );
     const mapOptions = {
       center: location,
-      draggable: false,
-      zoomable: false,
+      // draggable: false,
+      // zoomable: false,
       disableDoubleClick: true,
       level: 4,
     };
+
     const map = new kakao.maps.Map(mapElement.current, mapOptions);
+
+    // 지도 리사이즈
+    map.relayout();
+
     // Display Markers
     function displayMarker(place) {
       var marker = new kakao.maps.Marker({
@@ -71,6 +78,7 @@ function TerrianPopup() {
         displayMarker(place);
         return place;
       });
+      setMapLoaded(true);
     });
     var infowindow = new kakao.maps.InfoWindow({
       content: `<div style="padding:5px; width:100%;text-align:center;font-weight:300;border-radius:10px;">${curPlace.name}</div>`,
@@ -84,8 +92,11 @@ function TerrianPopup() {
     // kakao.maps.event.addListener(map, "center_changed", function () {
     //   console.log(map.getCenter());
     // });
+
+    // 지도 리사이즈
+
     // kakao map End
-  }, [isLoaded]);
+  }, [isShown, isLoaded]);
 
   const BaseInfo = () => {
     return (
@@ -154,6 +165,7 @@ function TerrianPopup() {
       </div>
     );
   };
+
   return (
     <div className='TerrianPopupContainer'>
       <div className='TerrianPopupTitle'>독도의 지리 및 지리</div>
