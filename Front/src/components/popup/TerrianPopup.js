@@ -1,6 +1,12 @@
 import React, { useEffect, useRef, useState, useLayoutEffect } from "react";
 import "../css/TerrianPopup.css";
-import { getAllTerrians, getTerrain } from "../../api/terrainApi";
+import { getAllTerrians } from "../../api/terrainApi";
+
+let map = null;
+
+export const mapReLoading = () => {
+  map.relayout();
+};
 
 function TerrianPopup(isShown) {
   const mapElement = useRef(null);
@@ -10,6 +16,14 @@ function TerrianPopup(isShown) {
   const [showPlace, setShowPlace] = useState(false);
   const [curPlace, setCurPlace] = useState("");
   const [curMarker, setCurMarker] = useState(null);
+  const [className, setClassName] = useState("");
+
+  useEffect(() => {
+    const allwithClass = document.getElementsByClassName("TerrianPopup");
+
+    console.log("ALLWITHCLASS");
+    console.log(allwithClass);
+  }, []);
   useEffect(() => {
     // console.log("API useEffect Call(TerrianData)");
     getAllTerrians()
@@ -20,16 +34,21 @@ function TerrianPopup(isShown) {
       .catch((err) => {
         console.log(err);
       });
+    if (map !== null) {
+      // 지도 리사이즈
+      map.relayout();
+    }
   }, [mapLoaded]);
   useEffect(() => {
-    // console.log("MAP useEffect Call(TerrianData)");
+    console.log("MAP useEffect Call(TerrianData)");
+    console.log(isShown);
     // kakao map Start
     const { kakao } = window;
     if (!mapElement.current || !kakao) return;
 
     const location = new kakao.maps.LatLng(
-      37.242318015510335,
-      131.8669424097961,
+      37.242014789309735,
+      131.86599959590592,
     );
     const mapOptions = {
       center: location,
@@ -39,7 +58,7 @@ function TerrianPopup(isShown) {
       level: 4,
     };
 
-    const map = new kakao.maps.Map(mapElement.current, mapOptions);
+    map = new kakao.maps.Map(mapElement.current, mapOptions);
 
     // 지도 리사이즈
     map.relayout();
@@ -89,9 +108,9 @@ function TerrianPopup(isShown) {
     }
 
     // 중심좌표 이동시 중심 좌표 콘솔에 출력
-    // kakao.maps.event.addListener(map, "center_changed", function () {
-    //   console.log(map.getCenter());
-    // });
+    kakao.maps.event.addListener(map, "center_changed", function () {
+      console.log(map.getCenter());
+    });
 
     // 지도 리사이즈
 
