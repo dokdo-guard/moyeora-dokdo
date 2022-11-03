@@ -56,6 +56,10 @@ public class UserService {
         return convertToDto(userRepository.save(user));
     }
 
+    public Boolean checkNickName(String nickname){
+        return userRepository.findByName(nickname).isPresent();
+    }
+
     public UserDto updateName(Long id, String name) {
         User user = userRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("User", "id", id));
