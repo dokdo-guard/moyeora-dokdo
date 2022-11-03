@@ -96,7 +96,7 @@ function TerrianPopup(isShown) {
     // 지도 리사이즈
 
     // kakao map End
-  }, [isShown]);
+  }, [isShown, isLoaded]);
 
   const BaseInfo = () => {
     return (
