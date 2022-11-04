@@ -45,7 +45,6 @@ spring:
             scope:
               - nickname
               - email
-              - profile_image
             clientName: Naver
           kakao:
             clientId: '52ab9c24f079107897220e2677d5a782'
@@ -55,7 +54,6 @@ spring:
             redirectUri: "{baseUrl}/oauth2/callback/{registrationId}"
             scope:
               - profile_nickname
-              - profile_image
               - account_email
             clientName: Kakao
 
