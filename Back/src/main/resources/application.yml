@@ -41,7 +41,7 @@ spring:
             clientSecret: 'ehH3zm_h9U'
             clientAuthenticationMethod: post
             authorizationGrantType: authorization_code
-            redirectUri: "{baseUrl}/oauth2/callback/{registrationId}"
+            redirectUri: "https://k7d204.p.ssafy.io/api/oauth2/callback/{registrationId}"
             scope:
               - nickname
               - email
@@ -51,7 +51,7 @@ spring:
             clientSecret: '9F22srrcwNw2wjvwE4fvdX2JSRjAqPyO'
             clientAuthenticationMethod: post
             authorizationGrantType: authorization_code
-            redirectUri: "{baseUrl}/oauth2/callback/{registrationId}"
+            redirectUri: "https://k7d204.p.ssafy.io/api/oauth2/callback/{registrationId}"
             scope:
               - profile_nickname
               - account_email
