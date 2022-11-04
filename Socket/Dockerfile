@@ -6,7 +6,7 @@ COPY . .
 RUN npm run build
 
 FROM nginx:stable-alpine as production-stage
-COPY --from=build-stage /var/jenkins_home/workspace/dokdo/Socket/build /usr/share/nginx/html1
+COPY --from=build-stage /var/jenkins_home/workspace/dokdo/Socket/build /usr/share/nginx/html
 COPY ./nginx/nginx.conf /etc/nginx/conf.d/default.conf
 
 EXPOSE 80

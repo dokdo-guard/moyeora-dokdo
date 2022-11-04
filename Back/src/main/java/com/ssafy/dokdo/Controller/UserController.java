@@ -1,7 +1,5 @@
 package com.ssafy.dokdo.Controller;
 
-import com.ssafy.dokdo.Entity.Badge;
-import com.ssafy.dokdo.Entity.Dogam;
 import com.ssafy.dokdo.Entity.User;
 import com.ssafy.dokdo.Exception.ResourceNotFoundException;
 import com.ssafy.dokdo.Security.CurrentUser;
@@ -13,7 +11,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 import java.util.Map;
 import java.util.NoSuchElementException;
 
@@ -59,6 +56,18 @@ public class UserController {
         } catch (ResourceNotFoundException resourceNotFoundException){
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @PostMapping("check/nickname")
+    public ResponseEntity<?> checkNickName(@CurrentUser UserPrincipal userPrincipal, @RequestBody Map<String, String> body){
+        try{
+            return new ResponseEntity<>(
+                    userService.checkNickName(body.get("name")),
+                    HttpStatus.OK
+            );
+        } catch (Exception e){
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
