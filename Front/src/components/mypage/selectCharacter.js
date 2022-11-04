@@ -121,19 +121,19 @@ const Popup = ((props) => {
       {/* <span className={popupStyles.close} onClick={closeHandler} /> */}
       <div className={popupStyles.emotion}>
         <img
-          src={require('../imgs/emotion/win.png')}
+          src='/assets/images/emotions/win.png'
           onClick={() => {
             actionHandler(5);
           }}
         ></img>
         <img
-          src={require('../imgs/emotion/dance.png')}
+          src='/assets/images/emotions/dance.png'
           onClick={() => {
             actionHandler(3);
           }}
         ></img>
         <img
-          src={require('../imgs/emotion/sad.png')}
+          src='/assets/images/emotions/sad.png'
           onClick={() => {
             actionHandler(2);
           }}
@@ -159,7 +159,7 @@ const Popup = ((props) => {
           return (
             <div key={idx}>
                 <img
-                  src={require('../imgs/characters/' + c_name + '.png')}
+                  src='`/assets/images/characters/${c_name}.png'
                   onClick={()=> {setCharacter(c_name)}}
                 ></img>
             </div>
