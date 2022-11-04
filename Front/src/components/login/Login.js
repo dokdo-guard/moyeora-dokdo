@@ -4,42 +4,34 @@ import {
   NAVER_AUTH_URL,
   KAKAO_AUTH_URL,
 } from '../../api/Oauth/uri';
+import '../css/Login.css';
 
-class Login extends Component {
-
-  render() {
-    return (
-      <div className="login-container">
-        <div className="login-content">
-          <h1 className="login-title">Login to SpringSocial</h1>
-          <SocialLogin />
-          <div className="or-separator">
-            <span className="or-text">OR</span>
-          </div>
-        </div>
+const Login = (props) => {
+  return (
+    <div className="content">
+      <div className="title">
+        <h1>모여봐요 우리땅 독도</h1>
       </div>
-    );
-  }
-}
+      <SocialLogin />
+    </div>
+  );
+};
 
-class SocialLogin extends Component {
-  render() {
-    return (
-      <div className="social-login">
-        <a className="btn btn-block social-btn google" href={GOOGLE_AUTH_URL}>
-          <img src="/assets/icons/google-logo.png" alt="Google" /> Log in with
-          Google
-        </a>
-        <a className="btn btn-block social-btn naver" href={NAVER_AUTH_URL}>
-          <img src="/assets/icons/github-logo.png" alt="Naver" /> Log in with
-          Naver
-        </a>
-        <a className="btn btn-block social-btn kakao" href={KAKAO_AUTH_URL}>
-          <img src="/assets/icons/fb-logo.png" alt="Kakao" /> Log in with Kakao
-        </a>
-      </div>
-    );
-  }
-}
+const SocialLogin = (props) => {
+  return (
+    <div className="socialLogin">
+      <a className="" href={GOOGLE_AUTH_URL}>
+        <img src="/assets/icons/google-logo.png" alt="Google" /> Log in with
+        Google
+      </a>
+      <a className="" href={NAVER_AUTH_URL}>
+        <img src="/assets/icons/naver-logo.png" alt="Naver" /> Log in with Naver
+      </a>
+      <a className="" href={KAKAO_AUTH_URL}>
+        <img src="/assets/icons/kakao-logo.png" alt="Kakao" /> Log in with Kakao
+      </a>
+    </div>
+  );
+};
 
 export default Login;
