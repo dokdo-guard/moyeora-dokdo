@@ -84,7 +84,7 @@
   transition: all 200ms;
   width: 80px;
   height: 80px;
-  background: url('../imgs/close.png') no-repeat;
+  /* background: url('../imgs/close.png') no-repeat; */
   background-size: contain;
 }
 .close:hover {
