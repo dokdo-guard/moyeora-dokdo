@@ -21,8 +21,8 @@ export class NPC {
 				this.modelMesh.position.set(this.x, this.y, this.z);
 				this.modelMesh.scale.multiplyScalar(0.8);
 				this.modelMesh.name = 'npc';
-				info.scene.add(this.modelMesh);
-				info.meshes.push(this.modelMesh);
+				// info.scene.add(this.modelMesh);
+				// info.meshes.push(this.modelMesh);
 
 				this.actions = [];
 				this.mixer = new AnimationMixer(this.modelMesh);

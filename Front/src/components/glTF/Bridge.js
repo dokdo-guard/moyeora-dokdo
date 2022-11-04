@@ -21,8 +21,8 @@ export class Bridge {
 				// this.modelMesh.scale.multiplyScalar(-1.5);
 				this.modelMesh.scale.x = 1;
 				this.modelMesh.scale.y = 1;
-				this.modelMesh.scale.z = 1;
-				this.modelMesh.rotation.y = -3.2;
+				this.modelMesh.scale.z = 1.2;
+				this.modelMesh.rotation.y = -2.8;
 				this.modelMesh.name = 'bridge';
 				info.scene.add(this.modelMesh);
 				info.meshes.push(this.modelMesh);
