@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import Interact from './howToInteract';
 import Move from './howToMove';
 
-const Popup = (props) => {
+const Tutorial = (props) => {
   const [show, setShow] = useState(false);
   const [page, setPage] = useState(0);
 
@@ -19,16 +19,18 @@ const Popup = (props) => {
   }, [props.show]);
 
   return (
+    <>
     <div
-      style={{
-        visibility: show ? 'visible' : 'hidden',
-        opacity: show ? '1' : '0',
-      }}
-      className={popupStyles.overlay}
+      // style={{
+      //   visibility: show ? 'visible' : 'hidden',
+      //   opacity: show ? '1' : '0',
+      // }}
+      // className={popupStyles.overlay}
+      style={{position:'absolute', zIndex:'12', left:'35%',scale:"120%",top:'20%'}}
     >
-      <div className={popupStyles.close}>
+      {/* <div className={popupStyles.close}>
         <img src="/assets/icons/cancel.png" onClick={closeHandler}></img>
-      </div>
+      </div> */}
       <div className={popupStyles.contents}>
         {page == 0 && (
           <>
@@ -47,21 +49,23 @@ const Popup = (props) => {
             <Interact />
             <button
               onClick={() => {
-                closeHandler();
+                setPage(0);
               }}
             >
-              완 료
+              이전
             </button>
           </>
         )}
       </div>
     </div>
+    <div style={{backgroundColor:'black',width:'100vw',height:'100vh', opacity:'50%',position:'absolute',zIndex:'7'}}></div>
+    </>
   );
 };
 
-Popup.propTypes = {
+Tutorial.propTypes = {
   show: PropTypes.bool.isRequired,
   onClose: PropTypes.func.isRequired,
 };
 
-export default Popup;
+export default Tutorial;

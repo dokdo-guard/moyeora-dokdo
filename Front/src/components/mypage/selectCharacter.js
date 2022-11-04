@@ -50,7 +50,7 @@ const Character = (props) => {
   return <primitive object={gltf.scene} scale={3} position={[0, -2, 0]} />;
 };
 
-const Popup = (props) => {
+const Popup = ((props) => {
   const characters = [
     'siryeong',
     'sojung',
@@ -79,36 +79,61 @@ const Popup = (props) => {
     globalDataSet.actions[myCharacter] = action;
     globalDataSet.actions[myCharacter].play();
     globalDataSet.isAnimated = true;
+    // props.changeCharacter()
   };
 
   useEffect(() => {
     setShow(props.show);
   }, [props.show]);
+  
+  // 메인페이지에 캐릭터 이름 보내기
+  useEffect(()=> {
+    if (myCharacter ==='siryeong') {
+      props.changeSiryeong()
+    }
+    console.log(myCharacter)
+    if (myCharacter ==='sojung') {
+      props.changeSojung()
+    }
+    if (myCharacter ==='hyoseon') {
+      props.changeHyoseon()
+    }
+    if (myCharacter ==='youngjin') {
+      props.changeYoungjin()
+    }
+    if (myCharacter ==='seongryeong') {
+      props.changeSeongryeong()
+    }
+    if (myCharacter ==='chaehyeon') {
+      props.changeChaehyeon()
+    }
+  },[myCharacter])
+
 
   return (
     <div
-      style={{
-        visibility: show ? 'visible' : 'hidden',
-        opacity: show ? '1' : '0',
-      }}
+      // style={{
+      //   visibility: show ? 'visible' : 'hidden',
+      //   opacity: show ? '1' : '0',
+      // }}
       className={popupStyles.overlay}
     >
-      <span className={popupStyles.close} onClick={closeHandler} />
+      {/* <span className={popupStyles.close} onClick={closeHandler} /> */}
       <div className={popupStyles.emotion}>
         <img
-          src={require('../imgs/emotion/win.png')}
+          src='/assets/images/emotions/win.png'
           onClick={() => {
             actionHandler(5);
           }}
         ></img>
         <img
-          src={require('../imgs/emotion/dance.png')}
+          src='/assets/images/emotions/dance.png'
           onClick={() => {
             actionHandler(3);
           }}
         ></img>
         <img
-          src={require('../imgs/emotion/sad.png')}
+          src='/assets/images/emotions/sad.png'
           onClick={() => {
             actionHandler(2);
           }}
@@ -133,17 +158,17 @@ const Popup = (props) => {
         {characters.map((c_name, idx) => {
           return (
             <div key={idx}>
-              <img
-                src={require('../imgs/characters/' + c_name + '.png')}
-                onClick={() => setCharacter(c_name)}
-              ></img>
+                <img
+                  src='`/assets/images/characters/${c_name}.png'
+                  onClick={()=> {setCharacter(c_name)}}
+                ></img>
             </div>
           );
         })}
       </div>
     </div>
   );
-};
+});
 
 Popup.propTypes = {
   show: PropTypes.bool.isRequired,
