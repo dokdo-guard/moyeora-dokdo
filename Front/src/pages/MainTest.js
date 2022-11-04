@@ -15,9 +15,12 @@ import HistoryPopup from "../components/popup/HistoryPopup";
 import TerrianPopup from "../components/popup/TerrianPopup";
 import OXQuizPopup from "../components/popup/OXQuizPopup";
 import EcoSystemPopup from "../components/popup/EcosystemPopup";
-import Popup from "../components/mypage/selectCharacter";
+
+import Popup from '../components/mypage/selectCharacter';
+import Dictionary from '../components/mypage/dictionary.js'
+
 import Stats from "stats.js";
-import { useEffect, useRef } from "react";
+import { useEffect, useState } from "react";
 
 import { mapReLoading } from "../components/popup/TerrianPopup";
 
@@ -49,7 +52,6 @@ import { 강치, 돌고래 } from "../components/main/AnimalNPC.js";
 import { NPC } from "../components/glTF/NPC";
 import Tutorial from "../components/tutorial/tutorial";
 
-import { useState } from "react";
 function MainTest() {
   // Cannon(물리엔진)
   const cannonWorld = new CANNON.World();
@@ -85,7 +87,7 @@ function MainTest() {
 
   const cameraPosition = new THREE.Vector3(1, 5, 5);
   camera.position.set(cameraPosition.x, cameraPosition.y, cameraPosition.z);
-  camera.zoom = 0.14;
+  camera.zoom = 0.15;
   camera.updateProjectionMatrix();
   scene.add(camera);
 
@@ -181,12 +183,12 @@ function MainTest() {
   const gltfLoader = new GLTFLoader();
   gltfLoader.setDRACOLoader(dracoLoader);
 
-  const [isLoaded, setIsLoaded] = useState(false);
+  // const [isLoaded, setIsLoaded] = useState(false);
   // 로딩 페이지 구현 위함
-  gltfLoader.load("/assets/glTF/entireScene.glb", function () {
-    // console.log("ISLOADED");
-    setIsLoaded(true);
-  });
+  // gltfLoader.load("/assets/glTF/entireScene.glb", function () {
+  //   // console.log("ISLOADED");
+  //   setIsLoaded(true);
+  // });
 
   // 여기서부터 glTF 모델 임포트하는 코드
   // 풍경 나무들
@@ -204,11 +206,12 @@ function MainTest() {
     scene,
     meshes,
     gltfLoader,
-    // cannonWorld,
-    modelSrc: "/assets/glTF/character/Alligator.gltf",
-    x: 28,
-    y: 0.5,
-    z: -4,
+    // // cannonWorld,
+    modelSrc: "/assets/glTF/character/sojung.glb",
+    // x : 28,
+    // y : 0.5,
+    // z : -4
+
   });
 
   // const 강치치= new NPC({
@@ -393,7 +396,7 @@ function MainTest() {
         "land_79043"
       ) {
         destinationPoint.x = item.point.x;
-        destinationPoint.y = 0.3;
+        destinationPoint.y = 0.2;
         destinationPoint.z = item.point.z;
         player.modelMesh.lookAt(destinationPoint);
 
@@ -593,94 +596,61 @@ function MainTest() {
     });
   };
 
+  // 도감 호출 버튼
+  const clickDogam =() => {
+    const dogam = document.getElementById('dogam');
+    dogam.style.display = 'block';
+    dogam.addEventListener("mouseup", () => {
+      isPressed = false;
+    });
+  }
+
+  // 도감 나가기 버튼
+  const quitDogam =() => {
+    const dogam = document.getElementById('dogam');
+    dogam.style.display = "none";
+    dogam.addEventListener("mouseup", () => {
+      isPressed = false;
+    });
+  }
+
   // 지형관 상태 변경 감지 코드
   var popUp = false;
 
   // 캐릭터 이름 선택받기
-  const changeSiryeong = () => {
-    scene.remove(player.modelMesh);
-    player = new Player({
-      scene,
-      meshes,
-      gltfLoader,
-      modelSrc: "/assets/glTF/character/siryeong.glb",
-      x: destinationPoint.x,
-      y: 0.5,
-      z: destinationPoint.z,
-    });
-    scene.remove(player.modelMesh);
-  };
-  const changeSojung = () => {
-    scene.remove(player.modelMesh);
-    player = new Player({
-      scene,
-      meshes,
-      gltfLoader,
-      cannonWorld,
-      modelSrc: "/assets/glTF/character/sojung.glb",
-      x: destinationPoint.x,
-      y: 0.5,
-      z: destinationPoint.z,
-    });
-  };
-  const changeHyoseon = () => {
-    scene.remove(player.modelMesh);
-    player = new Player({
-      scene,
-      meshes,
-      gltfLoader,
-      cannonWorld,
-      modelSrc: "/assets/glTF/character/hyoseon.glb",
-      x: destinationPoint.x,
-      y: 0.5,
-      z: destinationPoint.z,
-    });
-  };
-  const changeYoungjin = () => {
-    scene.remove(player.modelMesh);
-    player = new Player({
-      scene,
-      meshes,
-      gltfLoader,
-      cannonWorld,
-      modelSrc: "/assets/glTF/character/youngjin.glb",
-      x: destinationPoint.x,
-      y: 0.5,
-      z: destinationPoint.z,
-    });
-  };
-  const changeSeongryeong = () => {
-    scene.remove(player.modelMesh);
-    player = new Player({
-      scene,
-      meshes,
-      gltfLoader,
-      cannonWorld,
-      modelSrc: "/assets/glTF/character/seongryeong.glb",
-      x: destinationPoint.x,
-      y: 0.5,
-      z: destinationPoint.z,
-    });
-  };
-  const changeChaehyeon = () => {
-    scene.remove(player.modelMesh);
-    player = new Player({
-      scene,
-      meshes,
-      gltfLoader,
-      cannonWorld,
-      modelSrc: "/assets/glTF/character/chaehyeon.glb",
-      x: destinationPoint.x,
-      y: 0.5,
-      z: destinationPoint.z,
-    });
-  };
+  const changeSiryeong =() => {
+    scene.remove(player.modelMesh)
+    player = new Player({scene,meshes,gltfLoader,modelSrc: "/assets/glTF/character/siryeong.glb",x:destinationPoint.x,y:0.2,z:destinationPoint.z});
+  }
+  const changeSojung =() => {
+    scene.remove(player.modelMesh)
+    player = new Player({scene,meshes,gltfLoader,cannonWorld,modelSrc: "/assets/glTF/character/sojung.glb",x:destinationPoint.x,y:0.2,z:destinationPoint.z});
+  }
+  const changeHyoseon =() => {
+    scene.remove(player.modelMesh)
+    player = new Player({scene,meshes,gltfLoader,cannonWorld,modelSrc: "/assets/glTF/character/hyoseon.glb",x:destinationPoint.x,y:0.2,z:destinationPoint.z});
+  }
+  const changeYoungjin =() => {
+    scene.remove(player.modelMesh)
+    player = new Player({scene,meshes,gltfLoader,cannonWorld,modelSrc: "/assets/glTF/character/youngjin.glb",x:destinationPoint.x,y:0.2,z:destinationPoint.z});
+  }
+  const changeSeongryeong =() => {
+    scene.remove(player.modelMesh)
+    player = new Player({scene,meshes,gltfLoader,cannonWorld,modelSrc: "/assets/glTF/character/seongryeong.glb",x:destinationPoint.x,y:0.2,z:destinationPoint.z});
+  }
+  const changeChaehyeon =() => {
+    scene.remove(player.modelMesh)
+    player = new Player({scene,meshes,gltfLoader,cannonWorld,modelSrc: "/assets/glTF/character/chaehyeon.glb",x:destinationPoint.x,y:0.2,z:destinationPoint.z});
+  }
+
+
+
+
 
   draw();
 
   return (
     <>
-      {isLoaded ? (
         <div className='mainPage'>
           {/* 팝업 컴포넌트들 */}
           <div
@@ -785,15 +755,17 @@ function MainTest() {
             ></img>
           </div>
 
-          {/* <div className='myPage' onClick={clickMyPage}></div>
-        <div id='myPage' style={{display:'none'}}>
-          <img src="/assets/icons/cancel.png" className="quitMyPage" onClick={quitMyPage}></img>
-          <Popup changeSojung={changeSojung} changeSiryeong={changeSiryeong} changeHyoseon={changeHyoseon} changeYoungjin={changeYoungjin} changeSeongryeong={changeSeongryeong} changeChaehyeon={changeChaehyeon}></Popup>
-        </div> */}
+        <div className="dogam" onClick={clickDogam}>
+          <div className="dogamButton"></div>
         </div>
-      ) : (
-        <LoadingComponent />
-      )}
+        <div style={{display:'none'}} id='dogam' className="dogamMark">
+          <Dictionary></Dictionary>
+          <img src='/assets/icons/cancel.png' className="quitDogam" onClick={quitDogam}></img>
+        </div>
+
+
+      </div>
+
     </>
   );
 }

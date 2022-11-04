@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 import api from "../../api/api";
 import { AWS_S3_BASE_URL } from "../../api/Oauth/uri";
 
-const Popup = (props) => {
+const Dictionary = (props) => {
   const [show, setShow] = useState(false);
   const [dogam, setDogam] = useState([]);
 
@@ -50,13 +50,15 @@ const Popup = (props) => {
 
   return (
     <div
-      style={{
-        visibility: show ? "visible" : "hidden",
-        opacity: show ? "1" : "0",
-      }}
+
+      // style={{
+      //   visibility: show ? 'visible' : 'hidden',
+      //   opacity: show ? '1' : '0',
+      // }}
+
       className={popupStyles.overlay}
     >
-      <span className={popupStyles.close} onClick={closeHandler} />
+      {/* <span className={popupStyles.close} onClick={closeHandler} /> */}
       <div className={popupStyles.popup}>
         <div
           className={popupStyles.icon}
@@ -103,9 +105,9 @@ const Popup = (props) => {
   );
 };
 
-Popup.propTypes = {
+Dictionary.propTypes = {
   show: PropTypes.bool.isRequired,
   onClose: PropTypes.func.isRequired,
 };
 
-export default Popup;
+export default Dictionary;

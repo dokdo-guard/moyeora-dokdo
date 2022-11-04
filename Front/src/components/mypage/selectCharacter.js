@@ -61,7 +61,7 @@ const Popup = ((props) => {
   ];
 
   const [show, setShow] = useState(false);
-  const [myCharacter, setCharacter] = useState('siryeong');
+  const [myCharacter, setCharacter] = useState('seongryeong');
 
   const closeHandler = (e) => {
     setShow(false);
@@ -159,7 +159,7 @@ const Popup = ((props) => {
           return (
             <div key={idx}>
                 <img
-                  src='`/assets/images/characters/${c_name}.png'
+                  src={`/assets/images/characters/${c_name}.png`}
                   onClick={()=> {setCharacter(c_name)}}
                 ></img>
             </div>
