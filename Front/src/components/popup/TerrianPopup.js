@@ -14,12 +14,6 @@ function TerrianPopup(isShown) {
   const [curMarker, setCurMarker] = useState(null);
 
   useEffect(() => {
-    const allwithClass = document.getElementsByClassName("TerrianPopup");
-
-    console.log("ALLWITHCLASS");
-    console.log(allwithClass);
-  }, []);
-  useEffect(() => {
     // console.log("API useEffect Call(TerrianData)");
     getAllTerrians()
       .then((res) => {
@@ -35,8 +29,8 @@ function TerrianPopup(isShown) {
     }
   }, [mapLoaded]);
   useEffect(() => {
-    console.log("MAP useEffect Call(TerrianData)");
-    console.log(isShown);
+    // console.log("MAP useEffect Call(TerrianData)");
+    // console.log(isShown);
     // kakao map Start
     const { kakao } = window;
     if (!mapElement.current || !kakao) return;
@@ -102,10 +96,10 @@ function TerrianPopup(isShown) {
       infowindow.open(map, curMarker);
     }
 
-    // 중심좌표 이동시 중심 좌표 콘솔에 출력
-    kakao.maps.event.addListener(map, "center_changed", function () {
-      console.log(map.getCenter());
-    });
+    // // 중심좌표 이동시 중심 좌표 콘솔에 출력
+    // kakao.maps.event.addListener(map, "center_changed", function () {
+    //   console.log(map.getCenter());
+    // });
 
     // kakao map End
   }, [isShown, isLoaded]);

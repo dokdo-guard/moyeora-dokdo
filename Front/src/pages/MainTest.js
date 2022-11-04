@@ -15,23 +15,44 @@ import HistoryPopup from "../components/popup/HistoryPopup";
 import TerrianPopup from "../components/popup/TerrianPopup";
 import OXQuizPopup from "../components/popup/OXQuizPopup";
 import EcoSystemPopup from "../components/popup/EcosystemPopup";
+
 import Popup from '../components/mypage/selectCharacter';
 import Dictionary from '../components/mypage/dictionary.js'
+
 import Stats from "stats.js";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 import { mapReLoading } from "../components/popup/TerrianPopup";
 
-import { eastFloorMesh,westFloorMesh,oceanMesh, oceanBlock1Mesh,oceanBlock2Mesh,oceanBlock3Mesh,oceanBlock4Mesh,oceanBlock5Mesh} from '../components/main/Plane.js'
-import {spotMesh1,spotMesh2,spotMesh3,spotMesh4} from '../components/main/SpotMesh.js'
-import {QuizSignMesh,TerritorySignMesh,EcoSignMesh,HistorySignMesh} from '../components/main/SignMesh.js'
-import {강치, 돌고래} from '../components/main/AnimalNPC.js'
+import { LoadingComponent } from "../components/index";
+
+import {
+  eastFloorMesh,
+  westFloorMesh,
+  oceanMesh,
+  oceanBlock1Mesh,
+  oceanBlock2Mesh,
+  oceanBlock3Mesh,
+  oceanBlock4Mesh,
+  oceanBlock5Mesh,
+} from "../components/main/Plane.js";
+import {
+  spotMesh1,
+  spotMesh2,
+  spotMesh3,
+  spotMesh4,
+} from "../components/main/SpotMesh.js";
+import {
+  QuizSignMesh,
+  TerritorySignMesh,
+  EcoSignMesh,
+  HistorySignMesh,
+} from "../components/main/SignMesh.js";
+import { 강치, 돌고래 } from "../components/main/AnimalNPC.js";
 import { NPC } from "../components/glTF/NPC";
 import Tutorial from "../components/tutorial/tutorial";
 
 function MainTest() {
-
-
   // Cannon(물리엔진)
   const cannonWorld = new CANNON.World();
   cannonWorld.gravity.set(0, -10, 0);
@@ -106,19 +127,34 @@ function MainTest() {
   eastFloorBody.quaternion.setFromAxisAngle(
     new CANNON.Vec3(-1, 0, 0),
     Math.PI / 2,
-    );
+  );
   cannonWorld.addBody(eastFloorBody);
 
-  useEffect(()=> {
-    scene.add(eastFloorMesh,westFloorMesh,oceanMesh,oceanBlock1Mesh,oceanBlock2Mesh,oceanBlock3Mesh,oceanBlock4Mesh,oceanBlock5Mesh);
-    meshes.push(eastFloorMesh,westFloorMesh,oceanMesh,oceanBlock1Mesh,oceanBlock2Mesh,oceanBlock3Mesh,oceanBlock4Mesh,oceanBlock5Mesh);
-    scene.add(spotMesh1,spotMesh2,spotMesh3,spotMesh4);
-    scene.add(QuizSignMesh,TerritorySignMesh,EcoSignMesh,HistorySignMesh);
-    meshes.push(QuizSignMesh,TerritorySignMesh,EcoSignMesh,HistorySignMesh);
-  })
-
-
-
+  useEffect(() => {
+    scene.add(
+      eastFloorMesh,
+      westFloorMesh,
+      oceanMesh,
+      oceanBlock1Mesh,
+      oceanBlock2Mesh,
+      oceanBlock3Mesh,
+      oceanBlock4Mesh,
+      oceanBlock5Mesh,
+    );
+    meshes.push(
+      eastFloorMesh,
+      westFloorMesh,
+      oceanMesh,
+      oceanBlock1Mesh,
+      oceanBlock2Mesh,
+      oceanBlock3Mesh,
+      oceanBlock4Mesh,
+      oceanBlock5Mesh,
+    );
+    scene.add(spotMesh1, spotMesh2, spotMesh3, spotMesh4);
+    scene.add(QuizSignMesh, TerritorySignMesh, EcoSignMesh, HistorySignMesh);
+    meshes.push(QuizSignMesh, TerritorySignMesh, EcoSignMesh, HistorySignMesh);
+  });
 
   // 마우스 포인터
   // 이 메쉬를 활용해서 마우스가 어디를 클릭해서 플레이어를 이동시키는지 확인 가능
@@ -139,8 +175,6 @@ function MainTest() {
   pointerMesh.receiveShadow = true;
   scene.add(pointerMesh);
 
-
-
   // Draco 오픈소스 -> glTF 용량 줄이기!!!!
   const dracoLoader = new DRACOLoader();
   dracoLoader.setDecoderPath("/examples/js/libs/draco/");
@@ -149,6 +183,12 @@ function MainTest() {
   const gltfLoader = new GLTFLoader();
   gltfLoader.setDRACOLoader(dracoLoader);
 
+  // const [isLoaded, setIsLoaded] = useState(false);
+  // 로딩 페이지 구현 위함
+  // gltfLoader.load("/assets/glTF/entireScene.glb", function () {
+  //   // console.log("ISLOADED");
+  //   setIsLoaded(true);
+  // });
 
   // 여기서부터 glTF 모델 임포트하는 코드
   // 풍경 나무들
@@ -167,10 +207,11 @@ function MainTest() {
     meshes,
     gltfLoader,
     // // cannonWorld,
-    modelSrc: "/assets/glTF/characters/sojung.glb",
+    modelSrc: "/assets/glTF/character/sojung.glb",
     // x : 28,
     // y : 0.5,
     // z : -4
+
   });
 
   // const 강치치= new NPC({
@@ -184,8 +225,6 @@ function MainTest() {
   //   z:-3
   // });
 
-
-
   // 다리
   const bridge = new Bridge({
     gltfLoader,
@@ -198,7 +237,6 @@ function MainTest() {
     z: 3,
   });
 
-
   // 생태관
   const ecosystem = new EcoSystem({
     gltfLoader,
@@ -209,7 +247,6 @@ function MainTest() {
     y: -2.25,
     z: 12,
   });
-
 
   // 레이캐스터(마우스 클릭 이벤트)
   const raycaster = new THREE.Raycaster();
@@ -246,7 +283,6 @@ function MainTest() {
     //   강치.actions[0].play();
     // }
 
-
     if (player.modelMesh) {
       camera.lookAt(player.modelMesh.position);
     }
@@ -255,8 +291,6 @@ function MainTest() {
     //   player.modelMesh.position.copy(player.cannonBody.position);
     //   cannonWorld.addBody(player.cannonBody);
     // }
-
-
 
     if (player.modelMesh) {
       if (isPressed) {
@@ -303,19 +337,39 @@ function MainTest() {
           (Math.abs(spotMesh4.position.x - player.modelMesh.position.x) < 1.5 &&
             Math.abs(spotMesh4.position.z - player.modelMesh.position.z) < 1.5)
         ) {
-          gsap.to(camera.position, {duration: 1,y: 2.5});
-          gsap.to(QuizSignMesh.position, {y: 1,duration: 1,ease: "Bounce.eastOut"});
-          gsap.to(TerritorySignMesh.position, {y: 1,duration: 1,ease: "Bounce.eastOut"});
-          gsap.to(EcoSignMesh.position, {y: 1, duration: 1, ease: "Bounce.eastOut"});
-          gsap.to(HistorySignMesh.position, {y: 1,duration: 1,ease: "Bounce.eastOut"});
-          gsap.to(ecosystem.modelMesh.position, {y: 2.3, duration: 1,ease: "Bounce.eastOut"});
+          gsap.to(camera.position, { duration: 1, y: 2.5 });
+          gsap.to(QuizSignMesh.position, {
+            y: 1,
+            duration: 1,
+            ease: "Bounce.eastOut",
+          });
+          gsap.to(TerritorySignMesh.position, {
+            y: 1,
+            duration: 1,
+            ease: "Bounce.eastOut",
+          });
+          gsap.to(EcoSignMesh.position, {
+            y: 1,
+            duration: 1,
+            ease: "Bounce.eastOut",
+          });
+          gsap.to(HistorySignMesh.position, {
+            y: 1,
+            duration: 1,
+            ease: "Bounce.eastOut",
+          });
+          gsap.to(ecosystem.modelMesh.position, {
+            y: 2.3,
+            duration: 1,
+            ease: "Bounce.eastOut",
+          });
         } else {
-          gsap.to(camera.position, {duration: 1,y: 5});
-          gsap.to(QuizSignMesh.position, {y: -8,duration: 1});
-          gsap.to(TerritorySignMesh.position, {y: -8,duration: 1});
-          gsap.to(EcoSignMesh.position, {y: -8,duration: 1,});
-          gsap.to(HistorySignMesh.position, {y: -8,duration: 1,});
-          gsap.to(ecosystem.modelMesh.position, {y: -2.16,duration: 1,});
+          gsap.to(camera.position, { duration: 1, y: 5 });
+          gsap.to(QuizSignMesh.position, { y: -8, duration: 1 });
+          gsap.to(TerritorySignMesh.position, { y: -8, duration: 1 });
+          gsap.to(EcoSignMesh.position, { y: -8, duration: 1 });
+          gsap.to(HistorySignMesh.position, { y: -8, duration: 1 });
+          gsap.to(ecosystem.modelMesh.position, { y: -2.16, duration: 1 });
         }
       } else {
         // 서 있는 상태
@@ -335,9 +389,14 @@ function MainTest() {
     // raycaster.setFromCamera(mouse, camera);
     const intersects = raycaster.intersectObjects(meshes);
     for (const item of intersects) {
-      if (item.object.name === "floor" || "land_79030" || "land_79020" || "land_79043") {
+      if (
+        item.object.name === "floor" ||
+        "land_79030" ||
+        "land_79020" ||
+        "land_79043"
+      ) {
         destinationPoint.x = item.point.x;
-        destinationPoint.y = 0.5;
+        destinationPoint.y = 0.2;
         destinationPoint.z = item.point.z;
         player.modelMesh.lookAt(destinationPoint);
 
@@ -345,7 +404,7 @@ function MainTest() {
 
         pointerMesh.position.x = destinationPoint.x;
         pointerMesh.position.z = destinationPoint.z;
-      } 
+      }
       if (item.object.name === "SeaLion") {
         강치.actions[1].setLoop(THREE.LoopOnce);
         강치.actions[1].stop();
@@ -355,17 +414,17 @@ function MainTest() {
         돌고래.actions[1].setLoop(THREE.LoopOnce);
         돌고래.actions[1].stop();
         돌고래.actions[1].play();
-      } 
+      }
       if (item.object.name === "ocean") {
         player.moving = false;
-      } 
+      }
       if (item.object.name === "퀴즈팻말") {
         const QuizPop = document.getElementById("QuizPopup");
         QuizPop.style.display = "block";
         QuizPop.addEventListener("mouseup", () => {
           isPressed = false;
         });
-      } 
+      }
       if (item.object.name == "지질팻말") {
         const TerrianPop = document.getElementById("TerrianPopup");
         TerrianPop.style.display = "block";
@@ -373,14 +432,14 @@ function MainTest() {
           isPressed = false;
         });
         mapReLoading();
-      } 
+      }
       if (item.object.name === "생태팻말") {
         const EcoPop = document.getElementById("EcoPopup");
         EcoPop.style.display = "block";
         EcoPop.addEventListener("mouseup", () => {
           isPressed = false;
         });
-      } 
+      }
       if (item.object.name === "역사팻말") {
         const HistoryPop = document.getElementById("HistoryPopup");
         HistoryPop.style.display = "block";
@@ -461,8 +520,6 @@ function MainTest() {
   //   }
   // });
 
-
-
   // 스크린 캡처 코드를 위해 render 함수를 따로 분리해서 설정해줌
   function resizeRendererToDisplaySize(renderer) {
     const canvas = renderer.domElement;
@@ -513,32 +570,31 @@ function MainTest() {
   };
 
   // 마이페이지 나가기 버튼
-  const quitMyPage =() => {
+  const quitMyPage = () => {
     const MyPagePop = document.getElementById("myPage");
     MyPagePop.style.display = "none";
     MyPagePop.addEventListener("mouseup", () => {
       isPressed = false;
     });
-  }
+  };
 
   // 튜토리얼 호출 버튼
-  const clickTutorial =() => {
+  const clickTutorial = () => {
     const tutorial = document.getElementById("tutorial");
     tutorial.style.display = "block";
     tutorial.addEventListener("mouseup", () => {
       isPressed = false;
     });
-  }
+  };
 
   // 튜토리얼 나가기 버튼
-  const quitTutorial =() => {
+  const quitTutorial = () => {
     const tutorial = document.getElementById("tutorial");
     tutorial.style.display = "none";
     tutorial.addEventListener("mouseup", () => {
       isPressed = false;
     });
-  }
-
+  };
 
   // 도감 호출 버튼
   const clickDogam =() => {
@@ -590,90 +646,114 @@ function MainTest() {
 
 
 
-  draw();
 
+  draw();
 
   return (
     <>
-      <div className='mainPage'>
-        {/* 팝업 컴포넌트들 */}
-        <div
-          className='QuizPopup'
-          id='QuizPopup'
-          style={{ display: "none", marginTop: "40px", marginLeft: "115px" }}
-        >
-          <img
-            src='/assets/icons/cancel.png'
-            id='quitButton'
-            onClick={quitPopup}
-          ></img>
-          <OXQuizPopup></OXQuizPopup>
-        </div>
+        <div className='mainPage'>
+          {/* 팝업 컴포넌트들 */}
+          <div
+            className='QuizPopup'
+            id='QuizPopup'
+            style={{ display: "none", marginTop: "40px", marginLeft: "115px" }}
+          >
+            <img
+              src='/assets/icons/cancel.png'
+              id='quitButton'
+              onClick={quitPopup}
+            ></img>
+            <OXQuizPopup></OXQuizPopup>
+          </div>
 
-        <div
-          className='TerrianPopup'
-          id='TerrianPopup'
-          style={{ display: "none", marginTop: "40px", marginLeft: "115px" }}
-        >
-          <img
-            src='/assets/icons/cancel.png'
-            id='quitButton'
-            onClick={TerrianQuitPopup}
-          ></img>
-          <TerrianPopup isShown={popUp}></TerrianPopup>
-        </div>
+          <div
+            className='TerrianPopup'
+            id='TerrianPopup'
+            style={{ display: "none", marginTop: "40px", marginLeft: "115px" }}
+          >
+            <img
+              src='/assets/icons/cancel.png'
+              id='quitButton'
+              onClick={TerrianQuitPopup}
+            ></img>
+            <TerrianPopup isShown={popUp}></TerrianPopup>
+          </div>
 
-        <div
-          className='EcoPopup'
-          id='EcoPopup'
-          style={{ display: "none", marginTop: "40px", marginLeft: "115px" }}
-        >
-          <img
-            src='/assets/icons/cancel.png'
-            id='quitButton'
-            onClick={quitPopup}
-          ></img>
-          <EcoSystemPopup></EcoSystemPopup>
-        </div>
+          <div
+            className='EcoPopup'
+            id='EcoPopup'
+            style={{ display: "none", marginTop: "40px", marginLeft: "115px" }}
+          >
+            <img
+              src='/assets/icons/cancel.png'
+              id='quitButton'
+              onClick={quitPopup}
+            ></img>
+            <EcoSystemPopup></EcoSystemPopup>
+          </div>
 
-        <div
-          className='HistoryPopup'
-          id='HistoryPopup'
-          style={{ display: "none", marginTop: "40px", marginLeft: "115px" }}
-        >
-          <img
-            src='/assets/icons/cancel.png'
-            id='quitButton'
-            onClick={quitPopup}
-          ></img>
-          <HistoryPopup></HistoryPopup>
-        </div>
+          <div
+            className='HistoryPopup'
+            id='HistoryPopup'
+            style={{ display: "none", marginTop: "40px", marginLeft: "115px" }}
+          >
+            <img
+              src='/assets/icons/cancel.png'
+              id='quitButton'
+              onClick={quitPopup}
+            ></img>
+            <HistoryPopup></HistoryPopup>
+          </div>
 
-        {/* 마이페이지 버튼 */}
-        <div className='myPage' onClick={clickMyPage}></div>
-        <div id='myPage' style={{display:'none'}}>
-          <img src="/assets/icons/cancel.png" className="quitMyPage" onClick={quitMyPage}></img>
-          <Popup changeSojung={changeSojung} changeSiryeong={changeSiryeong} changeHyoseon={changeHyoseon} changeYoungjin={changeYoungjin} changeSeongryeong={changeSeongryeong} changeChaehyeon={changeChaehyeon}></Popup>
-        </div>
+          {/* 마이페이지 버튼 */}
+          <div className='myPage' onClick={clickMyPage}></div>
+          <div id='myPage' style={{ display: "none" }}>
+            <img
+              src='/assets/icons/cancel.png'
+              className='quitMyPage'
+              onClick={quitMyPage}
+            ></img>
+            <Popup
+              changeSojung={changeSojung}
+              changeSiryeong={changeSiryeong}
+              changeHyoseon={changeHyoseon}
+              changeYoungjin={changeYoungjin}
+              changeSeongryeong={changeSeongryeong}
+              changeChaehyeon={changeChaehyeon}
+            ></Popup>
+          </div>
 
-        {/* 하단의 스크린샷 버튼과 튜토리얼 버튼 */}
-        <div
-          className='screenShot'
-          onClick={clickScreenCapture}
-          id='screenshot'
-        >
-          <img className='screenShotButton' src='/assets/images/camera.png'></img>
-          <div className='ButtonBackGround'></div>
-        </div>
+          {/* 하단의 스크린샷 버튼과 튜토리얼 버튼 */}
+          <div
+            className='screenShot'
+            onClick={clickScreenCapture}
+            id='screenshot'
+          >
+            <img
+              className='screenShotButton'
+              src='/assets/images/camera.png'
+            ></img>
+            <div className='ButtonBackGround'></div>
+          </div>
 
-        <div className='tutorial' onClick={clickTutorial}>
-          <img src="/assets/images/tutorial.png" className="tutorialImage"></img>
-        </div>
-        <div id='tutorial' style={{display:'none'}}>
-          <img className='tutorialMark' src='/assets/images/tutorial.png' ></img>
-          <Tutorial></Tutorial>
-          <img src='/assets/icons/cancel.png' className="quitTutorial" onClick={quitTutorial}></img>
-        </div>
+          <div className='tutorial' onClick={clickTutorial}>
+            <img
+              src='/assets/images/tutorial.png'
+              className='tutorialImage'
+            ></img>
+          </div>
+          <div id='tutorial' style={{ display: "none" }}>
+            <img
+              className='tutorialMark'
+              src='/assets/images/tutorial.png'
+            ></img>
+            <Tutorial></Tutorial>
+            <img
+              src='/assets/icons/cancel.png'
+              className='quitTutorial'
+              onClick={quitTutorial}
+            ></img>
+          </div>
 
         <div className="dogam" onClick={clickDogam}>
           <div className="dogamButton"></div>
@@ -685,6 +765,7 @@ function MainTest() {
 
 
       </div>
+
     </>
   );
 }
@@ -692,7 +773,7 @@ function MainTest() {
 const Main = () => {
   return (
     <>
-      <MainTest></MainTest>
+      <MainTest />
     </>
   );
 };

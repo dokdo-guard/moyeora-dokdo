@@ -1,0 +1,44 @@
+.content {
+  width: 100%;
+}
+
+.title {
+  text-align: center;
+  font-size: 36px;
+  margin: auto auto;
+}
+
+.socialLogin {
+  width: 300px;
+  margin: auto auto;
+}
+
+.socialLogin a {
+  display: block;
+  width: 300px;
+  margin: 20px;
+  text-decoration: none;
+  color: black;
+  box-shadow: 0px 0px 15px lightgrey;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.socialLogin a:hover {
+  box-shadow: 0px 0px 15px gray;
+}
+
+.socialLogin a:nth-child(2) {
+  background-color: #03c75a;
+}
+
+.socialLogin a:nth-child(3) {
+  background-color: #fee500;
+}
+
+.socialLogin a img {
+  width: 50px;
+  border-radius: 25%;
+}
