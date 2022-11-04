@@ -1,5 +1,5 @@
 import { useState } from "react";
-import Popup from "../components/mypage/dictionary";
+import Popup from "../components/mypage/badge";
 
 function MypageTest() {
   const [visibility, setVisibility] = useState(true);
