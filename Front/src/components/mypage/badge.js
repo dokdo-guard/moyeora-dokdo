@@ -1,44 +1,12 @@
 import { useEffect, useState } from 'react';
 import popupStyles from '../css/MyPagePopup.module.css';
 import PropTypes from 'prop-types';
+import api from '../../api/api';
 
 const Popup = (props) => {
-  const dummy_data = [
-    {
-      name: 'badge1',
-      url: '/src/components/imgs/badge1.png',
-    },
-    {
-      name: 'badge1',
-      url: '/src/components/imgs/badge1.png',
-    },
-    {
-      name: 'badge1',
-      url: '/src/components/imgs/badge1.png',
-    },
-    {
-      name: 'badge1',
-      url: '/src/components/imgs/badge1.png',
-    },
-    {
-      name: 'badge1',
-      url: '/src/components/imgs/badge1.png',
-    },
-    {
-      name: 'badge1',
-      url: '/src/components/imgs/badge1.png',
-    },
-    {
-      name: 'badge1',
-      url: '/src/components/imgs/badge1.png',
-    },
-    {
-      name: 'badge1',
-      url: '/src/components/imgs/badge1.png',
-    },
-  ];
-
   const [show, setShow] = useState(false);
+  const [badge, setBadge] = useState([]);
+
   const closeHandler = (e) => {
     setShow(false);
     props.onClose(false);
@@ -46,6 +14,9 @@ const Popup = (props) => {
 
   useEffect(() => {
     setShow(props.show);
+    api.get('/badge').then((res) => {
+      setBadge(res.data);
+    });
   }, [props.show]);
 
   return (
@@ -59,9 +30,9 @@ const Popup = (props) => {
       <span className={popupStyles.close} onClick={closeHandler} />
       <div className={popupStyles.popup}>
         <div className={popupStyles.content}>
-          {dummy_data.map((item) => {
+          {badge.map((item, index) => {
             return (
-              <div className={popupStyles.badge}>
+              <div className={popupStyles.badge} key={index}>
                 <img src={item.url}></img>
               </div>
             );

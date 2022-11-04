@@ -5,13 +5,6 @@ import api from '../../api/api';
 import { AWS_S3_BASE_URL } from '../../api/Oauth/uri';
 
 const Popup = (props) => {
-  const dummy_data = [
-    {
-      name: 'badge1',
-      url: '/src/components/imgs/badge1.png',
-    },
-  ];
-
   const [show, setShow] = useState(false);
   const [dogam, setDogam] = useState([]);
 
