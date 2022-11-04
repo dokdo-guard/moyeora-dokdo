@@ -1,8 +1,8 @@
-import { useEffect, useState } from 'react';
-import popupStyles from '../css/MyPagePopup.module.css';
-import PropTypes from 'prop-types';
-import api from '../../api/api';
-import { AWS_S3_BASE_URL } from '../../api/Oauth/uri';
+import { useEffect, useState } from "react";
+import popupStyles from "../css/MyPagePopup.module.css";
+import PropTypes from "prop-types";
+import api from "../../api/api";
+import { AWS_S3_BASE_URL } from "../../api/Oauth/uri";
 
 const Popup = (props) => {
   const [show, setShow] = useState(false);
@@ -14,24 +14,24 @@ const Popup = (props) => {
   };
 
   const imgErrorHandler = (e) => {
-    e.target.src = '/assets/icons/bird_Icon2.png';
+    e.target.src = "/assets/icons/bird_Icon2.png";
   };
 
   const getBirds = (e) => {
-    api.get('info/birds').then((res) => {
+    api.get("info/birds").then((res) => {
       console.log(res.data);
       setDogam(res.data);
     });
   };
 
   const getSeaAnimals = (e) => {
-    api.get('info/sea-animals').then((res) => {
+    api.get("info/sea-animals").then((res) => {
       console.log(res.data);
       setDogam(res.data);
     });
   };
   const getPlants = async (e) => {
-    api.get('info/plants').then((res) => {
+    api.get("info/plants").then((res) => {
       console.log(res.data);
       setDogam(res.data);
     });
@@ -42,7 +42,7 @@ const Popup = (props) => {
 
   useEffect(() => {
     setShow(props.show);
-    api.get('info/birds').then((res) => {
+    api.get("info/birds").then((res) => {
       console.log(res.data);
       setDogam(res.data);
     });
@@ -51,8 +51,8 @@ const Popup = (props) => {
   return (
     <div
       style={{
-        visibility: show ? 'visible' : 'hidden',
-        opacity: show ? '1' : '0',
+        visibility: show ? "visible" : "hidden",
+        opacity: show ? "1" : "0",
       }}
       className={popupStyles.overlay}
     >
@@ -65,7 +65,7 @@ const Popup = (props) => {
             left: 20,
           }}
         >
-          <img src="/assets/icons/bird_Icon2.png"></img>
+          <img src='/assets/icons/bird_Icon2.png'></img>
         </div>
         <div
           className={popupStyles.icon}
@@ -74,7 +74,7 @@ const Popup = (props) => {
             left: 125,
           }}
         >
-          <img src="/assets/icons/seaAnimal_Icon.png"></img>
+          <img src='/assets/icons/seaAnimal_Icon.png'></img>
         </div>
         <div
           className={popupStyles.icon}
@@ -83,7 +83,7 @@ const Popup = (props) => {
             left: 230,
           }}
         >
-          <img src="/assets/icons/plant_Icon.png"></img>
+          <img src='/assets/icons/plant_Icon.png'></img>
         </div>
 
         <div className={popupStyles.content}>
