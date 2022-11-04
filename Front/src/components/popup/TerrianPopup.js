@@ -1,15 +1,26 @@
 import React, { useEffect, useRef, useState } from "react";
 import "../css/TerrianPopup.css";
-import { getAllTerrians, getTerrain } from "../../api/terrainApi";
+import { getAllTerrians } from "../../api/terrainApi";
 
-function TerrianPopup() {
+let map = null;
+
+function TerrianPopup(isShown) {
   const mapElement = useRef(null);
   const [places, setPlaces] = useState([]);
   const [isLoaded, setIsLoaded] = useState(false);
+  const [mapLoaded, setMapLoaded] = useState(false);
   const [showPlace, setShowPlace] = useState(false);
   const [curPlace, setCurPlace] = useState("");
   const [curMarker, setCurMarker] = useState(null);
+
   useEffect(() => {
+    const allwithClass = document.getElementsByClassName("TerrianPopup");
+
+    console.log("ALLWITHCLASS");
+    console.log(allwithClass);
+  }, []);
+  useEffect(() => {
+    // console.log("API useEffect Call(TerrianData)");
     getAllTerrians()
       .then((res) => {
         setPlaces(res.data);
@@ -18,25 +29,35 @@ function TerrianPopup() {
       .catch((err) => {
         console.log(err);
       });
-  }, []);
+    if (map !== null) {
+      // 지도 리사이즈
+      map.relayout();
+    }
+  }, [mapLoaded]);
   useEffect(() => {
-    // console.log("useEffect Call");
+    console.log("MAP useEffect Call(TerrianData)");
+    console.log(isShown);
     // kakao map Start
     const { kakao } = window;
     if (!mapElement.current || !kakao) return;
 
     const location = new kakao.maps.LatLng(
-      37.242318015510335,
-      131.8669424097961,
+      37.242014789309735,
+      131.86599959590592,
     );
     const mapOptions = {
       center: location,
-      draggable: false,
-      zoomable: false,
+      // draggable: false,
+      // zoomable: false,
       disableDoubleClick: true,
       level: 4,
     };
-    const map = new kakao.maps.Map(mapElement.current, mapOptions);
+
+    map = new kakao.maps.Map(mapElement.current, mapOptions);
+
+    // 지도 리사이즈
+    map.relayout();
+
     // Display Markers
     function displayMarker(place) {
       var marker = new kakao.maps.Marker({
@@ -71,6 +92,7 @@ function TerrianPopup() {
         displayMarker(place);
         return place;
       });
+      setMapLoaded(true);
     });
     var infowindow = new kakao.maps.InfoWindow({
       content: `<div style="padding:5px; width:100%;text-align:center;font-weight:300;border-radius:10px;">${curPlace.name}</div>`,
@@ -81,11 +103,12 @@ function TerrianPopup() {
     }
 
     // 중심좌표 이동시 중심 좌표 콘솔에 출력
-    // kakao.maps.event.addListener(map, "center_changed", function () {
-    //   console.log(map.getCenter());
-    // });
+    kakao.maps.event.addListener(map, "center_changed", function () {
+      console.log(map.getCenter());
+    });
+
     // kakao map End
-  }, [isLoaded]);
+  }, [isShown, isLoaded]);
 
   const BaseInfo = () => {
     return (
@@ -154,6 +177,7 @@ function TerrianPopup() {
       </div>
     );
   };
+
   return (
     <div className='TerrianPopupContainer'>
       <div className='TerrianPopupTitle'>독도의 지리 및 지리</div>
@@ -166,4 +190,7 @@ function TerrianPopup() {
     </div>
   );
 }
+export const mapReLoading = () => {
+  map.relayout();
+};
 export default TerrianPopup;

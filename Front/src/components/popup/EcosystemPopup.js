@@ -51,6 +51,7 @@ function EcoSystemPopup() {
         });
     } else {
       console.log("no category");
+      setData([]);
     }
   }, [category]);
   const ShowDetail = () => {
@@ -61,7 +62,9 @@ function EcoSystemPopup() {
             onClick={() => {
               setSelectedData("");
               setDetailSelected(false);
-              setCategory("");
+              if (!detailSelected) {
+                setCategory("");
+              }
             }}
           >
             Back
@@ -160,6 +163,7 @@ function EcoSystemPopup() {
             >
               <img
                 src={process.env.PUBLIC_URL + "/assets/icons/plant_Icon.png"}
+                alt=''
               />
             </div>
             <div
@@ -174,6 +178,7 @@ function EcoSystemPopup() {
                 src={
                   process.env.PUBLIC_URL + "/assets/icons/seaAnimal_Icon.png"
                 }
+                alt=''
               />
             </div>
             <div
@@ -185,6 +190,7 @@ function EcoSystemPopup() {
             >
               <img
                 src={process.env.PUBLIC_URL + "/assets/icons/Bird_Icon.png"}
+                alt=''
               />
             </div>
             <div
@@ -196,6 +202,7 @@ function EcoSystemPopup() {
             >
               <img
                 src={process.env.PUBLIC_URL + "/assets/icons/seaPlant_Icon.png"}
+                alt=''
               />
             </div>
           </div>
