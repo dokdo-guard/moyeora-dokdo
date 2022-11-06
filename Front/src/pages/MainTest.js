@@ -35,6 +35,7 @@ import {
   oceanBlock3Mesh,
   oceanBlock4Mesh,
   oceanBlock5Mesh,
+  fiveMesh
 } from "../components/main/Plane.js";
 import {
   spotMesh1,
@@ -48,6 +49,8 @@ import {
   EcoSignMesh,
   HistorySignMesh,
 } from "../components/main/SignMesh.js";
+import {camera, ambientLight, directionalLight} from '../components/main/Scene.js'
+import {clickMyPage,quitMyPage,clickTutorial,quitTutorial,clickDogam,quitDogam,quitPopup} from '../components/main/PopupButton.js'
 import { 강치, 돌고래 } from "../components/main/AnimalNPC.js";
 import { NPC } from "../components/glTF/NPC";
 import Tutorial from "../components/tutorial/tutorial";
@@ -56,10 +59,6 @@ function MainTest() {
   // Cannon(물리엔진)
   const cannonWorld = new CANNON.World();
   cannonWorld.gravity.set(0, -10, 0);
-
-  // 성능을 위한 세팅
-  // cannonWorld.allowSleep = true;
-  // cannonWorld.broadphase = new CANNON.SAPBroadphase(cannonWorld);
 
   // Renderer
   const canvas = document.querySelector("#three-canvas");
@@ -75,46 +74,6 @@ function MainTest() {
   // Scene
   const scene = new THREE.Scene();
 
-  // Camera
-  const camera = new THREE.OrthographicCamera(
-    -(window.innerWidth / window.innerHeight), // left
-    window.innerWidth / window.innerHeight, // right,
-    1, // top
-    -1, // bottom
-    -1000,
-    1000,
-  );
-
-  const cameraPosition = new THREE.Vector3(1, 5, 5);
-  camera.position.set(cameraPosition.x, cameraPosition.y, cameraPosition.z);
-  camera.zoom = 0.15;
-  camera.updateProjectionMatrix();
-  scene.add(camera);
-
-  // Light
-  const ambientLight = new THREE.AmbientLight("white", 0.7);
-  scene.add(ambientLight);
-
-  const directionalLight = new THREE.DirectionalLight("white", 0.5);
-  const directionalLightOriginPosition = new THREE.Vector3(0.5, 1, 1);
-  directionalLight.position.x = directionalLightOriginPosition.x;
-  directionalLight.position.y = directionalLightOriginPosition.y;
-  directionalLight.position.z = directionalLightOriginPosition.z;
-  directionalLight.castShadow = true;
-
-  // mapSize 세팅으로 그림자 퀄리티 설정
-  directionalLight.shadow.mapSize.width = 2048;
-  directionalLight.shadow.mapSize.height = 2048;
-  // 그림자 범위
-  directionalLight.shadow.camera.left = -100;
-  directionalLight.shadow.camera.right = 100;
-  directionalLight.shadow.camera.top = 100;
-  directionalLight.shadow.camera.bottom = -100;
-  directionalLight.shadow.camera.near = -100;
-  directionalLight.shadow.camera.far = 100;
-  scene.add(directionalLight);
-
-  // 여기서부터 땅 표현
   // Mesh
   const meshes = [];
   // 동도 구역
@@ -130,6 +89,7 @@ function MainTest() {
   );
   cannonWorld.addBody(eastFloorBody);
 
+  // components/main/.js 에서 만든 각 scene 컴포넌트들 한번에 다 scene에 넣기
   useEffect(() => {
     scene.add(
       eastFloorMesh,
@@ -140,7 +100,9 @@ function MainTest() {
       oceanBlock3Mesh,
       oceanBlock4Mesh,
       oceanBlock5Mesh,
+      fiveMesh
     );
+    scene.add(camera,ambientLight,directionalLight);
     meshes.push(
       eastFloorMesh,
       westFloorMesh,
@@ -159,7 +121,7 @@ function MainTest() {
   // 마우스 포인터
   // 이 메쉬를 활용해서 마우스가 어디를 클릭해서 플레이어를 이동시키는지 확인 가능
   const pointerMesh = new THREE.Mesh(
-    new THREE.PlaneGeometry(0.001, 0.001),
+    new THREE.PlaneGeometry(1, 1),
     new THREE.MeshBasicMaterial({
       color: "crimson",
       // transparent: true,
@@ -190,6 +152,8 @@ function MainTest() {
   //   setIsLoaded(true);
   // });
 
+
+  
   // 여기서부터 glTF 모델 임포트하는 코드
   // 풍경 나무들
   const nature = new Nature({
@@ -233,7 +197,7 @@ function MainTest() {
     meshes,
     modelSrc: "/assets/glTF/bridge.gltf",
     x: 4,
-    y: -0.1,
+    y: -0.4,
     z: 3,
   });
 
@@ -307,11 +271,11 @@ function MainTest() {
         // player.cannonBody.position.x += Math.cos(angle) * 0.05;
         // player.cannonBody.position.z += Math.sin(angle) * 0.05;
 
-        player.modelMesh.position.x += Math.cos(angle) * 0.05;
-        player.modelMesh.position.z += Math.sin(angle) * 0.05;
+        player.modelMesh.position.x += Math.cos(angle) * 0.08;
+        player.modelMesh.position.z += Math.sin(angle) * 0.08;
 
-        camera.position.x = cameraPosition.x + player.modelMesh.position.x;
-        camera.position.z = cameraPosition.z + player.modelMesh.position.z;
+        camera.position.x = 1 + player.modelMesh.position.x;
+        camera.position.z = 5 + player.modelMesh.position.z;
 
         player.actions[0].stop();
         player.actions[1].play();
@@ -337,7 +301,7 @@ function MainTest() {
           (Math.abs(spotMesh4.position.x - player.modelMesh.position.x) < 1.5 &&
             Math.abs(spotMesh4.position.z - player.modelMesh.position.z) < 1.5)
         ) {
-          gsap.to(camera.position, { duration: 1, y: 2.5 });
+          gsap.to(camera.position, { duration: 1, y: 4 });
           gsap.to(QuizSignMesh.position, {
             y: 1,
             duration: 1,
@@ -367,7 +331,7 @@ function MainTest() {
           gsap.to(camera.position, { duration: 1, y: 5 });
           gsap.to(QuizSignMesh.position, { y: -8, duration: 1 });
           gsap.to(TerritorySignMesh.position, { y: -8, duration: 1 });
-          gsap.to(EcoSignMesh.position, { y: -8, duration: 1 });
+          // gsap.to(EcoSignMesh.position, { y: -8, duration: 1 });
           gsap.to(HistorySignMesh.position, { y: -8, duration: 1 });
           gsap.to(ecosystem.modelMesh.position, { y: -2.16, duration: 1 });
         }
@@ -375,8 +339,8 @@ function MainTest() {
         // 서 있는 상태
         player.actions[1].stop();
         player.actions[0].play();
-        camera.position.x = cameraPosition.x + player.modelMesh.position.x;
-        camera.position.z = cameraPosition.z + player.modelMesh.position.z;
+        camera.position.x =1 + player.modelMesh.position.x;
+        camera.position.z = 5 + player.modelMesh.position.z;
       }
     }
 
@@ -388,23 +352,28 @@ function MainTest() {
   function checkIntersects() {
     // raycaster.setFromCamera(mouse, camera);
     const intersects = raycaster.intersectObjects(meshes);
+    const item = intersects.at(0)
+    // console.log(item)
     for (const item of intersects) {
-      if (
-        item.object.name === "floor" ||
-        "land_79030" ||
-        "land_79020" ||
-        "land_79043"
-      ) {
+      console.log(item)
+      console.log(raycaster)
+      // if (
+      //   item.object.name === "floor" ||
+      //   "land_79030" ||
+      //   "land_79020" ||
+      //   "land_79043" 
+      //   ) {
+
         destinationPoint.x = item.point.x;
         destinationPoint.y = 0.2;
         destinationPoint.z = item.point.z;
         player.modelMesh.lookAt(destinationPoint);
-
+    
         player.moving = true;
-
+    
         pointerMesh.position.x = destinationPoint.x;
         pointerMesh.position.z = destinationPoint.z;
-      }
+      // }
       if (item.object.name === "SeaLion") {
         강치.actions[1].setLoop(THREE.LoopOnce);
         강치.actions[1].stop();
@@ -446,26 +415,21 @@ function MainTest() {
         HistoryPop.addEventListener("mouseup", () => {
           isPressed = false;
         });
-      }
+    }
       break;
     }
   }
 
-  const quitPopup = () => {
-    const QuizPop = document.getElementById("QuizPopup");
-    const EcoPop = document.getElementById("EcoPopup");
-    const HistoryPop = document.getElementById("HistoryPopup");
-    QuizPop.style.display = "none";
-    EcoPop.style.display = "none";
-    HistoryPop.style.display = "none";
-  };
 
+  // 지형관 상태 변경 감지 코드
+  var popUp = false;
   const TerrianQuitPopup = () => {
     const TerrianPop = document.getElementById("TerrianPopup");
     TerrianPop.style.display = "none";
     // setPopUp(!popUp);
     popUp = !popUp;
   };
+
   function setSize() {
     camera.left = -(window.innerWidth / window.innerHeight);
     camera.right = window.innerWidth / window.innerHeight;
@@ -506,19 +470,6 @@ function MainTest() {
     }
   });
 
-  // 터치 이벤트
-  // canvas.addEventListener("touchstart", (e) => {
-  //   isPressed = true;
-  //   calculateMousePosition(e.touches[0]);
-  // });
-  // canvas.addEventListener("touchend", () => {
-  //   isPressed = false;
-  // });
-  // canvas.addEventListener("touchmove", (e) => {
-  //   if (isPressed) {
-  //     calculateMousePosition(e.touches[0]);
-  //   }
-  // });
 
   // 스크린 캡처 코드를 위해 render 함수를 따로 분리해서 설정해줌
   function resizeRendererToDisplaySize(renderer) {
@@ -560,62 +511,8 @@ function MainTest() {
     };
   })();
 
-  // 마이페이지 호출 버튼
-  const clickMyPage = () => {
-    const MyPagePop = document.getElementById("myPage");
-    MyPagePop.style.display = "block";
-    MyPagePop.addEventListener("mouseup", () => {
-      isPressed = false;
-    });
-  };
 
-  // 마이페이지 나가기 버튼
-  const quitMyPage = () => {
-    const MyPagePop = document.getElementById("myPage");
-    MyPagePop.style.display = "none";
-    MyPagePop.addEventListener("mouseup", () => {
-      isPressed = false;
-    });
-  };
 
-  // 튜토리얼 호출 버튼
-  const clickTutorial = () => {
-    const tutorial = document.getElementById("tutorial");
-    tutorial.style.display = "block";
-    tutorial.addEventListener("mouseup", () => {
-      isPressed = false;
-    });
-  };
-
-  // 튜토리얼 나가기 버튼
-  const quitTutorial = () => {
-    const tutorial = document.getElementById("tutorial");
-    tutorial.style.display = "none";
-    tutorial.addEventListener("mouseup", () => {
-      isPressed = false;
-    });
-  };
-
-  // 도감 호출 버튼
-  const clickDogam =() => {
-    const dogam = document.getElementById('dogam');
-    dogam.style.display = 'block';
-    dogam.addEventListener("mouseup", () => {
-      isPressed = false;
-    });
-  }
-
-  // 도감 나가기 버튼
-  const quitDogam =() => {
-    const dogam = document.getElementById('dogam');
-    dogam.style.display = "none";
-    dogam.addEventListener("mouseup", () => {
-      isPressed = false;
-    });
-  }
-
-  // 지형관 상태 변경 감지 코드
-  var popUp = false;
 
   // 캐릭터 이름 선택받기
   const changeSiryeong =() => {

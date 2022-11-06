@@ -44,7 +44,7 @@ export const westFloorMesh = new THREE.Mesh(
   );
   oceanMesh.name = "ocean";
   oceanMesh.rotation.x = -Math.PI / 2;
-  oceanMesh.position.y = -0.7;
+  oceanMesh.position.y = 0;
   oceanMesh.receiveShadow = true;
 
   export const oceanBlock1Mesh = new THREE.Mesh(
@@ -53,7 +53,7 @@ export const westFloorMesh = new THREE.Mesh(
       map: oceanBlockTexture,
     }),
   );
-  oceanBlock1Mesh.name = "ocean";
+  oceanBlock1Mesh.name = "";
   oceanBlock1Mesh.rotation.x = -Math.PI / 2;
   oceanBlock1Mesh.rotation.z = 2;
   oceanBlock1Mesh.position.y = 2;
@@ -117,3 +117,17 @@ export const westFloorMesh = new THREE.Mesh(
   oceanBlock5Mesh.position.x = -10;
   oceanBlock5Mesh.position.z = -30;
   oceanBlock5Mesh.visible = false;
+
+  export const fiveMesh = new THREE.Mesh(
+    new THREE.PlaneGeometry(25, 30),
+    new THREE.MeshStandardMaterial({
+      map: oceanBlockTexture,
+    }),
+  );
+  fiveMesh.name = "floor";
+  fiveMesh.rotation.x = -Math.PI / 2;
+  fiveMesh.rotation.z = 0.3;
+  fiveMesh.position.y = -1.2;
+  fiveMesh.position.x = 30;
+  fiveMesh.position.z = -5;
+  // fiveMesh.visible = false;
