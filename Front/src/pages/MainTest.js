@@ -50,11 +50,6 @@ import {
   HistorySignMesh,
 } from "../components/main/SignMesh.js";
 import {
-  camera,
-  ambientLight,
-  directionalLight,
-} from "../components/main/Scene.js";
-import {
   clickMyPage,
   quitMyPage,
   clickTutorial,
@@ -84,6 +79,41 @@ function MainTest() {
 
   // Scene
   const scene = new THREE.Scene();
+
+ const camera = new THREE.OrthographicCamera(
+    -(window.innerWidth / window.innerHeight), // left
+    window.innerWidth / window.innerHeight, // right,
+    1, // top
+    -1, // bottom
+    -1000,
+    1000,
+  );
+
+// export const cameraPosition = new THREE.Vector3(1, 5, 5);
+  camera.position.set(1, 5, 5);
+  camera.zoom = 0.15;
+  camera.updateProjectionMatrix();
+
+const ambientLight = new THREE.AmbientLight("white", 0.7);
+
+const directionalLight = new THREE.DirectionalLight("white", 0.5);
+const directionalLightOriginPosition = new THREE.Vector3(0.5, 1, 1);
+directionalLight.position.x = directionalLightOriginPosition.x;
+directionalLight.position.y = directionalLightOriginPosition.y;
+directionalLight.position.z = directionalLightOriginPosition.z;
+directionalLight.castShadow = true;
+
+// mapSize 세팅으로 그림자 퀄리티 설정
+directionalLight.shadow.mapSize.width = 2048;
+directionalLight.shadow.mapSize.height = 2048;
+// 그림자 범위
+directionalLight.shadow.camera.left = -100;
+directionalLight.shadow.camera.right = 100;
+directionalLight.shadow.camera.top = 100;
+directionalLight.shadow.camera.bottom = -100;
+directionalLight.shadow.camera.near = -100;
+directionalLight.shadow.camera.far = 100;
+
 
   // Mesh
   const meshes = [];
@@ -155,12 +185,12 @@ function MainTest() {
 
   const gltfLoader = new GLTFLoader();
   gltfLoader.setDRACOLoader(dracoLoader);
-
+  
   const [isLoaded, setIsLoaded] = useState(false);
   // 로딩 페이지 구현 위함
   gltfLoader.load("/assets/glTF/scene.glb", function () {
+    console.log("ISLOADED");
     setIsLoaded(true);
-    console.log("IS LOADED");
   });
 
   // 여기서부터 glTF 모델 임포트하는 코드
@@ -173,6 +203,7 @@ function MainTest() {
     y: 0,
     z: 0,
   });
+
 
   // 플레이어 캐릭터
   let player = new Player({
@@ -624,122 +655,129 @@ function MainTest() {
 
   return (
     <>
-      <div className='mainPage'>
-        {/* 팝업 컴포넌트들 */}
-        <div
-          className='QuizPopup'
-          id='QuizPopup'
-          style={{ display: "none", marginTop: "40px", marginLeft: "115px" }}
-        >
-          <img
-            src='/assets/icons/cancel.png'
-            id='quitButton'
-            onClick={quitPopup}
-          ></img>
-          <OXQuizPopup></OXQuizPopup>
-        </div>
+      {isLoaded ? (
+        <div className='mainPage'>
+          {/* 팝업 컴포넌트들 */}
+          <div
+            className='QuizPopup'
+            id='QuizPopup'
+            style={{ display: "none", marginTop: "40px", marginLeft: "115px" }}
+          >
+            <img
+              src='/assets/icons/cancel.png'
+              id='quitButton'
+              onClick={quitPopup}
+            ></img>
+            <OXQuizPopup></OXQuizPopup>
+          </div>
 
-        <div
-          className='TerrianPopup'
-          id='TerrianPopup'
-          style={{ display: "none", marginTop: "40px", marginLeft: "115px" }}
-        >
-          <img
-            src='/assets/icons/cancel.png'
-            id='quitButton'
-            onClick={TerrianQuitPopup}
-          ></img>
-          <TerrianPopup isShown={popUp}></TerrianPopup>
-        </div>
+          <div
+            className='TerrianPopup'
+            id='TerrianPopup'
+            style={{ display: "none", marginTop: "40px", marginLeft: "115px" }}
+          >
+            <img
+              src='/assets/icons/cancel.png'
+              id='quitButton'
+              onClick={TerrianQuitPopup}
+            ></img>
+            <TerrianPopup isShown={popUp}></TerrianPopup>
+          </div>
 
-        <div
-          className='EcoPopup'
-          id='EcoPopup'
-          style={{ display: "none", marginTop: "40px", marginLeft: "115px" }}
-        >
-          <img
-            src='/assets/icons/cancel.png'
-            id='quitButton'
-            onClick={quitPopup}
-          ></img>
-          <EcoSystemPopup></EcoSystemPopup>
-        </div>
+          <div
+            className='EcoPopup'
+            id='EcoPopup'
+            style={{ display: "none", marginTop: "40px", marginLeft: "115px" }}
+          >
+            <img
+              src='/assets/icons/cancel.png'
+              id='quitButton'
+              onClick={quitPopup}
+            ></img>
+            <EcoSystemPopup></EcoSystemPopup>
+          </div>
 
-        <div
-          className='HistoryPopup'
-          id='HistoryPopup'
-          style={{ display: "none", marginTop: "40px", marginLeft: "115px" }}
-        >
-          <img
-            src='/assets/icons/cancel.png'
-            id='quitButton'
-            onClick={quitPopup}
-          ></img>
-          <HistoryPopup></HistoryPopup>
-        </div>
+          <div
+            className='HistoryPopup'
+            id='HistoryPopup'
+            style={{ display: "none", marginTop: "40px", marginLeft: "115px" }}
+          >
+            <img
+              src='/assets/icons/cancel.png'
+              id='quitButton'
+              onClick={quitPopup}
+            ></img>
+            <HistoryPopup></HistoryPopup>
+          </div>
 
-        {/* 마이페이지 버튼 */}
-        <div className='myPage' onClick={clickMyPage}>
-          캐릭터 변경
-        </div>
-        <div id='myPage' style={{ display: "none" }}>
-          <img
-            src='/assets/icons/cancel.png'
-            className='quitMyPage'
-            onClick={quitMyPage}
-          ></img>
-          <Popup
-            changeSojung={changeSojung}
-            changeSiryeong={changeSiryeong}
-            changeHyoseon={changeHyoseon}
-            changeYoungjin={changeYoungjin}
-            changeSeongryeong={changeSeongryeong}
-            changeChaehyeon={changeChaehyeon}
-          ></Popup>
-        </div>
+          {/* 마이페이지 버튼 */}
+          <div className='myPage' onClick={clickMyPage}>
+            캐릭터 변경
+          </div>
+          <div id='myPage' style={{ display: "none" }}>
+            <img
+              src='/assets/icons/cancel.png'
+              className='quitMyPage'
+              onClick={quitMyPage}
+            ></img>
+            <Popup
+              changeSojung={changeSojung}
+              changeSiryeong={changeSiryeong}
+              changeHyoseon={changeHyoseon}
+              changeYoungjin={changeYoungjin}
+              changeSeongryeong={changeSeongryeong}
+              changeChaehyeon={changeChaehyeon}
+            ></Popup>
+          </div>
 
-        {/* 생태도감 버튼 */}
-        <div className='dogamButton' onClick={clickDogam}>
-          생태도감
-        </div>
-        <div style={{ display: "none" }} id='dogam' className='dogamMark'>
-          <Dictionary></Dictionary>
-          <img
-            src='/assets/icons/cancel.png'
-            className='quitDogam'
-            onClick={quitDogam}
-          ></img>
-        </div>
+          {/* 생태도감 버튼 */}
+          <div className='dogamButton' onClick={clickDogam}>
+            생태도감
+          </div>
+          <div style={{ display: "none" }} id='dogam' className='dogamMark'>
+            <Dictionary></Dictionary>
+            <img
+              src='/assets/icons/cancel.png'
+              className='quitDogam'
+              onClick={quitDogam}
+            ></img>
+          </div>
 
-        {/* 하단의 스크린샷 버튼과 튜토리얼 버튼 */}
-        <div
-          className='screenShot'
-          onClick={clickScreenCapture}
-          id='screenshot'
-        >
-          <img
-            className='screenShotButton'
-            src='/assets/images/camera.png'
-          ></img>
-          <div className='ButtonBackGround'></div>
-        </div>
+          {/* 하단의 스크린샷 버튼과 튜토리얼 버튼 */}
+          <div
+            className='screenShot'
+            onClick={clickScreenCapture}
+            id='screenshot'
+          >
+            <img
+              className='screenShotButton'
+              src='/assets/images/camera.png'
+            ></img>
+            <div className='ButtonBackGround'></div>
+          </div>
 
-        <div className='tutorial' onClick={clickTutorial}>
-          <img
-            src='/assets/images/tutorial.png'
-            className='tutorialImage'
-          ></img>
+          <div className='tutorial' onClick={clickTutorial}>
+            <img
+              src='/assets/images/tutorial.png'
+              className='tutorialImage'
+            ></img>
+          </div>
+          <div id='tutorial' style={{ display: "none" }}>
+            <img
+              className='tutorialMark'
+              src='/assets/images/tutorial.png'
+            ></img>
+            <Tutorial></Tutorial>
+            <img
+              src='/assets/icons/cancel.png'
+              className='quitTutorial'
+              onClick={quitTutorial}
+            ></img>
+          </div>
         </div>
-        <div id='tutorial' style={{ display: "none" }}>
-          <img className='tutorialMark' src='/assets/images/tutorial.png'></img>
-          <Tutorial></Tutorial>
-          <img
-            src='/assets/icons/cancel.png'
-            className='quitTutorial'
-            onClick={quitTutorial}
-          ></img>
-        </div>
-      </div>
+      ) : (
+        <LoadingComponent />
+      )}
     </>
   );
 }
