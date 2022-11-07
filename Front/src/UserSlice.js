@@ -1,25 +1,13 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import axios from "axios";
+import { createSlice } from "@reduxjs/toolkit";
+
 const initialState = {
   value: {
-    // username: "initialUserName",
-    // nickname: "initialNickname",
-    accessToken: "initialAccessToken",
-    // character: "initialCharacter",
+    username: "",
+    nickname: "",
+    accessToken: "",
+    userCharacter: "",
   },
 };
-
-export const getUserInfo = createAsyncThunk(
-  "user/fetchByAccessToken",
-  async () => {
-    const res = await axios.get({
-      url: "https://k7d204.p.ssafy.io/api/user",
-      headers: {
-        "content-type": "application/json",
-      },
-    });
-  },
-);
 
 export const UserSlice = createSlice({
   name: "user",
@@ -27,7 +15,7 @@ export const UserSlice = createSlice({
   reducers: {
     login: (state, action) => {
       // 로그인
-      state.value.accessToken = action.payload.accessToken;
+      state.value = action.payload;
     },
     logout: (state, action) => {
       // 로그아웃
