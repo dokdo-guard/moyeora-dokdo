@@ -12,7 +12,7 @@ export const camera = new THREE.OrthographicCamera(
 
 // export const cameraPosition = new THREE.Vector3(1, 5, 5);
   camera.position.set(1, 5, 5);
-  camera.zoom = 0.05;
+  camera.zoom = 0.15;
   camera.updateProjectionMatrix();
 
 export const ambientLight = new THREE.AmbientLight("white", 0.7);

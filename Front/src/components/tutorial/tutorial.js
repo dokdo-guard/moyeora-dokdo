@@ -63,9 +63,9 @@ const Tutorial = (props) => {
   );
 };
 
-Tutorial.propTypes = {
-  show: PropTypes.bool.isRequired,
-  onClose: PropTypes.func.isRequired,
-};
+// Tutorial.propTypes = {
+//   show: PropTypes.bool.isRequired,
+//   onClose: PropTypes.func.isRequired,
+// };
 
 export default Tutorial;
