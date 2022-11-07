@@ -130,4 +130,4 @@ export const westFloorMesh = new THREE.Mesh(
   fiveMesh.position.y = -1.2;
   fiveMesh.position.x = 30;
   fiveMesh.position.z = -5;
-  // fiveMesh.visible = false;
+  fiveMesh.visible = false;

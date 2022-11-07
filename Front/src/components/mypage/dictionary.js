@@ -8,10 +8,10 @@ const Dictionary = (props) => {
   const [show, setShow] = useState(false);
   const [dogam, setDogam] = useState([]);
 
-  const closeHandler = (e) => {
-    setShow(false);
-    props.onClose(false);
-  };
+  // const closeHandler = (e) => {
+  //   setShow(false);
+  //   props.onClose(false);
+  // };
 
   const imgErrorHandler = (e) => {
     e.target.src = "/assets/icons/bird_Icon2.png";
@@ -41,9 +41,9 @@ const Dictionary = (props) => {
   };
 
   useEffect(() => {
-    setShow(props.show);
+    // setShow(props.show);
     api.get("info/birds").then((res) => {
-      console.log(res.data);
+      // console.log(res.data);
       setDogam(res.data);
     });
   }, [props.show]);
@@ -105,9 +105,9 @@ const Dictionary = (props) => {
   );
 };
 
-Dictionary.propTypes = {
-  show: PropTypes.bool.isRequired,
-  onClose: PropTypes.func.isRequired,
-};
+// Dictionary.propTypes = {
+//   show: PropTypes.bool.isRequired,
+//   onClose: PropTypes.func.isRequired,
+// };
 
 export default Dictionary;

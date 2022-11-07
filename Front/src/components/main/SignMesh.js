@@ -1,10 +1,10 @@
 import * as THREE from "three";
 
 const textureLoader = new THREE.TextureLoader();
-const QuixSignTexture = textureLoader.load("/assets/images/woodenSign.png");
-const TerritorySignTexture = textureLoader.load("/assets/images/woodenSign.png");
-const EcoSignTexture = textureLoader.load("/assets/images/woodenSign.png");
-const HistorySignTexture = textureLoader.load("/assets/images/woodenSign.png");
+const QuixSignTexture = textureLoader.load("/assets/images/Sign.png");
+const TerritorySignTexture = textureLoader.load("/assets/images/Sign.png");
+const EcoSignTexture = textureLoader.load("/assets/images/Sign.png");
+const HistorySignTexture = textureLoader.load("/assets/images/Sign.png");
 
 export const QuizSignMesh = new THREE.Mesh(
   new THREE.PlaneGeometry(30, 30),
@@ -68,12 +68,11 @@ export const HistorySignMesh = new THREE.Mesh(
       transparent: true,
     }),
   );
-  HistorySignMesh.rotation.y = 3;
+  HistorySignMesh.rotation.y = 0.2;
   HistorySignMesh.scale.x = 0.1;
   HistorySignMesh.scale.y = 0.1;
   HistorySignMesh.scale.z = 0.1;
   HistorySignMesh.name = "역사팻말";
-  HistorySignMesh.rotation.y = 1;
-  HistorySignMesh.position.x = 37;
+  HistorySignMesh.position.x = 35;
   HistorySignMesh.position.y = -3;
-  HistorySignMesh.position.z = 28.7;
+  HistorySignMesh.position.z = 32;

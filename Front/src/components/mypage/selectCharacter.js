@@ -61,7 +61,7 @@ const Popup = ((props) => {
   ];
 
   const [show, setShow] = useState(false);
-  const [myCharacter, setCharacter] = useState('seongryeong');
+  const [myCharacter, setCharacter] = useState('siryeong');
 
   const closeHandler = (e) => {
     setShow(false);
@@ -170,13 +170,13 @@ const Popup = ((props) => {
   );
 });
 
-Popup.propTypes = {
-  show: PropTypes.bool.isRequired,
-  onClose: PropTypes.func.isRequired,
-};
+// Popup.propTypes = {
+//   show: PropTypes.bool.isRequired,
+//   onClose: PropTypes.func.isRequired,
+// };
 
-Character.propTypes = {
-  character: PropTypes.string.isRequired,
-};
+// Character.propTypes = {
+//   character: PropTypes.string.isRequired,
+// };
 
 export default Popup;
