@@ -159,7 +159,7 @@ const Popup = ((props) => {
           return (
             <div key={idx}>
                 <img
-                  src='`/assets/images/characters/${c_name}.png'
+                  src={`/assets/images/characters/${c_name}.png`}
                   onClick={()=> {setCharacter(c_name)}}
                 ></img>
             </div>
@@ -170,13 +170,13 @@ const Popup = ((props) => {
   );
 });
 
-Popup.propTypes = {
-  show: PropTypes.bool.isRequired,
-  onClose: PropTypes.func.isRequired,
-};
+// Popup.propTypes = {
+//   show: PropTypes.bool.isRequired,
+//   onClose: PropTypes.func.isRequired,
+// };
 
-Character.propTypes = {
-  character: PropTypes.string.isRequired,
-};
+// Character.propTypes = {
+//   character: PropTypes.string.isRequired,
+// };
 
 export default Popup;

@@ -59,25 +59,6 @@
 }
 
 
-.mainPage .myPage {
-	position: absolute;
-	z-index: 2;
-	left: 90%;
-	top:3%;
-	cursor: pointer;
-	width: 55px;
-	height: 55px;
-	background-color: white;
-}
- 
-.mainPage .quitMyPage {
-	width: 100px;
-	z-index: 2;
-	position: absolute;
-	left: 95%;
-	top: 3%;
-	cursor: pointer;
-}
 
 .mainPage .tutorial {
 	position: absolute;
@@ -104,5 +85,58 @@
 	position: absolute;
 	top: 7%;
 	left: 80%;
+	cursor: pointer;
+}
+
+.mainPage .dogamButton {
+	position: absolute;
+	z-index: 2;
+	left: 85%;
+	top: 3%;
+	cursor: pointer;
+	width: 120px;
+	height: 50px;
+	background-color: rgb(17, 184, 17);
+	border-radius: 20px;
+	color: white;
+	font-size: 150%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.mainPage .quitDogam {
+	position: absolute;
+	z-index: 20;
+	width: 100px;
+	top: 7%;
+	left: 93.5%;
+	cursor: pointer;
+}
+
+
+.mainPage .myPage {
+	position: absolute;
+	z-index: 2;
+	left: 92%;
+	top: 3%;
+	cursor: pointer;
+	width: 130px;
+	height: 50px;
+	background-color: rgb(228, 200, 41);
+	border-radius: 20px;
+	color: white;
+	font-size: 150%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+ 
+.mainPage .quitMyPage {
+	width: 100px;
+	z-index: 22;
+	position: absolute;
+	left: 95%;
+	top: 3%;
 	cursor: pointer;
 }
