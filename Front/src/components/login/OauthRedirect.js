@@ -1,9 +1,11 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { login } from "../../UserSlice";
 
 const OauthRedirect = (props) => {
   const navigate = useNavigate();
-
+  const dispatch = useDispatch();
   const getUrlParameter = (keyVal) => {
     keyVal = keyVal.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
     let regex = new RegExp("[\\?&]" + keyVal + "=([^&#]*)");
@@ -19,6 +21,7 @@ const OauthRedirect = (props) => {
     const error = getUrlParameter("error");
     if (token) {
       localStorage.setItem("accessToken", token);
+      dispatch(login({ accessToken: token }));
       navigate("/main/mainTest");
     } else {
       console.log(error);
