@@ -52,11 +52,3 @@ export const quitDogam = () => {
   // });
 };
 
-export const quitPopup = () => {
-  const QuizPop = document.getElementById("QuizPopup");
-  const EcoPop = document.getElementById("EcoPopup");
-  const HistoryPop = document.getElementById("HistoryPopup");
-  QuizPop.style.display = "none";
-  EcoPop.style.display = "none";
-  HistoryPop.style.display = "none";
-};
