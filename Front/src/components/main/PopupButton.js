@@ -7,7 +7,7 @@ export  const clickMyPage = () => {
     // });
   };
 
-    // 마이페이지 나가기 버튼
+// 마이페이지 나가기 버튼
 export const quitMyPage = () => {
         const MyPagePop = document.getElementById("myPage");
         MyPagePop.style.display = "none";
@@ -16,7 +16,7 @@ export const quitMyPage = () => {
         // });
       };
 
-  // 튜토리얼 호출 버튼
+// 튜토리얼 호출 버튼
 export const clickTutorial = () => {
     const tutorial = document.getElementById("tutorial");
     tutorial.style.display = "block";
@@ -61,3 +61,11 @@ export const quitPopup = () => {
     HistoryPop.style.display = "none";
   };
 
+export const quitPopup = () => {
+  const QuizPop = document.getElementById("QuizPopup");
+  const EcoPop = document.getElementById("EcoPopup");
+  const HistoryPop = document.getElementById("HistoryPopup");
+  QuizPop.style.display = "none";
+  EcoPop.style.display = "none";
+  HistoryPop.style.display = "none";
+};
