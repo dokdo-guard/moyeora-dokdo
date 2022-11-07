@@ -12,6 +12,7 @@ export class Player{
 		this.x = info.x;
 		this.y = info.y;
 		this.z = info.z;
+		this.speed = 1
 		
 		info.gltfLoader.load(
 			info.modelSrc,

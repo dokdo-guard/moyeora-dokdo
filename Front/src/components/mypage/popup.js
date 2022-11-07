@@ -30,9 +30,9 @@ const Popup = (props) => {
   );
 };
 
-Popup.propTypes = {
-  show: PropTypes.bool.isRequired,
-  onClose: PropTypes.func.isRequired,
-};
+// Popup.propTypes = {
+//   show: PropTypes.bool.isRequired,
+//   onClose: PropTypes.func.isRequired,
+// };
 
 export default Popup;
