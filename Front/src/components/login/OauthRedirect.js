@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { login } from "../../UserSlice";
+import { changeCharacter, login } from "../../UserSlice";
 import axios from "axios";
 
 const OauthRedirect = (props) => {
