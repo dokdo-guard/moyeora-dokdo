@@ -29,6 +29,7 @@ function OXQuizPopup() {
           console.log(err);
         });
     }
+    return () => {};
   }, [quizNum]);
 
   // useEffect(() => {
@@ -36,27 +37,34 @@ function OXQuizPopup() {
   // }, [quiz]);
   const user = useSelector((state) => state.user.value);
   const setQuizResult = async (result) => {
-    alert(user.name + "님 점수를 등록");
-    // alert(result);
-    await axios
-      .put(
-        "https://k7d204.p.ssafy.io/api/quiz",
-        {
-          quiz: result + "",
-        },
-        {
-          headers: {
-            "content-type": "application/json",
-            Authorization: `Bearer ${user.accessToken}`,
+    if (
+      window.confirm(user.name.slice(0, 3) + "님 점수를 등록 하시겠습니까?")
+    ) {
+      await axios
+        .put(
+          "https://k7d204.p.ssafy.io/api/quiz",
+          {
+            quiz: result + "",
           },
-        },
-      )
-      .then((res) => {
-        console.log(res);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+          {
+            headers: {
+              Authorization: `Bearer ${user.accessToken}`,
+            },
+          },
+        )
+        .then((res) => {
+          console.log(res);
+          alert("점수 등록 완료!");
+          setSelected(false);
+          setQuizNum(0);
+          setQuizProgress(0);
+          setAnswerCorrect(0);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+    // alert(result);
   };
 
   const SelectQuizNum = () => {
@@ -165,10 +173,6 @@ function OXQuizPopup() {
     );
   };
   LinearProgressWithLabel.propTypes = {
-    /**
-     * The value of the progress indicator for the determinate and buffer variants.
-     * Value between 0 and 100.
-     */
     value: PropTypes.number.isRequired,
   };
   return (
@@ -186,15 +190,15 @@ function OXQuizPopup() {
               <div className='QuizText'>{quiz[quizProgress]?.quizText}</div>
 
               {/* 나중에 삭제할 것 */}
-              <div>{quiz[quizProgress]?.answer}</div>
-              <div>{answerCorrect}</div>
+              {/* <div>{quiz[quizProgress]?.answer.slice(0, 1)}</div>
+              <div>{answerCorrect}</div> */}
               {/* 나중에 삭제할 것 */}
 
               <div className='QuizOX'>
                 <button
                   className='OX_O'
                   onClick={() => {
-                    if (quiz[quizProgress]?.answer === "O") {
+                    if (quiz[quizProgress]?.answer.slice(0, 1) === "O") {
                       correct();
                     }
                     setQuizProgress((quizProgress) => quizProgress + 1);
@@ -205,7 +209,7 @@ function OXQuizPopup() {
                 <button
                   className='OX_X'
                   onClick={() => {
-                    if (quiz[quizProgress]?.answer === "X") {
+                    if (quiz[quizProgress]?.answer.slice(0, 1) === "X") {
                       correct();
                     }
                     setQuizProgress((quizProgress) => quizProgress + 1);
