@@ -1,11 +1,13 @@
+import {useState} from 'react'
+
 // 마이페이지 호출 버튼
-export const clickMyPage = () => {
-  const MyPagePop = document.getElementById("myPage");
-  MyPagePop.style.display = "block";
-  // MyPagePop.addEventListener("mouseup", () => {
-  //   isPressed = false;
-  // });
-};
+export  const clickMyPage = () => {
+    const MyPagePop = document.getElementById("myPage");
+    MyPagePop.style.display = "block";
+    // MyPagePop.addEventListener("mouseup", () => {
+    //   isPressed = false;
+    // });
+  };
 
 // 마이페이지 나가기 버튼
 export const quitMyPage = () => {
@@ -53,10 +55,26 @@ export const quitDogam = () => {
 };
 
 export const quitPopup = () => {
-  const QuizPop = document.getElementById("QuizPopup");
-  const EcoPop = document.getElementById("EcoPopup");
-  const HistoryPop = document.getElementById("HistoryPopup");
-  QuizPop.style.display = "none";
-  EcoPop.style.display = "none";
-  HistoryPop.style.display = "none";
-};
+    const QuizPop = document.getElementById("QuizPopup");
+    const EcoPop = document.getElementById("EcoPopup");
+    const HistoryPop = document.getElementById("HistoryPopup");
+    QuizPop.style.display = "none";
+    EcoPop.style.display = "none";
+    HistoryPop.style.display = "none";
+  };
+
+
+export const clickChat =() => {
+  const ChatPop = document.getElementById('chat')
+  ChatPop.style.display = "block";
+}
+
+export const quitChat =() => {
+  const ChatPop = document.getElementById('chat')
+  ChatPop.style.display = "none";
+}
+
+export const clickBoard = () => {
+  const BoardPop = document.getElementById('board')
+  BoardPop.style.display = 'block'
+}
