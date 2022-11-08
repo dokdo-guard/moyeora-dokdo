@@ -1,0 +1,58 @@
+.boardPage {
+    width: 1400px;
+	height: 650px;
+	position: absolute;
+	z-index: 20;
+	background-color: white;
+    border-radius: 20px;
+    left: 65px;
+    top: 35px;
+    box-shadow: 7px 7px 7px grey;
+}
+
+/* 메인 페이지 */
+.boardHome {
+	width: 100vw;
+	height: 100vh;
+	background-color: rgb(119, 153, 192);
+	position: relative;
+}
+
+.boardHome .title {
+	padding-top: 4%;
+	/* background-color: yellow; */
+}
+
+.boardHome .writeButton {
+	width: 10%;
+	height: 5%;
+	border: none;
+	border-radius: 10px;
+	background-color: yellow;
+	cursor: pointer;
+}
+
+.boardHome .dokdoButton {
+	width: 10%;
+	height: 5%;
+	border: none;
+	border-radius: 10px;
+	background-color: green;
+	cursor: pointer;
+}
+
+
+/*  새 글 쓰기 */
+.newPage {
+	width: 100vw;
+	height: 100vh;
+	background-color: white;
+}
+
+
+/*  디테일 페이지 */
+.detail {
+	width: 100vw;
+	height: 100vh;
+	background-color: white;
+}

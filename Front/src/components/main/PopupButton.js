@@ -1,4 +1,6 @@
-  // 마이페이지 호출 버튼
+import {useState} from 'react'
+
+// 마이페이지 호출 버튼
 export  const clickMyPage = () => {
     const MyPagePop = document.getElementById("myPage");
     MyPagePop.style.display = "block";
@@ -61,3 +63,18 @@ export const quitPopup = () => {
     HistoryPop.style.display = "none";
   };
 
+
+export const clickChat =() => {
+  const ChatPop = document.getElementById('chat')
+  ChatPop.style.display = "block";
+}
+
+export const quitChat =() => {
+  const ChatPop = document.getElementById('chat')
+  ChatPop.style.display = "none";
+}
+
+export const clickBoard = () => {
+  const BoardPop = document.getElementById('board')
+  BoardPop.style.display = 'block'
+}

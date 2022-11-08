@@ -16,11 +16,14 @@ import TerrianPopup from "../components/popup/TerrianPopup";
 import OXQuizPopup from "../components/popup/OXQuizPopup";
 import EcoSystemPopup from "../components/popup/EcosystemPopup";
 
+import Board from "../components/board/Board.js";
+
 import Popup from "../components/mypage/selectCharacter";
 import Dictionary from "../components/mypage/dictionary.js";
 
 import Stats from "stats.js";
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 import { mapReLoading } from "../components/popup/TerrianPopup";
 
@@ -35,7 +38,6 @@ import {
   oceanBlock3Mesh,
   oceanBlock4Mesh,
   oceanBlock5Mesh,
-  fiveMesh,
 } from "../components/main/Plane.js";
 import {
   spotMesh1,
@@ -57,15 +59,17 @@ import {
   clickDogam,
   quitDogam,
   quitPopup,
+  clickChat,
+  quitChat,
+  clickBoard
 } from "../components/main/PopupButton.js";
 import { NPC } from "../components/glTF/NPC";
 import Tutorial from "../components/tutorial/tutorial";
+import { Vector2, Vector3 } from "three";
 
 function MainTest() {
-  // Cannon(물리엔진)
-  const cannonWorld = new CANNON.World();
-  cannonWorld.gravity.set(0, -10, 0);
 
+  //#region = 카메라, 빛, 렌더러, 씬
   // Renderer
   const canvas = document.querySelector("#three-canvas");
   const renderer = new THREE.WebGLRenderer({
@@ -80,7 +84,7 @@ function MainTest() {
   // Scene
   const scene = new THREE.Scene();
 
- const camera = new THREE.OrthographicCamera(
+  const camera = new THREE.OrthographicCamera(
     -(window.innerWidth / window.innerHeight), // left
     window.innerWidth / window.innerHeight, // right,
     1, // top
@@ -88,48 +92,31 @@ function MainTest() {
     -1000,
     1000,
   );
-
-// export const cameraPosition = new THREE.Vector3(1, 5, 5);
   camera.position.set(1, 5, 5);
-  camera.zoom = 0.15;
+  camera.zoom = 0.13;
   camera.updateProjectionMatrix();
 
-const ambientLight = new THREE.AmbientLight("white", 0.7);
+  const ambientLight = new THREE.AmbientLight("white", 0.7);
 
-const directionalLight = new THREE.DirectionalLight("white", 0.5);
-const directionalLightOriginPosition = new THREE.Vector3(0.5, 1, 1);
-directionalLight.position.x = directionalLightOriginPosition.x;
-directionalLight.position.y = directionalLightOriginPosition.y;
-directionalLight.position.z = directionalLightOriginPosition.z;
-directionalLight.castShadow = true;
+  const directionalLight = new THREE.DirectionalLight("white", 0.5);
+  const directionalLightOriginPosition = new THREE.Vector3(0.5, 1, 1);
+  directionalLight.position.set(directionalLightOriginPosition.x,directionalLightOriginPosition.y,directionalLightOriginPosition.z)
+  directionalLight.castShadow = true;
+  // mapSize 세팅으로 그림자 퀄리티 설정
+  directionalLight.shadow.mapSize.width = 2048;
+  directionalLight.shadow.mapSize.height = 2048;
+  // 그림자 범위
+  directionalLight.shadow.camera.left = -100;
+  directionalLight.shadow.camera.right = 100;
+  directionalLight.shadow.camera.top = 100;
+  directionalLight.shadow.camera.bottom = -100;
+  directionalLight.shadow.camera.near = -100;
+  directionalLight.shadow.camera.far = 100;
+  //#endregion
 
-// mapSize 세팅으로 그림자 퀄리티 설정
-directionalLight.shadow.mapSize.width = 2048;
-directionalLight.shadow.mapSize.height = 2048;
-// 그림자 범위
-directionalLight.shadow.camera.left = -100;
-directionalLight.shadow.camera.right = 100;
-directionalLight.shadow.camera.top = 100;
-directionalLight.shadow.camera.bottom = -100;
-directionalLight.shadow.camera.near = -100;
-directionalLight.shadow.camera.far = 100;
-
-
+  //#region = scene / meshes add하기
   // Mesh
   const meshes = [];
-  // 동도 구역
-  const eastFloorShape = new CANNON.Plane();
-  const eastFloorBody = new CANNON.Body({
-    mass: 0,
-    position: new CANNON.Vec3(38.58, 0.161, -2.42),
-    shape: eastFloorShape,
-  });
-  eastFloorBody.quaternion.setFromAxisAngle(
-    new CANNON.Vec3(-1, 0, 0),
-    Math.PI / 2,
-  );
-  cannonWorld.addBody(eastFloorBody);
-
   // components/main/.js 에서 만든 각 scene 컴포넌트들 한번에 다 scene에 넣기
   useEffect(() => {
     scene.add(
@@ -140,8 +127,7 @@ directionalLight.shadow.camera.far = 100;
       oceanBlock2Mesh,
       oceanBlock3Mesh,
       oceanBlock4Mesh,
-      oceanBlock5Mesh,
-      fiveMesh,
+      oceanBlock5Mesh
     );
     scene.add(camera, ambientLight, directionalLight);
     meshes.push(
@@ -158,6 +144,7 @@ directionalLight.shadow.camera.far = 100;
     scene.add(QuizSignMesh, TerritorySignMesh, EcoSignMesh, HistorySignMesh);
     meshes.push(QuizSignMesh, TerritorySignMesh, EcoSignMesh, HistorySignMesh);
   });
+  //#endregion
 
   // 마우스 포인터
   // 이 메쉬를 활용해서 마우스가 어디를 클릭해서 플레이어를 이동시키는지 확인 가능
@@ -170,11 +157,7 @@ directionalLight.shadow.camera.far = 100;
     }),
   );
   pointerMesh.rotation.x = -Math.PI / 2;
-
-  pointerMesh.position.y = 0.3;
-  pointerMesh.position.x = 29;
-  pointerMesh.position.z = -4;
-
+  pointerMesh.position.set(29,0.3,-4)
   pointerMesh.receiveShadow = true;
   scene.add(pointerMesh);
 
@@ -185,7 +168,7 @@ directionalLight.shadow.camera.far = 100;
 
   const gltfLoader = new GLTFLoader();
   gltfLoader.setDRACOLoader(dracoLoader);
-  
+
   const [isLoaded, setIsLoaded] = useState(false);
   // 로딩 페이지 구현 위함
   gltfLoader.load("/assets/glTF/scene.glb", function () {
@@ -193,7 +176,7 @@ directionalLight.shadow.camera.far = 100;
     setIsLoaded(true);
   });
 
-  // 여기서부터 glTF 모델 임포트하는 코드
+  // #region = glTF 모델 임포트
   // 풍경 나무들
   const nature = new Nature({
     gltfLoader,
@@ -204,36 +187,54 @@ directionalLight.shadow.camera.far = 100;
     z: 0,
   });
 
-
   // 플레이어 캐릭터
   let player = new Player({
     scene,
     meshes,
     gltfLoader,
-    // // cannonWorld,
-    modelSrc: "/assets/glTF/character/sojung.glb",
-    // x : 28,
-    // y : 0.5,
-    // z : -4
+    camera,
+    modelSrc: "/assets/glTF/character/siryeong.glb",
+    // x : 0,
+    // y : 0,
+    // z : 0
   });
+
+  let users = [
+    new Player({
+      scene,
+      meshes,
+      gltfLoader,
+      modelSrc: '/assets/glTF/character/sojung.glb',
+      x: -5,
+      y: 0.3,
+      z: 0
+    }),
+    new Player({
+      scene,
+      meshes,
+      gltfLoader,
+      modelSrc: '/assets/glTF/character/youngjin.glb',
+      x: 5,
+      y: 0.3,
+      z: 0
+    }),
+  ];
 
   // 다리
   const bridge = new Bridge({
     gltfLoader,
     scene,
-    cannonWorld,
     meshes,
-    modelSrc: "/assets/glTF/bridge.gltf",
-    x: 4,
-    y: -0.4,
-    z: 3,
+    modelSrc: "/assets/glTF/bridge.glb",
+    x: 6,
+    y: -0.2,
+    z: -3.5,
   });
 
   // 생태관
   const ecosystem = new EcoSystem({
     gltfLoader,
     scene,
-    cannonWorld,
     modelSrc: "/assets/glTF/ecosystem.glb",
     x: 15,
     y: -2.25,
@@ -270,6 +271,18 @@ directionalLight.shadow.camera.far = 100;
     z: 23,
   });
 
+  const 게시판 = new NPC({
+    scene,
+    meshes,
+    gltfLoader,
+    modelSrc: "/assets/glTF/Alligator.gltf",
+    x: 0,
+    y: 0.2,
+    z: 0,
+  });
+
+  //#endregion
+
   // 레이캐스터(마우스 클릭 이벤트)
   const raycaster = new THREE.Raycaster();
   let mouse = new THREE.Vector2();
@@ -285,15 +298,11 @@ directionalLight.shadow.camera.far = 100;
   const stats = new Stats();
   document.body.append(stats.domElement);
 
-  function draw() {
+  //#region = update 함수
+  function update() {
     render();
     stats.update();
     const delta = clock.getDelta();
-    cannonWorld.step(1 / 60, delta, 1);
-
-    if (player.mixer) {
-      player.mixer.update(delta);
-    }
 
     if (강치.mixer && 돌고래.mixer && 달고기.mixer) {
       강치.mixer.update(delta);
@@ -304,16 +313,17 @@ directionalLight.shadow.camera.far = 100;
       달고기.actions[0].play();
     }
 
-    // if (player.cannonBody) {
-    //   player.modelMesh.position.copy(player.cannonBody.position);
-    //   cannonWorld.addBody(player.cannonBody);
-    // }
-
     if (player.modelMesh) {
       camera.lookAt(player.modelMesh.position);
       if (isPressed) {
         raycasting();
+
       }
+      // player update
+      player.update(delta);
+      users.forEach((user) => {
+        user.update(delta);
+      });
 
       if (player.moving) {
         // 걸어가는 상태
@@ -322,37 +332,22 @@ directionalLight.shadow.camera.far = 100;
           destinationPoint.x - player.modelMesh.position.x,
         );
 
-        // player.cannonBody.position.x += Math.cos(angle) * 0.05;
-        // player.cannonBody.position.z += Math.sin(angle) * 0.05;
-
         player.speed = 7;
-        player.modelMesh.position.x += Math.cos(angle) * delta * player.speed;
-        player.modelMesh.position.z += Math.sin(angle) * delta * player.speed;
 
         camera.position.x = 1 + player.modelMesh.position.x;
         camera.position.z = 5 + player.modelMesh.position.z;
-
-        player.actions[0].stop();
-        player.actions[1].play();
-
-        if (
-          Math.abs(destinationPoint.x - player.modelMesh.position.x) < 0.03 &&
-          Math.abs(destinationPoint.z - player.modelMesh.position.z) < 0.03
-        ) {
-          player.moving = false;
-        }
 
         // 만약 플레이어 캐릭터가 각 건물의 이벤트 안에 들어갔을 경우에 행할 것
         if (
           (Math.abs(spotMesh1.position.x - player.modelMesh.position.x) < 1.5 &&
             Math.abs(spotMesh1.position.z - player.modelMesh.position.z) <
-              1.5) ||
+            1.5) ||
           (Math.abs(spotMesh2.position.x - player.modelMesh.position.x) < 1.5 &&
             Math.abs(spotMesh2.position.z - player.modelMesh.position.z) <
-              1.5) ||
+            1.5) ||
           (Math.abs(spotMesh3.position.x - player.modelMesh.position.x) < 1.5 &&
             Math.abs(spotMesh3.position.z - player.modelMesh.position.z) <
-              1.5) ||
+            1.5) ||
           (Math.abs(spotMesh4.position.x - player.modelMesh.position.x) < 1.5 &&
             Math.abs(spotMesh4.position.z - player.modelMesh.position.z) < 1.5)
         ) {
@@ -400,28 +395,19 @@ directionalLight.shadow.camera.far = 100;
     }
 
     renderer.render(scene, camera);
-    renderer.setAnimationLoop(draw);
+    renderer.setAnimationLoop(update);
   }
+  //#endregion
 
   // 마우스로 클릭
+
   function checkIntersects() {
-    // raycaster.setFromCamera(mouse, camera);
     const intersects = raycaster.intersectObjects(meshes);
     const item = intersects[0];
-    // console.log(item.object.name)
-    // for (const item of intersects) {
-    if (
-      item.object.name === "floor" ||
-      "land_79030" ||
-      "land_79020" ||
-      "land_79043"
-    ) {
-      destinationPoint.x = item.point.x;
-      destinationPoint.y = 0.3;
-      destinationPoint.z = item.point.z;
-      player.modelMesh.lookAt(destinationPoint);
-
-      player.moving = true;
+    if (!item) return;
+    if (item.object.name === "floor" || "land_79030" || "land_79020" || "land_79043") {
+      destinationPoint = new Vector3(item.point.x, 0.3, item.point.z)
+      player.moveTo(destinationPoint)
 
       pointerMesh.position.x = destinationPoint.x;
       pointerMesh.position.z = destinationPoint.z;
@@ -431,28 +417,23 @@ directionalLight.shadow.camera.far = 100;
       item.object.name === "Dolphin" ||
       item.object.name === "Catfish"
     ) {
-      강치.actions[1].setLoop(THREE.LoopOnce);
-      강치.actions[1].stop();
-      강치.actions[1].play();
-      돌고래.actions[1].setLoop(THREE.LoopOnce);
-      돌고래.actions[1].stop();
-      돌고래.actions[1].play();
-      달고기.actions[1].setLoop(THREE.LoopOnce);
-      달고기.actions[1].stop();
-      달고기.actions[1].play();
-      player.moving = false;
+      player.dontMove(destinationPoint)
+      강치.onRaycasted()
+      돌고래.onRaycasted()
+      달고기.onRaycasted()
     }
 
     if (item.object.name === "ocean") {
-      player.moving = false;
+      player.moving = false
     }
+
     if (item.object.name === "퀴즈팻말") {
       const QuizPop = document.getElementById("QuizPopup");
       QuizPop.style.display = "block";
       QuizPop.addEventListener("mouseup", () => {
         isPressed = false;
       });
-      player.moving = false;
+      player.moving = false
     }
     if (item.object.name == "지질팻말") {
       const TerrianPop = document.getElementById("TerrianPopup");
@@ -460,8 +441,8 @@ directionalLight.shadow.camera.far = 100;
       TerrianPop.addEventListener("mouseup", () => {
         isPressed = false;
       });
-      player.moving = false;
       mapReLoading();
+      player.moving = false
     }
     if (item.object.name === "생태팻말") {
       const EcoPop = document.getElementById("EcoPopup");
@@ -469,7 +450,7 @@ directionalLight.shadow.camera.far = 100;
       EcoPop.addEventListener("mouseup", () => {
         isPressed = false;
       });
-      player.moving = false;
+      player.moving = false
     }
     if (item.object.name === "역사팻말") {
       const HistoryPop = document.getElementById("HistoryPopup");
@@ -477,10 +458,16 @@ directionalLight.shadow.camera.far = 100;
       HistoryPop.addEventListener("mouseup", () => {
         isPressed = false;
       });
-      player.moving = false;
+      player.moving = false
     }
-    //   break;
-    // }
+    if (item.object.name === 'Alligator') {
+      const BoardPop = document.getElementById('board');
+      BoardPop.addEventListener("mouseup", () => {
+        isPressed = false;
+      });
+      BoardPop.style.display = 'block';
+      player.moving = false
+    }
   }
 
   // 지형관 상태 변경 감지 코드
@@ -572,7 +559,7 @@ directionalLight.shadow.camera.far = 100;
     };
   })();
 
-  // 캐릭터 이름 선택받기
+  //#region = 캐릭터 선택하기
   const changeSiryeong = () => {
     scene.remove(player.modelMesh);
     player = new Player({
@@ -591,7 +578,6 @@ directionalLight.shadow.camera.far = 100;
       scene,
       meshes,
       gltfLoader,
-      cannonWorld,
       modelSrc: "/assets/glTF/character/sojung.glb",
       x: destinationPoint.x,
       y: 0.3,
@@ -604,7 +590,6 @@ directionalLight.shadow.camera.far = 100;
       scene,
       meshes,
       gltfLoader,
-      cannonWorld,
       modelSrc: "/assets/glTF/character/hyoseon.glb",
       x: destinationPoint.x,
       y: 0.3,
@@ -617,7 +602,6 @@ directionalLight.shadow.camera.far = 100;
       scene,
       meshes,
       gltfLoader,
-      cannonWorld,
       modelSrc: "/assets/glTF/character/youngjin.glb",
       x: destinationPoint.x,
       y: 0.3,
@@ -630,7 +614,6 @@ directionalLight.shadow.camera.far = 100;
       scene,
       meshes,
       gltfLoader,
-      cannonWorld,
       modelSrc: "/assets/glTF/character/seongryeong.glb",
       x: destinationPoint.x,
       y: 0.3,
@@ -643,15 +626,14 @@ directionalLight.shadow.camera.far = 100;
       scene,
       meshes,
       gltfLoader,
-      cannonWorld,
       modelSrc: "/assets/glTF/character/chaehyeon.glb",
       x: destinationPoint.x,
       y: 0.3,
       z: destinationPoint.z,
     });
   };
-
-  draw();
+  //#endregion
+  update();
 
   return (
     <>
@@ -774,6 +756,20 @@ directionalLight.shadow.camera.far = 100;
               onClick={quitTutorial}
             ></img>
           </div>
+
+          <div className="chatButton" onClick={clickChat}>
+            <img src='/assets/icons/chat.png' className='chatImage'></img>
+          </div>
+          <div id="chat" className="chatCancel">
+            <input className="chat"></input>
+            <img src='/assets/icons/cancel.png' onClick={quitChat} className='cancelImage'></img>
+          </div>
+
+
+          <div id='board' className='board'>
+            <Board></Board>
+          </div>
+
         </div>
       ) : (
         <LoadingComponent />
