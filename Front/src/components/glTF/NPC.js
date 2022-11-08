@@ -28,8 +28,20 @@ export class NPC {
 				this.mixer = new AnimationMixer(this.modelMesh);
 				this.actions[0] = this.mixer.clipAction(glb.animations[8]);
 				this.actions[1] = this.mixer.clipAction(glb.animations[11]);
-				// this.actions[0].play();
+
+				const clock = new THREE.Clock();
+				const delta = clock.getDelta();
+				if (this.mixer) {
+					this.mixer.update();
+					this.actions[0].play();
+				}
 			}
 		);
+	}
+
+	onRaycasted() {
+		this.actions[1].setLoop(THREE.LoopOnce);
+		this.actions[1].stop();
+		this.actions[1].play();
 	}
 }

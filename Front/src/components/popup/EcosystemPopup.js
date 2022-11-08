@@ -1,4 +1,4 @@
-import React, { useState, useLayoutEffect, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import {
   getAllBirds,
   getAllPlants,
@@ -6,15 +6,15 @@ import {
   getAllSeaPlants,
 } from "../../api/ecoSystemApi";
 import "../css/EcoSystemPopup.css";
-
+import { useSelector } from "react-redux";
+import axios from "axios";
 function EcoSystemPopup() {
   const [isSelected, setIsSelected] = useState(false);
   const [category, setCategory] = useState("");
   const [selectedData, setSelectedData] = useState([]);
   const [detailSelected, setDetailSelected] = useState(false);
   const [data, setData] = useState([]);
-
-  // useEffect(() => {}, []);
+  const user = useSelector((state) => state.user.value);
 
   useEffect(() => {
     if (category === "bird") {
@@ -33,7 +33,7 @@ function EcoSystemPopup() {
         .catch((err) => {
           console.log(err);
         });
-    } else if (category === "sea-animal") {
+    } else if (category === "seaAnimal") {
       getAllSeaAnimal()
         .then((res) => {
           setData(res.data);
@@ -41,7 +41,7 @@ function EcoSystemPopup() {
         .catch((err) => {
           console.log(err);
         });
-    } else if (category === "sea-plant") {
+    } else if (category === "seaPlant") {
       getAllSeaPlants()
         .then((res) => {
           setData(res.data);
@@ -70,9 +70,18 @@ function EcoSystemPopup() {
             Back
           </button>
         </div>
+
         <div className='EcoSystemDetailInfo'>
+          <div className='getDogamBtn'>
+            <button
+              onClick={() => {
+                setDogam();
+              }}
+            >
+              도감 획득 하기!!
+            </button>{" "}
+          </div>
           <div className='EcoSystemDetailImage'>
-            {" "}
             <img
               src={
                 "https://ssafy-d204-dokdo.s3.ap-northeast-2.amazonaws.com/" +
@@ -129,9 +138,9 @@ function EcoSystemPopup() {
                     <img
                       src={
                         "https://ssafy-d204-dokdo.s3.ap-northeast-2.amazonaws.com/" +
-                        data.img
+                        data?.img
                       }
-                      alt=''
+                      alt='NO'
                     />
                   </div>
                   <div className='EcoSystemListName'>{data.name}</div>
@@ -144,6 +153,25 @@ function EcoSystemPopup() {
     } else {
       return <ShowDetail />;
     }
+  };
+  const setDogam = () => {
+    axios
+      .post(
+        "https://k7d204.p.ssafy.io/api/dogam",
+        { domain: category, mongo_id: selectedData.name },
+        {
+          headers: {
+            Authorization: `Bearer ${user.accessToken}`,
+          },
+        },
+      )
+      .then((res) => {
+        console.log(res);
+        alert(selectedData.name + " 도감 획득 완료!");
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   return (
@@ -170,7 +198,7 @@ function EcoSystemPopup() {
               className='EcosystemSelectBtn'
               onClick={() => {
                 setIsSelected(true);
-                setCategory("sea-animal");
+                setCategory("seaAnimal");
               }}
             >
               {" "}
@@ -197,7 +225,7 @@ function EcoSystemPopup() {
               className='EcosystemSelectBtn'
               onClick={() => {
                 setIsSelected(true);
-                setCategory("sea-plant");
+                setCategory("seaPlant");
               }}
             >
               <img
