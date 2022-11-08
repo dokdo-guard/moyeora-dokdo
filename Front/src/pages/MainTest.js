@@ -102,6 +102,7 @@ function MainTest() {
   const directionalLightOriginPosition = new THREE.Vector3(0.5, 1, 1);
   directionalLight.position.set(directionalLightOriginPosition.x,directionalLightOriginPosition.y,directionalLightOriginPosition.z)
   directionalLight.castShadow = true;
+
   // mapSize 세팅으로 그림자 퀄리티 설정
   directionalLight.shadow.mapSize.width = 2048;
   directionalLight.shadow.mapSize.height = 2048;
@@ -112,6 +113,7 @@ function MainTest() {
   directionalLight.shadow.camera.bottom = -100;
   directionalLight.shadow.camera.near = -100;
   directionalLight.shadow.camera.far = 100;
+
   //#endregion
 
   //#region = scene / meshes add하기
@@ -128,6 +130,7 @@ function MainTest() {
       oceanBlock3Mesh,
       oceanBlock4Mesh,
       oceanBlock5Mesh
+
     );
     scene.add(camera, ambientLight, directionalLight);
     meshes.push(
@@ -421,8 +424,8 @@ function MainTest() {
       강치.onRaycasted()
       돌고래.onRaycasted()
       달고기.onRaycasted()
-    }
 
+    }
     if (item.object.name === "ocean") {
       player.moving = false
     }
@@ -635,6 +638,7 @@ function MainTest() {
   //#endregion
   update();
 
+
   return (
     <>
       {isLoaded ? (
@@ -756,7 +760,6 @@ function MainTest() {
               onClick={quitTutorial}
             ></img>
           </div>
-
           <div className="chatButton" onClick={clickChat}>
             <img src='/assets/icons/chat.png' className='chatImage'></img>
           </div>
@@ -764,8 +767,6 @@ function MainTest() {
             <input className="chat"></input>
             <img src='/assets/icons/cancel.png' onClick={quitChat} className='cancelImage'></img>
           </div>
-
-
           <div id='board' className='board'>
             <Board></Board>
           </div>

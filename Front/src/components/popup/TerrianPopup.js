@@ -161,8 +161,9 @@ function TerrianPopup(isShown) {
             <img
               src={
                 "https://ssafy-d204-dokdo.s3.ap-northeast-2.amazonaws.com/" +
-                curPlace.img1
+                curPlace?.img1
               }
+              alt='NO IMAGE'
             />
           </div>
         </div>
