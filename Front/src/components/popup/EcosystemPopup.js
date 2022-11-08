@@ -129,9 +129,9 @@ function EcoSystemPopup() {
                     <img
                       src={
                         "https://ssafy-d204-dokdo.s3.ap-northeast-2.amazonaws.com/" +
-                        data.img
+                        data?.img
                       }
-                      alt=''
+                      alt='NO IMAGE'
                     />
                   </div>
                   <div className='EcoSystemListName'>{data.name}</div>
