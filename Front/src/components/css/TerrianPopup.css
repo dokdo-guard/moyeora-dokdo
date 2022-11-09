@@ -1,0 +1,115 @@
+.TerrianPopupContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  width: 1300px;
+  height: 650px;
+  background-color: #faffe0;
+  box-shadow: 5px 5px 30px lightgray;
+  border-radius: 10px;
+}
+.TerrianPopupTitle {
+  display: fix;
+  font-size: 70px;
+  font-weight: 700;
+  margin: 10px;
+  top: 10px;
+}
+.TerrianPopupWrapper {
+  display: flex;
+  flex-direction: row;
+  width: 80%;
+  height: 80%;
+  background-color: white;
+  box-shadow: 5px 5px 30px lightgray;
+  border-radius: 10px;
+  margin: 10px;
+}
+.TerrianPopupInfoTable {
+  width: 35%;
+  height: 100%;
+  background-color: #eff2de;
+  z-index: 2;
+}
+.TerrianPopupMap {
+  width: 65%;
+  height: 100%;
+  z-index: 0;
+}
+
+.baseInfoContainer {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 10px;
+}
+.baseInfoTitle {
+  font-weight: 700;
+  font-size: 30px;
+  margin: 20px;
+}
+.baseInfoContent {
+  margin: 10px;
+  padding: 5px;
+  display: flex;
+  flex-direction: row;
+  width: 80%;
+  border-bottom: 3px solid white;
+  align-items: center;
+}
+.baseInfoContentHeader {
+  font-weight: 700;
+  font-size: 25px;
+  justify-content: center;
+  align-items: center;
+  width: 40%;
+}
+.baseInfoDetail {
+  text-align: center;
+}
+
+.placeInfoContainer {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  height: 100%;
+}
+.placeInfoTitle {
+  font-weight: 700;
+  font-size: 40px;
+}
+.placeInfoLocation {
+  text-align: start;
+  font-size: 30px;
+  margin: 10px;
+  padding: 10px;
+  border-bottom: 3px solid white;
+}
+.placeInfoSummary {
+  font-size: 20px;
+  margin: 20px;
+  text-align: start;
+}
+
+.placeInfoImageContainer {
+  width: 100%;
+  height: 300px;
+  box-shadow: 5px 5px 30px lightgray;
+  overflow: hidden;
+  border: 1px solid #ffffff;
+  border-radius: 8px;
+}
+.placeInfoImageWrapper {
+  height: 100%;
+  width: 100%;
+  display: flex;
+
+  object-fit: cover;
+}
+.placeInfoImageWrapper > img {
+  height: 100%;
+  width: 100%;
+}

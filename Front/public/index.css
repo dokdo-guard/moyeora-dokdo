@@ -1,0 +1,19 @@
+.wholeBody {
+  /* -ms-overflow-style: none;
+	scrollbar-width: none;  */
+  /* overflow: hidden; */
+}
+
+.wholeBody::-webkit-scrollbar {
+  /* display: none;  */
+}
+
+.wholeBody .canvas {
+  /* -ms-overflow-style: none;
+	scrollbar-width: none;  */
+  /* overflow: hidden; */
+}
+
+/* .wholeBody .canvas::-webkit-scrollbar {
+    display: none; 
+} */
