@@ -1,11 +1,15 @@
+
+import {useState} from 'react'
+
 // 마이페이지 호출 버튼
-export const clickMyPage = () => {
-  const MyPagePop = document.getElementById("myPage");
-  MyPagePop.style.display = "block";
-  // MyPagePop.addEventListener("mouseup", () => {
-  //   isPressed = false;
-  // });
-};
+export  const clickMyPage = () => {
+    const MyPagePop = document.getElementById("myPage");
+    MyPagePop.style.display = "block";
+    // MyPagePop.addEventListener("mouseup", () => {
+    //   isPressed = false;
+    // });
+  };
+
 
 // 마이페이지 나가기 버튼
 export const quitMyPage = () => {
@@ -61,6 +65,7 @@ export const quitPopup = () => {
   HistoryPop.style.display = "none";
 };
 
+
 export const clickChat = () => {
   const ChatPop = document.getElementById("chat");
   ChatPop.style.display = "block";
@@ -72,6 +77,7 @@ export const quitChat = () => {
 };
 
 export const clickBoard = () => {
-  const BoardPop = document.getElementById("board");
-  BoardPop.style.display = "block";
-};
+  const BoardPop = document.getElementById('board')
+  BoardPop.style.display = 'block'
+}
+
