@@ -61,11 +61,17 @@ import {
   quitPopup,
   clickChat,
   quitChat,
-  clickBoard
+
+  clickBoard,
+
 } from "../components/main/PopupButton.js";
 import { NPC } from "../components/glTF/NPC";
 import Tutorial from "../components/tutorial/tutorial";
 import { Vector2, Vector3 } from "three";
+
+
+import { useSelector, useDispatch } from "react-redux";
+import axios from "axios";
 
 function MainTest() {
 
@@ -100,8 +106,13 @@ function MainTest() {
 
   const directionalLight = new THREE.DirectionalLight("white", 0.5);
   const directionalLightOriginPosition = new THREE.Vector3(0.5, 1, 1);
-  directionalLight.position.set(directionalLightOriginPosition.x,directionalLightOriginPosition.y,directionalLightOriginPosition.z)
+  directionalLight.position.set(
+    directionalLightOriginPosition.x,
+    directionalLightOriginPosition.y,
+    directionalLightOriginPosition.z,
+  );
   directionalLight.castShadow = true;
+
   // mapSize 세팅으로 그림자 퀄리티 설정
   directionalLight.shadow.mapSize.width = 2048;
   directionalLight.shadow.mapSize.height = 2048;
@@ -112,6 +123,7 @@ function MainTest() {
   directionalLight.shadow.camera.bottom = -100;
   directionalLight.shadow.camera.near = -100;
   directionalLight.shadow.camera.far = 100;
+
   //#endregion
 
   //#region = scene / meshes add하기
@@ -127,7 +139,7 @@ function MainTest() {
       oceanBlock2Mesh,
       oceanBlock3Mesh,
       oceanBlock4Mesh,
-      oceanBlock5Mesh
+      oceanBlock5Mesh,
     );
     scene.add(camera, ambientLight, directionalLight);
     meshes.push(
@@ -149,15 +161,15 @@ function MainTest() {
   // 마우스 포인터
   // 이 메쉬를 활용해서 마우스가 어디를 클릭해서 플레이어를 이동시키는지 확인 가능
   const pointerMesh = new THREE.Mesh(
-    new THREE.PlaneGeometry(1, 1),
+    new THREE.PlaneGeometry(0.01, 0.01),
     new THREE.MeshBasicMaterial({
       // color: "crimson",
       transparent: true,
-      opacity: 100,
+      opacity: 0,
     }),
   );
   pointerMesh.rotation.x = -Math.PI / 2;
-  pointerMesh.position.set(29,0.3,-4)
+  pointerMesh.position.set(29, 0.3, -4);
   pointerMesh.receiveShadow = true;
   scene.add(pointerMesh);
 
@@ -170,11 +182,18 @@ function MainTest() {
   gltfLoader.setDRACOLoader(dracoLoader);
 
   const [isLoaded, setIsLoaded] = useState(false);
+  // 유저 캐릭터 커스텀
+  const user = useSelector((state) => state.user.value);
+  const accessToken = user.accessToken;
+  const [userCharacter, setUserCharacter] = useState(user.userCharacter);
   // 로딩 페이지 구현 위함
   gltfLoader.load("/assets/glTF/scene.glb", function () {
     console.log("ISLOADED");
     setIsLoaded(true);
   });
+
+
+  // 캐릭터 변경 핸들러
 
   // #region = glTF 모델 임포트
   // 풍경 나무들
@@ -204,19 +223,22 @@ function MainTest() {
       scene,
       meshes,
       gltfLoader,
-      modelSrc: '/assets/glTF/character/sojung.glb',
+      modelSrc: "/assets/glTF/character/sojung.glb",
       x: -5,
       y: 0.3,
-      z: 0
+      z: 0,
+
     }),
     new Player({
       scene,
       meshes,
       gltfLoader,
-      modelSrc: '/assets/glTF/character/youngjin.glb',
+
+      modelSrc: "/assets/glTF/character/youngjin.glb",
       x: 5,
       y: 0.3,
-      z: 0
+      z: 0,
+
     }),
   ];
 
@@ -405,9 +427,14 @@ function MainTest() {
     const intersects = raycaster.intersectObjects(meshes);
     const item = intersects[0];
     if (!item) return;
-    if (item.object.name === "floor" || "land_79030" || "land_79020" || "land_79043") {
-      destinationPoint = new Vector3(item.point.x, 0.3, item.point.z)
-      player.moveTo(destinationPoint)
+    if (
+      item.object.name === "floor" ||
+      "land_79030" ||
+      "land_79020" ||
+      "land_79043"
+    ) {
+      destinationPoint = new Vector3(item.point.x, 0.3, item.point.z);
+      player.moveTo(destinationPoint);
 
       pointerMesh.position.x = destinationPoint.x;
       pointerMesh.position.z = destinationPoint.z;
@@ -417,12 +444,12 @@ function MainTest() {
       item.object.name === "Dolphin" ||
       item.object.name === "Catfish"
     ) {
-      player.dontMove(destinationPoint)
-      강치.onRaycasted()
-      돌고래.onRaycasted()
-      달고기.onRaycasted()
-    }
 
+      player.dontMove(destinationPoint);
+      강치.onRaycasted();
+      돌고래.onRaycasted();
+      달고기.onRaycasted();
+    }
     if (item.object.name === "ocean") {
       player.moving = false
     }
@@ -442,7 +469,8 @@ function MainTest() {
         isPressed = false;
       });
       mapReLoading();
-      player.moving = false
+
+      player.moving = false;
     }
     if (item.object.name === "생태팻말") {
       const EcoPop = document.getElementById("EcoPopup");
@@ -468,6 +496,16 @@ function MainTest() {
       BoardPop.style.display = 'block';
       player.moving = false
     }
+
+    if (item.object.name === "Alligator") {
+      const BoardPop = document.getElementById("board");
+      BoardPop.addEventListener("mouseup", () => {
+        isPressed = false;
+      });
+      BoardPop.style.display = "block";
+      player.moving = false;
+    }
+
   }
 
   // 지형관 상태 변경 감지 코드
@@ -558,6 +596,7 @@ function MainTest() {
       a.click();
     };
   })();
+  //
 
   //#region = 캐릭터 선택하기
   const changeSiryeong = () => {
@@ -688,19 +727,28 @@ function MainTest() {
               src='/assets/icons/cancel.png'
               id='quitButton'
               onClick={quitPopup}
+              alt='EMPTY'
             ></img>
             <HistoryPopup></HistoryPopup>
           </div>
 
           {/* 마이페이지 버튼 */}
-          <div className='myPage' onClick={clickMyPage}>
+          <div
+            className='myPage'
+            onClick={() => {
+              clickMyPage();
+            }}
+          >
             캐릭터 변경
           </div>
           <div id='myPage' style={{ display: "none" }}>
             <img
               src='/assets/icons/cancel.png'
               className='quitMyPage'
-              onClick={quitMyPage}
+              onClick={() => {
+                quitMyPage();
+              }}
+              alt='EMPTY'
             ></img>
             <Popup
               changeSojung={changeSojung}
@@ -757,19 +805,20 @@ function MainTest() {
             ></img>
           </div>
 
-          <div className="chatButton" onClick={clickChat}>
+          <div className='chatButton' onClick={clickChat}>
             <img src='/assets/icons/chat.png' className='chatImage'></img>
           </div>
-          <div id="chat" className="chatCancel">
-            <input className="chat"></input>
-            <img src='/assets/icons/cancel.png' onClick={quitChat} className='cancelImage'></img>
+          <div id='chat' className='chatCancel'>
+            <input className='chat'></input>
+            <img
+              src='/assets/icons/cancel.png'
+              onClick={quitChat}
+              className='cancelImage'
+            ></img>
           </div>
-
-
           <div id='board' className='board'>
             <Board></Board>
           </div>
-
         </div>
       ) : (
         <LoadingComponent />

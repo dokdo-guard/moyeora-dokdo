@@ -1,14 +1,17 @@
 import { useNavigate } from "react-router-dom"
 
-const BoardItem =({ id, content }) => {
-    const navigate = useNavigate()
-    const goDetail =() => {
-        navigate(`/detail/${id}`)
-    }
+import '../css/Board.css'
 
+const BoardItem =({ id, content, image_url }) => {
+    const imageSrc = `https://ssafy-d204-dokdo.s3.ap-northeast-2.amazonaws.com/${image_url}` 
     return(
-    <div onClick={goDetail}>
-        내용 : {content}
+    <div className="boardItem">
+        <figure class="snip1419">
+            <figcaption>
+                <p>{content}</p>
+            </figcaption>
+            <img src={imageSrc}/>
+        </figure>
     </div>)
 }
 

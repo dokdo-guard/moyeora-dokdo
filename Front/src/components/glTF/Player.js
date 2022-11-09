@@ -83,8 +83,9 @@ export class Player{
 			this.actions[1].play();
 	
 			if (
-			Math.abs(this.destinationPoint.x - this.modelMesh.position.x) < 0.05 &&
-			Math.abs(this.destinationPoint.z - this.modelMesh.position.z) < 0.05
+
+			Math.abs(this.destinationPoint.x - this.modelMesh.position.x) < 0.22 &&
+			Math.abs(this.destinationPoint.z - this.modelMesh.position.z) < 0.22
 			) {
 			this.moving = false;
 			}

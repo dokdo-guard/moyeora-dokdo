@@ -42,6 +42,11 @@
 }
 
 
+.boardHome .boardItem {
+	float: left;
+}
+
+
 /*  새 글 쓰기 */
 .newPage {
 	width: 100vw;
@@ -50,9 +55,86 @@
 }
 
 
+<<<<<<< HEAD
 /*  디테일 페이지 */
 .detail {
 	width: 100vw;
 	height: 100vh;
 	background-color: white;
 }
+=======
+/* 아이템 개별 */
+.boardItem {
+	width: 20%;
+	background-color: white;
+	margin-top: 3px;
+	border-radius: 10px;
+}
+
+.boardItem .image {
+	width: 60%;
+}
+
+
+
+
+/* 코드펜 긁어온 코드 */
+figure.snip1419 {
+	position: relative;
+	margin: 10px;
+	min-width: 230px;
+	max-width: 315px;
+	min-height: 220px;
+	width: 100%;
+	color: #ffffff;
+	text-align: center;
+	line-height: 1.4em;
+	background-color: #ededed;
+	font-size: 16px;
+	border-radius: 10px;
+	box-shadow: 5px 5px 5px grey;
+  }
+  figure.snip1419 * {
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
+	-webkit-transition: all 0.35s ease;
+	transition: all 0.35s ease;
+  }
+  figure.snip1419 img {
+	position: absolute;
+	bottom: 0%;
+	left: 50%;
+	opacity: 1;
+	width: 50%;
+	-webkit-transform: translate(-50%, 0%);
+	transform: translate(-50%, 0%);
+  }
+  figure.snip1419 figcaption {
+	z-index: 2;
+	padding: 20px 30px;
+  }
+  figure.snip1419 p {
+	margin: 0;
+	width: 100%;
+	-webkit-transform: translateY(20px);
+	transform: translateY(20px);
+	opacity: 1;
+  }
+  figure.snip1419 p {
+	font-size: 0.8em;
+	color: black
+  }
+  figure.snip1419:hover img {
+	width: 100%;
+	bottom: 0%;
+	border-radius: 10px;
+  }
+  figure.snip1419:hover figcaption h2,
+  figure.snip1419.hover figcaption h2,
+  figure.snip1419:hover figcaption p,
+  figure.snip1419.hover figcaption p {
+	-webkit-transform: translateY(0px);
+	transform: translateY(0px);
+	opacity: 1;
+  }
+

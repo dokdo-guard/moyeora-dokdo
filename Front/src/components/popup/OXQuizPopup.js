@@ -9,6 +9,8 @@ import Box from "@mui/material/Box";
 
 import { getQuiz } from "../../api/quizApi.js";
 import "../css/OXQuizPopup.css";
+import axios from "axios";
+import { useSelector } from "react-redux";
 
 // 문제 개수 선택 화면
 function OXQuizPopup() {
@@ -27,10 +29,43 @@ function OXQuizPopup() {
           console.log(err);
         });
     }
+    return () => {};
   }, [quizNum]);
+
   // useEffect(() => {
   //   // console.log(quiz);
   // }, [quiz]);
+  const user = useSelector((state) => state.user.value);
+  const setQuizResult = async (result) => {
+    if (
+      window.confirm(user.name.slice(0, 3) + "님 점수를 등록 하시겠습니까?")
+    ) {
+      await axios
+        .put(
+          "https://k7d204.p.ssafy.io/api/quiz",
+          {
+            quiz: result + "",
+          },
+          {
+            headers: {
+              Authorization: `Bearer ${user.accessToken}`,
+            },
+          },
+        )
+        .then((res) => {
+          console.log(res);
+          alert("점수 등록 완료!");
+          setSelected(false);
+          setQuizNum(0);
+          setQuizProgress(0);
+          setAnswerCorrect(0);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+    // alert(result);
+  };
 
   const SelectQuizNum = () => {
     return (
@@ -94,10 +129,23 @@ function OXQuizPopup() {
             다시 풀기
           </button>
           {/* 점수 등록 할 것 */}
-          <button className='endQuizButton2'>종료하기</button>
+          {quizNum === answerCorrect ? (
+            <button
+              className='endQuizButton2'
+              onClick={() => {
+                setQuizResult(quizNum);
+              }}
+            >
+              점수 등록
+            </button>
+          ) : null}
         </div>
       </div>
     );
+  };
+  const correct = () => {
+    setAnswerCorrect((answerCorrect) => answerCorrect + 1);
+    // alert("correct!");
   };
 
   // Custom Progress Bar
@@ -125,10 +173,6 @@ function OXQuizPopup() {
     );
   };
   LinearProgressWithLabel.propTypes = {
-    /**
-     * The value of the progress indicator for the determinate and buffer variants.
-     * Value between 0 and 100.
-     */
     value: PropTypes.number.isRequired,
   };
   return (
@@ -144,14 +188,20 @@ function OXQuizPopup() {
                 />
               </div>
               <div className='QuizText'>{quiz[quizProgress]?.quizText}</div>
+
+              {/* 나중에 삭제할 것 */}
+              {/* <div>{quiz[quizProgress]?.answer.slice(0, 1)}</div>
+              <div>{answerCorrect}</div> */}
+              {/* 나중에 삭제할 것 */}
+
               <div className='QuizOX'>
                 <button
                   className='OX_O'
                   onClick={() => {
-                    setQuizProgress(quizProgress + 1);
-                    if (quiz[quizProgress]?.answer === "O") {
-                      setAnswerCorrect(answerCorrect + 1);
+                    if (quiz[quizProgress]?.answer.slice(0, 1) === "O") {
+                      correct();
                     }
+                    setQuizProgress((quizProgress) => quizProgress + 1);
                   }}
                 >
                   O
@@ -159,13 +209,10 @@ function OXQuizPopup() {
                 <button
                   className='OX_X'
                   onClick={() => {
-                    setQuizProgress(quizProgress + 1);
-                    if (quizProgress >= 15) {
-                      return;
+                    if (quiz[quizProgress]?.answer.slice(0, 1) === "X") {
+                      correct();
                     }
-                    if (quiz[quizProgress]?.answer === "X") {
-                      setAnswerCorrect(answerCorrect + 1);
-                    }
+                    setQuizProgress((quizProgress) => quizProgress + 1);
                   }}
                 >
                   X

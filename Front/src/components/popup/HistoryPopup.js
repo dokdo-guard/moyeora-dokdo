@@ -108,7 +108,7 @@ function HistoryPopup() {
                     <img
                       src={
                         "https://ssafy-d204-dokdo.s3.ap-northeast-2.amazonaws.com/" +
-                        data.img
+                        data?.img
                       }
                     />
                   </div>
