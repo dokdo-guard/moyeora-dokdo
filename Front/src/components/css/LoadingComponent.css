@@ -7,7 +7,7 @@
   background-image: url("../../../public/assets/images/LoadingBackground.png");
   background-repeat: no-repeat;
   background-position: center;
-  background-color: #fefff9;
+  background-color: white;
 }
 .LoadingTipBox {
   align-items: flex-start;

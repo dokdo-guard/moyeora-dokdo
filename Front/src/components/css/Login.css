@@ -1,19 +1,37 @@
 .content {
   width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-image: url("../../../public/assets/images/Background.jpg");
+  object-fit: contain;
+  background-repeat: no-repeat;
 }
 
-.title {
+.LoginTitle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   text-align: center;
-  font-size: 36px;
-  margin: auto auto;
+  font-size: 40px;
+}
+.LoginTitle > h1 {
+  font-weight: 700;
+  font-size: 70px;
 }
 
 .socialLogin {
-  width: 300px;
+  /* width: 300px; */
   margin: auto auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
 }
 
 .socialLogin a {
+  cursor: pointer;
   display: block;
   width: 300px;
   margin: 20px;
@@ -24,6 +42,28 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  transition: box-shadow 0.3s;
+}
+.PlayButton {
+  width: 400px;
+  height: 150px;
+  border-radius: 10px;
+}
+.PlayButton > button {
+  width: 100%;
+  height: 100%;
+  font-weight: 700;
+  font-size: 30px;
+  background-color: #fcd172;
+  border: 1px lightgray;
+  border-radius: 20px;
+  box-shadow: 3px 3px 20px lightgray;
+  cursor: pointer;
+  transition: background-color 0.5s;
+  margin-top: 10px;
+}
+.PlayButton > button:hover {
+  background-color: #fe9d00;
 }
 
 .socialLogin a:hover {
@@ -41,4 +81,43 @@
 .socialLogin a img {
   width: 50px;
   border-radius: 25%;
+}
+.LoginWrapper {
+  width: 70%;
+  height: 80%;
+  background-color: white;
+  border-radius: 20px;
+  box-shadow: 5px 5px 20px lightgray;
+}
+.loginbuttonlabel {
+  font-size: 30px;
+  margin: 10px;
+}
+.waviy span {
+  text-transform: uppercase;
+  animation: waviy 4s infinite;
+  animation-delay: calc(0.2s * var(--i));
+}
+@keyframes waviy {
+  0%,
+  40%,
+  100% {
+    transform: translateY(0);
+  }
+  20% {
+    transform: translateY(-20px);
+  }
+}
+.loginCenter {
+  width: 100%;
+  height: 200px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.loginCenter img {
+  width: 400px;
+  height: 400px;
+  object-fit: cover;
 }
