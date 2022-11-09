@@ -1,9 +1,10 @@
 import { useState, useRef, useContext, useEffect, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import { DiaryDispatchContext } from "../../App.js";
-import { createBoard } from '../../api/board.js'
+import { createBoard } from "../../api/board.js";
 
 const Editor = ({ originData }) => {
+
 
   const contentRef = useRef();
   const [content, setContent] = useState("");
@@ -13,13 +14,16 @@ const Editor = ({ originData }) => {
   const [image_url, setImage_url] = useState('')
   const [file, setFile] = useState({})
 
+
   const encodeFileToBase64 = (fileBlob) => {
     const reader = new FileReader();
     reader.readAsDataURL(fileBlob);
+
     setImage_url(fileBlob.name)
     return new Promise((resolve) => {
       reader.onload = () => {
         setImageSrc(reader.result);
+
         resolve();
       };
     });
@@ -101,5 +105,6 @@ const Editor = ({ originData }) => {
     <button onClick={handleSubmit}>작성하기</button>
   </>)
 }
+
 
 export default Editor;

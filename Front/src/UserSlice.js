@@ -21,8 +21,11 @@ export const UserSlice = createSlice({
       // 로그아웃
       state.value = initialState;
     },
+    changeCharacter: (state, action) => {
+      state.value.userCharacter = action.payload;
+    },
   },
 });
 
 export default UserSlice.reducer;
-export const { login, logout } = UserSlice.actions;
+export const { login, logout, changeCharacter } = UserSlice.actions;
