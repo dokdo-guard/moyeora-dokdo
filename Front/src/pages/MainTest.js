@@ -62,15 +62,18 @@ import {
   clickChat,
   quitChat,
   clickBoard,
+
 } from "../components/main/PopupButton.js";
 import { NPC } from "../components/glTF/NPC";
 import Tutorial from "../components/tutorial/tutorial";
 import { Vector2, Vector3 } from "three";
 
+
 import { useSelector, useDispatch } from "react-redux";
 import axios from "axios";
 
 function MainTest() {
+
   //#region = 카메라, 빛, 렌더러, 씬
   // Renderer
   const canvas = document.querySelector("#three-canvas");
@@ -95,18 +98,14 @@ function MainTest() {
     1000,
   );
   camera.position.set(1, 5, 5);
-  camera.zoom = 0.15;
+  camera.zoom = 0.13;
   camera.updateProjectionMatrix();
 
   const ambientLight = new THREE.AmbientLight("white", 0.7);
 
   const directionalLight = new THREE.DirectionalLight("white", 0.5);
   const directionalLightOriginPosition = new THREE.Vector3(0.5, 1, 1);
-  directionalLight.position.set(
-    directionalLightOriginPosition.x,
-    directionalLightOriginPosition.y,
-    directionalLightOriginPosition.z,
-  );
+  directionalLight.position.set(directionalLightOriginPosition.x,directionalLightOriginPosition.y,directionalLightOriginPosition.z)
   directionalLight.castShadow = true;
 
   // mapSize 세팅으로 그림자 퀄리티 설정
@@ -188,6 +187,7 @@ function MainTest() {
     setIsLoaded(true);
   });
 
+
   // 캐릭터 변경 핸들러
 
   // #region = glTF 모델 임포트
@@ -227,6 +227,7 @@ function MainTest() {
       scene,
       meshes,
       gltfLoader,
+
       modelSrc: "/assets/glTF/character/youngjin.glb",
       x: 5,
       y: 0.3,
@@ -331,6 +332,7 @@ function MainTest() {
       camera.lookAt(player.modelMesh.position);
       if (isPressed) {
         raycasting();
+
       }
       // player update
       player.update(delta);
@@ -354,13 +356,13 @@ function MainTest() {
         if (
           (Math.abs(spotMesh1.position.x - player.modelMesh.position.x) < 1.5 &&
             Math.abs(spotMesh1.position.z - player.modelMesh.position.z) <
-              1.5) ||
+            1.5) ||
           (Math.abs(spotMesh2.position.x - player.modelMesh.position.x) < 1.5 &&
             Math.abs(spotMesh2.position.z - player.modelMesh.position.z) <
-              1.5) ||
+            1.5) ||
           (Math.abs(spotMesh3.position.x - player.modelMesh.position.x) < 1.5 &&
             Math.abs(spotMesh3.position.z - player.modelMesh.position.z) <
-              1.5) ||
+            1.5) ||
           (Math.abs(spotMesh4.position.x - player.modelMesh.position.x) < 1.5 &&
             Math.abs(spotMesh4.position.z - player.modelMesh.position.z) < 1.5)
         ) {
@@ -435,6 +437,7 @@ function MainTest() {
       item.object.name === "Dolphin" ||
       item.object.name === "Catfish"
     ) {
+
       player.dontMove(destinationPoint);
       강치.onRaycasted();
       돌고래.onRaycasted();
@@ -444,13 +447,14 @@ function MainTest() {
       player.moving = false;
     }
 
+
     if (item.object.name === "퀴즈팻말") {
       const QuizPop = document.getElementById("QuizPopup");
       QuizPop.style.display = "block";
       QuizPop.addEventListener("mouseup", () => {
         isPressed = false;
       });
-      player.moving = false;
+      player.moving = false
     }
     if (item.object.name == "지질팻말") {
       const TerrianPop = document.getElementById("TerrianPopup");
@@ -459,6 +463,7 @@ function MainTest() {
         isPressed = false;
       });
       mapReLoading();
+
       player.moving = false;
     }
     if (item.object.name === "생태팻말") {
@@ -467,7 +472,7 @@ function MainTest() {
       EcoPop.addEventListener("mouseup", () => {
         isPressed = false;
       });
-      player.moving = false;
+      player.moving = false
     }
     if (item.object.name === "역사팻말") {
       const HistoryPop = document.getElementById("HistoryPopup");
@@ -475,6 +480,23 @@ function MainTest() {
       HistoryPop.addEventListener("mouseup", () => {
         isPressed = false;
       });
+      player.moving = false
+    }
+    if (item.object.name === 'Alligator') {
+      const BoardPop = document.getElementById('board');
+      BoardPop.addEventListener("mouseup", () => {
+        isPressed = false;
+      });
+      BoardPop.style.display = 'block';
+      player.moving = false
+    }
+
+    if (item.object.name === "Alligator") {
+      const BoardPop = document.getElementById("board");
+      BoardPop.addEventListener("mouseup", () => {
+        isPressed = false;
+      });
+      BoardPop.style.display = "block";
       player.moving = false;
     }
     if (item.object.name === "Alligator") {
@@ -485,6 +507,7 @@ function MainTest() {
       BoardPop.style.display = "block";
       player.moving = false;
     }
+
   }
 
   // 지형관 상태 변경 감지 코드

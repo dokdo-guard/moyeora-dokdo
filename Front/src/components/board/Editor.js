@@ -1,6 +1,7 @@
 import { useState, useRef, useContext, useEffect, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import { DiaryDispatchContext } from "../../App.js";
+
 import { createBoard } from "../../api/board.js";
 
 const Editor = ({ originData }) => {

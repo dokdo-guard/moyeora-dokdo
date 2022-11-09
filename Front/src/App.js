@@ -23,9 +23,8 @@ function App() {
         <Route path='/LoadingTest' element={<LoadingTest />} />
         <Route path='/' element={<Login />} />
         <Route path='/oauth/redirect' element={<OauthRedirect />} />
-        <Route path='/new' element={<NewPage />} />
-        <Route path='/home/board' element={<BoardHome />} />
       </Routes>
+
     </>
   );
 }

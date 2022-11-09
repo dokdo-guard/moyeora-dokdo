@@ -8,4 +8,5 @@ export const getBoard = async(success, fail) => {
 // 게시판 작성하기
 export const createBoard = async(info,success, fail) => {
     return await api.post('/board/',info).then(success).catch(fail);
+
 }
