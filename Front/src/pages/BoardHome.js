@@ -2,6 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import BoardItem from "../components/board/BoardItem";
 import { getBoard } from "../api/board";
+
 import AWS from "aws-sdk";
 
 const BoardHome =() => {
@@ -15,6 +16,7 @@ const BoardHome =() => {
         .catch((err)=> {
             console.log(err)
         })
+
     },[board.length])
 
 

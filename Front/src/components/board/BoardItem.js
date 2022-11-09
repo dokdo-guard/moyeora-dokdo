@@ -1,4 +1,5 @@
 import { useNavigate } from "react-router-dom"
+
 import '../css/Board.css'
 
 const BoardItem =({ id, content, image_url }) => {
