@@ -8,12 +8,10 @@ import {
   MainTest,
   LoadingTest,
   NewPage,
-  BoardHome
+  BoardHome,
 } from "./pages/index";
 import Login from "./components/login/Login";
 import OauthRedirect from "./components/login/OauthRedirect";
-
-
 
 function App() {
   return (
