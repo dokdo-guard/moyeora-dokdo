@@ -5,7 +5,6 @@ import { getBoard } from "../api/board";
 
 import AWS from "aws-sdk";
 
-
 const BoardHome =() => {
     const [board, setBoard] = useState([])
     useEffect(()=> {
@@ -39,10 +38,8 @@ const BoardHome =() => {
             <button onClick={goToDokdo} className='dokdoButton'>독도로 돌아가기</button>
         </div>
 
-
         {board.map((it)=> 
             <BoardItem key={it.id} {...it} className="boardItem"></BoardItem>)}
-
     </div>)
 }
 

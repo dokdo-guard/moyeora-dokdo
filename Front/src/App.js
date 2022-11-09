@@ -1,20 +1,10 @@
 import "./App.css";
 import { Routes, Route } from "react-router-dom";
-import React, { useEffect, useReducer, useRef } from "react";
+import React from "react";
 
-
-import {
-  PopupTest,
-  MypageTest,
-  MainTest,
-  LoadingTest,
-  NewPage,
-  BoardHome
-} from "./pages/index";
-
+import { PopupTest, MypageTest, MainTest, LoadingTest } from "./pages/index";
 import Login from "./components/login/Login";
 import OauthRedirect from "./components/login/OauthRedirect";
-
 
 function App() {
 
@@ -28,9 +18,6 @@ function App() {
         <Route path='/LoadingTest' element={<LoadingTest />} />
         <Route path='/' element={<Login />} />
         <Route path='/oauth/redirect' element={<OauthRedirect />} />
-        <Route path='/new' element={<NewPage />} />
-        <Route path='/home/board' element={<BoardHome />} />
-
       </Routes>
 
     </>

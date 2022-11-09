@@ -78,4 +78,3 @@ export const clickBoard = () => {
   const BoardPop = document.getElementById("board");
   BoardPop.style.display = "block";
 };
-

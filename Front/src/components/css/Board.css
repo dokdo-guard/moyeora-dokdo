@@ -55,14 +55,13 @@
 }
 
 
-<<<<<<< HEAD
 /*  디테일 페이지 */
 .detail {
 	width: 100vw;
 	height: 100vh;
 	background-color: white;
 }
-=======
+
 /* 아이템 개별 */
 .boardItem {
 	width: 20%;
@@ -137,4 +136,5 @@ figure.snip1419 {
 	transform: translateY(0px);
 	opacity: 1;
   }
+
 

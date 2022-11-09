@@ -61,7 +61,6 @@ import {
   quitPopup,
   clickChat,
   quitChat,
-
   clickBoard,
 
 } from "../components/main/PopupButton.js";
@@ -227,7 +226,6 @@ function MainTest() {
       x: -5,
       y: 0.3,
       z: 0,
-
     }),
     new Player({
       scene,
@@ -238,7 +236,6 @@ function MainTest() {
       x: 5,
       y: 0.3,
       z: 0,
-
     }),
   ];
 
@@ -451,8 +448,9 @@ function MainTest() {
       달고기.onRaycasted();
     }
     if (item.object.name === "ocean") {
-      player.moving = false
+      player.moving = false;
     }
+
 
     if (item.object.name === "퀴즈팻말") {
       const QuizPop = document.getElementById("QuizPopup");
@@ -497,6 +495,14 @@ function MainTest() {
       player.moving = false
     }
 
+    if (item.object.name === "Alligator") {
+      const BoardPop = document.getElementById("board");
+      BoardPop.addEventListener("mouseup", () => {
+        isPressed = false;
+      });
+      BoardPop.style.display = "block";
+      player.moving = false;
+    }
     if (item.object.name === "Alligator") {
       const BoardPop = document.getElementById("board");
       BoardPop.addEventListener("mouseup", () => {
@@ -804,7 +810,6 @@ function MainTest() {
               onClick={quitTutorial}
             ></img>
           </div>
-
           <div className='chatButton' onClick={clickChat}>
             <img src='/assets/icons/chat.png' className='chatImage'></img>
           </div>
