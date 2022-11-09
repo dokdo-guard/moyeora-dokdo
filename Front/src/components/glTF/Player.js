@@ -69,8 +69,8 @@ export class Player{
 			this.destinationPoint.z - this.modelMesh.position.z,
 			this.destinationPoint.x - this.modelMesh.position.x
 			);
-			this.modelMesh.position.x += Math.cos(angle) * delta * 7;
-			this.modelMesh.position.z += Math.sin(angle) * delta * 7;
+			this.modelMesh.position.x += Math.cos(angle) * delta * 5;
+			this.modelMesh.position.z += Math.sin(angle) * delta * 5;
 	
 			if (this.camera) {
 			this.camera.position.x =
@@ -83,8 +83,8 @@ export class Player{
 			this.actions[1].play();
 	
 			if (
-			Math.abs(this.destinationPoint.x - this.modelMesh.position.x) < 0.05 &&
-			Math.abs(this.destinationPoint.z - this.modelMesh.position.z) < 0.05
+			Math.abs(this.destinationPoint.x - this.modelMesh.position.x) < 0.22 &&
+			Math.abs(this.destinationPoint.z - this.modelMesh.position.z) < 0.22
 			) {
 			this.moving = false;
 			}

@@ -107,7 +107,6 @@ function App() {
         <Route path='/oauth/redirect' element={<OauthRedirect />} />
         <Route path='/new' element={<NewPage />} />
         <Route path='/home/board' element={<BoardHome />} />
-        <Route path='/detail/:id' element={<Detail />} />
       </Routes>
       </DiaryDispatchContext.Provider>
     </DiaryStateContext.Provider>
