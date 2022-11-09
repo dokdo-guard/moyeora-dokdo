@@ -5,7 +5,6 @@ import { createBoard } from "../../api/board.js";
 
 const Editor = ({ originData }) => {
 
-
   const contentRef = useRef();
   const [content, setContent] = useState("");
   const navigate = useNavigate();

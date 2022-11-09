@@ -69,8 +69,8 @@ export class Player{
 			this.destinationPoint.z - this.modelMesh.position.z,
 			this.destinationPoint.x - this.modelMesh.position.x
 			);
-			this.modelMesh.position.x += Math.cos(angle) * delta * 5;
-			this.modelMesh.position.z += Math.sin(angle) * delta * 5;
+			this.modelMesh.position.x += Math.cos(angle) * delta * 7;
+			this.modelMesh.position.z += Math.sin(angle) * delta * 7;
 	
 			if (this.camera) {
 			this.camera.position.x =
