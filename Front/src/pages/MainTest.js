@@ -105,11 +105,7 @@ function MainTest() {
 
   const directionalLight = new THREE.DirectionalLight("white", 0.5);
   const directionalLightOriginPosition = new THREE.Vector3(0.5, 1, 1);
-  directionalLight.position.set(
-    directionalLightOriginPosition.x,
-    directionalLightOriginPosition.y,
-    directionalLightOriginPosition.z,
-  );
+  directionalLight.position.set(directionalLightOriginPosition.x,directionalLightOriginPosition.y,directionalLightOriginPosition.z)
   directionalLight.castShadow = true;
 
   // mapSize 세팅으로 그림자 퀄리티 설정
