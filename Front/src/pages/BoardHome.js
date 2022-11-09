@@ -2,6 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import BoardItem from "../components/board/BoardItem";
 import { getBoard } from "../api/board";
+import AWS from "aws-sdk";
 
 const BoardHome =() => {
     const [board, setBoard] = useState([])
@@ -14,7 +15,8 @@ const BoardHome =() => {
         .catch((err)=> {
             console.log(err)
         })
-    },[])
+    },[board.length])
+
 
     const navigate = useNavigate()
     const writeNew =() => {
@@ -33,8 +35,9 @@ const BoardHome =() => {
             <button onClick={writeNew} className="writeButton">새 글 쓰기</button>
             <button onClick={goToDokdo} className='dokdoButton'>독도로 돌아가기</button>
         </div>
+
         {board.map((it)=> 
-            <BoardItem key={it.id} {...it}></BoardItem>)}
+            <BoardItem key={it.id} {...it} className="boardItem"></BoardItem>)}
     </div>)
 }
 

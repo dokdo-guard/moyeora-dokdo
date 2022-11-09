@@ -95,7 +95,7 @@ function MainTest() {
     1000,
   );
   camera.position.set(1, 5, 5);
-  camera.zoom = 0.13;
+  camera.zoom = 0.15;
   camera.updateProjectionMatrix();
 
   const ambientLight = new THREE.AmbientLight("white", 0.7);
@@ -157,11 +157,11 @@ function MainTest() {
   // 마우스 포인터
   // 이 메쉬를 활용해서 마우스가 어디를 클릭해서 플레이어를 이동시키는지 확인 가능
   const pointerMesh = new THREE.Mesh(
-    new THREE.PlaneGeometry(1, 1),
+    new THREE.PlaneGeometry(0.01, 0.01),
     new THREE.MeshBasicMaterial({
       // color: "crimson",
       transparent: true,
-      opacity: 100,
+      opacity: 0,
     }),
   );
   pointerMesh.rotation.x = -Math.PI / 2;
