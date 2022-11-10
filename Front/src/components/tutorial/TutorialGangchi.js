@@ -25,9 +25,10 @@ const gangchiLine = [
 function TutorialGangchi() {
   const [lineNum, setLineNum] = useState(0);
   const [typing, setTyping] = useState(true);
+  const [charNum, setCharNum] = useState(0);
 
   const nextLine = () => {
-    setTyping((typing) => !typing);
+    setCharNum(gangchiLine[lineNum].line.length);
     if (lineNum + 1 > 4) {
       return;
     } else {
