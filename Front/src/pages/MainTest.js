@@ -1,5 +1,4 @@
 import * as THREE from "three";
-import * as CANNON from "cannon-es";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 import { DRACOLoader } from "three/examples/jsm/loaders/DRACOLoader";
 import gsap from "gsap";
@@ -22,7 +21,7 @@ import Popup from "../components/mypage/selectCharacter";
 import Dictionary from "../components/mypage/dictionary.js";
 
 import Stats from "stats.js";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { mapReLoading } from "../components/popup/TerrianPopup";
@@ -64,13 +63,14 @@ import {
   clickBoard,
 
 } from "../components/main/PopupButton.js";
+import {quitNPCbubble} from '../components/main/NPCspeaking.js'
 import { NPC } from "../components/glTF/NPC";
 import Tutorial from "../components/tutorial/tutorial";
 import { Vector2, Vector3 } from "three";
 
-
 import { useSelector, useDispatch } from "react-redux";
 import axios from "axios";
+import NPCBubble from "../components/main/NPCbubble";
 
 function MainTest() {
 
@@ -213,27 +213,6 @@ function MainTest() {
     // z : 0
   });
 
-  let users = [
-    new Player({
-      scene,
-      meshes,
-      gltfLoader,
-      modelSrc: "/assets/glTF/character/sojung.glb",
-      x: -5,
-      y: 0.3,
-      z: 0,
-    }),
-    new Player({
-      scene,
-      meshes,
-      gltfLoader,
-
-      modelSrc: "/assets/glTF/character/youngjin.glb",
-      x: 5,
-      y: 0.3,
-      z: 0,
-    }),
-  ];
 
   // 다리
   const bridge = new Bridge({
@@ -286,6 +265,16 @@ function MainTest() {
     z: 23,
   });
 
+  const 펭귄 = new NPC({
+    scene,
+    meshes,
+    gltfLoader,
+    modelSrc: "/assets/glTF/Penguin.gltf",
+    x: -20,
+    y: 0.2,
+    z: 0,
+  })
+
   const 게시판 = new NPC({
     scene,
     meshes,
@@ -319,13 +308,15 @@ function MainTest() {
     stats.update();
     const delta = clock.getDelta();
 
-    if (강치.mixer && 돌고래.mixer && 달고기.mixer) {
+    if (강치.mixer && 돌고래.mixer && 달고기.mixer && 펭귄.mixer) {
       강치.mixer.update(delta);
       강치.actions[0].play();
       돌고래.mixer.update(delta);
       돌고래.actions[0].play();
       달고기.mixer.update(delta);
       달고기.actions[0].play();
+      펭귄.mixer.update(delta);
+      펭귄.actions[0].play();
     }
 
     if (player.modelMesh) {
@@ -336,9 +327,6 @@ function MainTest() {
       }
       // player update
       player.update(delta);
-      users.forEach((user) => {
-        user.update(delta);
-      });
 
       if (player.moving) {
         // 걸어가는 상태
@@ -346,8 +334,6 @@ function MainTest() {
           destinationPoint.z - player.modelMesh.position.z,
           destinationPoint.x - player.modelMesh.position.x,
         );
-
-        player.speed = 7;
 
         camera.position.x = 1 + player.modelMesh.position.x;
         camera.position.z = 5 + player.modelMesh.position.z;
@@ -414,9 +400,23 @@ function MainTest() {
   }
   //#endregion
 
-  // 마우스로 클릭
 
-  function checkIntersects() {
+  const animalSpeaking = {
+    'penguin' : ['이건 재미있다','파이팅','dd','랜덤가자','sdf','1234'],
+    'rabbit' : ['잠온다','힘내자']
+}
+  var penguinSaying = animalSpeaking.penguin[Math.floor(Math.random() * animalSpeaking.penguin.length)]
+    setInterval(() => 
+      penguinSaying = animalSpeaking.penguin[Math.floor(Math.random() * animalSpeaking.penguin.length)]
+      , 2000);
+      setInterval(() => 
+      console.log(penguinSaying)
+      , 2000);
+  
+
+// 마우스로 클릭
+
+function checkIntersects() {
     const intersects = raycaster.intersectObjects(meshes);
     const item = intersects[0];
     if (!item) return;
@@ -437,17 +437,25 @@ function MainTest() {
       item.object.name === "Dolphin" ||
       item.object.name === "Catfish"
     ) {
-
       player.dontMove(destinationPoint);
       강치.onRaycasted();
       돌고래.onRaycasted();
       달고기.onRaycasted();
     }
+    if (item.object.name === 'Penguin') {
+      player.dontMove(destinationPoint);
+      
+      펭귄.onRaycasted();
+      const penguinPop = document.getElementById("penguin");
+      penguinPop.style.display = 'block'
+      penguinPop.addEventListener("mouseup", () => {
+        isPressed = false;
+      });
+      // penguinSaying = animalSpeaking.penguin[Math.floor(Math.random() * animalSpeaking.penguin.length)]
+    }
     if (item.object.name === "ocean") {
       player.moving = false;
     }
-
-
     if (item.object.name === "퀴즈팻말") {
       const QuizPop = document.getElementById("QuizPopup");
       QuizPop.style.display = "block";
@@ -481,6 +489,7 @@ function MainTest() {
         isPressed = false;
       });
       player.moving = false
+
     }
     if (item.object.name === 'Alligator') {
       const BoardPop = document.getElementById('board');
@@ -490,24 +499,6 @@ function MainTest() {
       BoardPop.style.display = 'block';
       player.moving = false
     }
-
-    if (item.object.name === "Alligator") {
-      const BoardPop = document.getElementById("board");
-      BoardPop.addEventListener("mouseup", () => {
-        isPressed = false;
-      });
-      BoardPop.style.display = "block";
-      player.moving = false;
-    }
-    if (item.object.name === "Alligator") {
-      const BoardPop = document.getElementById("board");
-      BoardPop.addEventListener("mouseup", () => {
-        isPressed = false;
-      });
-      BoardPop.style.display = "block";
-      player.moving = false;
-    }
-
   }
 
   // 지형관 상태 변경 감지 코드
@@ -553,15 +544,15 @@ function MainTest() {
   canvas.addEventListener("mouseup", () => {
     isPressed = false;
   });
-  canvas.addEventListener("mousemove", (e) => {
-    if (isPressed) {
-      calculateMousePosition(e);
-    }
-  });
+  // canvas.addEventListener("mousemove", (e) => {
+  //   if (isPressed) {
+  //     calculateMousePosition(e);
+  //   }
+  // });
 
   // 스크린 캡처 코드를 위해 render 함수를 따로 분리해서 설정해줌
   function resizeRendererToDisplaySize(renderer) {
-    const canvas = renderer.domElement;
+    // const canvas = renderer.domElement;
     const width = canvas.clientWidth;
     const height = canvas.clientHeight;
     const needResize = canvas.width !== width || canvas.height !== height;
@@ -573,7 +564,7 @@ function MainTest() {
 
   function render() {
     if (resizeRendererToDisplaySize(renderer)) {
-      const canvas = renderer.domElement;
+      // const canvas = renderer.domElement;
       camera.aspect = canvas.clientWidth / canvas.clientHeight;
       camera.updateProjectionMatrix();
     }
@@ -599,6 +590,7 @@ function MainTest() {
     };
   })();
   //
+  
 
   //#region = 캐릭터 선택하기
   const changeSiryeong = () => {
@@ -674,7 +666,13 @@ function MainTest() {
     });
   };
   //#endregion
+
+
+
   update();
+
+
+
 
   return (
     <>
@@ -806,6 +804,7 @@ function MainTest() {
               onClick={quitTutorial}
             ></img>
           </div>
+
           <div className='chatButton' onClick={clickChat}>
             <img src='/assets/icons/chat.png' className='chatImage'></img>
           </div>
@@ -820,6 +819,15 @@ function MainTest() {
           <div id='board' className='board'>
             <Board></Board>
           </div>
+        
+        <div id='penguin' className="npcSpeaking">
+          <h1 className="npcSaying">{penguinSaying}</h1>
+          <img src='/assets/images/npc/penguin.png' className="npcBubble"></img>
+          <button onClick={quitNPCbubble} className="quitNPCbubble">확인</button>
+        </div>
+
+        {/* <NPCBubble animalName={animalName}></NPCBubble> */}
+        
         </div>
       ) : (
         <LoadingComponent />

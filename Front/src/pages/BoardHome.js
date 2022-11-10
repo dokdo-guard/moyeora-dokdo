@@ -33,13 +33,15 @@ const BoardHome =() => {
         <h2 className="title">
             여러분의 독도를 꾸며주세요
         </h2>
-        <div style={{display:'flex',justifyContent:'center'}}>
+        <div className="buttons">
             <button onClick={writeNew} className="writeButton">새 글 쓰기</button>
             <button onClick={goToDokdo} className='dokdoButton'>독도로 돌아가기</button>
         </div>
 
         {board.map((it)=> 
-            <BoardItem key={it.id} {...it} className="boardItem"></BoardItem>)}
+        <div style={{marginLeft:'2%'}}>
+            <BoardItem key={it.id} {...it} className="boardItem"></BoardItem>
+        </div>)}
     </div>)
 }
 
