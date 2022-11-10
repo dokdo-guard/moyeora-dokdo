@@ -4,8 +4,10 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background-image: url("../../../public/assets/images/Background.jpg");
-  object-fit: contain;
+  background: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)),
+    url("../../../public/assets/images/Background.png");
+  /* background-image: url(""); */
+  background-size: 100% 100%;
   background-repeat: no-repeat;
 }
 
@@ -14,11 +16,8 @@
   align-items: center;
   justify-content: center;
   text-align: center;
-  font-size: 40px;
-}
-.LoginTitle > h1 {
-  font-weight: 700;
-  font-size: 70px;
+  font-size: 50px;
+  height: 200px;
 }
 
 .socialLogin {
@@ -34,7 +33,7 @@
   cursor: pointer;
   display: block;
   width: 300px;
-  margin: 20px;
+  margin: 10px;
   text-decoration: none;
   color: black;
   box-shadow: 0px 0px 15px lightgrey;
@@ -69,6 +68,9 @@
 .socialLogin a:hover {
   box-shadow: 0px 0px 15px gray;
 }
+.socialLogin a:nth-child(1) {
+  background-color: white;
+}
 
 .socialLogin a:nth-child(2) {
   background-color: #03c75a;
@@ -83,9 +85,10 @@
   border-radius: 25%;
 }
 .LoginWrapper {
-  width: 70%;
-  height: 80%;
-  background-color: white;
+  width: 60%;
+  height: 70%;
+  background-color: #ffffff;
+  background-color: rgba(255, 255, 255, 0.8);
   border-radius: 20px;
   box-shadow: 5px 5px 20px lightgray;
 }
@@ -93,10 +96,14 @@
   font-size: 30px;
   margin: 10px;
 }
-.waviy span {
+.waviy div {
   text-transform: uppercase;
-  animation: waviy 4s infinite;
+  animation: waviy 5s infinite;
   animation-delay: calc(0.2s * var(--i));
+  margin: 5px;
+  text-shadow: -2px 0 rgb(255, 222, 122), 0 2px rgb(255, 222, 122),
+    2px 0 rgb(255, 198, 26), 0 -2px rgb(255, 222, 122);
+  color: rgb(154, 87, 0);
 }
 @keyframes waviy {
   0%,

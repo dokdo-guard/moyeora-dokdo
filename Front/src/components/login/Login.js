@@ -11,22 +11,13 @@ function Login(props) {
   const OnBoard = () => {
     return (
       <div className='socialLogin'>
-        <div className='loginCenter'>
-          <img
-            src={
-              process.env.PUBLIC_URL + "/assets/images/LoadingBackground.png"
-            }
-            alt='NOLOGO'
-          />
-          <div className='loginbuttonlabel'>눌러서 시작하기</div>
-        </div>
         <div className='PlayButton'>
           <button
             onClick={() => {
               setLoginBtnShow(true);
             }}
           >
-            PLAY
+            우리땅 독도로 출발!
           </button>
         </div>
       </div>
@@ -36,36 +27,38 @@ function Login(props) {
     <div className='content'>
       <div className='LoginWrapper'>
         <div className='LoginTitle waviy'>
-          <span style={{ "--i": 1 }}>
+          <div style={{ "--i": 1 }}>
             <h1>모</h1>
-          </span>
-          <span style={{ "--i": 2 }}>
+          </div>
+          <div style={{ "--i": 2 }}>
             <h1>여</h1>
-          </span>
-          <span style={{ "--i": 3 }}>
+          </div>
+          <div style={{ "--i": 3 }}>
             <h1>봐</h1>
-          </span>
-          <span style={{ "--i": 4 }}>
+          </div>
+          <div style={{ "--i": 4 }}>
             <h1>요</h1>
-          </span>
-          <span style={{ "--i": 5 }}>
+          </div>
+          <div style={{ "--i": 5 }}>
             <h1>!</h1>
-          </span>
-          <span style={{ "--i": 6 }}>
+          </div>
+        </div>
+        <div className='LoginTitle waviy'>
+          <div style={{ "--i": 6 }}>
             <h1>우</h1>
-          </span>
-          <span style={{ "--i": 7 }}>
+          </div>
+          <div style={{ "--i": 7 }}>
             <h1>리</h1>
-          </span>
-          <span style={{ "--i": 8 }}>
+          </div>
+          <div style={{ "--i": 8 }}>
             <h1>땅</h1>
-          </span>
-          <span style={{ "--i": 9 }}>
+          </div>
+          <div style={{ "--i": 9 }}>
             <h1>독</h1>
-          </span>
-          <span style={{ "--i": 10 }}>
+          </div>
+          <div style={{ "--i": 10 }}>
             <h1>도</h1>
-          </span>
+          </div>
         </div>
         {loginBtnShow ? <SocialLogin /> : <OnBoard />}
       </div>
