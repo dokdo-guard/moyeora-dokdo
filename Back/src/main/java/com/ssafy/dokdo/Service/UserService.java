@@ -105,6 +105,5 @@ public class UserService {
         dto.setEmail(findUser.getEmail());
         dto.setUserCharacter(findUser.getUserCharacter());
         return dto;
-
     }
 }
