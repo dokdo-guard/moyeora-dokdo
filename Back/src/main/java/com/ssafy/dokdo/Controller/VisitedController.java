@@ -30,23 +30,17 @@ public class VisitedController {
     private final VisitedService visitedService;
 
     @PutMapping
-    public  ResponseEntity updateVisited(@CurrentUser UserPrincipal userPrincipal, @RequestParam String name){
-        try {
+    public  ResponseEntity<Boolean> updateVisited(@CurrentUser UserPrincipal userPrincipal, @RequestParam String name){
 
             Optional<Visited> visited = visistedRepository.findVisitedById(userPrincipal.getId());
 
             if(!visited.isPresent()){
-                return new ResponseEntity(HttpStatus.BAD_REQUEST);
+                return new ResponseEntity(false,HttpStatus.BAD_REQUEST);
             }
             else{
                 visitedService.changeVisited(visited.get(),name);
-                return new ResponseEntity(HttpStatus.OK);
+                return new ResponseEntity(true,HttpStatus.OK);
             }
-
-        }catch (Exception e){
-            return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-
     }
     @GetMapping
     public ResponseEntity<Visited> getVisited(@CurrentUser UserPrincipal userPrincipal){
