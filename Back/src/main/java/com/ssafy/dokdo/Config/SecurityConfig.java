@@ -66,18 +66,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     public void configure(AuthenticationManagerBuilder authenticationManagerBuilder) throws Exception {
-//        authenticationManagerBuilder.inMemoryAuthentication()
-//                .withUser("hd")
-//                .password("{noop}1234")
-//                .roles("USER")
-//                .and()
-//                .withUser("ad")
-//                .password("{noop}1234")
-//                .roles("USER")
-//                .and()
-//                .withUser("guest")
-//                .password("{noop}1234")
-//                .roles("GUEST");
         authenticationManagerBuilder
                 .userDetailsService(customUserDetailsService)
                 .passwordEncoder(passwordEncoder());
@@ -106,9 +94,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     .and()
                 .csrf()
                     .disable()
-//                .headers()
-//                    .frameOptions().sameOrigin()
-//                    .and()
                 .formLogin()
                     .disable()
                 .httpBasic()
@@ -132,12 +117,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         .permitAll()
                     .antMatchers("/info/**")
                         .permitAll()
-                    .antMatchers("/ws-stomp/**", "/sub/**", "/pub/**")
-                        .permitAll()
-                    .antMatchers("/chat/**")
-                        .permitAll()
-                    .antMatchers("/swagger-resources/**","/configuration/ui","/configuration/security", "/v2/api-docs", "/swagger-ui.html","/webjars/**")
-                        .permitAll()
+                    .antMatchers("/swagger-resources/**","/configuration/ui","/configuration/security", "/v2/api-docs", "/swagger-ui.html","/webjars/**").permitAll()
                     .anyRequest()
                         .authenticated()
                     .and()
