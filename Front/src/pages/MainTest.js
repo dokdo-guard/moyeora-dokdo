@@ -1,5 +1,4 @@
 import * as THREE from "three";
-import * as CANNON from "cannon-es";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 import { DRACOLoader } from "three/examples/jsm/loaders/DRACOLoader";
 import gsap from "gsap";
@@ -22,7 +21,7 @@ import Popup from "../components/mypage/selectCharacter";
 import Dictionary from "../components/mypage/dictionary.js";
 
 import Stats from "stats.js";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { mapReLoading } from "../components/popup/TerrianPopup";
@@ -62,15 +61,19 @@ import {
   clickChat,
   quitChat,
   clickBoard,
+
 } from "../components/main/PopupButton.js";
+import {quitNPCbubble} from '../components/main/NPCspeaking.js'
 import { NPC } from "../components/glTF/NPC";
 import Tutorial from "../components/tutorial/tutorial";
 import { Vector2, Vector3 } from "three";
 
 import { useSelector, useDispatch } from "react-redux";
 import axios from "axios";
+import NPCBubble from "../components/main/NPCbubble";
 
 function MainTest() {
+
   //#region = 카메라, 빛, 렌더러, 씬
   // Renderer
   const canvas = document.querySelector("#three-canvas");
@@ -102,11 +105,7 @@ function MainTest() {
 
   const directionalLight = new THREE.DirectionalLight("white", 0.5);
   const directionalLightOriginPosition = new THREE.Vector3(0.5, 1, 1);
-  directionalLight.position.set(
-    directionalLightOriginPosition.x,
-    directionalLightOriginPosition.y,
-    directionalLightOriginPosition.z,
-  );
+  directionalLight.position.set(directionalLightOriginPosition.x,directionalLightOriginPosition.y,directionalLightOriginPosition.z)
   directionalLight.castShadow = true;
 
   // mapSize 세팅으로 그림자 퀄리티 설정
@@ -188,6 +187,7 @@ function MainTest() {
     setIsLoaded(true);
   });
 
+
   // 캐릭터 변경 핸들러
 
   // #region = glTF 모델 임포트
@@ -213,27 +213,6 @@ function MainTest() {
     // z : 0
   });
 
-  let users = [
-    new Player({
-      scene,
-      meshes,
-      gltfLoader,
-      modelSrc: "/assets/glTF/character/sojung.glb",
-      x: -5,
-      y: 0.3,
-      z: 0,
-    }),
-    new Player({
-      scene,
-      meshes,
-      gltfLoader,
-
-      modelSrc: "/assets/glTF/character/youngjin.glb",
-      x: 5,
-      y: 0.3,
-      z: 0,
-    }),
-  ];
 
   // 다리
   const bridge = new Bridge({
@@ -286,6 +265,16 @@ function MainTest() {
     z: 23,
   });
 
+  const 펭귄 = new NPC({
+    scene,
+    meshes,
+    gltfLoader,
+    modelSrc: "/assets/glTF/Penguin.gltf",
+    x: -20,
+    y: 0.2,
+    z: 0,
+  })
+
   const 게시판 = new NPC({
     scene,
     meshes,
@@ -319,25 +308,25 @@ function MainTest() {
     stats.update();
     const delta = clock.getDelta();
 
-    if (강치.mixer && 돌고래.mixer && 달고기.mixer) {
+    if (강치.mixer && 돌고래.mixer && 달고기.mixer && 펭귄.mixer) {
       강치.mixer.update(delta);
       강치.actions[0].play();
       돌고래.mixer.update(delta);
       돌고래.actions[0].play();
       달고기.mixer.update(delta);
       달고기.actions[0].play();
+      펭귄.mixer.update(delta);
+      펭귄.actions[0].play();
     }
 
     if (player.modelMesh) {
       camera.lookAt(player.modelMesh.position);
       if (isPressed) {
         raycasting();
+
       }
       // player update
       player.update(delta);
-      users.forEach((user) => {
-        user.update(delta);
-      });
 
       if (player.moving) {
         // 걸어가는 상태
@@ -346,8 +335,6 @@ function MainTest() {
           destinationPoint.x - player.modelMesh.position.x,
         );
 
-        player.speed = 7;
-
         camera.position.x = 1 + player.modelMesh.position.x;
         camera.position.z = 5 + player.modelMesh.position.z;
 
@@ -355,13 +342,13 @@ function MainTest() {
         if (
           (Math.abs(spotMesh1.position.x - player.modelMesh.position.x) < 1.5 &&
             Math.abs(spotMesh1.position.z - player.modelMesh.position.z) <
-              1.5) ||
+            1.5) ||
           (Math.abs(spotMesh2.position.x - player.modelMesh.position.x) < 1.5 &&
             Math.abs(spotMesh2.position.z - player.modelMesh.position.z) <
-              1.5) ||
+            1.5) ||
           (Math.abs(spotMesh3.position.x - player.modelMesh.position.x) < 1.5 &&
             Math.abs(spotMesh3.position.z - player.modelMesh.position.z) <
-              1.5) ||
+            1.5) ||
           (Math.abs(spotMesh4.position.x - player.modelMesh.position.x) < 1.5 &&
             Math.abs(spotMesh4.position.z - player.modelMesh.position.z) < 1.5)
         ) {
@@ -413,9 +400,23 @@ function MainTest() {
   }
   //#endregion
 
-  // 마우스로 클릭
 
-  function checkIntersects() {
+  const animalSpeaking = {
+    'penguin' : ['이건 재미있다','파이팅','dd','랜덤가자','sdf','1234'],
+    'rabbit' : ['잠온다','힘내자']
+}
+  var penguinSaying = animalSpeaking.penguin[Math.floor(Math.random() * animalSpeaking.penguin.length)]
+    setInterval(() => 
+      penguinSaying = animalSpeaking.penguin[Math.floor(Math.random() * animalSpeaking.penguin.length)]
+      , 2000);
+      setInterval(() => 
+      console.log(penguinSaying)
+      , 2000);
+  
+
+// 마우스로 클릭
+
+function checkIntersects() {
     const intersects = raycaster.intersectObjects(meshes);
     const item = intersects[0];
     if (!item) return;
@@ -441,17 +442,27 @@ function MainTest() {
       돌고래.onRaycasted();
       달고기.onRaycasted();
     }
+    if (item.object.name === 'Penguin') {
+      player.dontMove(destinationPoint);
+      
+      펭귄.onRaycasted();
+      const penguinPop = document.getElementById("penguin");
+      penguinPop.style.display = 'block'
+      penguinPop.addEventListener("mouseup", () => {
+        isPressed = false;
+      });
+      // penguinSaying = animalSpeaking.penguin[Math.floor(Math.random() * animalSpeaking.penguin.length)]
+    }
     if (item.object.name === "ocean") {
       player.moving = false;
     }
-
     if (item.object.name === "퀴즈팻말") {
       const QuizPop = document.getElementById("QuizPopup");
       QuizPop.style.display = "block";
       QuizPop.addEventListener("mouseup", () => {
         isPressed = false;
       });
-      player.moving = false;
+      player.moving = false
     }
     if (item.object.name == "지질팻말") {
       const TerrianPop = document.getElementById("TerrianPopup");
@@ -469,7 +480,7 @@ function MainTest() {
       EcoPop.addEventListener("mouseup", () => {
         isPressed = false;
       });
-      player.moving = false;
+      player.moving = false
     }
     if (item.object.name === "역사팻말") {
       const HistoryPop = document.getElementById("HistoryPopup");
@@ -477,32 +488,16 @@ function MainTest() {
       HistoryPop.addEventListener("mouseup", () => {
         isPressed = false;
       });
-      player.moving = false;
-    }
-    if (item.object.name === "Alligator") {
-      const BoardPop = document.getElementById("board");
-      BoardPop.addEventListener("mouseup", () => {
-        isPressed = false;
-      });
-      BoardPop.style.display = "block";
-      player.moving = false;
-    }
+      player.moving = false
 
-    if (item.object.name === "Alligator") {
-      const BoardPop = document.getElementById("board");
-      BoardPop.addEventListener("mouseup", () => {
-        isPressed = false;
-      });
-      BoardPop.style.display = "block";
-      player.moving = false;
     }
-    if (item.object.name === "Alligator") {
-      const BoardPop = document.getElementById("board");
+    if (item.object.name === 'Alligator') {
+      const BoardPop = document.getElementById('board');
       BoardPop.addEventListener("mouseup", () => {
         isPressed = false;
       });
-      BoardPop.style.display = "block";
-      player.moving = false;
+      BoardPop.style.display = 'block';
+      player.moving = false
     }
   }
 
@@ -549,15 +544,15 @@ function MainTest() {
   canvas.addEventListener("mouseup", () => {
     isPressed = false;
   });
-  canvas.addEventListener("mousemove", (e) => {
-    if (isPressed) {
-      calculateMousePosition(e);
-    }
-  });
+  // canvas.addEventListener("mousemove", (e) => {
+  //   if (isPressed) {
+  //     calculateMousePosition(e);
+  //   }
+  // });
 
   // 스크린 캡처 코드를 위해 render 함수를 따로 분리해서 설정해줌
   function resizeRendererToDisplaySize(renderer) {
-    const canvas = renderer.domElement;
+    // const canvas = renderer.domElement;
     const width = canvas.clientWidth;
     const height = canvas.clientHeight;
     const needResize = canvas.width !== width || canvas.height !== height;
@@ -569,7 +564,7 @@ function MainTest() {
 
   function render() {
     if (resizeRendererToDisplaySize(renderer)) {
-      const canvas = renderer.domElement;
+      // const canvas = renderer.domElement;
       camera.aspect = canvas.clientWidth / canvas.clientHeight;
       camera.updateProjectionMatrix();
     }
@@ -595,6 +590,7 @@ function MainTest() {
     };
   })();
   //
+  
 
   //#region = 캐릭터 선택하기
   const changeSiryeong = () => {
@@ -670,7 +666,13 @@ function MainTest() {
     });
   };
   //#endregion
+
+
+
   update();
+
+
+
 
   return (
     <>
@@ -802,6 +804,7 @@ function MainTest() {
               onClick={quitTutorial}
             ></img>
           </div>
+
           <div className='chatButton' onClick={clickChat}>
             <img src='/assets/icons/chat.png' className='chatImage'></img>
           </div>
@@ -816,6 +819,15 @@ function MainTest() {
           <div id='board' className='board'>
             <Board></Board>
           </div>
+        
+        <div id='penguin' className="npcSpeaking">
+          <h1 className="npcSaying">{penguinSaying}</h1>
+          <img src='/assets/images/npc/penguin.png' className="npcBubble"></img>
+          <button onClick={quitNPCbubble} className="quitNPCbubble">확인</button>
+        </div>
+
+        {/* <NPCBubble animalName={animalName}></NPCBubble> */}
+        
         </div>
       ) : (
         <LoadingComponent />
