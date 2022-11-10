@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Random;
 
@@ -14,20 +15,19 @@ import java.util.Random;
 public class QuizService {
 
     private final QuizRepository quizRepository;
-    public List<Quiz> getQuizByNumber(int number){
+    public HashSet<Quiz> getQuizByNumber(int number){
          List<Quiz> quizList = quizRepository.findAll();
-         List<Quiz> randomQuiz = new ArrayList<>();
+        HashSet<Quiz> randomQuiz = new HashSet<>();
+
 
         long seed = System.currentTimeMillis();
         Random rand = new Random(seed);
 
-        int numberOfElements = number;
 
-        for(int i=0;i<numberOfElements;i++){
+        while(randomQuiz.size() < number){
             int randomIndex = rand.nextInt(quizList.size());
             Quiz randomElement = quizList.get(randomIndex);
             randomQuiz.add(randomElement);
-            quizList.remove(randomIndex);
         }
 
          return  randomQuiz;
