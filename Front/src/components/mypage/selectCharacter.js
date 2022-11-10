@@ -1,6 +1,5 @@
 import { Suspense, useEffect, useState } from "react";
 import popupStyles from "../css/Character.module.css";
-import PropTypes from "prop-types";
 import { Canvas, useLoader, useFrame } from "@react-three/fiber";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 import * as THREE from "three";
@@ -149,18 +148,21 @@ const Popup = (props) => {
           onClick={() => {
             actionHandler(5);
           }}
+          alt='no'
         ></img>
         <img
           src='/assets/images/emotions/dance.png'
           onClick={() => {
             actionHandler(3);
           }}
+          alt='no'
         ></img>
         <img
           src='/assets/images/emotions/sad.png'
           onClick={() => {
             actionHandler(2);
           }}
+          alt='no'
         ></img>
       </div>
       <div className={popupStyles.character}>
@@ -187,6 +189,7 @@ const Popup = (props) => {
                 onClick={() => {
                   setCharacter(c_name);
                 }}
+                alt='no'
               ></img>
             </div>
           );

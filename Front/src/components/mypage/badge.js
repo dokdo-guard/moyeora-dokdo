@@ -1,39 +1,40 @@
-import { useEffect, useState } from 'react';
-import popupStyles from '../css/MyPagePopup.module.css';
-import PropTypes from 'prop-types';
-import api from '../../api/api';
+import { useEffect, useState } from "react";
+import popupStyles from "../css/MyPagePopup.module.css";
+import PropTypes from "prop-types";
+import api from "../../api/api";
+import { useSelector } from "react-redux";
 
-const Popup = (props) => {
-  const [show, setShow] = useState(false);
+const Badge = () => {
+  // access Token 전달하기 위함
+  const user = useSelector((state) => state.user.value);
   const [badge, setBadge] = useState([]);
 
-  const closeHandler = (e) => {
-    setShow(false);
-    props.onClose(false);
+  useEffect(() => {
+    console.log("BADGE user accessToken");
+    console.log(user.accessToken);
+    getBadge();
+  }, []);
+
+  const getBadge = async () => {
+    await api
+      .get("https://k7d204.p.ssafy.io/api/badge", {
+        headers: {
+          Authorization: `Bearer ${user.accessToken}`,
+        },
+      })
+      .then((res) => {
+        setBadge(res.data);
+      });
   };
 
-  useEffect(() => {
-    setShow(props.show);
-    api.get('/badge').then((res) => {
-      setBadge(res.data);
-    });
-  }, [props.show]);
-
   return (
-    <div
-      style={{
-        visibility: show ? 'visible' : 'hidden',
-        opacity: show ? '1' : '0',
-      }}
-      className={popupStyles.overlay}
-    >
-      <span className={popupStyles.close} onClick={closeHandler} />
+    <div style={{}} className={popupStyles.overlay}>
       <div className={popupStyles.popup}>
         <div className={popupStyles.content}>
           {badge.map((item, index) => {
             return (
               <div className={popupStyles.badge} key={index}>
-                <img src={item.url}></img>
+                <img src={item.url} alt='No'></img>
               </div>
             );
           })}
@@ -43,9 +44,9 @@ const Popup = (props) => {
   );
 };
 
-Popup.propTypes = {
+Badge.propTypes = {
   show: PropTypes.bool.isRequired,
   onClose: PropTypes.func.isRequired,
 };
 
-export default Popup;
+export default Badge;

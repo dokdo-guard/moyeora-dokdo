@@ -21,7 +21,7 @@ const OauthRedirect = (props) => {
     const token = getUrlParameter("token");
     const error = getUrlParameter("error");
     if (token) {
-      localStorage.setItem("accessToken", token);
+      sessionStorage.setItem("accessToken", token);
       const getUserInfo = async (token) => {
         await axios
           .get("https://k7d204.p.ssafy.io/api/user", {
