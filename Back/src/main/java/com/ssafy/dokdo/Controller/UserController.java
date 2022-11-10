@@ -2,6 +2,7 @@ package com.ssafy.dokdo.Controller;
 
 import com.ssafy.dokdo.Entity.Badge;
 import com.ssafy.dokdo.Entity.Dogam;
+import com.ssafy.dokdo.Entity.QuizUser;
 import com.ssafy.dokdo.Entity.User;
 import com.ssafy.dokdo.Exception.ResourceNotFoundException;
 import com.ssafy.dokdo.Model.UserDto;
@@ -28,6 +29,11 @@ public class UserController {
     @GetMapping("user")
     public UserDto getCurrentUser(@CurrentUser UserPrincipal userPrincipal) {
         return userService.getCurrentUser(userPrincipal.getId());
+    }
+
+    @GetMapping("quiz")
+    public QuizUser getQuiz(@CurrentUser UserPrincipal userPrincipal) {
+        return userService.getQuizResult(userPrincipal.getId());
     }
 
     @PutMapping("quiz")
