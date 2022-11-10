@@ -188,6 +188,45 @@
 
 
 .mainPage .board {
-
 	display: none;
+}
+
+
+
+/* npc 대사창 */
+.mainPage .npcSpeaking {
+	display: none;
+
+	z-index: 9999;
+	/* background-color: pink; */
+}
+
+.mainPage .npcBubble {
+	width: 100%;
+	height: 100%;
+	position: absolute;
+}
+
+.mainPage .npcSaying {
+	/* display: flex;
+	justify-content: center;
+	text-align: center; */
+	position: absolute;
+	top: 42%;
+	left: 30%;
+	z-index: 100;
+}
+
+.mainPage .quitNPCbubble {
+	position: absolute;
+	z-index: 100;
+	top: 57%;
+	left: 47%;
+	border: none;
+	width: 100px;
+	height: 40px;
+	background-color: rgb(255, 170, 43);
+	border-radius: 10px;
+	cursor: pointer;
+	font-size: 130%;
 }

@@ -14,7 +14,7 @@
 .boardHome {
 	width: 100vw;
 	height: 100vh;
-	background-color: rgb(119, 153, 192);
+	background-color: rgb(173, 202, 236);
 	position: relative;
 }
 
@@ -23,22 +23,33 @@
 	/* background-color: yellow; */
 }
 
+.boardHome .buttons {
+	display: flex;
+	justify-content: center;
+	width: 100%;
+	height: 50px;
+	margin-top: 2%;
+	margin-bottom: 2%;
+}
+
 .boardHome .writeButton {
 	width: 10%;
-	height: 5%;
+	/* height: 5%; */
 	border: none;
 	border-radius: 10px;
-	background-color: yellow;
+	background-color: rgb(114, 199, 131);
 	cursor: pointer;
+	margin-right: 1%;
 }
 
 .boardHome .dokdoButton {
 	width: 10%;
-	height: 5%;
+	/* height: 5%; */
 	border: none;
 	border-radius: 10px;
-	background-color: green;
+	background-color: rgb(255, 191, 0);
 	cursor: pointer;
+	margin-left: 1%;
 }
 
 
@@ -47,94 +58,126 @@
 }
 
 
+
+
 /*  새 글 쓰기 */
 .newPage {
 	width: 100vw;
 	height: 100vh;
-	background-color: white;
-}
-
-
-/*  디테일 페이지 */
-.detail {
-	width: 100vw;
-	height: 100vh;
-	background-color: white;
-}
-
-/* 아이템 개별 */
-.boardItem {
-	width: 20%;
-	background-color: white;
-	margin-top: 3px;
-	border-radius: 10px;
-}
-
-.boardItem .image {
-	width: 60%;
-}
-
-
-
-
-/* 코드펜 긁어온 코드 */
-figure.snip1419 {
+	background-color: rgb(173, 202, 236);
 	position: relative;
+}
+
+.newPage .leftSection {
+	width: 550px;
+	height: 500px;
+	background-color: pink;
+	position: absolute;
+	margin-left: 7%;
+}
+
+.newPage .textarea {
+	width: 600px;
+	height: 200px;
+
+}
+
+.newPage .editorTitle {
+	font-size: 200%;
+	display: flex;
+	justify-content: center;
+	padding-top: 3%;
+}
+
+.newPage .defaultImage {
+	width: 400px;
+}
+
+.newPage .rightSection {
+	width: 700px;
+	height: 500px;
+	background-color: green;
+	position: absolute;
+	left: 50%;
+}
+
+
+
+
+	/* 아이템 개별 */
+  figure.snip1332 {
+	position: relative;
+	overflow: hidden;
 	margin: 10px;
-	min-width: 230px;
-	max-width: 315px;
-	min-height: 220px;
-	width: 100%;
-	color: #ffffff;
-	text-align: center;
-	line-height: 1.4em;
-	background-color: #ededed;
-	font-size: 16px;
-	border-radius: 10px;
+	width: 350px;
+	height: 200px;
+	/* text-align: left; */
+	background-color: #ffffff;
+	font-size: 25px;
+	-webkit-perspective: 50em;
+	/* perspective: 50em; */
+	border-radius: 15px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 	box-shadow: 5px 5px 5px grey;
   }
-  figure.snip1419 * {
+  figure.snip1332 * {
 	-webkit-box-sizing: border-box;
 	box-sizing: border-box;
-	-webkit-transition: all 0.35s ease;
-	transition: all 0.35s ease;
+	-webkit-transition: all 0.6s ease;
+	transition: all 0.6s ease;
   }
-  figure.snip1419 img {
+  figure.snip1332 figcaption {
+	max-width: 100%;
+	-webkit-transition-delay: 0.2s;
+	/* transition-delay: 0.2s; */
+	backface-visibility: hidden;
+  }
+  figure.snip1332 .img {
 	position: absolute;
-	bottom: 0%;
+	top: 50%;
+	left: 0;
+	/* width: 100%; */
+	/* height: 100px; */
+	-webkit-transform: rotateY(90deg) translate(0%, -50%);
+	transform: rotateY(90deg) translate(0%, -50%);
+	-webkit-transform-origin: 50% 0%;
+	-ms-transform-origin: 50% 0%;
+	transform-origin: 50% 0%;
+	z-index: 1;
+	opacity: 0;
+	/* padding: 0 30px; */
+  }
+
+  figure.snip1332 img {
+	height: 200px;
 	left: 50%;
-	opacity: 1;
-	width: 50%;
-	-webkit-transform: translate(-50%, 0%);
-	transform: translate(-50%, 0%);
   }
-  figure.snip1419 figcaption {
-	z-index: 2;
-	padding: 20px 30px;
-  }
-  figure.snip1419 p {
-	margin: 0;
-	width: 100%;
-	-webkit-transform: translateY(20px);
-	transform: translateY(20px);
-	opacity: 1;
-  }
-  figure.snip1419 p {
+
+  figure.snip1332 p {
+	line-height: 1.5em;
 	font-size: 0.8em;
-	color: black
+	font-weight: 500;
+	margin: 0 0 15px;
+	color: black;
   }
-  figure.snip1419:hover img {
-	width: 100%;
-	bottom: 0%;
-	border-radius: 10px;
+
+  figure.snip1332:hover figcaption {
+	-webkit-transform: rotateY(-180deg);
+	transform: rotateY(-180deg);
+	opacity: 0;
+	-webkit-transition-delay: 0;
+	transition-delay: 0;
   }
-  figure.snip1419:hover figcaption h2,
-  figure.snip1419.hover figcaption h2,
-  figure.snip1419:hover figcaption p,
-  figure.snip1419.hover figcaption p {
-	-webkit-transform: translateY(0px);
-	transform: translateY(0px);
+
+  figure.snip1332:hover .img {
+	-webkit-transform: rotateY(0deg) translate(0, -50%);
+	transform: rotateY(0deg) translate(0, -50%);
 	opacity: 1;
+	-webkit-transition-delay: 0.35s;
+	transition-delay: 0.35s;
   }
+
 
 

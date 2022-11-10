@@ -1,6 +1,5 @@
-import { useState, useRef, useContext, useEffect, useCallback } from "react";
+import { useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
-import { DiaryDispatchContext } from "../../App.js";
 
 import { createBoard } from "../../api/board.js";
 
@@ -27,6 +26,7 @@ const Editor = ({ originData }) => {
       };
     });
   };
+
 
   // S3에 직접 이미지 올리기
   const region = "ap-northeast-2";
@@ -83,29 +83,40 @@ const Editor = ({ originData }) => {
     navigate("/home/board");
   };
 
-  return (
-    <>
-      <input
-        type='file'
-        accept='image/jpg,impge/png,image/jpeg,image/gif'
-        onChange={(e) => {
-          encodeFileToBase64(e.target.files[0]);
-          setFile(e.target.files[0]);
-        }}
-      />
-      <div className='preview'>
-        {imageSrc && <img src={imageSrc} alt='preview-img' />}
-      </div>
+  console.log(file)
 
-      <input
-        ref={contentRef}
-        value={content}
-        onChange={(e) => {
-          setContent(e.target.value);
-        }}
-      ></input>
+  return (
+    <div className="editor">
+      {imageSrc ? (
+        <>
+          <div className='preview'>
+            {imageSrc && <img src={imageSrc} alt='preview-img' />}
+          </div>
+          <button onClick={() => {setImageSrc("")}}>이미지 삭제</button>
+        </>
+      ) : (
+        <img src="/assets/images/default.png"></img>
+        )}
+        <input
+          type='file'
+          accept='image/jpg,impge/png,image/jpeg,image/gif'
+          onChange={(e) => {
+            encodeFileToBase64(e.target.files[0]);
+            setFile(e.target.files[0]);
+          }}
+        />
+
+
+        <textarea
+          ref={contentRef}
+          value={content}
+          className="textarea"
+          onChange={(e) => {
+            setContent(e.target.value);
+          }}
+        ></textarea>
       <button onClick={handleSubmit}>작성하기</button>
-    </>
+    </div>
   );
 };
 
