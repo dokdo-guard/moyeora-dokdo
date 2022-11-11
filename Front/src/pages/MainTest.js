@@ -177,9 +177,7 @@ function MainTest() {
   gltfLoader.setDRACOLoader(dracoLoader);
 
   const [isLoaded, setIsLoaded] = useState(false);
-  // 유저 캐릭터 커스텀
-  const accessToken = sessionStorage.getItem("accessToken");
-  const [userCharacter, setUserCharacter] = useState(sessionStorage.getItem("userCharacter"));
+
   // 로딩 페이지 구현 위함
   gltfLoader.load("/assets/glTF/scene.glb", function () {
     console.log("ISLOADED");
