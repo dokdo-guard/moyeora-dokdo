@@ -1,12 +1,10 @@
 package com.ssafy.dokdo.Service;
 
-import com.ssafy.dokdo.Entity.Badge;
-import com.ssafy.dokdo.Entity.Dogam;
-import com.ssafy.dokdo.Entity.QuizUser;
-import com.ssafy.dokdo.Entity.User;
+import com.ssafy.dokdo.Entity.*;
 import com.ssafy.dokdo.Exception.ResourceNotFoundException;
+import com.ssafy.dokdo.Model.DogamDto;
 import com.ssafy.dokdo.Model.UserDto;
-import com.ssafy.dokdo.Repository.DogamRepository;
+import com.ssafy.dokdo.Repository.PlantRepository;
 import com.ssafy.dokdo.Repository.QuizUserRepository;
 import com.ssafy.dokdo.Repository.UserRepository;
 import lombok.AllArgsConstructor;
@@ -15,13 +13,14 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.Optional;
 
 @AllArgsConstructor
 @Service
 public class UserService {
     private final UserRepository userRepository;
     private final QuizUserRepository quizUserRepository;
-    private final DogamRepository dogamRepository;
+    private final PlantRepository plantRepository;
 
     public UserDto getCurrentUser(Long id) {
         return convertToDto(userRepository.findById(id)
@@ -70,16 +69,46 @@ public class UserService {
         return convertToDto(userRepository.save(user));
     }
 
-    public List<Dogam> getDogamList(Long id, String domain) {
+//    public List<DogamDto> getDogamList(Long id, String domain) {
+//        User user = userRepository.findById(id)
+//                .orElseThrow(() -> new ResourceNotFoundException("User", "id", id));
+//
+//        List<DogamDto> domainList = new ArrayList<>();
+//
+//        List<Dogam> dogamList = user.getDogamList();
+//        for (Dogam dogam : dogamList) {
+//            DogamDto dg = new DogamDto();
+//            if (dogam.getDomain().equals(domain)) {
+//                dg.setUser_id(dogam.getUser_id());
+//                dg.setDomain(dogam.getDomain());
+//                dg.setMongo_id(dogam.getMongo_id());
+//                DogamDto get_dg = dogamRepository.findDogamByName(dogam.getMongo_id());
+//
+//                domainList.add(dg);
+//            }
+//        }
+//
+//        return domainList;
+//    }
+
+    public List<DogamDto> getPlantDogam(Long id) {
         User user = userRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("User", "id", id));
 
-        List<Dogam> domainList = new ArrayList<>();
+        List<DogamDto> domainList = new ArrayList<>();
 
-        List<Dogam> dogamList = user.getDogamList();
+        List<Dogam> dogamList = user.getDogamList();  //유저가 가진 도감 리스트
         for (Dogam dogam : dogamList) {
-            if (dogam.getDomain().equals(domain)) {
-                domainList.add(dogam);
+            if (dogam.getDomain().equals("plant")) {
+                DogamDto dg = new DogamDto();
+                dg.setUser_id(dogam.getUser_id());
+                dg.setDomain(dogam.getDomain());
+                dg.setName(dogam.getMongo_id());
+                Optional<Plant> d = plantRepository.findPlantByName(dogam.getMongo_id());
+                String img = d.get().getImg();
+                dg.setImage(img);
+
+                domainList.add(dg);
             }
         }
 

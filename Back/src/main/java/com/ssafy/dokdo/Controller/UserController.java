@@ -87,11 +87,24 @@ public class UserController {
     }
 
     //domain별로 조회되도록 수정(성령)
-    @GetMapping("/user/dogams")
-    public ResponseEntity<?> getDogamList(@CurrentUser UserPrincipal userPrincipal, @RequestParam String domain){
+//    @GetMapping("/user/dogams")
+//    public ResponseEntity<?> getDogamList(@CurrentUser UserPrincipal userPrincipal, @RequestParam String domain){
+//        try{
+//            return new ResponseEntity<>(
+//                    userService.getDogamList(userPrincipal.getId(), domain),
+//                    HttpStatus.OK);
+//        } catch (NoSuchElementException noSuchElementException){
+//            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+//        } catch (Exception e) {
+//            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+//        }
+//    }
+
+    @GetMapping("/user/dogams/plant")
+    public ResponseEntity<?> getPlantDogam(@CurrentUser UserPrincipal userPrincipal){
         try{
             return new ResponseEntity<>(
-                    userService.getDogamList(userPrincipal.getId(), domain),
+                    userService.getPlantDogam(userPrincipal.getId()),
                     HttpStatus.OK);
         } catch (NoSuchElementException noSuchElementException){
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);

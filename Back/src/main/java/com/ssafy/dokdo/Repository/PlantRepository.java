@@ -10,4 +10,5 @@ import java.util.Optional;
 
 public interface PlantRepository extends MongoRepository<Plant,String> {
     Optional<Plant> findPlantByName(String name);
+
 }

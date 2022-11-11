@@ -1,21 +1,14 @@
 package com.ssafy.dokdo.Controller;
 
-import com.ssafy.dokdo.Entity.Dogam;
-import com.ssafy.dokdo.Entity.User;
 import com.ssafy.dokdo.Entity.Visited;
-import com.ssafy.dokdo.Exception.ResourceNotFoundException;
-import com.ssafy.dokdo.Repository.DogamRepository;
-import com.ssafy.dokdo.Repository.UserRepository;
 import com.ssafy.dokdo.Repository.VisistedRepository;
 import com.ssafy.dokdo.Security.CurrentUser;
 import com.ssafy.dokdo.Security.UserPrincipal;
-import com.ssafy.dokdo.Service.BadgeService;
 import com.ssafy.dokdo.Service.VisitedService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
