@@ -2,10 +2,12 @@ package com.ssafy.dokdo.Security.oauth2;
 
 import com.ssafy.dokdo.Entity.QuizUser;
 import com.ssafy.dokdo.Entity.User;
+import com.ssafy.dokdo.Entity.UserBadge;
 import com.ssafy.dokdo.Entity.Visited;
 import com.ssafy.dokdo.Exception.OAuth2AuthenticationProcessingException;
 import com.ssafy.dokdo.Model.AuthProvider;
 import com.ssafy.dokdo.Repository.QuizUserRepository;
+import com.ssafy.dokdo.Repository.UserBadgeRepository;
 import com.ssafy.dokdo.Repository.UserRepository;
 import com.ssafy.dokdo.Repository.VisitedRepository;
 import com.ssafy.dokdo.Security.UserPrincipal;
@@ -32,6 +34,7 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
     private final UserRepository userRepository;
     private final QuizUserRepository quizUserRepository;
     private final VisitedRepository visitedRepository;
+    private final UserBadgeRepository userBadgeRepository;
 
     @Override
     public OAuth2User loadUser(OAuth2UserRequest oAuth2UserRequest) throws OAuth2AuthenticationException {
@@ -87,8 +90,11 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
         user.setQuizUser(quizUser);
         quizUserRepository.saveAndFlush(quizUser);
 
-        return userRepository.save(user);
+        UserBadge userBadge = new UserBadge();
+        user.setUserBadge(userBadge);
+        userBadgeRepository.saveAndFlush(userBadge);
 
+        return userRepository.save(user);
     }
 
     private User updateExistingUser(User existingUser, OAuth2UserInfo oAuth2UserInfo) {
