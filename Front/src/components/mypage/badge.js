@@ -2,16 +2,15 @@ import { useEffect, useState } from "react";
 import popupStyles from "../css/MyPagePopup.module.css";
 import PropTypes from "prop-types";
 import api from "../../api/api";
-import { useSelector } from "react-redux";
 
 const Badge = () => {
   // access Token 전달하기 위함
-  const user = useSelector((state) => state.user.value);
   const [badge, setBadge] = useState([]);
+  const accessToken = sessionStorage.getItem("accessToken");
 
   useEffect(() => {
     console.log("BADGE user accessToken");
-    console.log(user.accessToken);
+    console.log(accessToken);
     getBadge();
   }, []);
 
@@ -19,7 +18,7 @@ const Badge = () => {
     await api
       .get("https://k7d204.p.ssafy.io/api/badge", {
         headers: {
-          Authorization: `Bearer ${user.accessToken}`,
+          Authorization: `Bearer ${accessToken}`,
         },
       })
       .then((res) => {

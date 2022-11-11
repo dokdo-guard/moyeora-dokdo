@@ -1,16 +1,14 @@
 import { useEffect, useState } from "react";
 import popupStyles from "../css/MyPagePopup.module.css";
-import PropTypes from "prop-types";
 import api from "../../api/api";
 import { AWS_S3_BASE_URL } from "../../api/Oauth/uri";
 import axios from "axios";
-import { useSelector } from "react-redux";
 
 const Dictionary = (props) => {
   const [show, setShow] = useState(false);
   const [dogam, setDogam] = useState([]);
   const [earnedDogam, setEarnedDogam] = useState([]);
-  const user = useSelector((state) => state.user.value);
+  const accessToken = sessionStorage.getItem("accessToken");
   // const closeHandler = (e) => {
   //   setShow(false);
   //   props.onClose(false);
@@ -19,7 +17,7 @@ const Dictionary = (props) => {
   const getEarnedDogam = async () => {
     await axios
       .get("https://k7d204.p.ssafy.io/api/user/dogams", {
-        headers: { Authorization: `Bearer ${user.accessToken}` },
+        headers: { Authorization: `Bearer ${accessToken}` },
       })
       .then((res) => {
         setEarnedDogam(res.data);

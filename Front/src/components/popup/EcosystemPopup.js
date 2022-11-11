@@ -6,7 +6,6 @@ import {
   getAllSeaPlants,
 } from "../../api/ecoSystemApi";
 import "../css/EcoSystemPopup.css";
-import { useSelector } from "react-redux";
 import axios from "axios";
 function EcoSystemPopup() {
   const [isSelected, setIsSelected] = useState(false);

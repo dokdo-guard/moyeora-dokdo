@@ -66,12 +66,10 @@ import { NPC } from "../components/glTF/NPC";
 import Tutorial from "../components/tutorial/tutorial";
 import { Vector2, Vector3 } from "three";
 
-import { useSelector, useDispatch } from "react-redux";
 import axios from "axios";
 import NPCBubble from "../components/main/NPCbubble";
 
 function MainTest() {
-
   //#region = 카메라, 빛, 렌더러, 씬
   // Renderer
   const canvas = document.querySelector("#three-canvas");
@@ -103,7 +101,11 @@ function MainTest() {
 
   const directionalLight = new THREE.DirectionalLight("white", 0.5);
   const directionalLightOriginPosition = new THREE.Vector3(0.5, 1, 1);
-  directionalLight.position.set(directionalLightOriginPosition.x,directionalLightOriginPosition.y,directionalLightOriginPosition.z)
+  directionalLight.position.set(
+    directionalLightOriginPosition.x,
+    directionalLightOriginPosition.y,
+    directionalLightOriginPosition.z,
+  );
   directionalLight.castShadow = true;
 
   // mapSize 세팅으로 그림자 퀄리티 설정
@@ -176,15 +178,13 @@ function MainTest() {
 
   const [isLoaded, setIsLoaded] = useState(false);
   // 유저 캐릭터 커스텀
-  const user = useSelector((state) => state.user.value);
-  const accessToken = user.accessToken;
-  const [userCharacter, setUserCharacter] = useState(user.userCharacter);
+  const accessToken = sessionStorage.getItem("accessToken");
+  const [userCharacter, setUserCharacter] = useState(sessionStorage.getItem("userCharacter"));
   // 로딩 페이지 구현 위함
   gltfLoader.load("/assets/glTF/scene.glb", function () {
     console.log("ISLOADED");
     setIsLoaded(true);
   });
-
 
   // 캐릭터 변경 핸들러
 
@@ -210,7 +210,6 @@ function MainTest() {
     // y : 0,
     // z : 0
   });
-
 
   // 다리
   const bridge = new Bridge({
@@ -241,7 +240,7 @@ function MainTest() {
     x: -7.429,
     y: 0.5,
     z: -7.829,
-    rotation: 30.6
+    rotation: 30.6,
   });
 
   const flamingo = new NPC({
@@ -251,8 +250,8 @@ function MainTest() {
     modelSrc: "/assets/glTF/Flamingo.gltf",
     x: -20.196,
     y: 0.5,
-    z: 0.880,
-    rotation : 0
+    z: 0.88,
+    rotation: 0,
   });
 
   const pigeon = new NPC({
@@ -263,7 +262,7 @@ function MainTest() {
     x: -39.411,
     y: 0.5,
     z: 2.983,
-    rotation: -43.4
+    rotation: -43.4,
   });
 
   const seagull = new NPC({
@@ -271,10 +270,10 @@ function MainTest() {
     meshes,
     gltfLoader,
     modelSrc: "/assets/glTF/Seagull.gltf",
-    x: -19.820,
+    x: -19.82,
     y: 0.5,
     z: 20.572,
-    rotation:0
+    rotation: 0,
   });
 
   const 바위게 = new NPC({
@@ -285,7 +284,7 @@ function MainTest() {
     x: -7.77,
     y: 0.5,
     z: 34.239,
-    rotation: 130.2
+    rotation: 130.2,
   });
 
   const 독도새우 = new NPC({
@@ -296,7 +295,7 @@ function MainTest() {
     x: -42.184,
     y: 0.5,
     z: -14.378,
-    rotation: -10
+    rotation: -10,
   });
 
   const dog = new NPC({
@@ -307,7 +306,7 @@ function MainTest() {
     x: -25.785,
     y: 0.5,
     z: -7.194,
-    rotation : 0
+    rotation: 0,
   });
 
   const turtle = new NPC({
@@ -318,7 +317,7 @@ function MainTest() {
     x: -47.657,
     y: 0.5,
     z: 21.398,
-    rotation: -30.6
+    rotation: -30.6,
   });
 
   const 돌고래 = new NPC({
@@ -329,7 +328,7 @@ function MainTest() {
     x: -29.973,
     y: 0.2,
     z: -40.685,
-    rotation : 12.8
+    rotation: 12.8,
   });
 
   const 펭귄 = new NPC({
@@ -340,8 +339,8 @@ function MainTest() {
     x: -41.336,
     y: 0.2,
     z: -27.849,
-    rotation: -5
-  })
+    rotation: -5,
+  });
 
   const 게시판 = new NPC({
     scene,
@@ -351,7 +350,7 @@ function MainTest() {
     x: -28.221,
     y: -0.6,
     z: 14.157,
-    rotation: -20.2
+    rotation: -20.2,
   });
 
   //#endregion
@@ -377,7 +376,18 @@ function MainTest() {
     stats.update();
     const delta = clock.getDelta();
 
-    if (강치.mixer && 돌고래.mixer && turtle.mixer && 펭귄.mixer && dog.mixer && 독도새우.mixer && 바위게.mixer && flamingo.mixer && pigeon.mixer && seagull.mixer) {
+    if (
+      강치.mixer &&
+      돌고래.mixer &&
+      turtle.mixer &&
+      펭귄.mixer &&
+      dog.mixer &&
+      독도새우.mixer &&
+      바위게.mixer &&
+      flamingo.mixer &&
+      pigeon.mixer &&
+      seagull.mixer
+    ) {
       강치.mixer.update(delta);
       강치.actions[0].play();
       돌고래.mixer.update(delta);
@@ -404,7 +414,6 @@ function MainTest() {
       camera.lookAt(player.modelMesh.position);
       if (isPressed) {
         raycasting();
-
       }
       // player update
       player.update(delta);
@@ -423,13 +432,13 @@ function MainTest() {
         if (
           (Math.abs(spotMesh1.position.x - player.modelMesh.position.x) < 1.5 &&
             Math.abs(spotMesh1.position.z - player.modelMesh.position.z) <
-            1.5) ||
+              1.5) ||
           (Math.abs(spotMesh2.position.x - player.modelMesh.position.x) < 1.5 &&
             Math.abs(spotMesh2.position.z - player.modelMesh.position.z) <
-            1.5) ||
+              1.5) ||
           (Math.abs(spotMesh3.position.x - player.modelMesh.position.x) < 1.5 &&
             Math.abs(spotMesh3.position.z - player.modelMesh.position.z) <
-            1.5) ||
+              1.5) ||
           (Math.abs(spotMesh4.position.x - player.modelMesh.position.x) < 1.5 &&
             Math.abs(spotMesh4.position.z - player.modelMesh.position.z) < 1.5)
         ) {
@@ -481,8 +490,6 @@ function MainTest() {
   }
   //#endregion
 
-
-
   const quitNPCbubble = () => {
     const 강치Pop = document.getElementById("강치");
     const penguinPop = document.getElementById("penguin");
@@ -495,23 +502,23 @@ function MainTest() {
     const pigeonPop = document.getElementById("pigeon");
     const seagullPop = document.getElementById("seagull");
     penguinPop.style.display = "none";
-    강치Pop.style.display = 'none';
-    turtlePop.style.display = 'none';
-    dogPop.style.display = 'none';
-    dophinPop.style.display = 'none';
-    바위게Pop.style.display = 'none';
-    독도새우Pop.style.display = 'none';
-    flamingoPop.style.display = 'none';
-    pigeonPop.style.display = 'none';
-    seagullPop.style.display = 'none';
-  }
+    강치Pop.style.display = "none";
+    turtlePop.style.display = "none";
+    dogPop.style.display = "none";
+    dophinPop.style.display = "none";
+    바위게Pop.style.display = "none";
+    독도새우Pop.style.display = "none";
+    flamingoPop.style.display = "none";
+    pigeonPop.style.display = "none";
+    seagullPop.style.display = "none";
+  };
 
-// 마우스로 클릭
+  // 마우스로 클릭
 
-function checkIntersects() {
+  function checkIntersects() {
     const intersects = raycaster.intersectObjects(meshes);
     const item = intersects[0];
-    console.log(item.object.name)
+    console.log(item.object.name);
     if (!item) return;
     if (
       item.object.name === "floor" ||
@@ -525,114 +532,95 @@ function checkIntersects() {
       pointerMesh.position.x = destinationPoint.x;
       pointerMesh.position.z = destinationPoint.z;
     }
-    if (
-      item.object.name === "Dolphin"
-    ) {
+    if (item.object.name === "Dolphin") {
       player.dontMove(destinationPoint);
       돌고래.onRaycasted();
       const dolphinPop = document.getElementById("dolphin");
-      dolphinPop.style.display = 'block'
+      dolphinPop.style.display = "block";
       dolphinPop.addEventListener("mouseup", () => {
         isPressed = false;
       });
     }
-    if (
-      item.object.name === "SeaLion"
-    ) {
+    if (item.object.name === "SeaLion") {
       player.dontMove(destinationPoint);
       강치.onRaycasted();
       const 강치Pop = document.getElementById("강치");
-      강치Pop.style.display = 'block'
+      강치Pop.style.display = "block";
       강치Pop.addEventListener("mouseup", () => {
         isPressed = false;
       });
     }
-    if (
-      item.object.name === "Flamingo"
-    ) {
+    if (item.object.name === "Flamingo") {
       player.dontMove(destinationPoint);
       flamingo.onRaycasted();
       const flamingoPop = document.getElementById("flamingo");
-      flamingoPop.style.display = 'block'
+      flamingoPop.style.display = "block";
       flamingoPop.addEventListener("mouseup", () => {
         isPressed = false;
       });
     }
-    if (
-      item.object.name === "Pigeon"
-    ) {
+    if (item.object.name === "Pigeon") {
       player.dontMove(destinationPoint);
       pigeon.onRaycasted();
       const pigeonPop = document.getElementById("pigeon");
-      pigeonPop.style.display = 'block'
+      pigeonPop.style.display = "block";
       pigeonPop.addEventListener("mouseup", () => {
         isPressed = false;
       });
     }
-    if (
-      item.object.name === "Seagull"
-    ) {
+    if (item.object.name === "Seagull") {
       player.dontMove(destinationPoint);
       seagull.onRaycasted();
       const seagullPop = document.getElementById("seagull");
-      seagullPop.style.display = 'block'
+      seagullPop.style.display = "block";
       seagullPop.addEventListener("mouseup", () => {
         isPressed = false;
       });
     }
-    if (
-      item.object.name === "Crab"
-    ) {
+    if (item.object.name === "Crab") {
       player.dontMove(destinationPoint);
       바위게.onRaycasted();
       const 바위게Pop = document.getElementById("바위게");
-      바위게Pop.style.display = 'block'
+      바위게Pop.style.display = "block";
       바위게Pop.addEventListener("mouseup", () => {
         isPressed = false;
       });
     }
-    if (
-      item.object.name === "Prawn"
-    ) {
+    if (item.object.name === "Prawn") {
       player.dontMove(destinationPoint);
       독도새우.onRaycasted();
       const 독도새우Pop = document.getElementById("독도새우");
-      독도새우Pop.style.display = 'block'
+      독도새우Pop.style.display = "block";
       독도새우Pop.addEventListener("mouseup", () => {
         isPressed = false;
       });
     }
-    if (
-      item.object.name === "Dog"
-    ) {
+    if (item.object.name === "Dog") {
       player.dontMove(destinationPoint);
       dog.onRaycasted();
       const dogPop = document.getElementById("dog");
-      dogPop.style.display = 'block'
+      dogPop.style.display = "block";
       dogPop.addEventListener("mouseup", () => {
         isPressed = false;
       });
     }
-    if (
-      item.object.name === "Turtle"
-    ) {
+    if (item.object.name === "Turtle") {
       player.dontMove(destinationPoint);
       turtle.onRaycasted();
       const turtlePop = document.getElementById("turtle");
-      turtlePop.style.display = 'block'
+      turtlePop.style.display = "block";
       turtlePop.addEventListener("mouseup", () => {
         isPressed = false;
       });
     }
-    if (item.object.name === 'Penguin') {
+    if (item.object.name === "Penguin") {
       player.dontMove(destinationPoint);
       펭귄.onRaycasted();
       const penguinPop = document.getElementById("penguin");
-      penguinPop.style.display = 'block'
+      penguinPop.style.display = "block";
       penguinPop.addEventListener("mouseup", () => {
         isPressed = false;
       });
-
     }
     if (item.object.name === "ocean") {
       player.moving = false;
@@ -643,7 +631,7 @@ function checkIntersects() {
       QuizPop.addEventListener("mouseup", () => {
         isPressed = false;
       });
-      player.moving = false
+      player.moving = false;
     }
     if (item.object.name == "지질팻말") {
       const TerrianPop = document.getElementById("TerrianPopup");
@@ -661,7 +649,7 @@ function checkIntersects() {
       EcoPop.addEventListener("mouseup", () => {
         isPressed = false;
       });
-      player.moving = false
+      player.moving = false;
     }
     if (item.object.name === "역사팻말") {
       const HistoryPop = document.getElementById("HistoryPopup");
@@ -669,15 +657,15 @@ function checkIntersects() {
       HistoryPop.addEventListener("mouseup", () => {
         isPressed = false;
       });
-      player.moving = false
+      player.moving = false;
     }
-    if (item.object.name.includes('land_76002')) {
-      const BoardPop = document.getElementById('board');
+    if (item.object.name.includes("land_76002")) {
+      const BoardPop = document.getElementById("board");
       BoardPop.addEventListener("mouseup", () => {
         isPressed = false;
       });
-      BoardPop.style.display = 'block';
-      player.moving = false
+      BoardPop.style.display = "block";
+      player.moving = false;
     }
   }
 
@@ -702,10 +690,10 @@ function checkIntersects() {
   }
 
   // 게시판 안보이는 함수
-  const quitBoard =() => {
-    const BoardPop = document.getElementById('board');
-    BoardPop.style.display = 'none'
-}
+  const quitBoard = () => {
+    const BoardPop = document.getElementById("board");
+    BoardPop.style.display = "none";
+  };
 
   // 이벤트
   window.addEventListener("resize", setSize);
@@ -776,7 +764,6 @@ function checkIntersects() {
     };
   })();
   //
-  
 
   //#region = 캐릭터 선택하기
   const changeSiryeong = () => {
@@ -853,12 +840,7 @@ function checkIntersects() {
   };
   //#endregion
 
-
-
   update();
-
-
-
 
   return (
     <>
@@ -1006,8 +988,7 @@ function checkIntersects() {
             <Board quitBoard={quitBoard}></Board>
           </div>
 
-        <NPCBubble quitNPCbubble={quitNPCbubble}></NPCBubble>
-        
+          <NPCBubble quitNPCbubble={quitNPCbubble}></NPCBubble>
         </div>
       ) : (
         <LoadingComponent />
