@@ -1,12 +1,9 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
-import { changeCharacter, login } from "../../UserSlice";
 import axios from "axios";
 
 const OauthRedirect = (props) => {
   const navigate = useNavigate();
-  const dispatch = useDispatch();
   const getUrlParameter = (keyVal) => {
     keyVal = keyVal.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
     let regex = new RegExp("[\\?&]" + keyVal + "=([^&#]*)");

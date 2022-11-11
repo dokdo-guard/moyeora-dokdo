@@ -3,9 +3,7 @@ import popupStyles from "../css/Character.module.css";
 import { Canvas, useLoader, useFrame } from "@react-three/fiber";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 import * as THREE from "three";
-import { useSelector, useDispatch } from "react-redux";
 import axios from "axios";
-import { changeCharacter } from "../../UserSlice";
 const globalDataSet = {
   models: {},
   actions: {},
