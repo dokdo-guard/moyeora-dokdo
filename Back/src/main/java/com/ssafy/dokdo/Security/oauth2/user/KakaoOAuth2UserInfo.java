@@ -1,7 +1,6 @@
 package com.ssafy.dokdo.Security.oauth2.user;
 
 import java.util.HashMap;
-import java.util.LinkedHashMap;
 import java.util.Map;
 
 public class KakaoOAuth2UserInfo extends OAuth2UserInfo {
@@ -20,15 +19,15 @@ public class KakaoOAuth2UserInfo extends OAuth2UserInfo {
         Map<String, Object> properties = (Map<String, Object>) attributes.get("properties");
         if (properties == null)     return null;
 
-        HashMap hashMap = (HashMap)attributes.get("kakao_account");
-        HashMap profileHashMap =(HashMap) hashMap.get("profile");
+        HashMap<String, Object> hashMap = (HashMap<String, Object>)attributes.get("kakao_account");
+        HashMap<String, Object> profileHashMap =(HashMap<String, Object>) hashMap.get("profile");
 
         return (String) profileHashMap.get("nickname");
     }
 
     @Override
     public String getEmail() {
-        HashMap hashMap = (HashMap) attributes.get("kakao_account");
+        HashMap<String, Object> hashMap = (HashMap<String, Object>) attributes.get("kakao_account");
         return (String) hashMap.get("email");
     }
 }
