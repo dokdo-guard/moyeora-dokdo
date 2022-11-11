@@ -252,6 +252,7 @@ function MainTest() {
     x: -20.196,
     y: 0.5,
     z: 0.880,
+    rotation : 0
   });
 
   const pigeon = new NPC({
@@ -346,10 +347,11 @@ function MainTest() {
     scene,
     meshes,
     gltfLoader,
-    modelSrc: "/assets/glTF/Alligator.gltf",
-    x: 0,
-    y: 0.2,
-    z: 0,
+    modelSrc: "/assets/glTF/board.glb",
+    x: -28.221,
+    y: -0.6,
+    z: 14.157,
+    rotation: -20.2
   });
 
   //#endregion
@@ -509,6 +511,7 @@ function MainTest() {
 function checkIntersects() {
     const intersects = raycaster.intersectObjects(meshes);
     const item = intersects[0];
+    console.log(item.object.name)
     if (!item) return;
     if (
       item.object.name === "floor" ||
@@ -668,7 +671,7 @@ function checkIntersects() {
       });
       player.moving = false
     }
-    if (item.object.name === 'Alligator') {
+    if (item.object.name.includes('land_76002')) {
       const BoardPop = document.getElementById('board');
       BoardPop.addEventListener("mouseup", () => {
         isPressed = false;
@@ -697,6 +700,12 @@ function checkIntersects() {
     renderer.setSize(window.innerWidth, window.innerHeight);
     renderer.render(scene, camera);
   }
+
+  // 게시판 안보이는 함수
+  const quitBoard =() => {
+    const BoardPop = document.getElementById('board');
+    BoardPop.style.display = 'none'
+}
 
   // 이벤트
   window.addEventListener("resize", setSize);
@@ -982,7 +991,7 @@ function checkIntersects() {
             ></img>
           </div>
 
-          <div className='chatButton' onClick={clickChat}>
+          {/* <div className='chatButton' onClick={clickChat}>
             <img src='/assets/icons/chat.png' className='chatImage'></img>
           </div>
           <div id='chat' className='chatCancel'>
@@ -992,9 +1001,9 @@ function checkIntersects() {
               onClick={quitChat}
               className='cancelImage'
             ></img>
-          </div>
+          </div> */}
           <div id='board' className='board'>
-            <Board></Board>
+            <Board quitBoard={quitBoard}></Board>
           </div>
 
         <NPCBubble quitNPCbubble={quitNPCbubble}></NPCBubble>

@@ -97,19 +97,33 @@ const handleSubmit = (e) => {
 
     return (<div className="newPage">
         <div className="editorTitle">
-            독도에 대해 새 글을 써주세요
+            독도 소통의 공간
         </div>
+        <div className="buttons">
+          <button onClick={handleSubmit} className="write">작성하기</button>
+          <button onClick={()=> navigate('/home/board')} className="goBack">돌아가기</button>
+        </div>
+        <textarea
+        ref={contentRef}
+        value={content}
+        className="textarea"
+        placeholder="독도에 대해 한 마디 작성해 보세요"
+        onChange={(e) => {
+            setContent(e.target.value);
+        }}
+        ></textarea>
 
-        <div className="leftSection">   
+        <div className="imageUpload">   
             {imageSrc ? (
             <>
             <div className='preview'>
-                {imageSrc && <img src={imageSrc} alt='preview-img' />}
+                {imageSrc && <img src={imageSrc} alt='preview-img' className="previewImage"/>}
             </div>
             <button onClick={() => {setImageSrc("")}}>이미지 삭제</button>
             </>
         ) : (
-            <img src="/assets/images/default.png" className="defaultImage"></img>
+          <></>
+            // <img src="/assets/images/default.png" className="defaultImage"></img>
             )}
             <input
             type='file'
@@ -121,18 +135,6 @@ const handleSubmit = (e) => {
             />
         </div>
 
-        <div className="rightSection">
-            <textarea
-            ref={contentRef}
-            value={content}
-            className="textarea"
-            onChange={(e) => {
-                setContent(e.target.value);
-            }}
-            ></textarea>
-            <button onClick={handleSubmit}>작성하기</button>
-            <button onClick={()=> navigate('/home/board')}>돌아가기</button>
-        </div>
     </div>)
 }
 
