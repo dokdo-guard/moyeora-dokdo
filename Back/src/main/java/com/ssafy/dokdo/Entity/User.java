@@ -65,4 +65,8 @@ public class User {
             inverseJoinColumns = @JoinColumn(name = "badge_id"))
     private List<Badge> badgeList = new ArrayList<>();
 
+    @OneToMany
+    @JoinColumn(name = "user_id")
+    private List<Npc> npcList = new ArrayList<>();
+
 }
