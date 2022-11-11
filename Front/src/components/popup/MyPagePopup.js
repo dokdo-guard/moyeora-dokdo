@@ -2,7 +2,7 @@ import axios from "axios";
 import React, { useState, useEffect } from "react";
 import "../css/MyPagePopup.css";
 
-function MyPagePopup() {
+function MyPagePopup(props) {
   // 다른 컴포넌트 보여주기 위함
   const [selectCharacterShow, setSelectCharacterShow] = useState(false);
   const [dogamShow, setDogamShow] = useState(false);
@@ -10,7 +10,7 @@ function MyPagePopup() {
 
   const [isLoaded, setIsLoaded] = useState(false);
 
-  const [category, setCategory] = useState("");
+  const [category, setCategory] = useState("plant");
   const [dogamNum, setDogamNum] = useState(0);
   const [dogam, setDogam] = useState([]);
   const [badges, setBadges] = useState([]);
@@ -22,10 +22,10 @@ function MyPagePopup() {
 
   // 세션스토리지에서 accessToken 받아옴
   const accessToken = sessionStorage.getItem("accessToken");
-
   useEffect(() => {
     getDogam();
   }, [category]);
+
   useEffect(() => {
     getBadge();
   }, [isLoaded]);
@@ -33,7 +33,7 @@ function MyPagePopup() {
   // 도감 조회 api
   const getDogam = async () => {
     await axios
-      .get(`https://k7d204.p.ssafy.io/api/user/dogams?domain=${category}`, {
+      .get(`https://k7d204.p.ssafy.io/api/user/dogams/${category}`, {
         headers: {
           Authorization: `Bearer ${accessToken}`,
         },
@@ -83,6 +83,24 @@ function MyPagePopup() {
       .catch((err) => {
         console.log(err);
       });
+    if (userCharacter === "siryeong") {
+      props.changeSiryeong();
+    }
+    if (userCharacter === "sojung") {
+      props.changeSojung();
+    }
+    if (userCharacter === "hyoseon") {
+      props.changeHyoseon();
+    }
+    if (userCharacter === "youngjin") {
+      props.changeYoungjin();
+    }
+    if (userCharacter === "seongryeong") {
+      props.changeSeongryeong();
+    }
+    if (userCharacter === "chaehyeon") {
+      props.changeChaehyeon();
+    }
   };
 
   /* #region SelectCharacter */
@@ -106,7 +124,6 @@ function MyPagePopup() {
           onClick={() => {
             setCharacter();
             setSelectCharacterShow(false);
-
             setSelectCharacterShow(false);
           }}
         >
@@ -269,8 +286,13 @@ function MyPagePopup() {
             <div className='DogamList'>
               {dogam.map((val) => {
                 return (
-                  <div key={val.id} className='DogamItem'>
-                    {val.mongo_id}
+                  <div key={val.name} className='DogamItem'>
+                    <img
+                      src={`	
+                      https://ssafy-d204-dokdo.s3.ap-northeast-2.amazonaws.com/${val.image}`}
+                      alt='no'
+                    />{" "}
+                    {val.name}
                   </div>
                 );
               })}

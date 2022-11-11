@@ -13,7 +13,6 @@ function EcoSystemPopup() {
   const [selectedData, setSelectedData] = useState([]);
   const [detailSelected, setDetailSelected] = useState(false);
   const [data, setData] = useState([]);
-
   const accessToken = sessionStorage.getItem("accessToken");
 
   useEffect(() => {
@@ -87,7 +86,7 @@ function EcoSystemPopup() {
                 "https://ssafy-d204-dokdo.s3.ap-northeast-2.amazonaws.com/" +
                 selectedData.img
               }
-              alt='NO IMAGE'
+              alt='NO '
             />
           </div>
           <div className='EcoSystemDetailName'>{selectedData.name}</div>
