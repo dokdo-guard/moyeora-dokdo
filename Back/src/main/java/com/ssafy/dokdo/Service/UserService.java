@@ -27,6 +27,12 @@ public class UserService {
                 .orElseThrow(() -> new ResourceNotFoundException("User", "id", id)));
     }
 
+    public QuizUser getQuizResult(Long id){
+        User user = userRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("User", "id", id));
+        return user.getQuizUser();
+    }
+
     public QuizUser updateQuizResult(Long id, int quiz) {
         User user = userRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("User", "id", id));
@@ -147,6 +153,5 @@ public class UserService {
         dto.setEmail(findUser.getEmail());
         dto.setUserCharacter(findUser.getUserCharacter());
         return dto;
-
     }
 }

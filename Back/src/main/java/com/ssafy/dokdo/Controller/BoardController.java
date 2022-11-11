@@ -1,5 +1,6 @@
 package com.ssafy.dokdo.Controller;
 
+import com.ssafy.dokdo.Entity.Board;
 import com.ssafy.dokdo.Model.BoardDto;
 import com.ssafy.dokdo.Security.CurrentUser;
 import com.ssafy.dokdo.Security.UserPrincipal;
@@ -10,6 +11,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+import java.util.Map;
+
 @RestController
 @PreAuthorize("hasRole('USER')")
 @RequestMapping("board")
@@ -17,22 +21,12 @@ import org.springframework.web.bind.annotation.*;
 public class BoardController {
     private final BoardService boardService;
     @GetMapping
-    public ResponseEntity<?> getAllCard() {
-        try{
-            return new ResponseEntity<>(boardService.getAllBoards(), HttpStatus.OK);
-        } catch (Exception e) {
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-        }
+    public List<Board> getAllCard() {
+        return boardService.getAllBoards();
     }
 
     @PostMapping
-    public ResponseEntity<?> postCard(@CurrentUser UserPrincipal userPrincipal, @RequestBody BoardDto boardDto){
-
-        try {
-            boardService.postBoard(userPrincipal.getUsername(), boardDto);
-            return new ResponseEntity<>(HttpStatus.CREATED);
-        } catch (Exception e){
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-        }
+    public void postCard(@CurrentUser UserPrincipal userPrincipal, @RequestBody BoardDto board){
+        boardService.postBoard(userPrincipal.getUsername(), board);
     }
 }
