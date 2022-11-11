@@ -86,7 +86,7 @@ public class UserController {
         }
     }
 
-    //domailn 별로 조회되도록 수정(성령)
+    //domain별로 조회되도록 수정(성령)
     @GetMapping("/user/dogams")
     public ResponseEntity<?> getDogamList(@CurrentUser UserPrincipal userPrincipal, @RequestParam String domain){
         try{
