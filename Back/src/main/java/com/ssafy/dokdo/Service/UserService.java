@@ -6,11 +6,13 @@ import com.ssafy.dokdo.Entity.QuizUser;
 import com.ssafy.dokdo.Entity.User;
 import com.ssafy.dokdo.Exception.ResourceNotFoundException;
 import com.ssafy.dokdo.Model.UserDto;
+import com.ssafy.dokdo.Repository.DogamRepository;
 import com.ssafy.dokdo.Repository.QuizUserRepository;
 import com.ssafy.dokdo.Repository.UserRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
 
@@ -19,6 +21,7 @@ import java.util.NoSuchElementException;
 public class UserService {
     private final UserRepository userRepository;
     private final QuizUserRepository quizUserRepository;
+    private final DogamRepository dogamRepository;
 
     public UserDto getCurrentUser(Long id) {
         return convertToDto(userRepository.findById(id)
@@ -67,10 +70,20 @@ public class UserService {
         return convertToDto(userRepository.save(user));
     }
 
-    public List<Dogam> getDogamList(Long id) {
+    public List<Dogam> getDogamList(Long id, String domain) {
         User user = userRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("User", "id", id));
-        return user.getDogamList();
+
+        List<Dogam> domainList = new ArrayList<>();
+
+        List<Dogam> dogamList = user.getDogamList();
+        for (Dogam dogam : dogamList) {
+            if (dogam.getDomain().equals(domain)) {
+                domainList.add(dogam);
+            }
+        }
+
+        return domainList;
     }
 
     public List<Badge> getAllBadges(Long id) {
