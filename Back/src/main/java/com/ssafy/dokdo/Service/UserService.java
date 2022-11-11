@@ -4,6 +4,7 @@ import com.ssafy.dokdo.Entity.*;
 import com.ssafy.dokdo.Exception.ResourceNotFoundException;
 import com.ssafy.dokdo.Model.DogamDto;
 import com.ssafy.dokdo.Model.UserDto;
+import com.ssafy.dokdo.Repository.BirdRepository;
 import com.ssafy.dokdo.Repository.PlantRepository;
 import com.ssafy.dokdo.Repository.QuizUserRepository;
 import com.ssafy.dokdo.Repository.UserRepository;
@@ -21,6 +22,7 @@ public class UserService {
     private final UserRepository userRepository;
     private final QuizUserRepository quizUserRepository;
     private final PlantRepository plantRepository;
+    private final BirdRepository birdRepository;
 
     public UserDto getCurrentUser(Long id) {
         return convertToDto(userRepository.findById(id)
@@ -79,22 +81,9 @@ public class UserService {
 //        User user = userRepository.findById(id)
 //                .orElseThrow(() -> new ResourceNotFoundException("User", "id", id));
 //
-//        List<DogamDto> domainList = new ArrayList<>();
-//
 //        List<Dogam> dogamList = user.getDogamList();
-//        for (Dogam dogam : dogamList) {
-//            DogamDto dg = new DogamDto();
-//            if (dogam.getDomain().equals(domain)) {
-//                dg.setUser_id(dogam.getUser_id());
-//                dg.setDomain(dogam.getDomain());
-//                dg.setMongo_id(dogam.getMongo_id());
-//                DogamDto get_dg = dogamRepository.findDogamByName(dogam.getMongo_id());
 //
-//                domainList.add(dg);
-//            }
-//        }
-//
-//        return domainList;
+//        return dogamList;
 //    }
 
     public List<DogamDto> getPlantDogam(Long id) {
@@ -117,7 +106,29 @@ public class UserService {
                 domainList.add(dg);
             }
         }
+        return domainList;
+    }
 
+    public List<DogamDto> getBirdDogam(Long id) {
+        User user = userRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("User", "id", id));
+
+        List<DogamDto> domainList = new ArrayList<>();
+
+        List<Dogam> dogamList = user.getDogamList();  //유저가 가진 도감 리스트
+        for (Dogam dogam : dogamList) {
+            if (dogam.getDomain().equals("bird")) {
+                DogamDto dg = new DogamDto();
+                dg.setUser_id(dogam.getUser_id());
+                dg.setDomain(dogam.getDomain());
+                dg.setName(dogam.getMongo_id());
+                Optional<Bird> d = birdRepository.findBirdByName(dogam.getMongo_id());
+                String img = d.get().getImg();
+                dg.setImage(img);
+
+                domainList.add(dg);
+            }
+        }
         return domainList;
     }
 
