@@ -518,7 +518,6 @@ function MainTest() {
   function checkIntersects() {
     const intersects = raycaster.intersectObjects(meshes);
     const item = intersects[0];
-    console.log(item.object.name);
     if (!item) return;
     if (
       item.object.name === "floor" ||
