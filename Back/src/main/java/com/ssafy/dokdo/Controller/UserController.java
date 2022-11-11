@@ -87,8 +87,8 @@ public class UserController {
     }
 
     //domailn 별로 조회되도록 수정(성령)
-    @GetMapping("/user/dogam/{domain}")
-    public ResponseEntity<?> getDogamList(@CurrentUser UserPrincipal userPrincipal, @PathVariable String domain){
+    @GetMapping("/user/dogams")
+    public ResponseEntity<?> getDogamList(@CurrentUser UserPrincipal userPrincipal, @RequestParam String domain){
         try{
             return new ResponseEntity<>(
                     userService.getDogamList(userPrincipal.getId(), domain),
