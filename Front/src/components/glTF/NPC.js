@@ -7,6 +7,8 @@ export class NPC {
 		this.x = info.x;
 		this.y = info.y;
 		this.z = info.z;
+
+		this.rotation = info.rotation;
 		
 		info.gltfLoader.load(
 			info.modelSrc,
@@ -19,6 +21,7 @@ export class NPC {
 				this.modelMesh = glb.scene;
 				this.modelMesh.castShadow = true;
 				this.modelMesh.position.set(this.x, this.y, this.z);
+				this.modelMesh.rotation.set(0, this.rotation, 0);
 				this.modelMesh.scale.multiplyScalar(0.8);
 				this.modelMesh.name = 'npc';
 				info.scene.add(this.modelMesh);

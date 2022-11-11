@@ -196,15 +196,18 @@
 /* npc 대사창 */
 .mainPage .npcSpeaking {
 	display: none;
-
 	z-index: 9999;
-	/* background-color: pink; */
+}
+
+body {
+	overflow: hidden;
 }
 
 .mainPage .npcBubble {
 	width: 100%;
 	height: 100%;
 	position: absolute;
+	overflow: hidden;
 }
 
 .mainPage .npcSaying {
@@ -230,3 +233,4 @@
 	cursor: pointer;
 	font-size: 130%;
 }
+
