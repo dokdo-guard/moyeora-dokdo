@@ -1,64 +1,23 @@
-import { useState } from "react"
+import { useEffect } from "react";
 
-const NPCBubble = (props) => {
-    const [number ,setNumber] = useState(1)
-    const changeNumber =() => {
-        setNumber(Math.floor(Math.random() * 6 + 1))
-    }
-    let penguinSrc = '/assets/images/npc/penguin' + number + '.png'
-    let 강치Src = '/assets/images/npc/강치' + number + '.png'
-    let turtleSrc = '/assets/images/npc/turtle' + number + '.png'
-    let dogSrc = '/assets/images/npc/Dog' + number + '.png'
-    let 독도새우Src = '/assets/images/npc/독도새우' + number + '.png'
-    let 바위게Src = '/assets/images/npc/바다게' + number + '.png'
-    let dolphinSrc = '/assets/images/npc/dolphin' + number + '.png'
-    let flamingoSrc = '/assets/images/npc/flamingo' + number + '.png'
-    let pigeonSrc = '/assets/images/npc/pigeon' + number + '.png'
-    let seagullSrc = '/assets/images/npc/seagull' + number + '.png'
+const NPCBubble = (animalName) => {
+  const animalSpeaking = {
+    penguin: ["이건 재미있다", "파이팅", "dd", "랜덤가자", "sdf", "1234"],
+    rabbit: ["잠온다", "힘내자"],
+  };
+  console.log(animalName);
+  console.log(animalName.animalName);
+  if (animalName.animalName === "penguin") {
+    console.log("제발 ㅠㅠㅠ");
+    // var penguinSaying = animalSpeaking.penguin[Math.floor(Math.random() * animalSpeaking.penguin.length)]
+    // console.log(penguinSaying)
+  }
+  if (animalName.animalName === "강치") {
+    // var 강치Saying = animalSpeaking.rabbit[Math.floor(Math.random() * animalSpeaking.rabbit.length)]
+    // console.log(강치Saying)
+    console.log("강치강치");
+  }
+  return <></>;
+};
 
-    return (
-    <>
-        <div id='penguin' className="npcSpeaking">
-            <img src={penguinSrc} className="npcBubble animate__animated animate__pulse"></img>
-            <button onClick={()=> {props.quitNPCbubble(); changeNumber();}} className="quitNPCbubble">확인</button>
-        </div>
-        <div id='강치' className="npcSpeaking">
-            <img src={강치Src} className="npcBubble animate__animated animate__pulse"></img>
-            <button onClick={()=> {props.quitNPCbubble(); changeNumber();}} className="quitNPCbubble">확인</button>
-        </div>
-        <div id='turtle' className="npcSpeaking">
-            <img src={turtleSrc} className="npcBubble animate__animated animate__pulse"></img>
-            <button onClick={()=> {props.quitNPCbubble(); changeNumber();}} className="quitNPCbubble">확인</button>
-        </div>
-        <div id='dog' className="npcSpeaking">
-            <img src={dogSrc} className="npcBubble animate__animated animate__pulse"></img>
-            <button onClick={()=> {props.quitNPCbubble(); changeNumber();}} className="quitNPCbubble">확인</button>
-        </div>
-        <div id='독도새우' className="npcSpeaking">
-            <img src={독도새우Src} className="npcBubble animate__animated animate__pulse"></img>
-            <button onClick={()=> {props.quitNPCbubble(); changeNumber();}} className="quitNPCbubble">확인</button>
-        </div>
-        <div id='dolphin' className="npcSpeaking">
-            <img src={dolphinSrc} className="npcBubble animate__animated animate__pulse"></img>
-            <button onClick={()=> {props.quitNPCbubble(); changeNumber();}} className="quitNPCbubble">확인</button>
-        </div>
-        <div id='바위게' className="npcSpeaking">
-            <img src={바위게Src} className="npcBubble animate__animated animate__pulse"></img>
-            <button onClick={()=> {props.quitNPCbubble(); changeNumber();}} className="quitNPCbubble">확인</button>
-        </div>
-        <div id='flamingo' className="npcSpeaking">
-            <img src={flamingoSrc} className="npcBubble animate__animated animate__pulse"></img>
-            <button onClick={()=> {props.quitNPCbubble(); changeNumber();}} className="quitNPCbubble">확인</button>
-        </div>
-        <div id='pigeon' className="npcSpeaking">
-            <img src={pigeonSrc} className="npcBubble animate__animated animate__pulse"></img>
-            <button onClick={()=> {props.quitNPCbubble(); changeNumber();}} className="quitNPCbubble">확인</button>
-        </div>
-        <div id='seagull' className="npcSpeaking">
-            <img src={seagullSrc} className="npcBubble animate__animated animate__pulse"></img>
-            <button onClick={()=> {props.quitNPCbubble(); changeNumber();}} className="quitNPCbubble">확인</button>
-        </div>
-    </>)
-}
-
-export default NPCBubble
+export default NPCBubble;

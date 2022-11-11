@@ -1,12 +1,9 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
-import { changeCharacter, login } from "../../UserSlice";
 import axios from "axios";
 
 const OauthRedirect = (props) => {
   const navigate = useNavigate();
-  const dispatch = useDispatch();
   const getUrlParameter = (keyVal) => {
     keyVal = keyVal.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
     let regex = new RegExp("[\\?&]" + keyVal + "=([^&#]*)");
@@ -21,7 +18,7 @@ const OauthRedirect = (props) => {
     const token = getUrlParameter("token");
     const error = getUrlParameter("error");
     if (token) {
-      localStorage.setItem("accessToken", token);
+      sessionStorage.setItem("accessToken", token);
       const getUserInfo = async (token) => {
         await axios
           .get("https://k7d204.p.ssafy.io/api/user", {
@@ -31,7 +28,9 @@ const OauthRedirect = (props) => {
             },
           })
           .then((res) => {
-            dispatch(login({ ...res.data, accessToken: token }));
+            sessionStorage.setItem("name", res.data.name);
+            sessionStorage.setItem("email", res.data.email);
+            sessionStorage.setItem("userCharacter", res.data.userCharacter);
           })
           .catch((err) => {
             console.log("Error in Login OauthRedirect");
@@ -45,14 +44,13 @@ const OauthRedirect = (props) => {
       navigate("/login");
     }
   });
-  const user = useSelector((state) => state.user.value);
   return (
     <div>
       리다이렉트 페이지
-      <div>Name : {user.name}</div>
-      <div>nickname : {user.nickname}</div>
-      <div>userCharacter : {user.userCharacter}</div>
-      <div>accessToken : {user.accessToken}</div>
+      <div>Name : {sessionStorage.getItem("name")}</div>
+      <div>email : {sessionStorage.getItem("email")}</div>
+      <div>userCharacter : {sessionStorage.getItem("userCharacter")}</div>
+      <div>accessToken : {sessionStorage.getItem("accessToken")}</div>
     </div>
   );
 };

@@ -14,7 +14,8 @@ function EcoSystemPopup() {
   const [selectedData, setSelectedData] = useState([]);
   const [detailSelected, setDetailSelected] = useState(false);
   const [data, setData] = useState([]);
-  const user = useSelector((state) => state.user.value);
+
+  const accessToken = sessionStorage.getItem("accessToken");
 
   useEffect(() => {
     if (category === "bird") {
@@ -161,7 +162,7 @@ function EcoSystemPopup() {
         { domain: category, mongo_id: selectedData.name },
         {
           headers: {
-            Authorization: `Bearer ${user.accessToken}`,
+            Authorization: `Bearer ${accessToken}`,
           },
         },
       )

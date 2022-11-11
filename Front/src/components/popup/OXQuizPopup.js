@@ -32,10 +32,8 @@ function OXQuizPopup() {
     return () => {};
   }, [quizNum]);
 
-  // useEffect(() => {
-  //   // console.log(quiz);
-  // }, [quiz]);
   const user = useSelector((state) => state.user.value);
+  const accessToken = sessionStorage.getItem("accessToken");
   const setQuizResult = async (result) => {
     if (
       window.confirm(user.name.slice(0, 3) + "님 점수를 등록 하시겠습니까?")
@@ -48,7 +46,7 @@ function OXQuizPopup() {
           },
           {
             headers: {
-              Authorization: `Bearer ${user.accessToken}`,
+              Authorization: `Bearer ${accessToken}`,
             },
           },
         )
@@ -63,8 +61,21 @@ function OXQuizPopup() {
         .catch((err) => {
           console.log(err);
         });
+
+      await axios.post(
+        "https://k7d204.p.ssafy.io/api/badge",
+        {
+          achievement: "",
+          image: "",
+          name: "퀴즈 만점",
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${user.accessToken}`,
+          },
+        },
+      );
     }
-    // alert(result);
   };
 
   const SelectQuizNum = () => {

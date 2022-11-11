@@ -1,0 +1,99 @@
+.LineNextButton {
+  margin: 50px;
+  border-radius: 20px;
+  background-color: #fff562;
+  height: 50px;
+  width: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.3s;
+  font-weight: 700;
+}
+.LineSkipButton {
+  margin: 50px;
+  margin-right: 100px;
+  border-radius: 20px;
+  background-color: #feb653;
+  height: 50px;
+  width: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  transition: background-color 0.3s;
+}
+.LineENDButton {
+  margin: 50px;
+  margin-right: 100px;
+  border-radius: 20px;
+  background-color: #feb653;
+  height: 100px;
+  width: 400px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  transition: transform 250ms;
+  box-shadow: 3px 3px 20px lightgray;
+  font-size: 40px;
+}
+
+.LineNextButton:hover {
+  transition: background-color 0.3s;
+  background-color: #ffd000;
+}
+.LineSkipButton:hover {
+  background-color: #ff9500;
+}
+.LineENDButton:hover {
+  transform: scale(1.2, 1.2);
+  background: #ff9500;
+}
+.LineContext {
+  background-color: #fff;
+  width: 90%;
+  padding: 50px;
+  height: 200px;
+  margin: 10px;
+  border-radius: 20px;
+  font-size: 30px;
+}
+.InnerContextNone {
+  animation: "none";
+}
+.InnerContext {
+  /* width: max-content; */
+  position: relative;
+}
+.InnerContext::before,
+.InnerContext::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+}
+
+.InnerContext::before {
+  background: white;
+  /* animation: typing 500ms steps(25) 1s forwards; */
+}
+
+.InnerContext::after {
+  width: 0.2rem;
+  background: black;
+  /* animation: typing 500ms steps(25) 1s forwards, blink 800ms infinite; */
+}
+@keyframes typing {
+  from {
+    left: 0%;
+  }
+  to {
+    left: 100%;
+  }
+}
+
+@keyframes blink {
+  to {
+    background: transparent;
+  }
+}
