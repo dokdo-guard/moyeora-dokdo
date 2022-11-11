@@ -61,9 +61,7 @@ import {
   clickChat,
   quitChat,
   clickBoard,
-
 } from "../components/main/PopupButton.js";
-import {quitNPCbubble} from '../components/main/NPCspeaking.js'
 import { NPC } from "../components/glTF/NPC";
 import Tutorial from "../components/tutorial/tutorial";
 import { Vector2, Vector3 } from "three";
@@ -98,7 +96,7 @@ function MainTest() {
     1000,
   );
   camera.position.set(1, 5, 5);
-  camera.zoom = 0.13;
+  camera.zoom = 0.14;
   camera.updateProjectionMatrix();
 
   const ambientLight = new THREE.AmbientLight("white", 0.7);
@@ -240,9 +238,86 @@ function MainTest() {
     meshes,
     gltfLoader,
     modelSrc: "/assets/glTF/강치.gltf",
-    x: -10,
+    x: -7.429,
     y: 0.5,
-    z: 0,
+    z: -7.829,
+    rotation: 30.6
+  });
+
+  const flamingo = new NPC({
+    scene,
+    meshes,
+    gltfLoader,
+    modelSrc: "/assets/glTF/Flamingo.gltf",
+    x: -20.196,
+    y: 0.5,
+    z: 0.880,
+  });
+
+  const pigeon = new NPC({
+    scene,
+    meshes,
+    gltfLoader,
+    modelSrc: "/assets/glTF/Pigeon.gltf",
+    x: -39.411,
+    y: 0.5,
+    z: 2.983,
+    rotation: -43.4
+  });
+
+  const seagull = new NPC({
+    scene,
+    meshes,
+    gltfLoader,
+    modelSrc: "/assets/glTF/Seagull.gltf",
+    x: -19.820,
+    y: 0.5,
+    z: 20.572,
+    rotation:0
+  });
+
+  const 바위게 = new NPC({
+    scene,
+    meshes,
+    gltfLoader,
+    modelSrc: "/assets/glTF/바위게.gltf",
+    x: -7.77,
+    y: 0.5,
+    z: 34.239,
+    rotation: 130.2
+  });
+
+  const 독도새우 = new NPC({
+    scene,
+    meshes,
+    gltfLoader,
+    modelSrc: "/assets/glTF/독도새우.gltf",
+    x: -42.184,
+    y: 0.5,
+    z: -14.378,
+    rotation: -10
+  });
+
+  const dog = new NPC({
+    scene,
+    meshes,
+    gltfLoader,
+    modelSrc: "/assets/glTF/Dog.gltf",
+    x: -25.785,
+    y: 0.5,
+    z: -7.194,
+    rotation : 0
+  });
+
+  const turtle = new NPC({
+    scene,
+    meshes,
+    gltfLoader,
+    modelSrc: "/assets/glTF/Turtle.gltf",
+    x: -47.657,
+    y: 0.5,
+    z: 21.398,
+    rotation: -30.6
   });
 
   const 돌고래 = new NPC({
@@ -250,19 +325,10 @@ function MainTest() {
     meshes,
     gltfLoader,
     modelSrc: "/assets/glTF/돌고래.gltf",
-    x: -30,
+    x: -29.973,
     y: 0.2,
-    z: -40,
-  });
-
-  const 달고기 = new NPC({
-    scene,
-    meshes,
-    gltfLoader,
-    modelSrc: "/assets/glTF/달고기.gltf",
-    x: -50,
-    y: 0.2,
-    z: 23,
+    z: -40.685,
+    rotation : 12.8
   });
 
   const 펭귄 = new NPC({
@@ -270,9 +336,10 @@ function MainTest() {
     meshes,
     gltfLoader,
     modelSrc: "/assets/glTF/Penguin.gltf",
-    x: -20,
+    x: -41.336,
     y: 0.2,
-    z: 0,
+    z: -27.849,
+    rotation: -5
   })
 
   const 게시판 = new NPC({
@@ -308,15 +375,27 @@ function MainTest() {
     stats.update();
     const delta = clock.getDelta();
 
-    if (강치.mixer && 돌고래.mixer && 달고기.mixer && 펭귄.mixer) {
+    if (강치.mixer && 돌고래.mixer && turtle.mixer && 펭귄.mixer && dog.mixer && 독도새우.mixer && 바위게.mixer && flamingo.mixer && pigeon.mixer && seagull.mixer) {
       강치.mixer.update(delta);
       강치.actions[0].play();
       돌고래.mixer.update(delta);
       돌고래.actions[0].play();
-      달고기.mixer.update(delta);
-      달고기.actions[0].play();
+      turtle.mixer.update(delta);
+      turtle.actions[0].play();
       펭귄.mixer.update(delta);
       펭귄.actions[0].play();
+      dog.mixer.update(delta);
+      dog.actions[0].play();
+      독도새우.mixer.update(delta);
+      독도새우.actions[0].play();
+      바위게.mixer.update(delta);
+      바위게.actions[0].play();
+      flamingo.mixer.update(delta);
+      flamingo.actions[0].play();
+      pigeon.mixer.update(delta);
+      pigeon.actions[0].play();
+      seagull.mixer.update(delta);
+      seagull.actions[0].play();
     }
 
     if (player.modelMesh) {
@@ -401,18 +480,29 @@ function MainTest() {
   //#endregion
 
 
-  const animalSpeaking = {
-    'penguin' : ['이건 재미있다','파이팅','dd','랜덤가자','sdf','1234'],
-    'rabbit' : ['잠온다','힘내자']
-}
-  var penguinSaying = animalSpeaking.penguin[Math.floor(Math.random() * animalSpeaking.penguin.length)]
-    setInterval(() => 
-      penguinSaying = animalSpeaking.penguin[Math.floor(Math.random() * animalSpeaking.penguin.length)]
-      , 2000);
-      setInterval(() => 
-      console.log(penguinSaying)
-      , 2000);
-  
+
+  const quitNPCbubble = () => {
+    const 강치Pop = document.getElementById("강치");
+    const penguinPop = document.getElementById("penguin");
+    const turtlePop = document.getElementById("turtle");
+    const dogPop = document.getElementById("dog");
+    const 독도새우Pop = document.getElementById("독도새우");
+    const dophinPop = document.getElementById("dolphin");
+    const 바위게Pop = document.getElementById("바위게");
+    const flamingoPop = document.getElementById("flamingo");
+    const pigeonPop = document.getElementById("pigeon");
+    const seagullPop = document.getElementById("seagull");
+    penguinPop.style.display = "none";
+    강치Pop.style.display = 'none';
+    turtlePop.style.display = 'none';
+    dogPop.style.display = 'none';
+    dophinPop.style.display = 'none';
+    바위게Pop.style.display = 'none';
+    독도새우Pop.style.display = 'none';
+    flamingoPop.style.display = 'none';
+    pigeonPop.style.display = 'none';
+    seagullPop.style.display = 'none';
+  }
 
 // 마우스로 클릭
 
@@ -433,25 +523,113 @@ function checkIntersects() {
       pointerMesh.position.z = destinationPoint.z;
     }
     if (
-      item.object.name === "SeaLion" ||
-      item.object.name === "Dolphin" ||
-      item.object.name === "Catfish"
+      item.object.name === "Dolphin"
+    ) {
+      player.dontMove(destinationPoint);
+      돌고래.onRaycasted();
+      const dolphinPop = document.getElementById("dolphin");
+      dolphinPop.style.display = 'block'
+      dolphinPop.addEventListener("mouseup", () => {
+        isPressed = false;
+      });
+    }
+    if (
+      item.object.name === "SeaLion"
     ) {
       player.dontMove(destinationPoint);
       강치.onRaycasted();
-      돌고래.onRaycasted();
-      달고기.onRaycasted();
+      const 강치Pop = document.getElementById("강치");
+      강치Pop.style.display = 'block'
+      강치Pop.addEventListener("mouseup", () => {
+        isPressed = false;
+      });
+    }
+    if (
+      item.object.name === "Flamingo"
+    ) {
+      player.dontMove(destinationPoint);
+      flamingo.onRaycasted();
+      const flamingoPop = document.getElementById("flamingo");
+      flamingoPop.style.display = 'block'
+      flamingoPop.addEventListener("mouseup", () => {
+        isPressed = false;
+      });
+    }
+    if (
+      item.object.name === "Pigeon"
+    ) {
+      player.dontMove(destinationPoint);
+      pigeon.onRaycasted();
+      const pigeonPop = document.getElementById("pigeon");
+      pigeonPop.style.display = 'block'
+      pigeonPop.addEventListener("mouseup", () => {
+        isPressed = false;
+      });
+    }
+    if (
+      item.object.name === "Seagull"
+    ) {
+      player.dontMove(destinationPoint);
+      seagull.onRaycasted();
+      const seagullPop = document.getElementById("seagull");
+      seagullPop.style.display = 'block'
+      seagullPop.addEventListener("mouseup", () => {
+        isPressed = false;
+      });
+    }
+    if (
+      item.object.name === "Crab"
+    ) {
+      player.dontMove(destinationPoint);
+      바위게.onRaycasted();
+      const 바위게Pop = document.getElementById("바위게");
+      바위게Pop.style.display = 'block'
+      바위게Pop.addEventListener("mouseup", () => {
+        isPressed = false;
+      });
+    }
+    if (
+      item.object.name === "Prawn"
+    ) {
+      player.dontMove(destinationPoint);
+      독도새우.onRaycasted();
+      const 독도새우Pop = document.getElementById("독도새우");
+      독도새우Pop.style.display = 'block'
+      독도새우Pop.addEventListener("mouseup", () => {
+        isPressed = false;
+      });
+    }
+    if (
+      item.object.name === "Dog"
+    ) {
+      player.dontMove(destinationPoint);
+      dog.onRaycasted();
+      const dogPop = document.getElementById("dog");
+      dogPop.style.display = 'block'
+      dogPop.addEventListener("mouseup", () => {
+        isPressed = false;
+      });
+    }
+    if (
+      item.object.name === "Turtle"
+    ) {
+      player.dontMove(destinationPoint);
+      turtle.onRaycasted();
+      const turtlePop = document.getElementById("turtle");
+      turtlePop.style.display = 'block'
+      turtlePop.addEventListener("mouseup", () => {
+        isPressed = false;
+      });
     }
     if (item.object.name === 'Penguin') {
       player.dontMove(destinationPoint);
-      
       펭귄.onRaycasted();
       const penguinPop = document.getElementById("penguin");
       penguinPop.style.display = 'block'
       penguinPop.addEventListener("mouseup", () => {
         isPressed = false;
       });
-      // penguinSaying = animalSpeaking.penguin[Math.floor(Math.random() * animalSpeaking.penguin.length)]
+
     }
     if (item.object.name === "ocean") {
       player.moving = false;
@@ -489,7 +667,6 @@ function checkIntersects() {
         isPressed = false;
       });
       player.moving = false
-
     }
     if (item.object.name === 'Alligator') {
       const BoardPop = document.getElementById('board');
@@ -544,11 +721,11 @@ function checkIntersects() {
   canvas.addEventListener("mouseup", () => {
     isPressed = false;
   });
-  // canvas.addEventListener("mousemove", (e) => {
-  //   if (isPressed) {
-  //     calculateMousePosition(e);
-  //   }
-  // });
+  canvas.addEventListener("mousemove", (e) => {
+    if (isPressed) {
+      calculateMousePosition(e);
+    }
+  });
 
   // 스크린 캡처 코드를 위해 render 함수를 따로 분리해서 설정해줌
   function resizeRendererToDisplaySize(renderer) {
@@ -819,14 +996,8 @@ function checkIntersects() {
           <div id='board' className='board'>
             <Board></Board>
           </div>
-        
-        <div id='penguin' className="npcSpeaking">
-          <h1 className="npcSaying">{penguinSaying}</h1>
-          <img src='/assets/images/npc/penguin.png' className="npcBubble"></img>
-          <button onClick={quitNPCbubble} className="quitNPCbubble">확인</button>
-        </div>
 
-        {/* <NPCBubble animalName={animalName}></NPCBubble> */}
+        <NPCBubble quitNPCbubble={quitNPCbubble}></NPCBubble>
         
         </div>
       ) : (
