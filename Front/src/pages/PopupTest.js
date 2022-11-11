@@ -1,12 +1,14 @@
 import React from "react";
 // import { TutorialGangchi } from "../components/index";
-import Badge from "../components/mypage/badge";
+// import Badge from "../components/mypage/badge";
+import { MyPagePopup } from "../components/index";
 
 function PopupTest() {
   return (
     <>
       {/* <TutorialGangchi /> */}
-      <Badge />
+      {/* <Badge /> */}
+      <MyPagePopup />
     </>
   );
 }

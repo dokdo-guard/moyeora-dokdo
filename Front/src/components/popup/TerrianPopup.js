@@ -175,7 +175,7 @@ function TerrianPopup(isShown) {
 
   return (
     <div className='TerrianPopupContainer'>
-      <div className='TerrianPopupTitle'>독도의 지리 및 지리</div>
+      <div className='TerrianPopupTitle'>독도의 지형 및 지리</div>
       <div className='TerrianPopupWrapper'>
         <div ref={mapElement} className='TerrianPopupMap'></div>
         <div className='TerrianPopupInfoTable'>

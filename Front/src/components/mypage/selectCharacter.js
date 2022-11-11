@@ -52,8 +52,6 @@ const Character = (props) => {
 };
 
 const Popup = (props) => {
-  const user = useSelector((state) => state.user.value);
-  const dispatch = useDispatch();
   const characters = [
     "siryeong",
     "sojung",
@@ -64,7 +62,9 @@ const Popup = (props) => {
   ];
 
   const [show, setShow] = useState(false);
-  const [myCharacter, setCharacter] = useState(user.userCharacter);
+  const [myCharacter, setCharacter] = useState(
+    sessionStorage.getItem("userCharacter"),
+  );
 
   const closeHandler = (e) => {
     setShow(false);
@@ -85,13 +85,14 @@ const Popup = (props) => {
     // props.changeCharacter()
   };
   const changeCharacterApiCall = () => {
+    const accessToken = sessionStorage.getItem("accessToken");
     axios
       .put(
         "https://k7d204.p.ssafy.io/api/character",
         { userCharacter: myCharacter },
         {
           headers: {
-            Authorization: `Bearer ${user.accessToken}`,
+            Authorization: `Bearer ${accessToken}`,
           },
         },
       )
@@ -127,7 +128,6 @@ const Popup = (props) => {
       props.changeChaehyeon();
     }
     changeCharacterApiCall();
-    // dispatch(changeCharacter(myCharacter));
     console.log(myCharacter);
 
     // console.log(myCharacter);
