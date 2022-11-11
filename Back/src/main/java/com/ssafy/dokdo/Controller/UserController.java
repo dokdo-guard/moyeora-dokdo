@@ -96,6 +96,32 @@ public class UserController {
         }
     }
 
+    @GetMapping("/user/dogams/sea-plant")
+    public ResponseEntity<?> getSeaPlantDogam(@CurrentUser UserPrincipal userPrincipal){
+        try{
+            return new ResponseEntity<>(
+                    userService.getSeaPlantDogam(userPrincipal.getId()),
+                    HttpStatus.OK);
+        } catch (NoSuchElementException noSuchElementException) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @GetMapping("/user/dogams/sea-animal")
+    public ResponseEntity<?> getSeaAnimalDogam(@CurrentUser UserPrincipal userPrincipal){
+        try{
+            return new ResponseEntity<>(
+                    userService.getSeaAnimalDogam(userPrincipal.getId()),
+                    HttpStatus.OK);
+        } catch (NoSuchElementException noSuchElementException) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
     @GetMapping("/badge")
     public List<Badge> getAllBadges(@CurrentUser UserPrincipal userPrincipal) {
         return userService.getAllBadges(userPrincipal.getId());
