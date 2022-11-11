@@ -10,7 +10,6 @@ import lombok.Setter;
 @Getter
 @Setter
 public class DogamDto {
-    private Long id;
     private Long user_id;
     private String domain;
     private String name;
