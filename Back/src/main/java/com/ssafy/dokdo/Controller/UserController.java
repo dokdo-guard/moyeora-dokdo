@@ -57,7 +57,6 @@ public class UserController {
     }
 
     //domain별로 조회되도록 수정(성령)
-<<<<<<< HEAD
 //    @GetMapping("/user/dogams")
 //    public ResponseEntity<?> getDogamList(@CurrentUser UserPrincipal userPrincipal, @RequestParam String domain){
 //        try{
@@ -74,11 +73,6 @@ public class UserController {
     @GetMapping("/user/dogams/plant")
     public ResponseEntity<?> getPlantDogam(@CurrentUser UserPrincipal userPrincipal){
         try{
-=======
-    @GetMapping("/user/dogams")
-    public ResponseEntity<?> getDogamList(@CurrentUser UserPrincipal userPrincipal, @RequestParam String domain) {
-        try {
->>>>>>> c5a8c8d1834186a2c7ee76e05ed06e572e18db92
             return new ResponseEntity<>(
                     userService.getPlantDogam(userPrincipal.getId()),
                     HttpStatus.OK);
