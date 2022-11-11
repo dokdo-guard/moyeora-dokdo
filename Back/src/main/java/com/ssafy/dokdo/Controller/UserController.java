@@ -1,10 +1,8 @@
 package com.ssafy.dokdo.Controller;
 
-import com.ssafy.dokdo.Entity.Badge;
-import com.ssafy.dokdo.Entity.Dogam;
 import com.ssafy.dokdo.Entity.QuizUser;
 import com.ssafy.dokdo.Entity.User;
-import com.ssafy.dokdo.Exception.ResourceNotFoundException;
+import com.ssafy.dokdo.Entity.UserBadge;
 import com.ssafy.dokdo.Model.UserDto;
 import com.ssafy.dokdo.Security.CurrentUser;
 import com.ssafy.dokdo.Security.UserPrincipal;
@@ -15,7 +13,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 import java.util.Map;
 import java.util.NoSuchElementException;
 
@@ -41,14 +38,24 @@ public class UserController {
         userService.updateQuizResult(userPrincipal.getId(), body.get("quiz"));
     }
 
+    @GetMapping("badge")
+    public UserBadge getUserBadge(@CurrentUser UserPrincipal userPrincipal) {
+        return userService.getUserBadge(userPrincipal.getId());
+    }
+
+    @PostMapping("badge")
+    public void setUserBadge(@CurrentUser UserPrincipal userPrincipal, @RequestBody Map<String, String> body) {
+        userService.updateUserBadge(userPrincipal.getId(), body.get("badge"));
+    }
+
     @PutMapping("character")
     public void setCharacter(@CurrentUser UserPrincipal userPrincipal, @RequestBody User user) {
         userService.updateUserCharacter(userPrincipal.getId(), user.getUserCharacter());
     }
 
     @PostMapping("check/nickname")
-    public void checkNickName(@RequestBody Map<String, String> body){
-        userService.checkNickName(body.get("name"));
+    public Boolean checkNickName(@RequestBody Map<String, String> body){
+        return userService.checkNickName(body.get("name"));
     }
 
     @PutMapping("nickname")
@@ -120,11 +127,6 @@ public class UserController {
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
-    }
-
-    @GetMapping("/badge")
-    public List<Badge> getAllBadges(@CurrentUser UserPrincipal userPrincipal) {
-        return userService.getAllBadges(userPrincipal.getId());
     }
 
     @GetMapping("/user/dogam")
