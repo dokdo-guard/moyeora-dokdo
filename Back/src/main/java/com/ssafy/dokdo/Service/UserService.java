@@ -1,10 +1,18 @@
 package com.ssafy.dokdo.Service;
 
 import com.ssafy.dokdo.Entity.*;
+import com.ssafy.dokdo.Entity.Dogam;
+import com.ssafy.dokdo.Entity.QuizUser;
+import com.ssafy.dokdo.Entity.User;
+import com.ssafy.dokdo.Entity.UserBadge;
 import com.ssafy.dokdo.Exception.ResourceNotFoundException;
 import com.ssafy.dokdo.Model.DogamDto;
 import com.ssafy.dokdo.Model.UserDto;
 import com.ssafy.dokdo.Repository.*;
+import com.ssafy.dokdo.Repository.DogamRepository;
+import com.ssafy.dokdo.Repository.QuizUserRepository;
+import com.ssafy.dokdo.Repository.UserBadgeRepository;
+import com.ssafy.dokdo.Repository.UserRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -22,6 +30,8 @@ public class UserService {
     private final BirdRepository birdRepository;
     private final SeaPlantRepository seaPlantRepository;
     private final SeaAnimalRepository seaAnimalRepository;
+    private final DogamRepository dogamRepository;
+    private final UserBadgeRepository userBadgeRepository;
 
     public UserDto getCurrentUser(Long id) {
         return convertToDto(userRepository.findById(id)
@@ -34,7 +44,7 @@ public class UserService {
         return user.getQuizUser();
     }
 
-    public QuizUser updateQuizResult(Long id, int quiz) {
+    public void updateQuizResult(Long id, int quiz) {
         User user = userRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("User", "id", id));
 
@@ -55,25 +65,70 @@ public class UserService {
         quizUserRepository.save(quizUser);
         user.setQuizUser(quizUser);
         userRepository.save(user);
-        return quizUser;
     }
 
-    public UserDto updateUserCharacter(Long id, String userCharacter) {
+    public UserBadge getUserBadge(Long id){
+        User user = userRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("User", "id", id));
+        return user.getUserBadge();
+    }
+
+    public void updateUserBadge(Long id, String badge){
+        User user = userRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("User", "id", id));
+        UserBadge userBadge = user.getUserBadge();
+        switch (badge) {
+            case "talkative":
+                userBadge.setTalkative(true);
+                break;
+            case "plantComplete":
+                userBadge.setPlantComplete(true);
+                break;
+            case "birdComplete":
+                userBadge.setBirdComplete(true);
+                break;
+            case "SeaAnimalComplete":
+                userBadge.setSeaAnimalComplete(true);
+                break;
+            case "quizFive":
+                userBadge.setQuizFive(true);
+                break;
+            case "quizTen":
+                userBadge.setQuizTen(true);
+                break;
+            case "quizFifteen":
+                userBadge.setQuizFifteen(true);
+                break;
+            case "visitBiology":
+                userBadge.setVisitBiology(true);
+                break;
+            case "visitHistory":
+                userBadge.setVisitHistory(true);
+                break;
+            case "visitTerrain":
+                userBadge.setVisitTerrain(true);
+        }
+        userBadgeRepository.save(userBadge);
+        user.setUserBadge(userBadge);
+        userRepository.save(user);
+    }
+
+    public void updateUserCharacter(Long id, String userCharacter) {
         User user = userRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("User", "id", id));
         user.setUserCharacter(userCharacter);
-        return convertToDto(userRepository.save(user));
+        convertToDto(userRepository.save(user));
     }
 
-    public Boolean checkNickName(String nickname){
+    public boolean checkNickName(String nickname){
         return userRepository.findByName(nickname).isPresent();
     }
 
-    public UserDto updateName(Long id, String name) {
+    public void updateName(Long id, String name) {
         User user = userRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("User", "id", id));
         user.setName(name);
-        return convertToDto(userRepository.save(user));
+        convertToDto(userRepository.save(user));
     }
 
 //    public List<DogamDto> getDogamList(Long id, String domain) {
@@ -175,13 +230,6 @@ public class UserService {
             }
         }
         return domainList;
-    }
-
-    public List<Badge> getAllBadges(Long id) {
-        User user = userRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("User", "id", id));
-
-        return user.getBadgeList();
     }
 
     public Boolean checkDogam(Long id, String domain, String mongoId) {
