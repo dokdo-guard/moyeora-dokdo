@@ -67,10 +67,18 @@ public class UserService {
         return convertToDto(userRepository.save(user));
     }
 
-    public List<Dogam> getDogamList(Long id) {
+    public List<Dogam> getDogamList(Long id, String domain) {
         User user = userRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("User", "id", id));
-        return user.getDogamList();
+
+        List<Dogam> dogamList = user.getDogamList();
+        for (Dogam dogam : dogamList) {
+            if (dogam.getDomain().equals(domain)) {
+                dogamList.add(dogam);
+            }
+        }
+
+        return dogamList;
     }
 
     public List<Badge> getAllBadges(Long id) {

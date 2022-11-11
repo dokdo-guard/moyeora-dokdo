@@ -86,11 +86,12 @@ public class UserController {
         }
     }
 
-    @GetMapping("/user/dogams")
-    public ResponseEntity<?> getDogamList(@CurrentUser UserPrincipal userPrincipal){
+    //domailn 별로 조회되도록 수정(성령)
+    @GetMapping("/user/dogam/{domain}")
+    public ResponseEntity<?> getDogamList(@CurrentUser UserPrincipal userPrincipal, @PathVariable String domain){
         try{
             return new ResponseEntity<>(
-                    userService.getDogamList(userPrincipal.getId()),
+                    userService.getDogamList(userPrincipal.getId(), domain),
                     HttpStatus.OK);
         } catch (NoSuchElementException noSuchElementException){
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
