@@ -142,4 +142,17 @@ public class UserController {
         }
     }
 
+    @PostMapping("/talk")
+    public ResponseEntity<?> saveNpcTalk(@CurrentUser UserPrincipal userPrincipal, @RequestBody String npcName) {
+        try{
+            return new ResponseEntity<>(
+                    userService.saveNpcTalk(userPrincipal.getId(), npcName),
+                    HttpStatus.OK);
+        } catch (NoSuchElementException noSuchElementException) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
 }

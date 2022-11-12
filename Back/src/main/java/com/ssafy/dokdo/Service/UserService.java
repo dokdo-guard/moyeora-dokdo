@@ -32,6 +32,7 @@ public class UserService {
     private final SeaAnimalRepository seaAnimalRepository;
     private final DogamRepository dogamRepository;
     private final UserBadgeRepository userBadgeRepository;
+    private final NpcRepository npcRepository;
 
     public UserDto getCurrentUser(Long id) {
         return convertToDto(userRepository.findById(id)
@@ -257,5 +258,23 @@ public class UserService {
         dto.setEmail(findUser.getEmail());
         dto.setUserCharacter(findUser.getUserCharacter());
         return dto;
+    }
+
+    public List<Npc> saveNpcTalk(Long id, String npcName) {
+        User user = userRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("User", "id", id));
+
+        List<Npc> npcList = user.getNpcList();   //유저가 1번이라도 대화한 npc 리스트를 가져온다.
+        for (Npc npc : npcList) {
+            if (npc.getName().equals(npcName)) {
+                break;
+            } else {
+                Npc newNpc = new Npc();
+                newNpc.setUser_id(id);
+                newNpc.setName(npcName);
+                npcRepository.saveAndFlush(newNpc);
+            }
+        }
+        return npcList;
     }
 }
