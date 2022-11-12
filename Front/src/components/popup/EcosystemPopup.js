@@ -122,7 +122,7 @@ function EcoSystemPopup() {
           <div className='EcoSystemDataList'>
             {data.map((data) => {
               if (data === undefined) {
-                return;
+                return <></>;
               }
               return (
                 <div

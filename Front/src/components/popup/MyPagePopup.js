@@ -23,6 +23,17 @@ function MyPagePopup(props) {
   // 세션스토리지에서 accessToken 받아옴
   const accessToken = sessionStorage.getItem("accessToken");
   useEffect(() => {
+    const getDogam = async () => {
+      const dogams = await axios.get(
+        `https://k7d204.p.ssafy.io/api/user/dogams/${category}`,
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        },
+      );
+      setDogam(dogams.data);
+    };
     getDogam();
   }, [category]);
 
@@ -31,22 +42,13 @@ function MyPagePopup(props) {
   }, [isLoaded]);
 
   // 도감 조회 api
-  const getDogam = async () => {
-    await axios
-      .get(`https://k7d204.p.ssafy.io/api/user/dogams/${category}`, {
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-        },
-      })
-      .then((res) => {
-        setDogam(res.data);
-        setIsLoaded(true);
-        console.log(res.data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
+  // const getDogam = async () => {
+  //   await axios.get(`https://k7d204.p.ssafy.io/api/user/dogams/${category}`, {
+  //     headers: {
+  //       Authorization: `Bearer ${accessToken}`,
+  //     },
+  //   });
+  // };
 
   // 뱃지 조회 api
   const getBadge = async () => {
@@ -285,6 +287,9 @@ function MyPagePopup(props) {
             {category}
             <div className='DogamList'>
               {dogam.map((val) => {
+                if (val === undefined) {
+                  return <></>;
+                }
                 return (
                   <div key={val.name} className='DogamItem'>
                     <img
@@ -318,8 +323,8 @@ function MyPagePopup(props) {
             <div
               className='dogamSelectBtn'
               onClick={() => {
-                setCategory("seaAnimal");
                 setCategoryShow(true);
+                setCategory("sea-animal");
                 setDogamNum(30);
               }}
             >
@@ -334,8 +339,8 @@ function MyPagePopup(props) {
             <div
               className='dogamSelectBtn'
               onClick={() => {
-                setCategory("bird");
                 setCategoryShow(true);
+                setCategory("bird");
                 setDogamNum(35);
               }}
             >
@@ -348,8 +353,8 @@ function MyPagePopup(props) {
             <div
               className='dogamSelectBtn'
               onClick={() => {
-                setCategory("seaPlant");
                 setCategoryShow(true);
+                setCategory("sea-plant");
                 setDogamNum(20);
               }}
             >

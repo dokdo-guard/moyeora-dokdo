@@ -60,6 +60,9 @@ function Login(props) {
             <h1>도</h1>
           </div>
         </div>
+        <div style={{ textAlign: "center" }}>
+          디스플레이 125% 크롬 100%환경에서 최적의 경험을 제공합니다.
+        </div>
         {loginBtnShow ? <SocialLogin /> : <OnBoard />}
       </div>
     </div>
