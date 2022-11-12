@@ -6,6 +6,7 @@ import LinearProgress, {
 } from "@mui/material/LinearProgress";
 // import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
+import {quitPopup} from '../main/PopupButton.js'
 
 import { getQuiz } from "../../api/quizApi.js";
 import "../css/OXQuizPopup.css";
@@ -188,9 +189,15 @@ function OXQuizPopup() {
     value: PropTypes.number.isRequired,
   };
   return (
-    <>
+    <div style={{position:'relative'}}>
       <div className='OXQuizContainer'>
         <div className='QuizTitle'>Quiz</div>
+        <img
+              src='/assets/icons/cancel.png'
+              id='quitButton'
+              onClick={quitPopup}
+              className="quitPopup"
+            ></img>
         {selected ? (
           <div className='OXQuizInWrapper'>
             <div className={quizProgress < quizNum ? "notHidden" : "hidden"}>
@@ -239,7 +246,8 @@ function OXQuizPopup() {
           <SelectQuizNum />
         )}
       </div>
-    </>
+      <div style={{width:'100vw',height:'100vh',backgroundColor:'black',position:'absolute',opacity:'30%',zIndex:'9'}}></div>
+    </div>
   );
 }
 export default OXQuizPopup;

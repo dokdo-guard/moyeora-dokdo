@@ -9,7 +9,7 @@ const BoardItem =({ id, content, image_url }) => {
 
         <figure className="snip1332">
             <div className="img">      
-                <img src={imageSrc} alt=""/>
+                <img src={imageSrc} alt="" className="uploadedImage"/>
             </div>
             <figcaption>
                 <p>{content}</p>

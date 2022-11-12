@@ -43,8 +43,11 @@ export class Player{
 				this.actions = [];
 				
 				this.mixer = new AnimationMixer(this.modelMesh);
-				this.actions[0] = this.mixer.clipAction(glb.animations[2]);
+				this.actions[0] = this.mixer.clipAction(glb.animations[0]);
 				this.actions[1] = this.mixer.clipAction(glb.animations[1]);
+				this.actions[2] = this.mixer.clipAction(glb.animations[5]);
+				this.actions[3] = this.mixer.clipAction(glb.animations[3]);
+				this.actions[4] = this.mixer.clipAction(glb.animations[2]);
 				this.actions[0].play();
 				
 			}

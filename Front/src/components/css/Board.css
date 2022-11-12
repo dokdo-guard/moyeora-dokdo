@@ -61,12 +61,12 @@
 	width: 100vw;
 	height: 100vh;
 	background-color: rgb(173, 202, 236);
-	position: relative;
+	overflow: auto;
 }
 
 .boardHome .title {
-	padding-top: 4%;
-	/* background-color: yellow; */
+	display: flex;
+	justify-content: center;
 }
 
 .boardHome .buttons {
@@ -176,6 +176,10 @@
 
 
 	/* 아이템 개별 */
+.uploadedImage {
+	
+}
+
   figure.snip1332 {
 	position: relative;
 	overflow: hidden;
@@ -208,9 +212,6 @@
   figure.snip1332 .img {
 	position: absolute;
 	top: 50%;
-	left: 0;
-	/* width: 100%; */
-	/* height: 100px; */
 	-webkit-transform: rotateY(90deg) translate(0%, -50%);
 	transform: rotateY(90deg) translate(0%, -50%);
 	-webkit-transform-origin: 50% 0%;
@@ -218,12 +219,10 @@
 	transform-origin: 50% 0%;
 	z-index: 1;
 	opacity: 0;
-	/* padding: 0 30px; */
   }
 
   figure.snip1332 img {
 	height: 200px;
-	left: 50%;
   }
 
   figure.snip1332 p {
