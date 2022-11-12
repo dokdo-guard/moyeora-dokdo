@@ -216,7 +216,7 @@ function EcoSystemPopup() {
               }}
             >
               <img
-                src={process.env.PUBLIC_URL + "/assets/icons/Bird_Icon.png"}
+                src={process.env.PUBLIC_URL + "/assets/icons/bird_Icon.png"}
                 alt=''
               />
             </div>
