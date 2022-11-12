@@ -270,7 +270,7 @@ public class UserService {
         newNpc.setUser_id(id);
         newNpc.setName(name);
 
-        Boolean temp = false;
+        Boolean temp = false;  //중복 체크
         if (npcList.isEmpty()) {
             npcRepository.saveAndFlush(newNpc);
         } else {
