@@ -1,6 +1,5 @@
-import { useEffect, useState } from 'react';
-import popupStyles from '../css/MyPagePopup.module.css';
-import PropTypes from 'prop-types';
+import { useEffect, useState } from "react";
+import popupStyles from "../css/MyPagePopup.module.css";
 
 const Popup = (props) => {
   const [show, setShow] = useState(false);
@@ -17,8 +16,8 @@ const Popup = (props) => {
   return (
     <div
       style={{
-        visibility: show ? 'visible' : 'hidden',
-        opacity: show ? '1' : '0',
+        visibility: show ? "visible" : "hidden",
+        opacity: show ? "1" : "0",
       }}
       className={popupStyles.overlay}
     >

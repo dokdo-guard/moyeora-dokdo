@@ -1,4 +1,4 @@
-import { React, Component } from "react";
+import { React, useState } from "react";
 import {
   GOOGLE_AUTH_URL,
   NAVER_AUTH_URL,
@@ -6,16 +6,68 @@ import {
 } from "../../api/Oauth/uri";
 import "../css/Login.css";
 
-const Login = (props) => {
+function Login(props) {
+  const [loginBtnShow, setLoginBtnShow] = useState(false);
+  const OnBoard = () => {
+    return (
+      <div className='socialLogin'>
+        <div className='PlayButton'>
+          <button
+            onClick={() => {
+              setLoginBtnShow(true);
+            }}
+          >
+            우리땅 독도로 출발!
+          </button>
+        </div>
+      </div>
+    );
+  };
   return (
     <div className='content'>
-      <div className='title'>
-        <h1>모여봐요 우리땅 독도</h1>
+      <div className='LoginWrapper'>
+        <div className='LoginTitle waviy'>
+          <div style={{ "--i": 1 }}>
+            <h1>모</h1>
+          </div>
+          <div style={{ "--i": 2 }}>
+            <h1>여</h1>
+          </div>
+          <div style={{ "--i": 3 }}>
+            <h1>봐</h1>
+          </div>
+          <div style={{ "--i": 4 }}>
+            <h1>요</h1>
+          </div>
+          <div style={{ "--i": 5 }}>
+            <h1>!</h1>
+          </div>
+        </div>
+        <div className='LoginTitle waviy'>
+          <div style={{ "--i": 6 }}>
+            <h1>우</h1>
+          </div>
+          <div style={{ "--i": 7 }}>
+            <h1>리</h1>
+          </div>
+          <div style={{ "--i": 8 }}>
+            <h1>땅</h1>
+          </div>
+          <div style={{ "--i": 9 }}>
+            <h1>독</h1>
+          </div>
+          <div style={{ "--i": 10 }}>
+            <h1>도</h1>
+          </div>
+        </div>
+        <div style={{ textAlign: "center" }}>
+          디스플레이 125% 크롬 100%환경에서 최적의 경험을 제공합니다.
+        </div>
+        {loginBtnShow ? <SocialLogin /> : <OnBoard />}
       </div>
-      <SocialLogin />
     </div>
   );
-};
+}
 
 const SocialLogin = (props) => {
   return (

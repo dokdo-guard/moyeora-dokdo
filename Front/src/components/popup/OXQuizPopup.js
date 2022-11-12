@@ -10,7 +10,6 @@ import Box from "@mui/material/Box";
 import { getQuiz } from "../../api/quizApi.js";
 import "../css/OXQuizPopup.css";
 import axios from "axios";
-import { useSelector } from "react-redux";
 
 // 문제 개수 선택 화면
 function OXQuizPopup() {
@@ -32,13 +31,13 @@ function OXQuizPopup() {
     return () => {};
   }, [quizNum]);
 
-  // useEffect(() => {
-  //   // console.log(quiz);
-  // }, [quiz]);
-  const user = useSelector((state) => state.user.value);
+  const accessToken = sessionStorage.getItem("accessToken");
   const setQuizResult = async (result) => {
     if (
-      window.confirm(user.name.slice(0, 3) + "님 점수를 등록 하시겠습니까?")
+      window.confirm(
+        sessionStorage.getItem("name").slice(0, 3) +
+          "님 점수를 등록 하시겠습니까?",
+      )
     ) {
       await axios
         .put(
@@ -48,7 +47,7 @@ function OXQuizPopup() {
           },
           {
             headers: {
-              Authorization: `Bearer ${user.accessToken}`,
+              Authorization: `Bearer ${accessToken}`,
             },
           },
         )
@@ -63,8 +62,21 @@ function OXQuizPopup() {
         .catch((err) => {
           console.log(err);
         });
+
+      await axios.post(
+        "https://k7d204.p.ssafy.io/api/badge",
+        {
+          achievement: "",
+          image: "",
+          name: "퀴즈 만점",
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        },
+      );
     }
-    // alert(result);
   };
 
   const SelectQuizNum = () => {

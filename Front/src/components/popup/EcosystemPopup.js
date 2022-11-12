@@ -6,7 +6,6 @@ import {
   getAllSeaPlants,
 } from "../../api/ecoSystemApi";
 import "../css/EcoSystemPopup.css";
-import { useSelector } from "react-redux";
 import axios from "axios";
 function EcoSystemPopup() {
   const [isSelected, setIsSelected] = useState(false);
@@ -14,7 +13,7 @@ function EcoSystemPopup() {
   const [selectedData, setSelectedData] = useState([]);
   const [detailSelected, setDetailSelected] = useState(false);
   const [data, setData] = useState([]);
-  const user = useSelector((state) => state.user.value);
+  const accessToken = sessionStorage.getItem("accessToken");
 
   useEffect(() => {
     if (category === "bird") {
@@ -87,7 +86,7 @@ function EcoSystemPopup() {
                 "https://ssafy-d204-dokdo.s3.ap-northeast-2.amazonaws.com/" +
                 selectedData.img
               }
-              alt='NO IMAGE'
+              alt='NO '
             />
           </div>
           <div className='EcoSystemDetailName'>{selectedData.name}</div>
@@ -123,7 +122,7 @@ function EcoSystemPopup() {
           <div className='EcoSystemDataList'>
             {data.map((data) => {
               if (data === undefined) {
-                return;
+                return <></>;
               }
               return (
                 <div
@@ -161,7 +160,7 @@ function EcoSystemPopup() {
         { domain: category, mongo_id: selectedData.name },
         {
           headers: {
-            Authorization: `Bearer ${user.accessToken}`,
+            Authorization: `Bearer ${accessToken}`,
           },
         },
       )

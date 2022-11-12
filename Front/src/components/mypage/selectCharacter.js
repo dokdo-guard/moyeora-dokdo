@@ -1,12 +1,9 @@
 import { Suspense, useEffect, useState } from "react";
 import popupStyles from "../css/Character.module.css";
-import PropTypes from "prop-types";
 import { Canvas, useLoader, useFrame } from "@react-three/fiber";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 import * as THREE from "three";
-import { useSelector, useDispatch } from "react-redux";
 import axios from "axios";
-import { changeCharacter } from "../../UserSlice";
 const globalDataSet = {
   models: {},
   actions: {},
@@ -53,8 +50,6 @@ const Character = (props) => {
 };
 
 const Popup = (props) => {
-  const user = useSelector((state) => state.user.value);
-  const dispatch = useDispatch();
   const characters = [
     "siryeong",
     "sojung",
@@ -65,7 +60,9 @@ const Popup = (props) => {
   ];
 
   const [show, setShow] = useState(false);
-  const [myCharacter, setCharacter] = useState(user.userCharacter);
+  const [myCharacter, setCharacter] = useState(
+    sessionStorage.getItem("userCharacter"),
+  );
 
   const closeHandler = (e) => {
     setShow(false);
@@ -86,13 +83,14 @@ const Popup = (props) => {
     // props.changeCharacter()
   };
   const changeCharacterApiCall = () => {
+    const accessToken = sessionStorage.getItem("accessToken");
     axios
       .put(
         "https://k7d204.p.ssafy.io/api/character",
         { userCharacter: myCharacter },
         {
           headers: {
-            Authorization: `Bearer ${user.accessToken}`,
+            Authorization: `Bearer ${accessToken}`,
           },
         },
       )
@@ -128,7 +126,6 @@ const Popup = (props) => {
       props.changeChaehyeon();
     }
     changeCharacterApiCall();
-    // dispatch(changeCharacter(myCharacter));
     console.log(myCharacter);
 
     // console.log(myCharacter);
@@ -149,18 +146,21 @@ const Popup = (props) => {
           onClick={() => {
             actionHandler(5);
           }}
+          alt='no'
         ></img>
         <img
           src='/assets/images/emotions/dance.png'
           onClick={() => {
             actionHandler(3);
           }}
+          alt='no'
         ></img>
         <img
           src='/assets/images/emotions/sad.png'
           onClick={() => {
             actionHandler(2);
           }}
+          alt='no'
         ></img>
       </div>
       <div className={popupStyles.character}>
@@ -187,6 +187,7 @@ const Popup = (props) => {
                 onClick={() => {
                   setCharacter(c_name);
                 }}
+                alt='no'
               ></img>
             </div>
           );
