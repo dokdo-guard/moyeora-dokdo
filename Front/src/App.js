@@ -26,7 +26,6 @@ function App() {
         <Route path='/home/board' element={<BoardHome />} />
         <Route path='/new' element={<NewPage />} />
       </Routes>
-
     </>
   );
 }
