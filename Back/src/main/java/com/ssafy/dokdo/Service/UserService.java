@@ -265,16 +265,20 @@ public class UserService {
                 .orElseThrow(() -> new ResourceNotFoundException("User", "id", id));
 
         List<Npc> npcList = user.getNpcList();   //유저가 1번이라도 대화한 npc 리스트를 가져온다.
-        for (Npc npc : npcList) {
-            if (npc.getName().equals(npcName)) {
-                break;
-            } else {
-                Npc newNpc = new Npc();
-                newNpc.setUser_id(id);
-                newNpc.setName(npcName);
-                npcRepository.saveAndFlush(newNpc);
+        Npc newNpc = new Npc();
+        newNpc.setUser_id(id);
+        newNpc.setName(npcName);
+        if (npcList.isEmpty()) {
+            npcRepository.saveAndFlush(newNpc);
+        } else {
+            for (Npc npc : npcList) {
+                if (npc.getName().equals(npcName)) {
+                    return npcList;
+                } else {
+                    npcRepository.saveAndFlush(newNpc);
+                }
             }
         }
-        return npcList;
+        return user.getNpcList();
     }
 }
