@@ -2,7 +2,7 @@ import axios from "axios";
 import React, { useState, useEffect } from "react";
 import "../css/MyPagePopup.css";
 
-function MyPagePopup() {
+function MyPagePopup(props) {
   // 다른 컴포넌트 보여주기 위함
   const [selectCharacterShow, setSelectCharacterShow] = useState(false);
   const [dogamShow, setDogamShow] = useState(false);
@@ -10,7 +10,7 @@ function MyPagePopup() {
 
   const [isLoaded, setIsLoaded] = useState(false);
 
-  const [category, setCategory] = useState("");
+  const [category, setCategory] = useState("plant");
   const [dogamNum, setDogamNum] = useState(0);
   const [dogam, setDogam] = useState([]);
   const [badges, setBadges] = useState([]);
@@ -22,47 +22,58 @@ function MyPagePopup() {
 
   // 세션스토리지에서 accessToken 받아옴
   const accessToken = sessionStorage.getItem("accessToken");
+  useEffect(() => {
+    // 도감 조회
+    const getDogam = async () => {
+      const dogams = await axios.get(
+        `https://k7d204.p.ssafy.io/api/user/dogams/${category}`,
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        },
+      );
+      setDogam(dogams.data);
+    };
+    if (category !== "") {
+      getDogam();
+    }
+  }, [category]);
 
   useEffect(() => {
-    getDogam();
-  }, [category]);
-  useEffect(() => {
+    const getBadge = async () => {
+      const badges = await axios.get(`https://k7d204.p.ssafy.io/api/badge`, {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      });
+      setBadges(badges.data);
+    };
     getBadge();
   }, [isLoaded]);
 
-  // 도감 조회 api
-  const getDogam = async () => {
-    await axios
-      .get(`https://k7d204.p.ssafy.io/api/user/dogams?domain=${category}`, {
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-        },
-      })
-      .then((res) => {
-        setDogam(res.data);
-        setIsLoaded(true);
-        console.log(res.data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
-
-  // 뱃지 조회 api
-  const getBadge = async () => {
-    await axios
-      .get(`https://k7d204.p.ssafy.io/api/badge`, {
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-        },
-      })
-      .then((res) => {
-        setDogam(res.data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
+  useEffect(() => {
+    if (userCharacter === "siryeong") {
+      props.changeSiryeong();
+    }
+    if (userCharacter === "sojung") {
+      props.changeSojung();
+    }
+    if (userCharacter === "hyoseon") {
+      props.changeHyoseon();
+    }
+    if (userCharacter === "youngjin") {
+      props.changeYoungjin();
+    }
+    if (userCharacter === "seongryeong") {
+      props.changeSeongryeong();
+    }
+    if (userCharacter === "chaehyeon") {
+      props.changeChaehyeon();
+    }
+    setCharacter();
+    console.log(userCharacter);
+  }, [userCharacter]);
 
   // 캐릭터 선택 axios api call
   const setCharacter = async () => {
@@ -106,7 +117,6 @@ function MyPagePopup() {
           onClick={() => {
             setCharacter();
             setSelectCharacterShow(false);
-
             setSelectCharacterShow(false);
           }}
         >
@@ -231,7 +241,11 @@ function MyPagePopup() {
   const notEarnedDogam = (maxNum) => {
     let array = [];
     for (let i = 0; i < maxNum - dogam.length; i++) {
-      array.push(<div className='DogamItem'>?</div>);
+      array.push(
+        <div className='DogamItem' key={i}>
+          ?
+        </div>,
+      );
     }
     return array;
   };
@@ -268,9 +282,17 @@ function MyPagePopup() {
             {category}
             <div className='DogamList'>
               {dogam.map((val) => {
+                if (val === undefined) {
+                  return <></>;
+                }
                 return (
-                  <div key={val.id} className='DogamItem'>
-                    {val.mongo_id}
+                  <div key={val.name} className='DogamItem'>
+                    <img
+                      src={`	
+                      https://ssafy-d204-dokdo.s3.ap-northeast-2.amazonaws.com/${val.image}`}
+                      alt='no'
+                    />{" "}
+                    {val.name}
                   </div>
                 );
               })}
@@ -296,8 +318,8 @@ function MyPagePopup() {
             <div
               className='dogamSelectBtn'
               onClick={() => {
-                setCategory("seaAnimal");
                 setCategoryShow(true);
+                setCategory("sea-animal");
                 setDogamNum(30);
               }}
             >
@@ -312,8 +334,8 @@ function MyPagePopup() {
             <div
               className='dogamSelectBtn'
               onClick={() => {
-                setCategory("bird");
                 setCategoryShow(true);
+                setCategory("bird");
                 setDogamNum(35);
               }}
             >
@@ -326,8 +348,8 @@ function MyPagePopup() {
             <div
               className='dogamSelectBtn'
               onClick={() => {
-                setCategory("seaPlant");
                 setCategoryShow(true);
+                setCategory("sea-plant");
                 setDogamNum(20);
               }}
             >
@@ -367,6 +389,7 @@ function MyPagePopup() {
         >
           Back
         </div>
+        <div className='DogamCategoryWrapper'>TEST</div>
       </div>
     );
   };

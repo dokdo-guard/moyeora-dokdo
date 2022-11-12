@@ -153,10 +153,13 @@
   border-radius: 10px;
   box-shadow: 3px 3px 20px lightgray;
   margin: 10px;
+  flex-direction: column;
 }
 .DogamItem > img {
-  width: 90px;
-  height: 90px;
+  width: 60px;
+  height: 60px;
+  border-radius: 10px;
+  margin-bottom: 5px;
 }
 .DogamCategoryWrapper {
   width: 100%;
