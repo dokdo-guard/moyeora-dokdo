@@ -389,7 +389,18 @@ function MyPagePopup(props) {
         >
           Back
         </div>
-        <div className='DogamCategoryWrapper'>TEST</div>
+        <div className='BadgeWrapper'>
+          {badges.talkative ? <div>test</div> : <div>없음</div>}
+          {badges.birdComplete ? <div>test</div> : <div>없음</div>}
+          {badges.plantComplete ? <div>test</div> : <div>없음</div>}
+          {badges.seaAnimalComplete ? <div>test</div> : <div>없음</div>}
+          {badges.quizFive ? <div>test</div> : <div>없음</div>}
+          {badges.quizTen ? <div>test</div> : <div>없음</div>}
+          {badges.quizFifteen ? <div>test</div> : <div>없음</div>}
+          {badges.visitBiology ? <div>test</div> : <div>없음</div>}
+          {badges.visitHistory ? <div>test</div> : <div>없음</div>}
+          {badges.visitTerrain ? <div>test</div> : <div>없음</div>}
+        </div>
       </div>
     );
   };
