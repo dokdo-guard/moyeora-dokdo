@@ -1,0 +1,130 @@
+.content {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)),
+    url("../../../public/assets/images/Background.png");
+  /* background-image: url(""); */
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+}
+
+.LoginTitle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-size: 40px;
+  height: 25%;
+}
+
+.socialLogin {
+  /* width: 300px; */
+  margin: auto auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.socialLogin a {
+  cursor: pointer;
+  display: block;
+  width: 300px;
+  margin: 10px;
+  text-decoration: none;
+  color: black;
+  box-shadow: 0px 0px 15px lightgrey;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: box-shadow 0.3s;
+}
+.PlayButton {
+  width: 400px;
+  height: 150px;
+  border-radius: 10px;
+}
+.PlayButton > button {
+  width: 100%;
+  height: 100%;
+  font-weight: 700;
+  font-size: 30px;
+  background-color: #fcd172;
+  border: 1px lightgray;
+  border-radius: 20px;
+  box-shadow: 3px 3px 20px lightgray;
+  cursor: pointer;
+  transition: background-color 0.5s;
+  margin-top: 10px;
+}
+.PlayButton > button:hover {
+  background-color: #fe9d00;
+}
+
+.socialLogin a:hover {
+  box-shadow: 0px 0px 15px gray;
+}
+.socialLogin a:nth-child(1) {
+  background-color: white;
+}
+
+.socialLogin a:nth-child(2) {
+  background-color: #03c75a;
+}
+
+.socialLogin a:nth-child(3) {
+  background-color: #fee500;
+}
+
+.socialLogin a img {
+  width: 50px;
+  border-radius: 25%;
+}
+.LoginWrapper {
+  width: 60%;
+  height: 70%;
+  background-color: #ffffff;
+  background-color: rgba(255, 255, 255, 0.8);
+  border-radius: 20px;
+  box-shadow: 5px 5px 20px lightgray;
+}
+.loginbuttonlabel {
+  font-size: 30px;
+  margin: 10px;
+}
+.waviy div {
+  text-transform: uppercase;
+  animation: waviy 5s infinite;
+  animation-delay: calc(0.2s * var(--i));
+  margin: 5px;
+  text-shadow: -2px 0 rgb(255, 222, 122), 0 2px rgb(255, 222, 122),
+    2px 0 rgb(255, 198, 26), 0 -2px rgb(255, 222, 122);
+  color: rgb(154, 87, 0);
+}
+@keyframes waviy {
+  0%,
+  40%,
+  100% {
+    transform: translateY(0);
+  }
+  20% {
+    transform: translateY(-20px);
+  }
+}
+.loginCenter {
+  width: 100%;
+  height: 200px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.loginCenter img {
+  width: 400px;
+  height: 400px;
+  object-fit: cover;
+}

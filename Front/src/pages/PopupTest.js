@@ -1,15 +1,14 @@
 import React from "react";
-import {
-  OXQuizPopup,
-  // TerrianPopup,
-  // EcoSystemPopup,
-  // HistoryPopup,
-} from "../components/index";
+// import { TutorialGangchi } from "../components/index";
+// import Badge from "../components/mypage/badge";
+import { MyPagePopup } from "../components/index";
 
 function PopupTest() {
   return (
     <>
-      <OXQuizPopup />
+      {/* <TutorialGangchi /> */}
+      {/* <Badge /> */}
+      <MyPagePopup />
     </>
   );
 }

@@ -1,30 +1,72 @@
 import * as THREE from "three";
-import * as CANNON from "cannon-es";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 import { DRACOLoader } from "three/examples/jsm/loaders/DRACOLoader";
 import gsap from "gsap";
-import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 
 import "../components/css/MainTest.css";
 
 import { Player } from "../components/glTF/Player";
-import { Building } from "../components/glTF/Building";
 import { Nature } from "../components/glTF/Nature";
 import { Bridge } from "../components/glTF/Bridge";
-import { Territory } from "../components/glTF/Territory";
 import { EcoSystem } from "../components/glTF/EcoSystem";
+
+import HistoryPopup from "../components/popup/HistoryPopup";
+import TerrianPopup from "../components/popup/TerrianPopup";
+import OXQuizPopup from "../components/popup/OXQuizPopup";
+import EcoSystemPopup from "../components/popup/EcosystemPopup";
+
+import Board from "../components/board/Board.js";
+
+import Stats from "stats.js";
+import { useEffect, useState } from "react";
+
+import { mapReLoading } from "../components/popup/TerrianPopup";
+
+import { LoadingComponent, MyPagePopup, TutorialGangchi } from "../components/index";
+
+import {
+  eastFloorMesh,
+  westFloorMesh,
+  oceanMesh,
+  oceanBlock1Mesh,
+  oceanBlock2Mesh,
+  oceanBlock3Mesh,
+  oceanBlock4Mesh,
+  oceanBlock5Mesh,
+} from "../components/main/Plane.js";
+import {
+  spotMesh1,
+  spotMesh2,
+  spotMesh3,
+  spotMesh4,
+} from "../components/main/SpotMesh.js";
+import {
+  QuizSignMesh,
+  TerritorySignMesh,
+  EcoSignMesh,
+  HistorySignMesh,
+} from "../components/main/SignMesh.js";
+import {
+  clickMyPage,
+  quitMyPage,
+  clickTutorial,
+  quitTutorial,
+  clickDogam,
+  quitDogam,
+  quitPopup,
+  clickChat,
+  quitChat,
+  clickBoard,
+} from "../components/main/PopupButton.js";
 import { NPC } from "../components/glTF/NPC";
-import { Quiz } from "../components/glTF/Quiz";
+import Tutorial from "../components/tutorial/tutorial";
+import { Vector2, Vector3 } from "three";
+
+import axios from "axios";
+import NPCBubble from "../components/main/NPCbubble";
 
 function MainTest() {
-  // Cannon(물리엔진)
-  const cannonWorld = new CANNON.World();
-  cannonWorld.gravity.set(0, -10, 0);
-
-  // 성능을 위한 세팅
-  // cannonWorld.allowSleep = true;
-  // cannonWorld.broadphase = new CANNON.SAPBroadphase(cannonWorld);
-
+  //#region = 카메라, 빛, 렌더러, 씬
   // Renderer
   const canvas = document.querySelector("#three-canvas");
   const renderer = new THREE.WebGLRenderer({
@@ -39,7 +81,6 @@ function MainTest() {
   // Scene
   const scene = new THREE.Scene();
 
-  // Camera
   const camera = new THREE.OrthographicCamera(
     -(window.innerWidth / window.innerHeight), // left
     window.innerWidth / window.innerHeight, // right,
@@ -48,22 +89,19 @@ function MainTest() {
     -1000,
     1000,
   );
-
-  const cameraPosition = new THREE.Vector3(1, 5, 5);
-  camera.position.set(cameraPosition.x, cameraPosition.y, cameraPosition.z);
-  camera.zoom = 0.16;
+  camera.position.set(1, 5, 5);
+  camera.zoom = 0.14;
   camera.updateProjectionMatrix();
-  scene.add(camera);
 
-  // Light
   const ambientLight = new THREE.AmbientLight("white", 0.7);
-  scene.add(ambientLight);
 
   const directionalLight = new THREE.DirectionalLight("white", 0.5);
   const directionalLightOriginPosition = new THREE.Vector3(0.5, 1, 1);
-  directionalLight.position.x = directionalLightOriginPosition.x;
-  directionalLight.position.y = directionalLightOriginPosition.y;
-  directionalLight.position.z = directionalLightOriginPosition.z;
+  directionalLight.position.set(
+    directionalLightOriginPosition.x,
+    directionalLightOriginPosition.y,
+    directionalLightOriginPosition.z,
+  );
   directionalLight.castShadow = true;
 
   // mapSize 세팅으로 그림자 퀄리티 설정
@@ -76,233 +114,55 @@ function MainTest() {
   directionalLight.shadow.camera.bottom = -100;
   directionalLight.shadow.camera.near = -100;
   directionalLight.shadow.camera.far = 100;
-  scene.add(directionalLight);
 
-  // 여기서부터 땅 표현
-  // Texture
-  const textureLoader = new THREE.TextureLoader();
-  const eastFloorTexture = textureLoader.load("/assets/images/east.png");
-  const westFloorTexture = textureLoader.load("/assets/images/west.png");
-  const oceanTexture = textureLoader.load("/assets/images/ocean.png");
-  const oceanBlockTexture = textureLoader.load("/assets/images/oceanBlock.png");
+  //#endregion
 
+  //#region = scene / meshes add하기
   // Mesh
   const meshes = [];
-  const eastFloorMesh = new THREE.Mesh(
-    new THREE.PlaneGeometry(51.38, 87.06),
-    new THREE.MeshStandardMaterial({
-      map: eastFloorTexture,
-      transparent: true,
-    }),
-  );
-  eastFloorMesh.name = "floor";
-  eastFloorMesh.rotation.x = -Math.PI / 2;
-  eastFloorMesh.position.x = 38.58;
-  eastFloorMesh.position.y = 0.161;
-  eastFloorMesh.position.z = -2.42;
-  eastFloorMesh.receiveShadow = true;
-  scene.add(eastFloorMesh);
-  meshes.push(eastFloorMesh);
-
-  const eastFloorShape = new CANNON.Plane();
-  const eastFloorBody = new CANNON.Body({
-    mass: 0,
-    position: new CANNON.Vec3(38.58, 0.161, -2.42),
-    shape: eastFloorShape,
+  // components/main/.js 에서 만든 각 scene 컴포넌트들 한번에 다 scene에 넣기
+  useEffect(() => {
+    scene.add(
+      eastFloorMesh,
+      westFloorMesh,
+      oceanMesh,
+      oceanBlock1Mesh,
+      oceanBlock2Mesh,
+      oceanBlock3Mesh,
+      oceanBlock4Mesh,
+      oceanBlock5Mesh,
+    );
+    scene.add(camera, ambientLight, directionalLight);
+    meshes.push(
+      eastFloorMesh,
+      westFloorMesh,
+      oceanMesh,
+      oceanBlock1Mesh,
+      oceanBlock2Mesh,
+      oceanBlock3Mesh,
+      oceanBlock4Mesh,
+      oceanBlock5Mesh,
+    );
+    scene.add(spotMesh1, spotMesh2, spotMesh3, spotMesh4);
+    scene.add(QuizSignMesh, TerritorySignMesh, EcoSignMesh, HistorySignMesh);
+    meshes.push(QuizSignMesh, TerritorySignMesh, EcoSignMesh, HistorySignMesh);
   });
-  eastFloorBody.quaternion.setFromAxisAngle(
-    new CANNON.Vec3(-1, 0, 0),
-    Math.PI / 2,
-  );
-  cannonWorld.addBody(eastFloorBody);
-
-  const westFloorMesh = new THREE.Mesh(
-    new THREE.PlaneGeometry(65.86, 93.72),
-    new THREE.MeshStandardMaterial({
-      map: westFloorTexture,
-      transparent: true,
-    }),
-  );
-  westFloorMesh.name = "floor";
-  westFloorMesh.rotation.x = -Math.PI / 2;
-  westFloorMesh.position.x = -34.8;
-  westFloorMesh.position.y = 0.161;
-  westFloorMesh.position.z = -0.6;
-  westFloorMesh.receiveShadow = true;
-  scene.add(westFloorMesh);
-  meshes.push(westFloorMesh);
-
-  const oceanMesh = new THREE.Mesh(
-    new THREE.PlaneGeometry(192, 130),
-    new THREE.MeshStandardMaterial({
-      map: oceanTexture,
-    }),
-  );
-
-  oceanMesh.name = "ocean";
-  oceanMesh.rotation.x = -Math.PI / 2;
-  oceanMesh.position.y = -0.7;
-  oceanMesh.receiveShadow = true;
-  scene.add(oceanMesh);
-  meshes.push(oceanMesh);
-
-  // 남는 바다 코드
-  const oceanBlock1Mesh = new THREE.Mesh(
-    new THREE.PlaneGeometry(30, 30),
-    new THREE.MeshStandardMaterial({
-      map: oceanBlockTexture,
-    }),
-  );
-  oceanBlock1Mesh.name = "ocean";
-  oceanBlock1Mesh.rotation.x = -Math.PI / 2;
-  oceanBlock1Mesh.rotation.z = 2;
-  oceanBlock1Mesh.position.y = 2;
-  oceanBlock1Mesh.position.x = -60;
-  oceanBlock1Mesh.position.z = -22;
-  oceanBlock1Mesh.visible = false;
-  scene.add(oceanBlock1Mesh);
-  meshes.push(oceanBlock1Mesh);
-
-  const oceanBlock2Mesh = new THREE.Mesh(
-    new THREE.PlaneGeometry(30, 30),
-    new THREE.MeshStandardMaterial({
-      map: oceanBlockTexture,
-    }),
-  );
-  oceanBlock2Mesh.name = "ocean";
-  oceanBlock2Mesh.rotation.x = -Math.PI / 2;
-  oceanBlock2Mesh.rotation.z = 2;
-  oceanBlock2Mesh.position.y = 2;
-  oceanBlock2Mesh.position.x = 60;
-  oceanBlock2Mesh.position.z = -30;
-  oceanBlock2Mesh.visible = false;
-  scene.add(oceanBlock2Mesh);
-  meshes.push(oceanBlock2Mesh);
-
-  const oceanBlock3Mesh = new THREE.Mesh(
-    new THREE.PlaneGeometry(30, 30),
-    new THREE.MeshStandardMaterial({
-      map: oceanBlockTexture,
-    }),
-  );
-  oceanBlock3Mesh.name = "ocean";
-  oceanBlock3Mesh.rotation.x = -Math.PI / 2;
-  oceanBlock3Mesh.rotation.z = 1.3;
-  oceanBlock3Mesh.scale.x = 0.8;
-  oceanBlock3Mesh.position.y = 2;
-  oceanBlock3Mesh.position.x = 65;
-  oceanBlock3Mesh.position.z = 22;
-  oceanBlock3Mesh.visible = false;
-  scene.add(oceanBlock3Mesh);
-  meshes.push(oceanBlock3Mesh);
-
-  const oceanBlock4Mesh = new THREE.Mesh(
-    new THREE.PlaneGeometry(30, 30),
-    new THREE.MeshStandardMaterial({
-      map: oceanBlockTexture,
-    }),
-  );
-  oceanBlock4Mesh.name = "ocean";
-  oceanBlock4Mesh.rotation.x = -Math.PI / 2;
-  oceanBlock4Mesh.rotation.z = 0.3;
-  oceanBlock4Mesh.position.y = 2;
-  oceanBlock4Mesh.position.x = -65;
-  oceanBlock4Mesh.position.z = 33;
-  oceanBlock4Mesh.visible = false;
-  scene.add(oceanBlock4Mesh);
-  meshes.push(oceanBlock4Mesh);
-
-  const oceanBlock5Mesh = new THREE.Mesh(
-    new THREE.PlaneGeometry(30, 30),
-    new THREE.MeshStandardMaterial({
-      map: oceanBlockTexture,
-    }),
-  );
-  oceanBlock5Mesh.name = "ocean";
-  oceanBlock5Mesh.rotation.x = -Math.PI / 2;
-  oceanBlock5Mesh.rotation.z = 0.3;
-  oceanBlock5Mesh.position.y = 1;
-  oceanBlock5Mesh.position.x = -10;
-  oceanBlock5Mesh.position.z = -30;
-  oceanBlock5Mesh.visible = false;
-  scene.add(oceanBlock5Mesh);
-  meshes.push(oceanBlock5Mesh);
+  //#endregion
 
   // 마우스 포인터
+  // 이 메쉬를 활용해서 마우스가 어디를 클릭해서 플레이어를 이동시키는지 확인 가능
   const pointerMesh = new THREE.Mesh(
-    new THREE.PlaneGeometry(1, 1),
+    new THREE.PlaneGeometry(0.01, 0.01),
     new THREE.MeshBasicMaterial({
-      // color: 'crimson',
+      // color: "crimson",
       transparent: true,
       opacity: 0,
     }),
   );
   pointerMesh.rotation.x = -Math.PI / 2;
-
-  pointerMesh.position.y = 0.3;
-  pointerMesh.position.x = 29;
-  pointerMesh.position.z = -4;
-
+  pointerMesh.position.set(29, 0.3, -4);
   pointerMesh.receiveShadow = true;
   scene.add(pointerMesh);
-
-  // 퀴즈관 이벤트 위치
-  const spotMesh1 = new THREE.Mesh(
-    new THREE.PlaneGeometry(3, 3),
-    new THREE.MeshStandardMaterial({
-      color: "yellow",
-      transparent: true,
-      opacity: 0.5,
-    }),
-  );
-  spotMesh1.position.set(27, 0.19, -21);
-  spotMesh1.rotation.x = -Math.PI / 2;
-  spotMesh1.receiveShadow = true;
-  scene.add(spotMesh1);
-
-  // 지형관 이벤트 위치
-  const spotMesh2 = new THREE.Mesh(
-    new THREE.PlaneGeometry(3, 3),
-    new THREE.MeshStandardMaterial({
-      color: "green",
-      transparent: true,
-      opacity: 0.5,
-    }),
-  );
-  spotMesh2.position.set(48, 0.19, -3);
-  spotMesh2.rotation.x = -Math.PI / 2;
-  spotMesh2.receiveShadow = true;
-  scene.add(spotMesh2);
-
-  // 생태관 이벤트 위치
-  const spotMesh3 = new THREE.Mesh(
-    new THREE.PlaneGeometry(3, 3),
-    new THREE.MeshStandardMaterial({
-      color: "skyblue",
-      transparent: true,
-      opacity: 0.5,
-    }),
-  );
-  spotMesh3.position.set(21, 0.19, 10);
-  spotMesh3.rotation.x = -Math.PI / 2;
-  spotMesh3.rotation.z = 0.27;
-  spotMesh3.receiveShadow = true;
-  scene.add(spotMesh3);
-
-  // 역사관 이벤트 위치
-  const spotMesh4 = new THREE.Mesh(
-    new THREE.PlaneGeometry(3, 3),
-    new THREE.MeshStandardMaterial({
-      color: "pink",
-      transparent: true,
-      opacity: 0.5,
-    }),
-  );
-  spotMesh4.position.set(38, 0.19, 29);
-  spotMesh4.rotation.x = -Math.PI / 2;
-  spotMesh4.rotation.z = 1;
-  spotMesh4.receiveShadow = true;
-  scene.add(spotMesh4);
 
   // Draco 오픈소스 -> glTF 용량 줄이기!!!!
   const dracoLoader = new DRACOLoader();
@@ -312,11 +172,17 @@ function MainTest() {
   const gltfLoader = new GLTFLoader();
   gltfLoader.setDRACOLoader(dracoLoader);
 
-  // 카메라 각도 움직이는 orbitcontrol 코드
-  //   const orbit = new OrbitControls(camera, renderer.domElement);
-  //   orbit.update();
+  const [isLoaded, setIsLoaded] = useState(false);
 
-  // 여기서부터 glTF 모델 임포트하는 코드
+  // 로딩 페이지 구현 위함
+  gltfLoader.load("/assets/glTF/scene.glb", function () {
+    console.log("ISLOADED");
+    setIsLoaded(true);
+  });
+
+  // 캐릭터 변경 핸들러
+
+  // #region = glTF 모델 임포트
   // 풍경 나무들
   const nature = new Nature({
     gltfLoader,
@@ -328,108 +194,162 @@ function MainTest() {
   });
 
   // 플레이어 캐릭터
-  const player = new Player({
+  let player = new Player({
     scene,
     meshes,
     gltfLoader,
-    cannonWorld,
-    modelSrc: "/assets/glTF/sojung.glb",
-  });
-
-  // NPC
-  const npc = new NPC({
-    gltfLoader,
-    scene,
-    meshes,
-    modelSrc: "/assets/glTF/FennecFox.gltf",
-    x: 25,
-    y: 0,
-    z: -8,
+    camera,
+    modelSrc: "/assets/glTF/character/siryeong.glb",
+    // x : 0,
+    // y : 0,
+    // z : 0
   });
 
   // 다리
   const bridge = new Bridge({
     gltfLoader,
     scene,
-    cannonWorld,
     meshes,
-    modelSrc: "/assets/glTF/bridge4.gltf",
-    x: 2,
-    y: -0.1,
-    z: -3,
-  });
-
-  // 역사관
-  const history = new Building({
-    gltfLoader,
-    scene,
-    cannonWorld,
-    modelSrc: "/assets/glTF/history.glb",
-    x: 35,
-    y: 0.3,
-    z: 26,
-  });
-
-  // 지형관
-  const territory = new Territory({
-    gltfLoader,
-    scene,
-    cannonWorld,
-    modelSrc: "/assets/glTF/territory.gltf",
-    x: 28,
-    y: 1,
-    z: -25,
-  });
-
-  // 퀴즈관
-  const quiz = new Quiz({
-    gltfLoader,
-    scene,
-    cannonWorld,
-    modelSrc: "/assets/glTF/quiz.gltf",
-    x: 50,
-    y: 1,
-    z: 0,
+    modelSrc: "/assets/glTF/bridge.glb",
+    x: 6,
+    y: -0.2,
+    z: -3.5,
   });
 
   // 생태관
   const ecosystem = new EcoSystem({
     gltfLoader,
     scene,
-    cannonWorld,
     modelSrc: "/assets/glTF/ecosystem.glb",
     x: 15,
-    y: 2.2,
+    y: -2.25,
     z: 12,
   });
 
-  //
-  const dokdoShrimpTexture = textureLoader.load(
-    "/assets/images/woodenSign.png",
-  );
-  const dokdoShrimpMesh = new THREE.Mesh(
-    new THREE.PlaneGeometry(30, 30),
-    new THREE.MeshStandardMaterial({
-      map: dokdoShrimpTexture,
-      transparent: true,
-    }),
-  );
-  // dokdoShrimpMesh.name = 'ocean'
-  // dokdoShrimpMesh.rotation.x = -Math.PI/2;
-  dokdoShrimpMesh.rotation.y = 1.5;
-  dokdoShrimpMesh.scale.x = 0.1;
-  dokdoShrimpMesh.scale.y = 0.1;
-  dokdoShrimpMesh.scale.z = 0.1;
+  const 강치 = new NPC({
+    scene,
+    meshes,
+    gltfLoader,
+    modelSrc: "/assets/glTF/강치.gltf",
+    x: -7.429,
+    y: 0.5,
+    z: -7.829,
+    rotation: 30.6,
+  });
 
-  dokdoShrimpMesh.rotation.y = 0;
-  dokdoShrimpMesh.position.y = -3;
-  dokdoShrimpMesh.position.x = 47.3;
-  dokdoShrimpMesh.position.z = -5;
-  scene.add(dokdoShrimpMesh);
-  meshes.push(dokdoShrimpMesh);
+  const flamingo = new NPC({
+    scene,
+    meshes,
+    gltfLoader,
+    modelSrc: "/assets/glTF/Flamingo.glb",
+    x: -20.196,
+    y: 0.5,
+    z: 0.88,
+    rotation: 0,
+  });
+
+  const pigeon = new NPC({
+    scene,
+    meshes,
+    gltfLoader,
+    modelSrc: "/assets/glTF/Pigeon.glb",
+    x: -39.411,
+    y: 0.5,
+    z: 2.983,
+    rotation: -43.4,
+  });
+
+  const seagull = new NPC({
+    scene,
+    meshes,
+    gltfLoader,
+    modelSrc: "/assets/glTF/Seagull.glb",
+    x: -19.82,
+    y: 0.5,
+    z: 20.572,
+    rotation: 0,
+  });
+
+  const 바위게 = new NPC({
+    scene,
+    meshes,
+    gltfLoader,
+    modelSrc: "/assets/glTF/바위게.glb",
+    x: -7.77,
+    y: 0.5,
+    z: 34.239,
+    rotation: 130.2,
+  });
+
+  const 독도새우 = new NPC({
+    scene,
+    meshes,
+    gltfLoader,
+    modelSrc: "/assets/glTF/독도새우.glb",
+    x: -42.184,
+    y: 0.5,
+    z: -14.378,
+    rotation: -10,
+  });
+
+  const dog = new NPC({
+    scene,
+    meshes,
+    gltfLoader,
+    modelSrc: "/assets/glTF/Dog.gltf",
+    x: -25.785,
+    y: 0.5,
+    z: -7.194,
+    rotation: 0,
+  });
+
+  const turtle = new NPC({
+    scene,
+    meshes,
+    gltfLoader,
+    modelSrc: "/assets/glTF/Turtle.glb",
+    x: -47.657,
+    y: 0.5,
+    z: 21.398,
+    rotation: -30.6,
+  });
+
+  const 돌고래 = new NPC({
+    scene,
+    meshes,
+    gltfLoader,
+    modelSrc: "/assets/glTF/돌고래.glb",
+    x: -29.973,
+    y: 0.2,
+    z: -40.685,
+    rotation: 12.8,
+  });
+
+  const 펭귄 = new NPC({
+    scene,
+    meshes,
+    gltfLoader,
+    modelSrc: "/assets/glTF/Penguin.glb",
+    x: -41.336,
+    y: 0.2,
+    z: -27.849,
+    rotation: -5,
+  });
+
+  const 게시판 = new NPC({
+    scene,
+    meshes,
+    gltfLoader,
+    modelSrc: "/assets/glTF/board.glb",
+    x: -28.221,
+    y: -0.6,
+    z: 14.157,
+    rotation: -20.2,
+  });
+
+  //#endregion
 
   // 레이캐스터(마우스 클릭 이벤트)
-
   const raycaster = new THREE.Raycaster();
   let mouse = new THREE.Vector2();
   let destinationPoint = new THREE.Vector3();
@@ -437,62 +357,60 @@ function MainTest() {
   let isPressed = false; // 마우스를 누르고 있는 상태
 
   // 그리기
+  // 시계를 활용해서 계속 돌아가는 코드임 -> 애니메이션을 위해!
   const clock = new THREE.Clock();
-  console.log(cannonWorld);
 
-  function draw() {
+  // fps 체크
+  const stats = new Stats();
+  document.body.append(stats.domElement);
+
+  //#region = update 함수
+  function update() {
     render();
+    stats.update();
     const delta = clock.getDelta();
-    cannonWorld.step(1 / 60, delta, 1);
-    eastFloorMesh.position.copy(eastFloorBody.position);
 
-    if (player.mixer) {
-      player.mixer.update(delta);
-    }
-
-    if (npc.mixer) {
-      npc.mixer.update(delta);
-      npc.actions[0].play();
+    if (
+      강치.mixer &&
+      돌고래.mixer &&
+      turtle.mixer &&
+      펭귄.mixer &&
+      dog.mixer &&
+      독도새우.mixer &&
+      바위게.mixer &&
+      flamingo.mixer &&
+      pigeon.mixer &&
+      seagull.mixer
+    ) {
+      강치.mixer.update(delta);
+      강치.actions[0].play();
+      돌고래.mixer.update(delta);
+      돌고래.actions[0].play();
+      turtle.mixer.update(delta);
+      turtle.actions[0].play();
+      펭귄.mixer.update(delta);
+      펭귄.actions[0].play();
+      dog.mixer.update(delta);
+      dog.actions[0].play();
+      독도새우.mixer.update(delta);
+      독도새우.actions[0].play();
+      바위게.mixer.update(delta);
+      바위게.actions[0].play();
+      flamingo.mixer.update(delta);
+      flamingo.actions[0].play();
+      pigeon.mixer.update(delta);
+      pigeon.actions[0].play();
+      seagull.mixer.update(delta);
+      seagull.actions[0].play();
     }
 
     if (player.modelMesh) {
       camera.lookAt(player.modelMesh.position);
-    }
-
-    if (player.cannonBody) {
-      player.modelMesh.position.copy(player.cannonBody.position);
-      cannonWorld.addBody(player.cannonBody);
-    }
-
-    // if (bridge.modelMesh) {
-    // 	bridge.modelMesh.position.copy(bridge.cannonBody.position);
-    // 	cannonWorld.addBody(bridge.cannonBody)
-    // }
-
-    // if (history.cannonBody) {
-    // 	history.modelMesh.position.copy(history.cannonBody.position);
-    // 	cannonWorld.addBody(history.cannonBody)
-    // }
-
-    if (territory.cannonBody) {
-      territory.modelMesh.position.copy(territory.cannonBody.position);
-      cannonWorld.addBody(territory.cannonBody);
-    }
-
-    if (ecosystem.cannonBody) {
-      ecosystem.modelMesh.position.copy(ecosystem.cannonBody.position);
-      cannonWorld.addBody(ecosystem.cannonBody);
-    }
-
-    // if (bridge.cannonBody) {
-    // 	bridge.modelMesh.position.copy(bridge.cannonBody.position);
-    // 	cannonWorld.addBody(bridge.cannonBody)
-    // }
-
-    if (player.modelMesh) {
       if (isPressed) {
         raycasting();
       }
+      // player update
+      player.update(delta);
 
       if (player.moving) {
         // 걸어가는 상태
@@ -501,24 +419,10 @@ function MainTest() {
           destinationPoint.x - player.modelMesh.position.x,
         );
 
-        player.cannonBody.position.x += Math.cos(angle) * 0.05;
-        player.cannonBody.position.z += Math.sin(angle) * 0.05;
+        camera.position.x = 1 + player.modelMesh.position.x;
+        camera.position.z = 5 + player.modelMesh.position.z;
 
-        camera.position.x = cameraPosition.x + player.modelMesh.position.x;
-        camera.position.z = cameraPosition.z + player.modelMesh.position.z;
-
-        player.actions[0].stop();
-        player.actions[1].play();
-
-        if (
-          Math.abs(destinationPoint.x - player.modelMesh.position.x) < 0.03 &&
-          Math.abs(destinationPoint.z - player.modelMesh.position.z) < 0.03
-        ) {
-          player.moving = false;
-          console.log("멈춤");
-        }
-
-        // 만약 플레이어 캐릭터가 노란색 영역 안에 들어갔을 경우에 행할 것
+        // 만약 플레이어 캐릭터가 각 건물의 이벤트 안에 들어갔을 경우에 행할 것
         if (
           (Math.abs(spotMesh1.position.x - player.modelMesh.position.x) < 1.5 &&
             Math.abs(spotMesh1.position.z - player.modelMesh.position.z) <
@@ -532,86 +436,241 @@ function MainTest() {
           (Math.abs(spotMesh4.position.x - player.modelMesh.position.x) < 1.5 &&
             Math.abs(spotMesh4.position.z - player.modelMesh.position.z) < 1.5)
         ) {
-          gsap.to(camera.position, {
+          gsap.to(camera.position, { duration: 1, y: 4 });
+          gsap.to(QuizSignMesh.position, {
+            y: 1,
             duration: 1,
-            y: 3,
+            ease: "Bounce.eastOut",
           });
-          gsap.to(dokdoShrimpMesh.position, {
-            y: 1.5,
+          gsap.to(TerritorySignMesh.position, {
+            y: 1,
+            duration: 1,
+            ease: "Bounce.eastOut",
+          });
+          gsap.to(EcoSignMesh.position, {
+            y: 1,
+            duration: 1,
+            ease: "Bounce.eastOut",
+          });
+          gsap.to(HistorySignMesh.position, {
+            y: 1,
+            duration: 1,
+            ease: "Bounce.eastOut",
+          });
+          gsap.to(ecosystem.modelMesh.position, {
+            y: 2.3,
             duration: 1,
             ease: "Bounce.eastOut",
           });
         } else {
-          gsap.to(camera.position, {
-            duration: 1,
-            y: 5,
-          });
-          gsap.to(dokdoShrimpMesh.position, {
-            y: -3,
-            duration: 1,
-          });
+          gsap.to(camera.position, { duration: 1, y: 5 });
+          gsap.to(QuizSignMesh.position, { y: -4, duration: 1 });
+          gsap.to(TerritorySignMesh.position, { y: -4, duration: 1 });
+          gsap.to(EcoSignMesh.position, { y: -4, duration: 1 });
+          gsap.to(HistorySignMesh.position, { y: -4, duration: 1 });
+          gsap.to(ecosystem.modelMesh.position, { y: -2.16, duration: 1 });
         }
       } else {
         // 서 있는 상태
         player.actions[1].stop();
         player.actions[0].play();
-        camera.position.x = cameraPosition.x + player.modelMesh.position.x;
-        camera.position.z = cameraPosition.z + player.modelMesh.position.z;
+        camera.position.x = 1 + player.modelMesh.position.x;
+        camera.position.z = 5 + player.modelMesh.position.z;
       }
     }
 
     renderer.render(scene, camera);
-    renderer.setAnimationLoop(draw);
+    renderer.setAnimationLoop(update);
   }
+  //#endregion
+
+  const quitNPCbubble = () => {
+    const 강치Pop = document.getElementById("강치");
+    const penguinPop = document.getElementById("penguin");
+    const turtlePop = document.getElementById("turtle");
+    const dogPop = document.getElementById("dog");
+    const 독도새우Pop = document.getElementById("독도새우");
+    const dophinPop = document.getElementById("dolphin");
+    const 바위게Pop = document.getElementById("바위게");
+    const flamingoPop = document.getElementById("flamingo");
+    const pigeonPop = document.getElementById("pigeon");
+    const seagullPop = document.getElementById("seagull");
+    penguinPop.style.display = "none";
+    강치Pop.style.display = "none";
+    turtlePop.style.display = "none";
+    dogPop.style.display = "none";
+    dophinPop.style.display = "none";
+    바위게Pop.style.display = "none";
+    독도새우Pop.style.display = "none";
+    flamingoPop.style.display = "none";
+    pigeonPop.style.display = "none";
+    seagullPop.style.display = "none";
+  };
 
   // 마우스로 클릭
+
   function checkIntersects() {
-    // raycaster.setFromCamera(mouse, camera);
     const intersects = raycaster.intersectObjects(meshes);
-    for (const item of intersects) {
-      if (item.object.name === "floor") {
-        destinationPoint.x = item.point.x;
-        destinationPoint.y = 0.3;
-        destinationPoint.z = item.point.z;
-        player.modelMesh.lookAt(destinationPoint);
+    const item = intersects[0];
+    // console.log(item.object.name);
+    if (!item) return;
+    if (
+      item.object.name === "floor" ||
+      "land_79030" ||
+      "land_79020" ||
+      "land_79043"
+    ) {
+      destinationPoint = new Vector3(item.point.x, 0.3, item.point.z);
+      player.moveTo(destinationPoint);
 
-        player.moving = true;
+      pointerMesh.position.x = destinationPoint.x;
+      pointerMesh.position.z = destinationPoint.z;
+    }
+    if (item.object.name === "Dolphin") {
+      player.dontMove(destinationPoint);
+      돌고래.onRaycasted();
+      const dolphinPop = document.getElementById("dolphin");
+      dolphinPop.style.display = "block";
+      dolphinPop.addEventListener("mouseup", () => {
+        isPressed = false;
+      });
+    }
+    if (item.object.name === "SeaLion") {
+      player.dontMove(destinationPoint);
+      강치.onRaycasted();
+      const 강치Pop = document.getElementById("강치");
+      강치Pop.style.display = "block";
+      강치Pop.addEventListener("mouseup", () => {
+        isPressed = false;
+      });
+    }
+    if (item.object.name === "Flamingo") {
+      player.dontMove(destinationPoint);
+      flamingo.onRaycasted();
+      const flamingoPop = document.getElementById("flamingo");
+      flamingoPop.style.display = "block";
+      flamingoPop.addEventListener("mouseup", () => {
+        isPressed = false;
+      });
+    }
+    if (item.object.name === "Pigeon") {
+      player.dontMove(destinationPoint);
+      pigeon.onRaycasted();
+      const pigeonPop = document.getElementById("pigeon");
+      pigeonPop.style.display = "block";
+      pigeonPop.addEventListener("mouseup", () => {
+        isPressed = false;
+      });
+    }
+    if (item.object.name === "Seagull") {
+      player.dontMove(destinationPoint);
+      seagull.onRaycasted();
+      const seagullPop = document.getElementById("seagull");
+      seagullPop.style.display = "block";
+      seagullPop.addEventListener("mouseup", () => {
+        isPressed = false;
+      });
+    }
+    if (item.object.name === "Crab") {
+      player.dontMove(destinationPoint);
+      바위게.onRaycasted();
+      const 바위게Pop = document.getElementById("바위게");
+      바위게Pop.style.display = "block";
+      바위게Pop.addEventListener("mouseup", () => {
+        isPressed = false;
+      });
+    }
+    if (item.object.name === "Prawn") {
+      player.dontMove(destinationPoint);
+      독도새우.onRaycasted();
+      const 독도새우Pop = document.getElementById("독도새우");
+      독도새우Pop.style.display = "block";
+      독도새우Pop.addEventListener("mouseup", () => {
+        isPressed = false;
+      });
+    }
+    if (item.object.name === "Dog") {
+      player.dontMove(destinationPoint);
+      dog.onRaycasted();
+      const dogPop = document.getElementById("dog");
+      dogPop.style.display = "block";
+      dogPop.addEventListener("mouseup", () => {
+        isPressed = false;
+      });
+    }
+    if (item.object.name === "Turtle") {
+      player.dontMove(destinationPoint);
+      turtle.onRaycasted();
+      const turtlePop = document.getElementById("turtle");
+      turtlePop.style.display = "block";
+      turtlePop.addEventListener("mouseup", () => {
+        isPressed = false;
+      });
+    }
+    if (item.object.name === "Penguin") {
+      player.dontMove(destinationPoint);
+      펭귄.onRaycasted();
+      const penguinPop = document.getElementById("penguin");
+      penguinPop.style.display = "block";
+      penguinPop.addEventListener("mouseup", () => {
+        isPressed = false;
+      });
+    }
+    if (item.object.name === "ocean") {
+      player.moving = false;
+    }
+    if (item.object.name === "퀴즈팻말") {
+      const QuizPop = document.getElementById("QuizPopup");
+      QuizPop.style.display = "block";
+      QuizPop.addEventListener("mouseup", () => {
+        isPressed = false;
+      });
+      player.moving = false;
+    }
+    if (item.object.name == "지질팻말") {
+      const TerrianPop = document.getElementById("TerrianPopup");
+      TerrianPop.style.display = "block";
+      TerrianPop.addEventListener("mouseup", () => {
+        isPressed = false;
+      });
+      mapReLoading();
 
-        pointerMesh.position.x = destinationPoint.x;
-        pointerMesh.position.z = destinationPoint.z;
-
-        console.log("땅이다");
-      } else if (
-        item.object.name === "land_79030" ||
-        item.object.name === "land_79020" ||
-        item.object.name === "land_79043"
-      ) {
-        destinationPoint.x = item.point.x;
-        destinationPoint.y = 0.3;
-        destinationPoint.z = item.point.z;
-        player.modelMesh.lookAt(destinationPoint);
-
-        player.moving = true;
-
-        pointerMesh.position.x = destinationPoint.x;
-        pointerMesh.position.z = destinationPoint.z;
-
-        console.log("다리다");
-        // console.log(item.object.scale)
-      } else if (item.object.name === "FennecFox") {
-        console.log("페넥여우를 터치하였습니다!");
-        // setTimeout(()=> {
-        npc.actions[1].setLoop(THREE.LoopOnce);
-        npc.actions[1].stop();
-        npc.actions[1].play();
-        // npc.actions[0].stop()
-        // },2)
-      } else if (item.object.name === "ocean") {
-        console.log("바다다");
-      }
-      break;
+      player.moving = false;
+    }
+    if (item.object.name === "생태팻말") {
+      const EcoPop = document.getElementById("EcoPopup");
+      EcoPop.style.display = "block";
+      EcoPop.addEventListener("mouseup", () => {
+        isPressed = false;
+      });
+      player.moving = false;
+    }
+    if (item.object.name === "역사팻말") {
+      const HistoryPop = document.getElementById("HistoryPopup");
+      HistoryPop.style.display = "block";
+      HistoryPop.addEventListener("mouseup", () => {
+        isPressed = false;
+      });
+      player.moving = false;
+    }
+    if (item.object.name.includes("land_76002")) {
+      const BoardPop = document.getElementById("board");
+      BoardPop.addEventListener("mouseup", () => {
+        isPressed = false;
+      });
+      BoardPop.style.display = "block";
+      player.moving = false;
     }
   }
+
+  // 지형관 상태 변경 감지 코드
+  var popUp = false;
+  const TerrianQuitPopup = () => {
+    const TerrianPop = document.getElementById("TerrianPopup");
+    TerrianPop.style.display = "none";
+    // setPopUp(!popUp);
+    popUp = !popUp;
+  };
 
   function setSize() {
     camera.left = -(window.innerWidth / window.innerHeight);
@@ -623,6 +682,12 @@ function MainTest() {
     renderer.setSize(window.innerWidth, window.innerHeight);
     renderer.render(scene, camera);
   }
+
+  // 게시판 안보이는 함수
+  const quitBoard = () => {
+    const BoardPop = document.getElementById("board");
+    BoardPop.style.display = "none";
+  };
 
   // 이벤트
   window.addEventListener("resize", setSize);
@@ -653,28 +718,9 @@ function MainTest() {
     }
   });
 
-  // 터치 이벤트
-  canvas.addEventListener("touchstart", (e) => {
-    isPressed = true;
-    calculateMousePosition(e.touches[0]);
-  });
-  canvas.addEventListener("touchend", () => {
-    isPressed = false;
-  });
-  canvas.addEventListener("touchmove", (e) => {
-    if (isPressed) {
-      calculateMousePosition(e.touches[0]);
-    }
-  });
-
-  draw();
-
-  const state = {
-    time: 0,
-  };
-
+  // 스크린 캡처 코드를 위해 render 함수를 따로 분리해서 설정해줌
   function resizeRendererToDisplaySize(renderer) {
-    const canvas = renderer.domElement;
+    // const canvas = renderer.domElement;
     const width = canvas.clientWidth;
     const height = canvas.clientHeight;
     const needResize = canvas.width !== width || canvas.height !== height;
@@ -686,7 +732,7 @@ function MainTest() {
 
   function render() {
     if (resizeRendererToDisplaySize(renderer)) {
-      const canvas = renderer.domElement;
+      // const canvas = renderer.domElement;
       camera.aspect = canvas.clientWidth / canvas.clientHeight;
       camera.updateProjectionMatrix();
     }
@@ -711,18 +757,236 @@ function MainTest() {
       a.click();
     };
   })();
+  //
+
+  //#region = 캐릭터 선택하기
+  const changeSiryeong = () => {
+    scene.remove(player.modelMesh);
+    player = new Player({
+      scene,
+      meshes,
+      gltfLoader,
+      modelSrc: "/assets/glTF/character/siryeong.glb",
+      x: destinationPoint.x,
+      y: 0.3,
+      z: destinationPoint.z,
+    });
+  };
+  const changeSojung = () => {
+    scene.remove(player.modelMesh);
+    player = new Player({
+      scene,
+      meshes,
+      gltfLoader,
+      modelSrc: "/assets/glTF/character/sojung.glb",
+      x: destinationPoint.x,
+      y: 0.3,
+      z: destinationPoint.z,
+    });
+  };
+  const changeHyoseon = () => {
+    scene.remove(player.modelMesh);
+    player = new Player({
+      scene,
+      meshes,
+      gltfLoader,
+      modelSrc: "/assets/glTF/character/hyoseon.glb",
+      x: destinationPoint.x,
+      y: 0.3,
+      z: destinationPoint.z,
+    });
+  };
+  const changeYoungjin = () => {
+    scene.remove(player.modelMesh);
+    player = new Player({
+      scene,
+      meshes,
+      gltfLoader,
+      modelSrc: "/assets/glTF/character/youngjin.glb",
+      x: destinationPoint.x,
+      y: 0.3,
+      z: destinationPoint.z,
+    });
+  };
+  const changeSeongryeong = () => {
+    scene.remove(player.modelMesh);
+    player = new Player({
+      scene,
+      meshes,
+      gltfLoader,
+      modelSrc: "/assets/glTF/character/seongryeong.glb",
+      x: destinationPoint.x,
+      y: 0.3,
+      z: destinationPoint.z,
+    });
+  };
+  const changeChaehyeon = () => {
+    scene.remove(player.modelMesh);
+    player = new Player({
+      scene,
+      meshes,
+      gltfLoader,
+      modelSrc: "/assets/glTF/character/chaehyeon.glb",
+      x: destinationPoint.x,
+      y: 0.3,
+      z: destinationPoint.z,
+    });
+  };
+  //#endregion
+
+
+
+  // 플레이어 캐릭터 행동
+  const actionHandler = (e) => {
+    const delta = clock.getDelta();
+    render();
+    if (player.mixer) {
+      // player.mixer.update(delta);
+      // player.actions[e].play();
+      
+      player.actions[e].setLoop(THREE.LoopOnce);
+      player.actions[e].stop();
+      player.actions[e].play();
+    } 
+  }
+
+  update();
 
   return (
-    <div className='mainPage'>
-      <div className='screenShot' onClick={clickScreenCapture} id='screenshot'>
-        <img className='screenShotButton' src='/assets/images/camera.png'></img>
-        <div className='ButtonBackGround'></div>
-      </div>
-      <div className='tutorial'>
-        <img className='tutorialMark' src='/assets/images/tutorial.png'></img>
-        <div className='ButtonBackGround'></div>
-      </div>
-    </div>
+    <>
+      {isLoaded ? (
+        <div className='mainPage'>
+          {/* 맨 처음 강치의 튜토리얼 소개 페이지 */}
+          <TutorialGangchi></TutorialGangchi>
+          {/* 팝업 컴포넌트들 */}
+          <div
+            className='QuizPopup'
+            id='QuizPopup'
+            style={{ display: "none"}}
+          >
+            <OXQuizPopup></OXQuizPopup>
+          </div>
+
+          <div
+            className='TerrianPopup'
+            id='TerrianPopup'
+            style={{ display: "none"}}
+          >
+            <TerrianPopup isShown={popUp} TerrianQuitPopup={TerrianQuitPopup}></TerrianPopup>
+          </div>
+
+          <div
+            className='EcoPopup'
+            id='EcoPopup'
+            style={{ display: "none" }}
+          >
+            <EcoSystemPopup></EcoSystemPopup>
+          </div>
+
+          <div
+            className='HistoryPopup'
+            id='HistoryPopup'
+            style={{ display: "none"}}
+          >
+            <HistoryPopup></HistoryPopup>
+            
+          </div>
+
+          {/* 마이페이지 버튼 */}
+          <div
+            className='myPage'
+            onClick={() => {
+              clickMyPage();
+            }}
+          >
+            My Page
+          </div>
+          <div
+            id='myPage'
+            style={{ display: "none", marginTop: "40px", marginLeft: "115px" }}
+          >
+            <img
+              src='/assets/icons/cancel.png'
+              className='quitMyPage'
+              onClick={() => {
+                quitMyPage();
+              }}
+              alt='EMPTY'
+            ></img>
+            <MyPagePopup
+              changeSojung={changeSojung}
+              changeSiryeong={changeSiryeong}
+              changeHyoseon={changeHyoseon}
+              changeYoungjin={changeYoungjin}
+              changeSeongryeong={changeSeongryeong}
+              changeChaehyeon={changeChaehyeon}
+            ></MyPagePopup>
+          </div>
+
+          {/* 하단의 스크린샷 버튼과 튜토리얼 버튼 */}
+          <div
+            className='screenShot'
+            onClick={clickScreenCapture}
+            id='screenshot'
+          >
+            <img
+              className='screenShotButton'
+              src='/assets/images/camera.png'
+            ></img>
+            <div className='ButtonBackGround'></div>
+          </div>
+
+          <div className='tutorial' onClick={clickTutorial}>
+            <img
+              src='/assets/images/tutorial.png'
+              className='tutorialImage'
+            ></img>
+          </div>
+          <div id='tutorial' style={{ display: "none" }}>
+            <img
+              className='tutorialMark'
+              src='/assets/images/tutorial.png'
+            ></img>
+            <Tutorial></Tutorial>
+            <img
+              src='/assets/icons/cancel.png'
+              className='quitTutorial'
+              onClick={quitTutorial}
+            ></img>
+          </div>
+
+          {/* 플레이어 캐릭터 애니메이션 */}
+          <div onClick={()=> {actionHandler(3)}} className="dance">
+              <img className='actionImage' 
+              src="/assets/images/emotions/dance.png"></img>
+              <div className="actionButton"></div>
+          </div>
+
+          <div onClick={()=> {actionHandler(2)}} className="victory">
+              <img className='actionImage' 
+              src="/assets/images/emotions/hurray.png"></img>
+              <div className="actionButton"></div>
+          </div>
+
+          <div onClick={()=> {actionHandler(4)}} className="sad">
+              <img className='actionImage' 
+              src="/assets/images/emotions/sad.png"></img>
+              <div className="actionButton"></div>
+          </div>
+
+          {/* 게시판으로 이동하기 */}
+          <div id='board' className='board'>
+            <Board quitBoard={quitBoard}></Board>
+          </div>
+
+          {/* NPC 캐릭터들 말풍선들 */}
+          <NPCBubble quitNPCbubble={quitNPCbubble}></NPCBubble>
+        </div>
+      ) : (
+        <LoadingComponent />
+      )}
+    </>
   );
 }
+
 export default MainTest;

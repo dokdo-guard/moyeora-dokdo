@@ -6,9 +6,11 @@ import LinearProgress, {
 } from "@mui/material/LinearProgress";
 // import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
+import {quitPopup} from '../main/PopupButton.js'
 
 import { getQuiz } from "../../api/quizApi.js";
 import "../css/OXQuizPopup.css";
+import axios from "axios";
 
 // 문제 개수 선택 화면
 function OXQuizPopup() {
@@ -18,25 +20,65 @@ function OXQuizPopup() {
   const [quizProgress, setQuizProgress] = useState(0);
   const [answerCorrect, setAnswerCorrect] = useState(0);
   useEffect(() => {
-    // console.log("USE EFFECT CALL");
-    getQuiz(quizNum)
-      .then((res) => {
-        setQuiz([
-          { ...res },
-          {
-            id: "END",
-            answer: "END",
-            quizText: "END",
-          },
-        ]);
-        // console.log(res);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-
-    // console.log(quizNum);
+    if (quizNum !== 0) {
+      getQuiz(quizNum)
+        .then((res) => {
+          setQuiz(res.data);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+    return () => {};
   }, [quizNum]);
+
+  const accessToken = sessionStorage.getItem("accessToken");
+  const setQuizResult = async (result) => {
+    if (
+      window.confirm(
+        sessionStorage.getItem("name").slice(0, 3) +
+          "님 점수를 등록 하시겠습니까?",
+      )
+    ) {
+      await axios
+        .put(
+          "https://k7d204.p.ssafy.io/api/quiz",
+          {
+            quiz: result + "",
+          },
+          {
+            headers: {
+              Authorization: `Bearer ${accessToken}`,
+            },
+          },
+        )
+        .then((res) => {
+          console.log(res);
+          alert("점수 등록 완료!");
+          setSelected(false);
+          setQuizNum(0);
+          setQuizProgress(0);
+          setAnswerCorrect(0);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+
+      await axios.post(
+        "https://k7d204.p.ssafy.io/api/badge",
+        {
+          achievement: "",
+          image: "",
+          name: "퀴즈 만점",
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        },
+      );
+    }
+  };
 
   const SelectQuizNum = () => {
     return (
@@ -100,10 +142,23 @@ function OXQuizPopup() {
             다시 풀기
           </button>
           {/* 점수 등록 할 것 */}
-          <button className='endQuizButton2'>종료하기</button>
+          {quizNum === answerCorrect ? (
+            <button
+              className='endQuizButton2'
+              onClick={() => {
+                setQuizResult(quizNum);
+              }}
+            >
+              점수 등록
+            </button>
+          ) : null}
         </div>
       </div>
     );
+  };
+  const correct = () => {
+    setAnswerCorrect((answerCorrect) => answerCorrect + 1);
+    // alert("correct!");
   };
 
   // Custom Progress Bar
@@ -131,16 +186,18 @@ function OXQuizPopup() {
     );
   };
   LinearProgressWithLabel.propTypes = {
-    /**
-     * The value of the progress indicator for the determinate and buffer variants.
-     * Value between 0 and 100.
-     */
     value: PropTypes.number.isRequired,
   };
   return (
-    <>
+    <div style={{position:'relative'}}>
       <div className='OXQuizContainer'>
         <div className='QuizTitle'>Quiz</div>
+        <img
+              src='/assets/icons/cancel.png'
+              id='quitButton'
+              onClick={quitPopup}
+              className="quitPopup"
+            ></img>
         {selected ? (
           <div className='OXQuizInWrapper'>
             <div className={quizProgress < quizNum ? "notHidden" : "hidden"}>
@@ -149,15 +206,21 @@ function OXQuizPopup() {
                   value={(quizProgress / quizNum) * 100}
                 />
               </div>
-              {/* <div className='QuizText'>{quiz[quizProgress].quizText}</div> */}
+              <div className='QuizText'>{quiz[quizProgress]?.quizText}</div>
+
+              {/* 나중에 삭제할 것 */}
+              {/* <div>{quiz[quizProgress]?.answer.slice(0, 1)}</div>
+              <div>{answerCorrect}</div> */}
+              {/* 나중에 삭제할 것 */}
+
               <div className='QuizOX'>
                 <button
                   className='OX_O'
                   onClick={() => {
-                    setQuizProgress(quizProgress + 1);
-                    if (quiz[quizProgress].answer === "O") {
-                      setAnswerCorrect(answerCorrect + 1);
+                    if (quiz[quizProgress]?.answer.slice(0, 1) === "O") {
+                      correct();
                     }
+                    setQuizProgress((quizProgress) => quizProgress + 1);
                   }}
                 >
                   O
@@ -165,13 +228,10 @@ function OXQuizPopup() {
                 <button
                   className='OX_X'
                   onClick={() => {
-                    setQuizProgress(quizProgress + 1);
-                    if (quizProgress >= 15) {
-                      return;
+                    if (quiz[quizProgress]?.answer.slice(0, 1) === "X") {
+                      correct();
                     }
-                    if (quiz[quizProgress].answer === "X") {
-                      setAnswerCorrect(answerCorrect + 1);
-                    }
+                    setQuizProgress((quizProgress) => quizProgress + 1);
                   }}
                 >
                   X
@@ -186,7 +246,8 @@ function OXQuizPopup() {
           <SelectQuizNum />
         )}
       </div>
-    </>
+      <div style={{width:'100vw',height:'100vh',backgroundColor:'black',position:'absolute',opacity:'30%',zIndex:'9'}}></div>
+    </div>
   );
 }
 export default OXQuizPopup;

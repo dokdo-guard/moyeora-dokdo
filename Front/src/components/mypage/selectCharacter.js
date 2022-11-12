@@ -1,10 +1,9 @@
-import { Suspense, useEffect, useState } from 'react';
-import popupStyles from '../css/Character.module.css';
-import PropTypes from 'prop-types';
-import { Canvas, useLoader, useFrame } from '@react-three/fiber';
-import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
-import * as THREE from 'three';
-
+import { Suspense, useEffect, useState } from "react";
+import popupStyles from "../css/Character.module.css";
+import { Canvas, useLoader, useFrame } from "@react-three/fiber";
+import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
+import * as THREE from "three";
+import axios from "axios";
 const globalDataSet = {
   models: {},
   actions: {},
@@ -13,7 +12,7 @@ const globalDataSet = {
 };
 
 const Character = (props) => {
-  const modelUrl = '/assets/glTF/character/' + props.character + '.glb';
+  const modelUrl = "/assets/glTF/character/" + props.character + ".glb";
   const model = useLoader(GLTFLoader, modelUrl);
   globalDataSet.models[props.character] = model;
 
@@ -36,7 +35,7 @@ const Character = (props) => {
       globalDataSet.isAnimated &&
       !globalDataSet.actions[props.character]?.enabled
     ) {
-      console.log('idle');
+      console.log("idle");
       const action = mixer.clipAction(gltf.animations[0]);
       action.setLoop(THREE.LoopRepeat);
       globalDataSet.actions[props.character].stop();
@@ -52,16 +51,18 @@ const Character = (props) => {
 
 const Popup = (props) => {
   const characters = [
-    'siryeong',
-    'sojung',
-    'hyoseon',
-    'youngjin',
-    'seongryeong',
-    'chaehyeon',
+    "siryeong",
+    "sojung",
+    "hyoseon",
+    "youngjin",
+    "seongryeong",
+    "chaehyeon",
   ];
 
   const [show, setShow] = useState(false);
-  const [myCharacter, setCharacter] = useState('siryeong');
+  const [myCharacter, setCharacter] = useState(
+    sessionStorage.getItem("userCharacter"),
+  );
 
   const closeHandler = (e) => {
     setShow(false);
@@ -69,7 +70,7 @@ const Popup = (props) => {
   };
 
   const actionHandler = (e) => {
-    console.log('motion');
+    console.log("motion");
     let gltf = globalDataSet.models[myCharacter];
     let mixer = globalDataSet.mixers[myCharacter];
 
@@ -79,39 +80,87 @@ const Popup = (props) => {
     globalDataSet.actions[myCharacter] = action;
     globalDataSet.actions[myCharacter].play();
     globalDataSet.isAnimated = true;
+    // props.changeCharacter()
   };
-
+  const changeCharacterApiCall = () => {
+    const accessToken = sessionStorage.getItem("accessToken");
+    axios
+      .put(
+        "https://k7d204.p.ssafy.io/api/character",
+        { userCharacter: myCharacter },
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        },
+      )
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
   useEffect(() => {
     setShow(props.show);
   }, [props.show]);
 
+  // 메인페이지에 캐릭터 이름 보내기
+  useEffect(() => {
+    if (myCharacter === "siryeong") {
+      props.changeSiryeong();
+    }
+    if (myCharacter === "sojung") {
+      props.changeSojung();
+    }
+    if (myCharacter === "hyoseon") {
+      props.changeHyoseon();
+    }
+    if (myCharacter === "youngjin") {
+      props.changeYoungjin();
+    }
+    if (myCharacter === "seongryeong") {
+      props.changeSeongryeong();
+    }
+    if (myCharacter === "chaehyeon") {
+      props.changeChaehyeon();
+    }
+    changeCharacterApiCall();
+    console.log(myCharacter);
+
+    // console.log(myCharacter);
+  }, [myCharacter]);
+
   return (
     <div
-      style={{
-        visibility: show ? 'visible' : 'hidden',
-        opacity: show ? '1' : '0',
-      }}
+      // style={{
+      //   visibility: show ? 'visible' : 'hidden',
+      //   opacity: show ? '1' : '0',
+      // }}
       className={popupStyles.overlay}
     >
-      <span className={popupStyles.close} onClick={closeHandler} />
+      {/* <span className={popupStyles.close} onClick={closeHandler} /> */}
       <div className={popupStyles.emotion}>
         <img
-          src={require('../imgs/emotion/win.png')}
+          src='/assets/images/emotions/win.png'
           onClick={() => {
             actionHandler(5);
           }}
+          alt='no'
         ></img>
         <img
-          src={require('../imgs/emotion/dance.png')}
+          src='/assets/images/emotions/dance.png'
           onClick={() => {
             actionHandler(3);
           }}
+          alt='no'
         ></img>
         <img
-          src={require('../imgs/emotion/sad.png')}
+          src='/assets/images/emotions/sad.png'
           onClick={() => {
             actionHandler(2);
           }}
+          alt='no'
         ></img>
       </div>
       <div className={popupStyles.character}>
@@ -134,8 +183,11 @@ const Popup = (props) => {
           return (
             <div key={idx}>
               <img
-                src={require('../imgs/characters/' + c_name + '.png')}
-                onClick={() => setCharacter(c_name)}
+                src={`/assets/images/characters/${c_name}.png`}
+                onClick={() => {
+                  setCharacter(c_name);
+                }}
+                alt='no'
               ></img>
             </div>
           );
@@ -145,13 +197,13 @@ const Popup = (props) => {
   );
 };
 
-Popup.propTypes = {
-  show: PropTypes.bool.isRequired,
-  onClose: PropTypes.func.isRequired,
-};
+// Popup.propTypes = {
+//   show: PropTypes.bool.isRequired,
+//   onClose: PropTypes.func.isRequired,
+// };
 
-Character.propTypes = {
-  character: PropTypes.string.isRequired,
-};
+// Character.propTypes = {
+//   character: PropTypes.string.isRequired,
+// };
 
 export default Popup;
