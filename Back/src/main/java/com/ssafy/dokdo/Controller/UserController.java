@@ -155,4 +155,17 @@ public class UserController {
         }
     }
 
+    @GetMapping("/user/talk")
+    public ResponseEntity<?> getNpcTalk(@CurrentUser UserPrincipal userPrincipal) {
+        try{
+            return new ResponseEntity<>(
+                    userService.getNpcTalk(userPrincipal.getId()),
+                    HttpStatus.OK);
+        } catch (NoSuchElementException noSuchElementException) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
 }
