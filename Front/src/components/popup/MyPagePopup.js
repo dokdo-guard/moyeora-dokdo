@@ -23,6 +23,7 @@ function MyPagePopup(props) {
   // 세션스토리지에서 accessToken 받아옴
   const accessToken = sessionStorage.getItem("accessToken");
   useEffect(() => {
+    // 도감 조회
     const getDogam = async () => {
       const dogams = await axios.get(
         `https://k7d204.p.ssafy.io/api/user/dogams/${category}`,
@@ -34,37 +35,45 @@ function MyPagePopup(props) {
       );
       setDogam(dogams.data);
     };
-    getDogam();
+    if (category !== "") {
+      getDogam();
+    }
   }, [category]);
 
   useEffect(() => {
-    getBadge();
-  }, [isLoaded]);
-
-  // 도감 조회 api
-  // const getDogam = async () => {
-  //   await axios.get(`https://k7d204.p.ssafy.io/api/user/dogams/${category}`, {
-  //     headers: {
-  //       Authorization: `Bearer ${accessToken}`,
-  //     },
-  //   });
-  // };
-
-  // 뱃지 조회 api
-  const getBadge = async () => {
-    await axios
-      .get(`https://k7d204.p.ssafy.io/api/badge`, {
+    const getBadge = async () => {
+      const badges = await axios.get(`https://k7d204.p.ssafy.io/api/badge`, {
         headers: {
           Authorization: `Bearer ${accessToken}`,
         },
-      })
-      .then((res) => {
-        setDogam(res.data);
-      })
-      .catch((err) => {
-        console.log(err);
       });
-  };
+      setBadges(badges.data);
+    };
+    getBadge();
+  }, [isLoaded]);
+
+  useEffect(() => {
+    if (userCharacter === "siryeong") {
+      props.changeSiryeong();
+    }
+    if (userCharacter === "sojung") {
+      props.changeSojung();
+    }
+    if (userCharacter === "hyoseon") {
+      props.changeHyoseon();
+    }
+    if (userCharacter === "youngjin") {
+      props.changeYoungjin();
+    }
+    if (userCharacter === "seongryeong") {
+      props.changeSeongryeong();
+    }
+    if (userCharacter === "chaehyeon") {
+      props.changeChaehyeon();
+    }
+    setCharacter();
+    console.log(userCharacter);
+  }, [userCharacter]);
 
   // 캐릭터 선택 axios api call
   const setCharacter = async () => {
@@ -85,24 +94,6 @@ function MyPagePopup(props) {
       .catch((err) => {
         console.log(err);
       });
-    if (userCharacter === "siryeong") {
-      props.changeSiryeong();
-    }
-    if (userCharacter === "sojung") {
-      props.changeSojung();
-    }
-    if (userCharacter === "hyoseon") {
-      props.changeHyoseon();
-    }
-    if (userCharacter === "youngjin") {
-      props.changeYoungjin();
-    }
-    if (userCharacter === "seongryeong") {
-      props.changeSeongryeong();
-    }
-    if (userCharacter === "chaehyeon") {
-      props.changeChaehyeon();
-    }
   };
 
   /* #region SelectCharacter */
@@ -250,7 +241,11 @@ function MyPagePopup(props) {
   const notEarnedDogam = (maxNum) => {
     let array = [];
     for (let i = 0; i < maxNum - dogam.length; i++) {
-      array.push(<div className='DogamItem'>?</div>);
+      array.push(
+        <div className='DogamItem' key={i}>
+          ?
+        </div>,
+      );
     }
     return array;
   };
@@ -394,6 +389,7 @@ function MyPagePopup(props) {
         >
           Back
         </div>
+        <div className='DogamCategoryWrapper'>TEST</div>
       </div>
     );
   };
