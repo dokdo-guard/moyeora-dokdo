@@ -9,6 +9,7 @@
   justify-content: center;
   transition: background-color 0.3s;
   font-weight: 700;
+  cursor: pointer;
 }
 .LineSkipButton {
   margin: 50px;
@@ -22,6 +23,8 @@
   justify-content: center;
   font-weight: 700;
   transition: background-color 0.3s;
+  cursor: pointer;
+
 }
 .LineENDButton {
   margin: 50px;
@@ -37,6 +40,7 @@
   transition: transform 250ms;
   box-shadow: 3px 3px 20px lightgray;
   font-size: 40px;
+  cursor: pointer;
 }
 
 .LineNextButton:hover {

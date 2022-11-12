@@ -5,6 +5,7 @@ import {
 } from "react-vertical-timeline-component";
 import "react-vertical-timeline-component/style.min.css";
 import "../css/HistoryPopup.css";
+import {quitPopup} from '../main/PopupButton.js'
 
 const dummy_data_history = [
   {
@@ -70,55 +71,65 @@ function HistoryPopup() {
   );
 
   return (
-    <div className='HistoryPopupContainer'>
-      <div className='QuizTitle'>독도의 역사</div>
-      <div className='HistoryPopupWrapper'>
-        <div className='HistoryYear'>
-          <VerticalTimeline>
-            {/* <VerticalTimelineElement
-              className='vertical-timeline-element--work'
-              date='2011 - present'
-              iconStyle={{ background: "rgb(33, 150, 243)", color: "#fff" }}
-            >
-              <h3 className='vertical-timeline-element-title'>
-                Creative Director
-              </h3>
-              <h4 className='vertical-timeline-element-subtitle'>Miami, FL</h4>
-              <p>
-                Creative Direction, User Experience, Visual Design, Project
-                Management, Team Leading
-              </p>
-            </VerticalTimelineElement> */}
-            {historyData.map((data) => {
-              return (
-                <VerticalTimelineElement
-                  className='vertical-timeline-element--work'
-                  date={data.era}
-                  iconStyle={{ background: "#FFF562", color: "#fff" }}
-                  key={data.era}
-                >
-                  <h3 className='vertical-timeline-element-title'>
-                    {data.era}
-                  </h3>
-                  <div
-                    className={
-                      data.img === undefined ? "hidden" : "historyTimelineImage"
-                    }
+    <div style={{position:'relative'}}>
+      <div className='HistoryPopupContainer'>
+        <div className='QuizTitle'>독도의 역사</div>
+        <img
+              src='/assets/icons/cancel.png'
+              id='quitButton'
+              onClick={quitPopup}
+              className="quitPopup"
+            ></img>
+        <div className='HistoryPopupWrapper'>
+          <div className='HistoryYear'>
+            <VerticalTimeline>
+              {/* <VerticalTimelineElement
+                className='vertical-timeline-element--work'
+                date='2011 - present'
+                iconStyle={{ background: "rgb(33, 150, 243)", color: "#fff" }}
+              >
+                <h3 className='vertical-timeline-element-title'>
+                  Creative Director
+                </h3>
+                <h4 className='vertical-timeline-element-subtitle'>Miami, FL</h4>
+                <p>
+                  Creative Direction, User Experience, Visual Design, Project
+                  Management, Team Leading
+                </p>
+              </VerticalTimelineElement> */}
+              {historyData.map((data) => {
+                return (
+                  <VerticalTimelineElement
+                    className='vertical-timeline-element--work'
+                    date={data.era}
+                    iconStyle={{ background: "#FFF562", color: "#fff" }}
+                    key={data.era}
                   >
-                    <img
-                      src={
-                        "https://ssafy-d204-dokdo.s3.ap-northeast-2.amazonaws.com/" +
-                        data?.img
+                    <h3 className='vertical-timeline-element-title'>
+                      {data.era}
+                    </h3>
+                    <div
+                      className={
+                        data.img === undefined ? "hidden" : "historyTimelineImage"
                       }
-                    />
-                  </div>
-                  <p>{data.content}</p>
-                </VerticalTimelineElement>
-              );
-            })}
-          </VerticalTimeline>
+                    >
+                      <img
+                        src={
+                          "https://ssafy-d204-dokdo.s3.ap-northeast-2.amazonaws.com/" +
+                          data?.img
+                        }
+                      />
+                    </div>
+                    <p>{data.content}</p>
+                  </VerticalTimelineElement>
+                );
+              })}
+            </VerticalTimeline>
+          </div>
         </div>
       </div>
+      <div style={{width:'100vw',height:'100vh',backgroundColor:'black',position:'absolute',opacity:'30%',zIndex:'9'}}></div>
+
     </div>
   );
 }

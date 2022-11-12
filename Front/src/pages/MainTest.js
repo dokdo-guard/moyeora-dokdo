@@ -22,7 +22,7 @@ import { useEffect, useState } from "react";
 
 import { mapReLoading } from "../components/popup/TerrianPopup";
 
-import { LoadingComponent, MyPagePopup } from "../components/index";
+import { LoadingComponent, MyPagePopup, TutorialGangchi } from "../components/index";
 
 import {
   eastFloorMesh,
@@ -241,7 +241,7 @@ function MainTest() {
     scene,
     meshes,
     gltfLoader,
-    modelSrc: "/assets/glTF/Flamingo.gltf",
+    modelSrc: "/assets/glTF/Flamingo.glb",
     x: -20.196,
     y: 0.5,
     z: 0.88,
@@ -252,7 +252,7 @@ function MainTest() {
     scene,
     meshes,
     gltfLoader,
-    modelSrc: "/assets/glTF/Pigeon.gltf",
+    modelSrc: "/assets/glTF/Pigeon.glb",
     x: -39.411,
     y: 0.5,
     z: 2.983,
@@ -263,7 +263,7 @@ function MainTest() {
     scene,
     meshes,
     gltfLoader,
-    modelSrc: "/assets/glTF/Seagull.gltf",
+    modelSrc: "/assets/glTF/Seagull.glb",
     x: -19.82,
     y: 0.5,
     z: 20.572,
@@ -274,7 +274,7 @@ function MainTest() {
     scene,
     meshes,
     gltfLoader,
-    modelSrc: "/assets/glTF/바위게.gltf",
+    modelSrc: "/assets/glTF/바위게.glb",
     x: -7.77,
     y: 0.5,
     z: 34.239,
@@ -285,7 +285,7 @@ function MainTest() {
     scene,
     meshes,
     gltfLoader,
-    modelSrc: "/assets/glTF/독도새우.gltf",
+    modelSrc: "/assets/glTF/독도새우.glb",
     x: -42.184,
     y: 0.5,
     z: -14.378,
@@ -307,7 +307,7 @@ function MainTest() {
     scene,
     meshes,
     gltfLoader,
-    modelSrc: "/assets/glTF/Turtle.gltf",
+    modelSrc: "/assets/glTF/Turtle.glb",
     x: -47.657,
     y: 0.5,
     z: 21.398,
@@ -318,7 +318,7 @@ function MainTest() {
     scene,
     meshes,
     gltfLoader,
-    modelSrc: "/assets/glTF/돌고래.gltf",
+    modelSrc: "/assets/glTF/돌고래.glb",
     x: -29.973,
     y: 0.2,
     z: -40.685,
@@ -329,7 +329,7 @@ function MainTest() {
     scene,
     meshes,
     gltfLoader,
-    modelSrc: "/assets/glTF/Penguin.gltf",
+    modelSrc: "/assets/glTF/Penguin.glb",
     x: -41.336,
     y: 0.2,
     z: -27.849,
@@ -834,64 +834,62 @@ function MainTest() {
   };
   //#endregion
 
+
+
+  // 플레이어 캐릭터 행동
+  const actionHandler = (e) => {
+    const delta = clock.getDelta();
+    render();
+    if (player.mixer) {
+      // player.mixer.update(delta);
+      // player.actions[e].play();
+      
+      player.actions[e].setLoop(THREE.LoopOnce);
+      player.actions[e].stop();
+      player.actions[e].play();
+    } 
+  }
+
   update();
 
   return (
     <>
       {isLoaded ? (
         <div className='mainPage'>
+          {/* 맨 처음 강치의 튜토리얼 소개 페이지 */}
+          <TutorialGangchi></TutorialGangchi>
           {/* 팝업 컴포넌트들 */}
           <div
             className='QuizPopup'
             id='QuizPopup'
-            style={{ display: "none", marginTop: "40px", marginLeft: "115px" }}
+            style={{ display: "none"}}
           >
-            <img
-              src='/assets/icons/cancel.png'
-              id='quitButton'
-              onClick={quitPopup}
-            ></img>
             <OXQuizPopup></OXQuizPopup>
           </div>
 
           <div
             className='TerrianPopup'
             id='TerrianPopup'
-            style={{ display: "none", marginTop: "40px", marginLeft: "115px" }}
+            style={{ display: "none"}}
           >
-            <img
-              src='/assets/icons/cancel.png'
-              id='quitButton'
-              onClick={TerrianQuitPopup}
-            ></img>
-            <TerrianPopup isShown={popUp}></TerrianPopup>
+            <TerrianPopup isShown={popUp} TerrianQuitPopup={TerrianQuitPopup}></TerrianPopup>
           </div>
 
           <div
             className='EcoPopup'
             id='EcoPopup'
-            style={{ display: "none", marginTop: "40px", marginLeft: "115px" }}
+            style={{ display: "none" }}
           >
-            <img
-              src='/assets/icons/cancel.png'
-              id='quitButton'
-              onClick={quitPopup}
-            ></img>
             <EcoSystemPopup></EcoSystemPopup>
           </div>
 
           <div
             className='HistoryPopup'
             id='HistoryPopup'
-            style={{ display: "none", marginTop: "40px", marginLeft: "115px" }}
+            style={{ display: "none"}}
           >
-            <img
-              src='/assets/icons/cancel.png'
-              id='quitButton'
-              onClick={quitPopup}
-              alt='EMPTY'
-            ></img>
             <HistoryPopup></HistoryPopup>
+            
           </div>
 
           {/* 마이페이지 버튼 */}
@@ -957,21 +955,31 @@ function MainTest() {
             ></img>
           </div>
 
-          {/* <div className='chatButton' onClick={clickChat}>
-            <img src='/assets/icons/chat.png' className='chatImage'></img>
+          {/* 플레이어 캐릭터 애니메이션 */}
+          <div onClick={()=> {actionHandler(3)}} className="dance">
+              <img className='actionImage' 
+              src="/assets/images/emotions/dance.png"></img>
+              <div className="actionButton"></div>
           </div>
-          <div id='chat' className='chatCancel'>
-            <input className='chat'></input>
-            <img
-              src='/assets/icons/cancel.png'
-              onClick={quitChat}
-              className='cancelImage'
-            ></img>
-          </div> */}
+
+          <div onClick={()=> {actionHandler(2)}} className="victory">
+              <img className='actionImage' 
+              src="/assets/images/emotions/hurray.png"></img>
+              <div className="actionButton"></div>
+          </div>
+
+          <div onClick={()=> {actionHandler(4)}} className="sad">
+              <img className='actionImage' 
+              src="/assets/images/emotions/sad.png"></img>
+              <div className="actionButton"></div>
+          </div>
+
+          {/* 게시판으로 이동하기 */}
           <div id='board' className='board'>
             <Board quitBoard={quitBoard}></Board>
           </div>
 
+          {/* NPC 캐릭터들 말풍선들 */}
           <NPCBubble quitNPCbubble={quitNPCbubble}></NPCBubble>
         </div>
       ) : (
