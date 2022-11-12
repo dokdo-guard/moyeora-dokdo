@@ -142,11 +142,11 @@ public class UserController {
         }
     }
 
-    @PostMapping("/talk")
-    public ResponseEntity<?> saveNpcTalk(@CurrentUser UserPrincipal userPrincipal, @RequestBody String npcName) {
+    @PostMapping("/user/talk")
+    public ResponseEntity<?> saveNpcTalk(@CurrentUser UserPrincipal userPrincipal, @RequestBody Map<String, String> npcName) {
         try{
             return new ResponseEntity<>(
-                    userService.saveNpcTalk(userPrincipal.getId(), npcName),
+                    userService.saveNpcTalk(userPrincipal.getId(), npcName.get("name")),
                     HttpStatus.OK);
         } catch (NoSuchElementException noSuchElementException) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
