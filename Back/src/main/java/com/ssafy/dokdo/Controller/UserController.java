@@ -1,7 +1,9 @@
 package com.ssafy.dokdo.Controller;
 
+import com.ssafy.dokdo.Entity.QuizUser;
 import com.ssafy.dokdo.Entity.User;
-import com.ssafy.dokdo.Exception.ResourceNotFoundException;
+import com.ssafy.dokdo.Entity.UserBadge;
+import com.ssafy.dokdo.Model.UserDto;
 import com.ssafy.dokdo.Security.CurrentUser;
 import com.ssafy.dokdo.Security.UserPrincipal;
 import com.ssafy.dokdo.Service.UserService;
@@ -22,92 +24,105 @@ public class UserController {
     private final UserService userService;
 
     @GetMapping("user")
-    public ResponseEntity<?> getCurrentUser(@CurrentUser UserPrincipal userPrincipal) {
-        try{
-            return new ResponseEntity<>(
-                    userService.getCurrentUser(userPrincipal.getId()),
-                    HttpStatus.OK);
-        } catch (ResourceNotFoundException resourceNotFoundException){
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        } catch (Exception e) {
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-        }
+    public UserDto getCurrentUser(@CurrentUser UserPrincipal userPrincipal) {
+        return userService.getCurrentUser(userPrincipal.getId());
+    }
+
+    @GetMapping("quiz")
+    public QuizUser getQuiz(@CurrentUser UserPrincipal userPrincipal) {
+        return userService.getQuizResult(userPrincipal.getId());
     }
 
     @PutMapping("quiz")
-    public ResponseEntity<?> setQuiz(@CurrentUser UserPrincipal userPrincipal, @RequestBody Map<String, Integer> body) {
-        try{
-            return new ResponseEntity<>(
-                    userService.updateQuizResult(userPrincipal.getId(), body.get("quiz")),
-                    HttpStatus.OK);
-        } catch (NoSuchElementException noSuchElementException){
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        } catch (Exception e) {
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-        }
+    public void setQuiz(@CurrentUser UserPrincipal userPrincipal, @RequestBody Map<String, Integer> body) {
+        userService.updateQuizResult(userPrincipal.getId(), body.get("quiz"));
+    }
+
+    @GetMapping("badge")
+    public UserBadge getUserBadge(@CurrentUser UserPrincipal userPrincipal) {
+        return userService.getUserBadge(userPrincipal.getId());
+    }
+
+    @PostMapping("badge")
+    public void setUserBadge(@CurrentUser UserPrincipal userPrincipal, @RequestBody Map<String, String> body) {
+        userService.updateUserBadge(userPrincipal.getId(), body.get("badge"));
     }
 
     @PutMapping("character")
-    public ResponseEntity<?> setCharacter(@CurrentUser UserPrincipal userPrincipal, @RequestBody User user) {
-        try{
-            return new ResponseEntity<>(
-                    userService.updateUserCharacter(userPrincipal.getId(), user.getUserCharacter()),
-                    HttpStatus.OK);
-        } catch (ResourceNotFoundException resourceNotFoundException){
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        } catch (Exception e) {
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-        }
+    public void setCharacter(@CurrentUser UserPrincipal userPrincipal, @RequestBody User user) {
+        userService.updateUserCharacter(userPrincipal.getId(), user.getUserCharacter());
     }
 
     @PostMapping("check/nickname")
-    public ResponseEntity<?> checkNickName(@CurrentUser UserPrincipal userPrincipal, @RequestBody Map<String, String> body){
-        try{
-            return new ResponseEntity<>(
-                    userService.checkNickName(body.get("name")),
-                    HttpStatus.OK
-            );
-        } catch (Exception e){
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-        }
+    public Boolean checkNickName(@RequestBody Map<String, String> body){
+        return userService.checkNickName(body.get("name"));
     }
 
     @PutMapping("nickname")
-    public ResponseEntity<?> setNickname(@CurrentUser UserPrincipal userPrincipal, @RequestBody User user) {
+    public void setNickname(@CurrentUser UserPrincipal userPrincipal, @RequestBody User user) {
+        userService.updateName(userPrincipal.getId(), user.getName());
+    }
+
+    //domain별로 조회되도록 수정성령
+//    @GetMapping("/user/dogams")
+//    public ResponseEntity<?> getDogamList(@CurrentUser UserPrincipal userPrincipal, @RequestParam String domain){
+//        try{
+//            return new ResponseEntity<>(
+//                    userService.getDogamList(userPrincipal.getId(), domain),
+//                    HttpStatus.OK);
+//        } catch (NoSuchElementException noSuchElementException){
+//            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+//        } catch (Exception e) {
+//            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+//        }
+//    }
+
+    @GetMapping("/user/dogams/plant")
+    public ResponseEntity<?> getPlantDogam(@CurrentUser UserPrincipal userPrincipal){
         try{
-            // 게시판 닉네임 변경 로직...??
             return new ResponseEntity<>(
-                    userService.updateName(userPrincipal.getId(), user.getName()),
+                    userService.getPlantDogam(userPrincipal.getId()),
                     HttpStatus.OK);
-        } catch (ResourceNotFoundException resourceNotFoundException){
+        } catch (NoSuchElementException noSuchElementException) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
-    //domain별로 조회되도록 수정(성령)
-    @GetMapping("/user/dogams")
-    public ResponseEntity<?> getDogamList(@CurrentUser UserPrincipal userPrincipal, @RequestParam String domain){
+    @GetMapping("/user/dogams/bird")
+    public ResponseEntity<?> getBirdDogam(@CurrentUser UserPrincipal userPrincipal){
         try{
             return new ResponseEntity<>(
-                    userService.getDogamList(userPrincipal.getId(), domain),
+                    userService.getBirdDogam(userPrincipal.getId()),
                     HttpStatus.OK);
-        } catch (NoSuchElementException noSuchElementException){
+        } catch (NoSuchElementException noSuchElementException) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
-    @GetMapping("/badge")
-    public ResponseEntity<?> getAllBadges(@CurrentUser UserPrincipal userPrincipal) {
-
+    @GetMapping("/user/dogams/sea-plant")
+    public ResponseEntity<?> getSeaPlantDogam(@CurrentUser UserPrincipal userPrincipal){
         try{
             return new ResponseEntity<>(
-                    userService.getAllBadges(userPrincipal.getId()),
+                    userService.getSeaPlantDogam(userPrincipal.getId()),
                     HttpStatus.OK);
-        } catch (NoSuchElementException noSuchElementException){
+        } catch (NoSuchElementException noSuchElementException) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @GetMapping("/user/dogams/sea-animal")
+    public ResponseEntity<?> getSeaAnimalDogam(@CurrentUser UserPrincipal userPrincipal){
+        try{
+            return new ResponseEntity<>(
+                    userService.getSeaAnimalDogam(userPrincipal.getId()),
+                    HttpStatus.OK);
+        } catch (NoSuchElementException noSuchElementException) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
@@ -118,7 +133,7 @@ public class UserController {
     public ResponseEntity<Boolean> getDogamList(@CurrentUser UserPrincipal userPrincipal, @RequestParam String domain, @RequestParam(name = "mongo_id") String mongoId){
         try{
             return new ResponseEntity<>(
-                    userService.checkDogam(userPrincipal.getId(),domain,mongoId),
+                    userService.checkDogam(userPrincipal.getId(), domain, mongoId),
                     HttpStatus.OK);
         } catch (NoSuchElementException noSuchElementException){
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
