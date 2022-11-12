@@ -17,16 +17,12 @@ import EcoSystemPopup from "../components/popup/EcosystemPopup";
 
 import Board from "../components/board/Board.js";
 
-import Popup from "../components/mypage/selectCharacter";
-import Dictionary from "../components/mypage/dictionary.js";
-
 import Stats from "stats.js";
-import { useEffect, useRef, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
 
 import { mapReLoading } from "../components/popup/TerrianPopup";
 
-import { LoadingComponent } from "../components/index";
+import { LoadingComponent, MyPagePopup } from "../components/index";
 
 import {
   eastFloorMesh,
@@ -177,9 +173,7 @@ function MainTest() {
   gltfLoader.setDRACOLoader(dracoLoader);
 
   const [isLoaded, setIsLoaded] = useState(false);
-  // 유저 캐릭터 커스텀
-  const accessToken = sessionStorage.getItem("accessToken");
-  const [userCharacter, setUserCharacter] = useState(sessionStorage.getItem("userCharacter"));
+
   // 로딩 페이지 구현 위함
   gltfLoader.load("/assets/glTF/scene.glb", function () {
     console.log("ISLOADED");
@@ -518,6 +512,7 @@ function MainTest() {
   function checkIntersects() {
     const intersects = raycaster.intersectObjects(meshes);
     const item = intersects[0];
+    // console.log(item.object.name);
     if (!item) return;
     if (
       item.object.name === "floor" ||
@@ -906,9 +901,12 @@ function MainTest() {
               clickMyPage();
             }}
           >
-            캐릭터 변경
+            My Page
           </div>
-          <div id='myPage' style={{ display: "none" }}>
+          <div
+            id='myPage'
+            style={{ display: "none", marginTop: "40px", marginLeft: "115px" }}
+          >
             <img
               src='/assets/icons/cancel.png'
               className='quitMyPage'
@@ -917,27 +915,14 @@ function MainTest() {
               }}
               alt='EMPTY'
             ></img>
-            <Popup
+            <MyPagePopup
               changeSojung={changeSojung}
               changeSiryeong={changeSiryeong}
               changeHyoseon={changeHyoseon}
               changeYoungjin={changeYoungjin}
               changeSeongryeong={changeSeongryeong}
               changeChaehyeon={changeChaehyeon}
-            ></Popup>
-          </div>
-
-          {/* 생태도감 버튼 */}
-          <div className='dogamButton' onClick={clickDogam}>
-            생태도감
-          </div>
-          <div style={{ display: "none" }} id='dogam' className='dogamMark'>
-            <Dictionary></Dictionary>
-            <img
-              src='/assets/icons/cancel.png'
-              className='quitDogam'
-              onClick={quitDogam}
-            ></img>
+            ></MyPagePopup>
           </div>
 
           {/* 하단의 스크린샷 버튼과 튜토리얼 버튼 */}
