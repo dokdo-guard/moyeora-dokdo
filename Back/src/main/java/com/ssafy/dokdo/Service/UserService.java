@@ -7,6 +7,7 @@ import com.ssafy.dokdo.Entity.User;
 import com.ssafy.dokdo.Entity.UserBadge;
 import com.ssafy.dokdo.Exception.ResourceNotFoundException;
 import com.ssafy.dokdo.Model.DogamDto;
+import com.ssafy.dokdo.Model.NpcDto;
 import com.ssafy.dokdo.Model.UserDto;
 import com.ssafy.dokdo.Repository.*;
 import com.ssafy.dokdo.Repository.DogamRepository;
@@ -260,23 +261,27 @@ public class UserService {
         return dto;
     }
 
-    public List<Npc> saveNpcTalk(Long id, String npcName) {
+    public List<Npc> saveNpcTalk(Long id, String name) {
         User user = userRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("User", "id", id));
 
-        List<Npc> npcList = user.getNpcList();   //유저가 1번이라도 대화한 npc 리스트를 가져온다.
+        List<Npc> npcList = user.getNpcList();   //유저가 대화한 npc 리스트를 가져온다.
         Npc newNpc = new Npc();
         newNpc.setUser_id(id);
-        newNpc.setName(npcName);
+        newNpc.setName(name);
+
+        Boolean temp = false;
         if (npcList.isEmpty()) {
             npcRepository.saveAndFlush(newNpc);
         } else {
             for (Npc npc : npcList) {
-                if (npc.getName().equals(npcName)) {
-                    return npcList;
-                } else {
-                    npcRepository.saveAndFlush(newNpc);
+                if (npc.getName().equals(name) && npc.getUser_id().equals(id)) {  //해당 npc와 이미 대화했으면
+                    temp = true;
+                    break;
                 }
+            }
+            if (Boolean.FALSE.equals(temp)) {
+                npcRepository.saveAndFlush(newNpc);
             }
         }
         return user.getNpcList();
