@@ -2,6 +2,7 @@ package com.ssafy.dokdo.Entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.ssafy.dokdo.Model.AuthProvider;
+import com.ssafy.dokdo.Model.NpcDto;
 import lombok.Getter;
 import lombok.Setter;
 
