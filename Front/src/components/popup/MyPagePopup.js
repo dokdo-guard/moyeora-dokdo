@@ -1,5 +1,6 @@
 import axios from "axios";
 import React, { useState, useEffect } from "react";
+import {checkNPClist} from '../../api/mainApi.js'
 import "../css/MyPagePopup.css";
 
 function MyPagePopup(props) {
@@ -367,6 +368,16 @@ function MyPagePopup(props) {
 
   // 뱃지 화면
   const Badge = () => {
+    const [number, setNumber] = useState([])
+    checkNPClist()
+    .then((res)=> {
+      setNumber(res.data)
+    })
+    .catch((err)=> {
+      console.log(err)
+    })
+
+
     return (
       <div className='MyPageRightInnerWrapper'>
         {" "}
@@ -412,7 +423,7 @@ function MyPagePopup(props) {
             alt='NOIMAGE'
             className='MyPageCharacterImage'
           />
-          <div>{sessionStorage.getItem("name").slice(0, 3)}</div>
+          {/* <div>{sessionStorage.getItem("name").slice(0, 3)}</div> */}
           <div>{sessionStorage.getItem("email")}</div>
         </div>
         <div className='MyPageInnerRight'>
