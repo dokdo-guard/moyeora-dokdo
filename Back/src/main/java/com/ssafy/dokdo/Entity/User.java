@@ -63,4 +63,14 @@ public class User {
     @JoinColumn(name = "user_id")
     private List<Dogam> dogamList = new ArrayList<>();
 
+//    @ManyToMany
+//    @JoinTable(name = "user_badge", // 연결 테이블 지정
+//            joinColumns = @JoinColumn(name = "user_id"), // joinColumns: 현재 방향인 회원과 매핑할 조인 컬럼 정보 지정
+//            inverseJoinColumns = @JoinColumn(name = "badge_id"))
+//    private List<Badge> badgeList = new ArrayList<>();
+
+    @OneToMany
+    @JoinColumn(name = "user_id")
+    private List<Npc> npcList = new ArrayList<>();
+
 }
