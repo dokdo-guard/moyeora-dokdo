@@ -275,7 +275,7 @@ public class UserService {
             npcRepository.saveAndFlush(newNpc);
         } else {
             for (Npc npc : npcList) {
-                if (npc.getName().equals(name) && npc.getUser_id().equals(id)) {  //해당 npc와 이미 대화했으면
+                if (npc.getName().equals(name) && npc.getUser_id().equals(id)) {  //해당 npc와 이미 대화했으면(user_id는 비교할 필요없을 듯)
                     temp = true;
                     break;
                 }
@@ -284,6 +284,14 @@ public class UserService {
                 npcRepository.saveAndFlush(newNpc);
             }
         }
-        return user.getNpcList();
+        return user.getNpcList();  //기존에 있던 npc 리스트(추가로 저장한 npc 반영X)
+    }
+
+    public List<Npc> getNpcTalk(Long id) {
+        User user = userRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("User", "id", id));
+        List<Npc> npcList = user.getNpcList();
+
+        return npcList;
     }
 }
