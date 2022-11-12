@@ -30,9 +30,9 @@ const BoardHome =() => {
     
     return(
     <div className="boardHome">
-        <h2 className="title">
+        <h1 className="title">
             여러분의 독도를 꾸며주세요
-        </h2>
+        </h1>
         <div className="buttons">
             <button onClick={writeNew} className="writeButton">새 글 쓰기</button>
             <button onClick={goToDokdo} className='dokdoButton'>독도로 돌아가기</button>

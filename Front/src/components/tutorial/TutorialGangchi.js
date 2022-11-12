@@ -39,13 +39,19 @@ function TutorialGangchi() {
       );
     }
   };
+
+  const quitTutorialGangchi =() => {
+    const tutorialPop = document.getElementById('tutorialGangchi')
+    tutorialPop.style.display = 'none'
+  }
   return (
     <div
+      id='tutorialGangchi'
       style={{
         width: "100%",
         height: "100vh",
         position: "absolute",
-        zIndex: "3",
+        zIndex: "300",
         display: "flex",
         alignItems: "flex-end",
       }}
@@ -111,7 +117,9 @@ function TutorialGangchi() {
       >
         {lineNum === 4 ? (
           <div>
-            <div className='LineENDButton'>시작하기!</div>
+            <div className='LineENDButton'
+              onClick={quitTutorialGangchi}
+            >시작하기!</div>
           </div>
         ) : (
           <div>

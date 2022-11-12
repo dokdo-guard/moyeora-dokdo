@@ -3,8 +3,17 @@ import "../css/TerrianPopup.css";
 import { getAllTerrians } from "../../api/terrainApi";
 
 let map = null;
-
+ 
 function TerrianPopup(isShown) {
+
+  var popUp = false;
+  const TerrianQuitPopup = () => {
+    const TerrianPop = document.getElementById("TerrianPopup");
+    TerrianPop.style.display = "none";
+    popUp = !popUp;
+  };
+
+
   const mapElement = useRef(null);
   const [places, setPlaces] = useState([]);
   const [isLoaded, setIsLoaded] = useState(false);
@@ -148,7 +157,7 @@ function TerrianPopup(isShown) {
             부속도서 25,517m²
           </div>
         </div>
-        <div className='baseInfoTitle'>왼쪽 마커를 클릭해보세요!</div>
+        {/* <div className='baseInfoTitle'>왼쪽 마커를 클릭해보세요!</div> */}
       </div>
     );
   };
@@ -174,14 +183,23 @@ function TerrianPopup(isShown) {
   };
 
   return (
-    <div className='TerrianPopupContainer'>
-      <div className='TerrianPopupTitle'>독도의 지형 및 지리</div>
-      <div className='TerrianPopupWrapper'>
-        <div ref={mapElement} className='TerrianPopupMap'></div>
-        <div className='TerrianPopupInfoTable'>
-          {showPlace ? <PlaceInfo /> : <BaseInfo />}
+    <div style={{position:'relative'}}>
+      <div className='TerrianPopupContainer'>
+        <div className='TerrianPopupTitle'>독도의 지형 및 지리</div>
+        <img
+              src='/assets/icons/cancel.png'
+              id='quitButton'
+              onClick={TerrianQuitPopup}
+              className="quitPopup"
+            ></img>
+        <div className='TerrianPopupWrapper'>
+          <div ref={mapElement} className='TerrianPopupMap'></div>
+          <div className='TerrianPopupInfoTable'>
+            {showPlace ? <PlaceInfo /> : <BaseInfo />}
+          </div>
         </div>
       </div>
+      <div style={{width:'100vw',height:'100vh',backgroundColor:'black',position:'absolute',opacity:'30%',zIndex:'9'}}></div>
     </div>
   );
 }

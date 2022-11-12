@@ -8,6 +8,10 @@
   background-color: #faffe0;
   box-shadow: 5px 5px 30px lightgray;
   border-radius: 10px;
+  position: absolute;
+  z-index: 10;
+  margin-top: 40px;
+  margin-left: 115px;
 }
 .TerrianPopupTitle {
   display: fix;

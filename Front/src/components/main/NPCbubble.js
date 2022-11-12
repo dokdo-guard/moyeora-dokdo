@@ -21,42 +21,52 @@ const NPCBubble = (props) => {
         <div id='penguin' className="npcSpeaking">
             <img src={penguinSrc} className="npcBubble animate__animated animate__pulse"></img>
             <button onClick={()=> {props.quitNPCbubble(); changeNumber();}} className="quitNPCbubble">확인</button>
+            <div style={{width:'100vw',height:'100vh',backgroundColor:'black',opacity:'50%',zIndex:'80'}}></div>
         </div>
         <div id='강치' className="npcSpeaking">
             <img src={강치Src} className="npcBubble animate__animated animate__pulse"></img>
             <button onClick={()=> {props.quitNPCbubble(); changeNumber();}} className="quitNPCbubble">확인</button>
+            <div style={{width:'100vw',height:'100vh',backgroundColor:'black',opacity:'50%',zIndex:'80'}}></div>
         </div>
         <div id='turtle' className="npcSpeaking">
             <img src={turtleSrc} className="npcBubble animate__animated animate__pulse"></img>
             <button onClick={()=> {props.quitNPCbubble(); changeNumber();}} className="quitNPCbubble">확인</button>
+            <div style={{width:'100vw',height:'100vh',backgroundColor:'black',opacity:'50%',zIndex:'80'}}></div>
         </div>
         <div id='dog' className="npcSpeaking">
             <img src={dogSrc} className="npcBubble animate__animated animate__pulse"></img>
             <button onClick={()=> {props.quitNPCbubble(); changeNumber();}} className="quitNPCbubble">확인</button>
+            <div style={{width:'100vw',height:'100vh',backgroundColor:'black',opacity:'50%',zIndex:'80'}}></div>
         </div>
         <div id='독도새우' className="npcSpeaking">
             <img src={독도새우Src} className="npcBubble animate__animated animate__pulse"></img>
             <button onClick={()=> {props.quitNPCbubble(); changeNumber();}} className="quitNPCbubble">확인</button>
+            <div style={{width:'100vw',height:'100vh',backgroundColor:'black',opacity:'50%',zIndex:'80'}}></div>
         </div>
         <div id='dolphin' className="npcSpeaking">
             <img src={dolphinSrc} className="npcBubble animate__animated animate__pulse"></img>
             <button onClick={()=> {props.quitNPCbubble(); changeNumber();}} className="quitNPCbubble">확인</button>
+            <div style={{width:'100vw',height:'100vh',backgroundColor:'black',opacity:'50%',zIndex:'80'}}></div>
         </div>
         <div id='바위게' className="npcSpeaking">
             <img src={바위게Src} className="npcBubble animate__animated animate__pulse"></img>
             <button onClick={()=> {props.quitNPCbubble(); changeNumber();}} className="quitNPCbubble">확인</button>
+            <div style={{width:'100vw',height:'100vh',backgroundColor:'black',opacity:'50%',zIndex:'80'}}></div>
         </div>
         <div id='flamingo' className="npcSpeaking">
             <img src={flamingoSrc} className="npcBubble animate__animated animate__pulse"></img>
             <button onClick={()=> {props.quitNPCbubble(); changeNumber();}} className="quitNPCbubble">확인</button>
+            <div style={{width:'100vw',height:'100vh',backgroundColor:'black',opacity:'50%',zIndex:'80'}}></div>
         </div>
         <div id='pigeon' className="npcSpeaking">
             <img src={pigeonSrc} className="npcBubble animate__animated animate__pulse"></img>
             <button onClick={()=> {props.quitNPCbubble(); changeNumber();}} className="quitNPCbubble">확인</button>
+            <div style={{width:'100vw',height:'100vh',backgroundColor:'black',opacity:'50%',zIndex:'80'}}></div>
         </div>
         <div id='seagull' className="npcSpeaking">
             <img src={seagullSrc} className="npcBubble animate__animated animate__pulse"></img>
             <button onClick={()=> {props.quitNPCbubble(); changeNumber();}} className="quitNPCbubble">확인</button>
+            <div style={{width:'100vw',height:'100vh',backgroundColor:'black',opacity:'50%',zIndex:'80'}}></div>
         </div>
     </>)
 }
