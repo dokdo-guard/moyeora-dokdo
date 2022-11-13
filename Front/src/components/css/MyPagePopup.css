@@ -75,6 +75,11 @@
   margin: 20px;
   font-size: 30px;
 }
+.MyPageMenu:hover {
+  transform: scale(1.1, 1.1);
+  background-color: #ffce8f;
+  transition: background-color 0.2s;
+}
 .MyPageCharacterImg {
   width: 70px;
   height: 110px;

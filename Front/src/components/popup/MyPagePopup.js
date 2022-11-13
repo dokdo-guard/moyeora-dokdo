@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useState, useEffect } from "react";
-import {checkNPClist} from '../../api/mainApi.js'
+import { checkNPClist } from "../../api/mainApi.js";
 import "../css/MyPagePopup.css";
 
 function MyPagePopup(props) {
@@ -342,7 +342,7 @@ function MyPagePopup(props) {
             >
               {" "}
               <img
-                src={process.env.PUBLIC_URL + "/assets/icons/Bird_Icon.png"}
+                src={process.env.PUBLIC_URL + "/assets/icons/bird_Icon.png"}
                 alt=''
               />
             </div>
@@ -368,15 +368,14 @@ function MyPagePopup(props) {
 
   // 뱃지 화면
   const Badge = () => {
-    const [number, setNumber] = useState([])
+    const [number, setNumber] = useState([]);
     checkNPClist()
-    .then((res)=> {
-      setNumber(res.data)
-    })
-    .catch((err)=> {
-      console.log(err)
-    })
-
+      .then((res) => {
+        setNumber(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
 
     return (
       <div className='MyPageRightInnerWrapper'>
