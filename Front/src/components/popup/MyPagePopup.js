@@ -399,7 +399,117 @@ function MyPagePopup(props) {
         >
           Back
         </div>
-        <div className='DogamCategoryWrapper'>TEST</div>
+        <div className='BadgeWrapper'>
+          {badges.talkative ? (
+            <div>
+              <img
+                src={
+                  process.env.PUBLIC_URL +
+                  "/assets/badges/TooMuchTalkerBadge.png"
+                }
+                alt='no Badge'
+              />
+            </div>
+          ) : (
+            <div>없음</div>
+          )}
+          {badges.birdComplete ? (
+            <div>
+              <img
+                src={
+                  process.env.PUBLIC_URL + "/assets/badges/EarnDogamBadge.png"
+                }
+                alt='no Badge'
+              />
+            </div>
+          ) : (
+            <div>없음</div>
+          )}
+          {badges.plantComplete ? (
+            <div>
+              <img
+                src={
+                  process.env.PUBLIC_URL + "/assets/badges/EarnDogamBadge.png"
+                }
+                alt='no Badge'
+              />
+            </div>
+          ) : (
+            <div>없음</div>
+          )}
+          {badges.seaAnimalComplete ? (
+            <div>
+              <img
+                src={
+                  process.env.PUBLIC_URL + "/assets/badges/EarnDogamBadge.png"
+                }
+                alt='no Badge'
+              />
+            </div>
+          ) : (
+            <div>없음</div>
+          )}
+          {badges.quizFive ? (
+            <div>
+              <img
+                src={process.env.PUBLIC_URL + "/assets/badges/3rdBadge.png"}
+                alt='no Badge'
+              />
+            </div>
+          ) : (
+            <div>없음</div>
+          )}
+          {badges.quizTen ? (
+            <div>
+              <img
+                src={process.env.PUBLIC_URL + "/assets/badges/2rdBadge.png"}
+                alt='no Badge'
+              />
+            </div>
+          ) : (
+            <div>없음</div>
+          )}
+          {badges.quizFifteen ? (
+            <div>
+              <img
+                src={process.env.PUBLIC_URL + "/assets/badges/1rdBadge.png"}
+                alt='no Badge'
+              />
+            </div>
+          ) : (
+            <div>없음</div>
+          )}
+          {badges.visitBiology ? (
+            <div>
+              <img
+                src={process.env.PUBLIC_URL + "/assets/badges/VisitBadge.png"}
+                alt='no Badge'
+              />
+            </div>
+          ) : (
+            <div>없음</div>
+          )}
+          {badges.visitHistory ? (
+            <div>
+              <img
+                src={process.env.PUBLIC_URL + "/assets/badges/VisitBadge.png"}
+                alt='no Badge'
+              />
+            </div>
+          ) : (
+            <div>없음</div>
+          )}
+          {badges.visitTerrain ? (
+            <div>
+              <img
+                src={process.env.PUBLIC_URL + "/assets/badges/VisitBadge.png"}
+                alt='no Badge'
+              />
+            </div>
+          ) : (
+            <div>없음</div>
+          )}
+        </div>
       </div>
     );
   };
