@@ -7,7 +7,7 @@ import {
 } from "../../api/ecoSystemApi";
 import "../css/EcoSystemPopup.css";
 import axios from "axios";
-import {quitPopup} from '../main/PopupButton.js'
+import { quitPopup } from "../main/PopupButton.js";
 function EcoSystemPopup() {
   const [isSelected, setIsSelected] = useState(false);
   const [category, setCategory] = useState("");
@@ -175,15 +175,15 @@ function EcoSystemPopup() {
   };
 
   return (
-    <div style={{position:'relative'}}>
+    <div style={{ position: "relative" }}>
       <div className='EcosystemContainer'>
         <div className='EcosystemTitle'>독도의 생태계</div>
         <img
-              src='/assets/icons/cancel.png'
-              id='quitButton'
-              onClick={quitPopup}
-              className="quitPopup"
-            ></img>
+          src='/assets/icons/cancel.png'
+          id='quitButton'
+          onClick={quitPopup}
+          className='quitPopup'
+        ></img>
         {isSelected ? (
           <ShowList />
         ) : (
@@ -242,7 +242,16 @@ function EcoSystemPopup() {
           </div>
         )}
       </div>
-      <div style={{width:'100vw',height:'100vh',backgroundColor:'black',position:'absolute',opacity:'30%',zIndex:'9'}}></div>
+      <div
+        style={{
+          width: "100vw",
+          height: "100vh",
+          backgroundColor: "black",
+          position: "absolute",
+          opacity: "30%",
+          zIndex: "9",
+        }}
+      ></div>
     </div>
   );
 }

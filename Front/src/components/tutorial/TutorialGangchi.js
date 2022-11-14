@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import "../css/TutorialGangchi.css";
 
 const gangchiLine = [
@@ -40,10 +40,10 @@ function TutorialGangchi() {
     }
   };
 
-  const quitTutorialGangchi =() => {
-    const tutorialPop = document.getElementById('tutorialGangchi')
-    tutorialPop.style.display = 'none'
-  }
+  const quitTutorialGangchi = () => {
+    const tutorialPop = document.getElementById("tutorialGangchi");
+    tutorialPop.style.display = "none";
+  };
   return (
     <div
       id='tutorialGangchi'
@@ -117,9 +117,9 @@ function TutorialGangchi() {
       >
         {lineNum === 4 ? (
           <div>
-            <div className='LineENDButton'
-              onClick={quitTutorialGangchi}
-            >시작하기!</div>
+            <div className='LineENDButton' onClick={quitTutorialGangchi}>
+              시작하기!
+            </div>
           </div>
         ) : (
           <div>
