@@ -1,8 +1,7 @@
 import axios from "axios";
 import React, { useState, useEffect } from "react";
-import {checkNPClist} from '../../api/mainApi.js'
+import { checkNPClist } from "../../api/mainApi.js";
 import "../css/MyPagePopup.css";
-import Swal from 'sweetalert2'
 
 function MyPagePopup(props) {
   // 다른 컴포넌트 보여주기 위함
@@ -369,24 +368,14 @@ function MyPagePopup(props) {
 
   // 뱃지 화면
   const Badge = () => {
-    const Swal = require('sweetalert2')
-    const [number, setNumber] = useState([])
+    const [number, setNumber] = useState([]);
     checkNPClist()
-    .then((res)=> {
-      setNumber(res.data)
-    })
-    .catch((err)=> {
-      console.log(err)
-    })
-    if (number.length == 10) {
-      // Swal.fire({
-      //   icon: 'success',
-      //   title: 'Your work has been saved',
-      //   showConfirmButton: false,
-      //   timer: 1500
-      // })
-    }
-
+      .then((res) => {
+        setNumber(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
 
     return (
       <div className='MyPageRightInnerWrapper'>
@@ -412,30 +401,40 @@ function MyPagePopup(props) {
         </div>
         {/* <div className='DogamCategoryWrapper'>TEST</div> */}
         {number.length == 10 ? (
-        <div className="communicationBadge">
-          <img src="/assets/images/badge/communication.png" className="badgeImage"></img>
-          <h3>대화왕 뱃지</h3>
-        </div>
+          <div className='communicationBadge'>
+            <img
+              src='/assets/images/badge/communication.png'
+              className='badgeImage'
+            ></img>
+            <h3>대화왕 뱃지</h3>
+          </div>
         ) : (
-        <img src="/assets/images/badge/question.png" className="badgeImage"></img>)}
+          <img
+            src='/assets/images/badge/question.png'
+            className='badgeImage'
+          ></img>
+        )}
       </div>
     );
   };
   return (
-    <div style={{position:'relative'}}>
-      <div className='MyPageContainer' style={{position:'absolute', zIndex:'100'}}>
+    <div style={{ position: "relative" }}>
+      <div
+        className='MyPageContainer'
+        style={{ position: "absolute", zIndex: "100" }}
+      >
         <div className='MyPageTitle'>MY PAGE</div>
         <div className='MyPageOutBtn'>
           <div style={{ backgroundColor: "orange" }}>LOGOUT</div>
           <div style={{ backgroundColor: "rgb(255, 73, 73)" }}>회원탈퇴</div>
           <img
-              src='/assets/icons/cancel.png'
-              className='quitMyPage'
-              onClick={() => {
-                props.quitMyPage();
-              }}
-              alt='EMPTY'
-            ></img>
+            src='/assets/icons/cancel.png'
+            className='quitMyPage'
+            onClick={() => {
+              props.quitMyPage();
+            }}
+            alt='EMPTY'
+          ></img>
         </div>
         <div className='MyPageInnerWrapper'>
           <div className='MyPageInnerLeft'>
@@ -487,7 +486,16 @@ function MyPagePopup(props) {
           </div>
         </div>
       </div>
-      <div style={{position:"absolute",width:'100vw',height:'100vh',backgroundColor:'black',opacity:'50%',zIndex:'90'}}></div>
+      <div
+        style={{
+          position: "absolute",
+          width: "100vw",
+          height: "100vh",
+          backgroundColor: "black",
+          opacity: "50%",
+          zIndex: "90",
+        }}
+      ></div>
     </div>
   );
 }
