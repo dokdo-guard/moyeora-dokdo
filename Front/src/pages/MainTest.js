@@ -22,7 +22,11 @@ import { useEffect, useState } from "react";
 
 import { mapReLoading } from "../components/popup/TerrianPopup";
 
-import { LoadingComponent, MyPagePopup, TutorialGangchi } from "../components/index";
+import {
+  LoadingComponent,
+  MyPagePopup,
+  TutorialGangchi,
+} from "../components/index";
 
 import {
   eastFloorMesh,
@@ -61,7 +65,7 @@ import {
 import { NPC } from "../components/glTF/NPC";
 import Tutorial from "../components/tutorial/tutorial";
 import { Vector2, Vector3 } from "three";
-import {checkNPC} from '../api/mainApi.js'
+import { checkNPC } from "../api/mainApi.js";
 
 import axios from "axios";
 import NPCBubble from "../components/main/NPCbubble";
@@ -514,8 +518,8 @@ function MainTest() {
     const intersects = raycaster.intersectObjects(meshes);
     const item = intersects[0];
     if (!item) return;
-    let name = item.object.name
-    let answer = { name }
+    let name = item.object.name;
+    let answer = { name };
     if (
       item.object.name === "floor" ||
       "land_79030" ||
@@ -535,12 +539,12 @@ function MainTest() {
       dolphinPop.style.display = "block";
       isPressed = false;
       checkNPC(answer)
-      .then((res)=> {
-        console.log('api 연결 성공!')
-      })
-      .catch((err)=> {
-        console.log(err)
-      })
+        .then((res) => {
+          console.log("api 연결 성공!");
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     }
     if (item.object.name === "SeaLion") {
       player.dontMove(destinationPoint);
@@ -549,12 +553,12 @@ function MainTest() {
       강치Pop.style.display = "block";
       isPressed = false;
       checkNPC(answer)
-      .then((res)=> {
-        console.log('api 연결 성공!')
-      })
-      .catch((err)=> {
-        console.log(err)
-      })
+        .then((res) => {
+          console.log("api 연결 성공!");
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     }
     if (item.object.name === "Flamingo") {
       player.dontMove(destinationPoint);
@@ -562,13 +566,13 @@ function MainTest() {
       const flamingoPop = document.getElementById("flamingo");
       flamingoPop.style.display = "block";
       checkNPC(answer)
-      .then((res)=> {
-        console.log('api 연결 성공!')
-      })
-      .catch((err)=> {
-        console.log(err)
-      })
-        isPressed = false;
+        .then((res) => {
+          console.log("api 연결 성공!");
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+      isPressed = false;
     }
     if (item.object.name === "Pigeon") {
       player.dontMove(destinationPoint);
@@ -576,15 +580,15 @@ function MainTest() {
       const pigeonPop = document.getElementById("pigeon");
       pigeonPop.style.display = "block";
       // pigeonPop.addEventListener("mouseup", () => {
-        isPressed = false;
+      isPressed = false;
       // });
       checkNPC(answer)
-      .then((res)=> {
-        console.log('api 연결 성공!')
-      })
-      .catch((err)=> {
-        console.log(err)
-      })
+        .then((res) => {
+          console.log("api 연결 성공!");
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     }
     if (item.object.name === "Seagull") {
       player.dontMove(destinationPoint);
@@ -592,15 +596,15 @@ function MainTest() {
       const seagullPop = document.getElementById("seagull");
       seagullPop.style.display = "block";
       // seagullPop.addEventListener("mouseup", () => {
-        isPressed = false;
+      isPressed = false;
       // });
       checkNPC(answer)
-      .then((res)=> {
-        console.log('api 연결 성공!')
-      })
-      .catch((err)=> {
-        console.log(err)
-      })
+        .then((res) => {
+          console.log("api 연결 성공!");
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     }
     if (item.object.name === "Crab") {
       player.dontMove(destinationPoint);
@@ -609,12 +613,12 @@ function MainTest() {
       바위게Pop.style.display = "block";
       isPressed = false;
       checkNPC(answer)
-      .then((res)=> {
-        console.log('api 연결 성공!')
-      })
-      .catch((err)=> {
-        console.log(err)
-      })
+        .then((res) => {
+          console.log("api 연결 성공!");
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     }
     if (item.object.name === "Prawn") {
       player.dontMove(destinationPoint);
@@ -623,12 +627,12 @@ function MainTest() {
       독도새우Pop.style.display = "block";
       isPressed = false;
       checkNPC(answer)
-      .then((res)=> {
-        console.log('api 연결 성공!')
-      })
-      .catch((err)=> {
-        console.log(err)
-      })
+        .then((res) => {
+          console.log("api 연결 성공!");
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     }
     if (item.object.name === "Dog") {
       player.dontMove(destinationPoint);
@@ -637,12 +641,12 @@ function MainTest() {
       dogPop.style.display = "block";
       isPressed = false;
       checkNPC(answer)
-      .then((res)=> {
-        console.log('api 연결 성공!')
-      })
-      .catch((err)=> {
-        console.log(err)
-      })
+        .then((res) => {
+          console.log("api 연결 성공!");
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     }
     if (item.object.name === "Turtle") {
       player.dontMove(destinationPoint);
@@ -651,12 +655,12 @@ function MainTest() {
       turtlePop.style.display = "block";
       isPressed = false;
       checkNPC(answer)
-      .then((res)=> {
-        console.log('api 연결 성공!')
-      })
-      .catch((err)=> {
-        console.log(err)
-      })
+        .then((res) => {
+          console.log("api 연결 성공!");
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     }
     if (item.object.name === "Penguin") {
       player.dontMove(destinationPoint);
@@ -665,16 +669,18 @@ function MainTest() {
       penguinPop.style.display = "block";
       isPressed = false;
       checkNPC(answer)
-      .then((res)=> {
-        console.log('api 연결 성공!')
-      })
-      .catch((err)=> {
-        console.log(err)
-      })
+        .then((res) => {
+          console.log("api 연결 성공!");
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     }
     if (item.object.name === "ocean") {
       player.moving = false;
     }
+    const accessToken = sessionStorage.getItem("accessToken");
+    // --관 입장 팻말
     if (item.object.name === "퀴즈팻말") {
       const QuizPop = document.getElementById("QuizPopup");
       QuizPop.style.display = "block";
@@ -689,6 +695,20 @@ function MainTest() {
       TerrianPop.addEventListener("mouseup", () => {
         isPressed = false;
       });
+      TerrianPop.addEventListener("click", () => {
+        const visitTerrain = async () => {
+          await axios.post(
+            `https://k7d204.p.ssafy.io/api/badge`,
+            { badge: "visitTerrain" },
+            {
+              headers: {
+                Authorization: `Bearer ${accessToken}`,
+              },
+            },
+          );
+        };
+        visitTerrain();
+      });
       mapReLoading();
 
       player.moving = false;
@@ -699,6 +719,20 @@ function MainTest() {
       EcoPop.addEventListener("mouseup", () => {
         isPressed = false;
       });
+      EcoPop.addEventListener("click", () => {
+        const visitEco = async () => {
+          await axios.post(
+            `https://k7d204.p.ssafy.io/api/badge`,
+            { badge: "visitBiology" },
+            {
+              headers: {
+                Authorization: `Bearer ${accessToken}`,
+              },
+            },
+          );
+        };
+        visitEco();
+      });
       player.moving = false;
     }
     if (item.object.name === "역사팻말") {
@@ -706,6 +740,20 @@ function MainTest() {
       HistoryPop.style.display = "block";
       HistoryPop.addEventListener("mouseup", () => {
         isPressed = false;
+      });
+      HistoryPop.addEventListener("click", () => {
+        const visitHistory = async () => {
+          await axios.post(
+            `https://k7d204.p.ssafy.io/api/badge`,
+            { badge: "visitHistory" },
+            {
+              headers: {
+                Authorization: `Bearer ${accessToken}`,
+              },
+            },
+          );
+        };
+        visitHistory();
       });
       player.moving = false;
     }
@@ -890,8 +938,6 @@ function MainTest() {
   };
   //#endregion
 
-
-
   // 플레이어 캐릭터 행동
   const actionHandler = (e) => {
     const delta = clock.getDelta();
@@ -899,12 +945,12 @@ function MainTest() {
     if (player.mixer) {
       // player.mixer.update(delta);
       // player.actions[e].play();
-      
+
       player.actions[e].setLoop(THREE.LoopOnce);
       player.actions[e].stop();
       player.actions[e].play();
-    } 
-  }
+    }
+  };
 
   update();
 
@@ -915,37 +961,31 @@ function MainTest() {
           {/* 맨 처음 강치의 튜토리얼 소개 페이지 */}
           <TutorialGangchi></TutorialGangchi>
           {/* 팝업 컴포넌트들 */}
-          <div
-            className='QuizPopup'
-            id='QuizPopup'
-            style={{ display: "none"}}
-          >
+          <div className='QuizPopup' id='QuizPopup' style={{ display: "none" }}>
             <OXQuizPopup></OXQuizPopup>
           </div>
 
           <div
             className='TerrianPopup'
             id='TerrianPopup'
-            style={{ display: "none"}}
-          >
-            <TerrianPopup isShown={popUp} TerrianQuitPopup={TerrianQuitPopup}></TerrianPopup>
-          </div>
-
-          <div
-            className='EcoPopup'
-            id='EcoPopup'
             style={{ display: "none" }}
           >
+            <TerrianPopup
+              isShown={popUp}
+              TerrianQuitPopup={TerrianQuitPopup}
+            ></TerrianPopup>
+          </div>
+
+          <div className='EcoPopup' id='EcoPopup' style={{ display: "none" }}>
             <EcoSystemPopup></EcoSystemPopup>
           </div>
 
           <div
             className='HistoryPopup'
             id='HistoryPopup'
-            style={{ display: "none"}}
+            style={{ display: "none" }}
           >
             <HistoryPopup></HistoryPopup>
-            
           </div>
 
           {/* 마이페이지 버튼 */}
@@ -1005,22 +1045,43 @@ function MainTest() {
           </div>
 
           {/* 플레이어 캐릭터 애니메이션 */}
-          <div onClick={()=> {actionHandler(3)}} className="dance">
-              <img className='actionImage' 
-              src="/assets/images/emotions/dance.png"></img>
-              <div className="actionButton"></div>
+          <div
+            onClick={() => {
+              actionHandler(3);
+            }}
+            className='dance'
+          >
+            <img
+              className='actionImage'
+              src='/assets/images/emotions/dance.png'
+            ></img>
+            <div className='actionButton'></div>
           </div>
 
-          <div onClick={()=> {actionHandler(2)}} className="victory">
-              <img className='actionImage' 
-              src="/assets/images/emotions/hurray.png"></img>
-              <div className="actionButton"></div>
+          <div
+            onClick={() => {
+              actionHandler(2);
+            }}
+            className='victory'
+          >
+            <img
+              className='actionImage'
+              src='/assets/images/emotions/hurray.png'
+            ></img>
+            <div className='actionButton'></div>
           </div>
 
-          <div onClick={()=> {actionHandler(4)}} className="sad">
-              <img className='actionImage' 
-              src="/assets/images/emotions/sad.png"></img>
-              <div className="actionButton"></div>
+          <div
+            onClick={() => {
+              actionHandler(4);
+            }}
+            className='sad'
+          >
+            <img
+              className='actionImage'
+              src='/assets/images/emotions/sad.png'
+            ></img>
+            <div className='actionButton'></div>
           </div>
 
           {/* 게시판으로 이동하기 */}

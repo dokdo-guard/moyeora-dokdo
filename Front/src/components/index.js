@@ -5,3 +5,4 @@ export { default as HistoryPopup } from "./popup/HistoryPopup";
 export { default as LoadingComponent } from "./common/LoadingComponent";
 export { default as TutorialGangchi } from "./tutorial/TutorialGangchi";
 export { default as MyPagePopup } from "./popup/MyPagePopup";
+export { default as GameFirst } from "./games/GameFirst";

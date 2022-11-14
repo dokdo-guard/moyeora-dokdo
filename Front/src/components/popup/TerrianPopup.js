@@ -1,18 +1,17 @@
 import React, { useEffect, useRef, useState } from "react";
 import "../css/TerrianPopup.css";
 import { getAllTerrians } from "../../api/terrainApi";
+import axios from "axios";
 
 let map = null;
- 
-function TerrianPopup(isShown) {
 
+function TerrianPopup(isShown) {
   var popUp = false;
   const TerrianQuitPopup = () => {
     const TerrianPop = document.getElementById("TerrianPopup");
     TerrianPop.style.display = "none";
     popUp = !popUp;
   };
-
 
   const mapElement = useRef(null);
   const [places, setPlaces] = useState([]);
@@ -183,15 +182,15 @@ function TerrianPopup(isShown) {
   };
 
   return (
-    <div style={{position:'relative'}}>
+    <div style={{ position: "relative" }}>
       <div className='TerrianPopupContainer'>
         <div className='TerrianPopupTitle'>독도의 지형 및 지리</div>
         <img
-              src='/assets/icons/cancel.png'
-              id='quitButton'
-              onClick={TerrianQuitPopup}
-              className="quitPopup"
-            ></img>
+          src='/assets/icons/cancel.png'
+          id='quitButton'
+          onClick={TerrianQuitPopup}
+          className='quitPopup'
+        ></img>
         <div className='TerrianPopupWrapper'>
           <div ref={mapElement} className='TerrianPopupMap'></div>
           <div className='TerrianPopupInfoTable'>
@@ -199,7 +198,16 @@ function TerrianPopup(isShown) {
           </div>
         </div>
       </div>
-      <div style={{width:'100vw',height:'100vh',backgroundColor:'black',position:'absolute',opacity:'30%',zIndex:'9'}}></div>
+      <div
+        style={{
+          width: "100vw",
+          height: "100vh",
+          backgroundColor: "black",
+          position: "absolute",
+          opacity: "30%",
+          zIndex: "9",
+        }}
+      ></div>
     </div>
   );
 }
