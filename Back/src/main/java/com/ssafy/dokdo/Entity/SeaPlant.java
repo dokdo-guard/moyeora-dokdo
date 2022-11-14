@@ -1,5 +1,6 @@
 package com.ssafy.dokdo.Entity;
 
+import com.ssafy.dokdo.Model.AllSpecies;
 import lombok.*;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
