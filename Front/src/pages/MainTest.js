@@ -180,8 +180,7 @@ function MainTest() {
   const [isLoaded, setIsLoaded] = useState(false);
 
   // 로딩 페이지 구현 위함
-  gltfLoader.load("/assets/glTF/scene.glb", function () {
-    console.log("ISLOADED");
+  gltfLoader.load("/assets/glTF/newScene.glb", function () {
     setIsLoaded(true);
   });
 
@@ -192,7 +191,7 @@ function MainTest() {
   const nature = new Nature({
     gltfLoader,
     scene,
-    modelSrc: "/assets/glTF/scene.glb",
+    modelSrc: "/assets/glTF/newScene.glb",
     x: 0,
     y: 0,
     z: 0,
@@ -388,25 +387,25 @@ function MainTest() {
       seagull.mixer
     ) {
       강치.mixer.update(delta);
-      강치.actions[0].play();
+      // 강치.actions[0].play();
       돌고래.mixer.update(delta);
-      돌고래.actions[0].play();
+      // 돌고래.actions[0].play();
       turtle.mixer.update(delta);
-      turtle.actions[0].play();
+      // turtle.actions[0].play();
       펭귄.mixer.update(delta);
-      펭귄.actions[0].play();
+      // 펭귄.actions[0].play();
       dog.mixer.update(delta);
-      dog.actions[0].play();
+      // dog.actions[0].play();
       독도새우.mixer.update(delta);
-      독도새우.actions[0].play();
+      // 독도새우.actions[0].play();
       바위게.mixer.update(delta);
-      바위게.actions[0].play();
+      // 바위게.actions[0].play();
       flamingo.mixer.update(delta);
-      flamingo.actions[0].play();
+      // flamingo.actions[0].play();
       pigeon.mixer.update(delta);
-      pigeon.actions[0].play();
+      // pigeon.actions[0].play();
       seagull.mixer.update(delta);
-      seagull.actions[0].play();
+      // seagull.actions[0].play();
     }
 
     if (player.modelMesh) {
