@@ -997,10 +997,15 @@ function MainTest() {
           >
             My Page
           </div>
-          <div
-            id='myPage'
-            style={{ display: "none"}}
-          >
+          <div id='myPage' style={{ display: "none" }}>
+            <img
+              src='/assets/icons/cancel.png'
+              className='quitMyPage'
+              onClick={() => {
+                quitMyPage();
+              }}
+              alt='EMPTY'
+            ></img>
             <MyPagePopup
               changeSojung={changeSojung}
               changeSiryeong={changeSiryeong}
