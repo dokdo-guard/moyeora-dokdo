@@ -61,6 +61,7 @@ import {
 import { NPC } from "../components/glTF/NPC";
 import Tutorial from "../components/tutorial/tutorial";
 import { Vector2, Vector3 } from "three";
+import {checkNPC} from '../api/mainApi.js'
 
 import axios from "axios";
 import NPCBubble from "../components/main/NPCbubble";
@@ -286,10 +287,10 @@ function MainTest() {
     meshes,
     gltfLoader,
     modelSrc: "/assets/glTF/독도새우.glb",
-    x: -42.184,
+    x: -19.18,
     y: 0.5,
-    z: -14.378,
-    rotation: -10,
+    z: -15.894,
+    rotation: -70,
   });
 
   const dog = new NPC({
@@ -436,7 +437,7 @@ function MainTest() {
           (Math.abs(spotMesh4.position.x - player.modelMesh.position.x) < 1.5 &&
             Math.abs(spotMesh4.position.z - player.modelMesh.position.z) < 1.5)
         ) {
-          gsap.to(camera.position, { duration: 1, y: 4 });
+          gsap.to(camera.position, { duration: 1, y: 3 });
           gsap.to(QuizSignMesh.position, {
             y: 1,
             duration: 1,
@@ -512,8 +513,9 @@ function MainTest() {
   function checkIntersects() {
     const intersects = raycaster.intersectObjects(meshes);
     const item = intersects[0];
-    // console.log(item.object.name);
     if (!item) return;
+    let name = item.object.name
+    let answer = { name }
     if (
       item.object.name === "floor" ||
       "land_79030" ||
@@ -531,90 +533,144 @@ function MainTest() {
       돌고래.onRaycasted();
       const dolphinPop = document.getElementById("dolphin");
       dolphinPop.style.display = "block";
-      dolphinPop.addEventListener("mouseup", () => {
-        isPressed = false;
-      });
+      isPressed = false;
+      checkNPC(answer)
+      .then((res)=> {
+        console.log('api 연결 성공!')
+      })
+      .catch((err)=> {
+        console.log(err)
+      })
     }
     if (item.object.name === "SeaLion") {
       player.dontMove(destinationPoint);
       강치.onRaycasted();
       const 강치Pop = document.getElementById("강치");
       강치Pop.style.display = "block";
-      강치Pop.addEventListener("mouseup", () => {
-        isPressed = false;
-      });
+      isPressed = false;
+      checkNPC(answer)
+      .then((res)=> {
+        console.log('api 연결 성공!')
+      })
+      .catch((err)=> {
+        console.log(err)
+      })
     }
     if (item.object.name === "Flamingo") {
       player.dontMove(destinationPoint);
       flamingo.onRaycasted();
       const flamingoPop = document.getElementById("flamingo");
       flamingoPop.style.display = "block";
-      flamingoPop.addEventListener("mouseup", () => {
+      checkNPC(answer)
+      .then((res)=> {
+        console.log('api 연결 성공!')
+      })
+      .catch((err)=> {
+        console.log(err)
+      })
         isPressed = false;
-      });
     }
     if (item.object.name === "Pigeon") {
       player.dontMove(destinationPoint);
       pigeon.onRaycasted();
       const pigeonPop = document.getElementById("pigeon");
       pigeonPop.style.display = "block";
-      pigeonPop.addEventListener("mouseup", () => {
+      // pigeonPop.addEventListener("mouseup", () => {
         isPressed = false;
-      });
+      // });
+      checkNPC(answer)
+      .then((res)=> {
+        console.log('api 연결 성공!')
+      })
+      .catch((err)=> {
+        console.log(err)
+      })
     }
     if (item.object.name === "Seagull") {
       player.dontMove(destinationPoint);
       seagull.onRaycasted();
       const seagullPop = document.getElementById("seagull");
       seagullPop.style.display = "block";
-      seagullPop.addEventListener("mouseup", () => {
+      // seagullPop.addEventListener("mouseup", () => {
         isPressed = false;
-      });
+      // });
+      checkNPC(answer)
+      .then((res)=> {
+        console.log('api 연결 성공!')
+      })
+      .catch((err)=> {
+        console.log(err)
+      })
     }
     if (item.object.name === "Crab") {
       player.dontMove(destinationPoint);
       바위게.onRaycasted();
       const 바위게Pop = document.getElementById("바위게");
       바위게Pop.style.display = "block";
-      바위게Pop.addEventListener("mouseup", () => {
-        isPressed = false;
-      });
+      isPressed = false;
+      checkNPC(answer)
+      .then((res)=> {
+        console.log('api 연결 성공!')
+      })
+      .catch((err)=> {
+        console.log(err)
+      })
     }
     if (item.object.name === "Prawn") {
       player.dontMove(destinationPoint);
       독도새우.onRaycasted();
       const 독도새우Pop = document.getElementById("독도새우");
       독도새우Pop.style.display = "block";
-      독도새우Pop.addEventListener("mouseup", () => {
-        isPressed = false;
-      });
+      isPressed = false;
+      checkNPC(answer)
+      .then((res)=> {
+        console.log('api 연결 성공!')
+      })
+      .catch((err)=> {
+        console.log(err)
+      })
     }
     if (item.object.name === "Dog") {
       player.dontMove(destinationPoint);
       dog.onRaycasted();
       const dogPop = document.getElementById("dog");
       dogPop.style.display = "block";
-      dogPop.addEventListener("mouseup", () => {
-        isPressed = false;
-      });
+      isPressed = false;
+      checkNPC(answer)
+      .then((res)=> {
+        console.log('api 연결 성공!')
+      })
+      .catch((err)=> {
+        console.log(err)
+      })
     }
     if (item.object.name === "Turtle") {
       player.dontMove(destinationPoint);
       turtle.onRaycasted();
       const turtlePop = document.getElementById("turtle");
       turtlePop.style.display = "block";
-      turtlePop.addEventListener("mouseup", () => {
-        isPressed = false;
-      });
+      isPressed = false;
+      checkNPC(answer)
+      .then((res)=> {
+        console.log('api 연결 성공!')
+      })
+      .catch((err)=> {
+        console.log(err)
+      })
     }
     if (item.object.name === "Penguin") {
       player.dontMove(destinationPoint);
       펭귄.onRaycasted();
       const penguinPop = document.getElementById("penguin");
       penguinPop.style.display = "block";
-      penguinPop.addEventListener("mouseup", () => {
-        isPressed = false;
-      });
+      isPressed = false;
+      checkNPC(answer)
+      .then((res)=> {
+        console.log('api 연결 성공!')
+      })
+      .catch((err)=> {
+        console.log(err)
+      })
     }
     if (item.object.name === "ocean") {
       player.moving = false;
@@ -903,16 +959,8 @@ function MainTest() {
           </div>
           <div
             id='myPage'
-            style={{ display: "none", marginTop: "40px", marginLeft: "115px" }}
+            style={{ display: "none"}}
           >
-            <img
-              src='/assets/icons/cancel.png'
-              className='quitMyPage'
-              onClick={() => {
-                quitMyPage();
-              }}
-              alt='EMPTY'
-            ></img>
             <MyPagePopup
               changeSojung={changeSojung}
               changeSiryeong={changeSiryeong}
@@ -920,6 +968,7 @@ function MainTest() {
               changeYoungjin={changeYoungjin}
               changeSeongryeong={changeSeongryeong}
               changeChaehyeon={changeChaehyeon}
+              quitMyPage={quitMyPage}
             ></MyPagePopup>
           </div>
 

@@ -1,10 +1,11 @@
 import { useState } from "react"
+import '../css/MainTest.css'
 
 const NPCBubble = (props) => {
     const [number ,setNumber] = useState(1)
     const changeNumber =() => {
         setNumber(Math.floor(Math.random() * 6 + 1))
-    }
+    } 
     let penguinSrc = '/assets/images/npc/penguin' + number + '.png'
     let 강치Src = '/assets/images/npc/강치' + number + '.png'
     let turtleSrc = '/assets/images/npc/turtle' + number + '.png'
@@ -48,10 +49,10 @@ const NPCBubble = (props) => {
             <button onClick={()=> {props.quitNPCbubble(); changeNumber();}} className="quitNPCbubble">확인</button>
             <div style={{width:'100vw',height:'100vh',backgroundColor:'black',opacity:'50%',zIndex:'80'}}></div>
         </div>
-        <div id='바위게' className="npcSpeaking">
-            <img src={바위게Src} className="npcBubble animate__animated animate__pulse"></img>
+        <div id='바위게' className="npcSpeaking" style={{overflow:'hidden'}}>
+            <img src={바위게Src} className="npcBubble animate__animated animate__pulse" style={{overflow:'hidden'}}></img>
             <button onClick={()=> {props.quitNPCbubble(); changeNumber();}} className="quitNPCbubble">확인</button>
-            <div style={{width:'100vw',height:'100vh',backgroundColor:'black',opacity:'50%',zIndex:'80'}}></div>
+            <div style={{width:'100vw',height:'100vh',backgroundColor:'black',opacity:'50%',zIndex:'80',overflow:'hidden'}}></div>
         </div>
         <div id='flamingo' className="npcSpeaking">
             <img src={flamingoSrc} className="npcBubble animate__animated animate__pulse"></img>
