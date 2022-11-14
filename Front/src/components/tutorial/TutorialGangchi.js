@@ -9,6 +9,18 @@ const gangchiLine = [
     line: "여기서는 독도를 탐방하면서 독도에 대한 정보를 얻을 수 있치.",
   },
   {
+    line: "화면을 클릭해서 캐릭터를 움직일수 있치",
+  },
+  {
+    line: "오른쪽에는 동도가 있치. 동도에서는 역사관, 지형관, 생태관이 있치. 각 관에서 독도에 대한 다양한 정보를 얻을 수 있치!",
+  },
+  {
+    line: "왼쪽에는 서도가 있치. 서도에서는 다양한 NPC를 만나볼 수 있치! NPC에게서 독도에 대한 정보도 들어볼 수 있치.",
+  },
+  {
+    line: "서도에 대한 설명2",
+  },
+  {
     line: "독도에 사는 동식물을 만나보고 나만의 도감을 만들 수 있치.",
   },
   {
@@ -29,7 +41,7 @@ function TutorialGangchi() {
 
   const nextLine = () => {
     setCharNum(gangchiLine[lineNum].line.length);
-    if (lineNum + 1 > 4) {
+    if (lineNum + 1 > 8) {
       return;
     } else {
       setLineNum((lineNum) => lineNum + 1);
@@ -115,7 +127,7 @@ function TutorialGangchi() {
           justifyContent: "flex-end",
         }}
       >
-        {lineNum === 4 ? (
+        {lineNum === 8 ? (
           <div>
             <div className='LineENDButton' onClick={quitTutorialGangchi}>
               시작하기!
@@ -134,7 +146,7 @@ function TutorialGangchi() {
             <div
               className='LineSkipButton'
               onClick={() => {
-                setLineNum(4);
+                setLineNum(8);
               }}
             >
               SKIP
