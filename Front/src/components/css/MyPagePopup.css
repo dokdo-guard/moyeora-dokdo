@@ -177,3 +177,12 @@
   grid-template-columns: repeat(5, 1fr);
   grid-template-rows: repeat(2, 1fr);
 }
+.BadgeImage {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.BadgeImage > img {
+  width: 100px;
+  height: 100px;
+}

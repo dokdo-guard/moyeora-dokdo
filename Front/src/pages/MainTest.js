@@ -679,6 +679,8 @@ function MainTest() {
     if (item.object.name === "ocean") {
       player.moving = false;
     }
+    const accessToken = sessionStorage.getItem("accessToken");
+    // --관 입장 팻말
     if (item.object.name === "퀴즈팻말") {
       const QuizPop = document.getElementById("QuizPopup");
       QuizPop.style.display = "block";
@@ -693,6 +695,20 @@ function MainTest() {
       TerrianPop.addEventListener("mouseup", () => {
         isPressed = false;
       });
+      TerrianPop.addEventListener("click", () => {
+        const visitTerrain = async () => {
+          await axios.post(
+            `https://k7d204.p.ssafy.io/api/badge`,
+            { badge: "visitTerrain" },
+            {
+              headers: {
+                Authorization: `Bearer ${accessToken}`,
+              },
+            },
+          );
+        };
+        visitTerrain();
+      });
       mapReLoading();
 
       player.moving = false;
@@ -703,6 +719,20 @@ function MainTest() {
       EcoPop.addEventListener("mouseup", () => {
         isPressed = false;
       });
+      EcoPop.addEventListener("click", () => {
+        const visitEco = async () => {
+          await axios.post(
+            `https://k7d204.p.ssafy.io/api/badge`,
+            { badge: "visitBiology" },
+            {
+              headers: {
+                Authorization: `Bearer ${accessToken}`,
+              },
+            },
+          );
+        };
+        visitEco();
+      });
       player.moving = false;
     }
     if (item.object.name === "역사팻말") {
@@ -710,6 +740,20 @@ function MainTest() {
       HistoryPop.style.display = "block";
       HistoryPop.addEventListener("mouseup", () => {
         isPressed = false;
+      });
+      HistoryPop.addEventListener("click", () => {
+        const visitHistory = async () => {
+          await axios.post(
+            `https://k7d204.p.ssafy.io/api/badge`,
+            { badge: "visitHistory" },
+            {
+              headers: {
+                Authorization: `Bearer ${accessToken}`,
+              },
+            },
+          );
+        };
+        visitHistory();
       });
       player.moving = false;
     }

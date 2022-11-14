@@ -6,7 +6,7 @@ import LinearProgress, {
 } from "@mui/material/LinearProgress";
 // import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
-import {quitPopup} from '../main/PopupButton.js'
+import { quitPopup } from "../main/PopupButton.js";
 
 import { getQuiz } from "../../api/quizApi.js";
 import "../css/OXQuizPopup.css";
@@ -32,6 +32,45 @@ function OXQuizPopup() {
     return () => {};
   }, [quizNum]);
 
+  const quizFive = async () => {
+    await axios.post(
+      `https://k7d204.p.ssafy.io/api/badge`,
+      {
+        badge: "quizFive",
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      },
+    );
+  };
+  const quizTen = async () => {
+    await axios.post(
+      `https://k7d204.p.ssafy.io/api/badge`,
+      {
+        badge: "quizTen",
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      },
+    );
+  };
+  const quizFifteen = async () => {
+    await axios.post(
+      `https://k7d204.p.ssafy.io/api/badge`,
+      {
+        badge: "quizFifteen",
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      },
+    );
+  };
   const accessToken = sessionStorage.getItem("accessToken");
   const setQuizResult = async (result) => {
     if (
@@ -40,6 +79,15 @@ function OXQuizPopup() {
           "님 점수를 등록 하시겠습니까?",
       )
     ) {
+      if (quizNum === 5) {
+        quizFive();
+      }
+      if (quizNum === 10) {
+        quizTen();
+      }
+      if (quizNum === 15) {
+        quizFifteen();
+      }
       await axios
         .put(
           "https://k7d204.p.ssafy.io/api/quiz",
@@ -63,20 +111,6 @@ function OXQuizPopup() {
         .catch((err) => {
           console.log(err);
         });
-
-      await axios.post(
-        "https://k7d204.p.ssafy.io/api/badge",
-        {
-          achievement: "",
-          image: "",
-          name: "퀴즈 만점",
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${accessToken}`,
-          },
-        },
-      );
     }
   };
 
@@ -189,15 +223,15 @@ function OXQuizPopup() {
     value: PropTypes.number.isRequired,
   };
   return (
-    <div style={{position:'relative'}}>
+    <div style={{ position: "relative" }}>
       <div className='OXQuizContainer'>
         <div className='QuizTitle'>Quiz</div>
         <img
-              src='/assets/icons/cancel.png'
-              id='quitButton'
-              onClick={quitPopup}
-              className="quitPopup"
-            ></img>
+          src='/assets/icons/cancel.png'
+          id='quitButton'
+          onClick={quitPopup}
+          className='quitPopup'
+        ></img>
         {selected ? (
           <div className='OXQuizInWrapper'>
             <div className={quizProgress < quizNum ? "notHidden" : "hidden"}>
@@ -246,7 +280,16 @@ function OXQuizPopup() {
           <SelectQuizNum />
         )}
       </div>
-      <div style={{width:'100vw',height:'100vh',backgroundColor:'black',position:'absolute',opacity:'30%',zIndex:'9'}}></div>
+      <div
+        style={{
+          width: "100vw",
+          height: "100vh",
+          backgroundColor: "black",
+          position: "absolute",
+          opacity: "30%",
+          zIndex: "9",
+        }}
+      ></div>
     </div>
   );
 }

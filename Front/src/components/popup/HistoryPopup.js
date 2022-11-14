@@ -1,11 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   VerticalTimeline,
   VerticalTimelineElement,
 } from "react-vertical-timeline-component";
 import "react-vertical-timeline-component/style.min.css";
 import "../css/HistoryPopup.css";
-import {quitPopup} from '../main/PopupButton.js'
+import { quitPopup } from "../main/PopupButton.js";
+import axios from "axios";
 
 const dummy_data_history = [
   {
@@ -71,15 +72,15 @@ function HistoryPopup() {
   );
 
   return (
-    <div style={{position:'relative'}}>
+    <div style={{ position: "relative" }}>
       <div className='HistoryPopupContainer'>
         <div className='QuizTitle'>독도의 역사</div>
         <img
-              src='/assets/icons/cancel.png'
-              id='quitButton'
-              onClick={quitPopup}
-              className="quitPopup"
-            ></img>
+          src='/assets/icons/cancel.png'
+          id='quitButton'
+          onClick={quitPopup}
+          className='quitPopup'
+        ></img>
         <div className='HistoryPopupWrapper'>
           <div className='HistoryYear'>
             <VerticalTimeline>
@@ -110,7 +111,9 @@ function HistoryPopup() {
                     </h3>
                     <div
                       className={
-                        data.img === undefined ? "hidden" : "historyTimelineImage"
+                        data.img === undefined
+                          ? "hidden"
+                          : "historyTimelineImage"
                       }
                     >
                       <img
@@ -128,8 +131,16 @@ function HistoryPopup() {
           </div>
         </div>
       </div>
-      <div style={{width:'100vw',height:'100vh',backgroundColor:'black',position:'absolute',opacity:'30%',zIndex:'9'}}></div>
-
+      <div
+        style={{
+          width: "100vw",
+          height: "100vh",
+          backgroundColor: "black",
+          position: "absolute",
+          opacity: "30%",
+          zIndex: "9",
+        }}
+      ></div>
     </div>
   );
 }

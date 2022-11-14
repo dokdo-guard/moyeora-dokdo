@@ -51,7 +51,7 @@ function MyPagePopup(props) {
       setBadges(badges.data);
     };
     getBadge();
-  }, [isLoaded]);
+  }, [badgeShow]);
 
   useEffect(() => {
     if (userCharacter === "siryeong") {
@@ -368,14 +368,14 @@ function MyPagePopup(props) {
 
   // 뱃지 화면
   const Badge = () => {
-    const [number, setNumber] = useState([]);
-    checkNPClist()
-      .then((res) => {
-        setNumber(res.data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    // const [number, setNumber] = useState([]);
+    // checkNPClist()
+    //   .then((res) => {
+    //     setNumber(res.data);
+    //   })
+    //   .catch((err) => {
+    //     console.log(err);
+    //   });
 
     return (
       <div className='MyPageRightInnerWrapper'>
@@ -401,7 +401,7 @@ function MyPagePopup(props) {
         </div>
         <div className='BadgeWrapper'>
           {badges.talkative ? (
-            <div>
+            <div className='BadgeImage'>
               <img
                 src={
                   process.env.PUBLIC_URL +
@@ -411,10 +411,16 @@ function MyPagePopup(props) {
               />
             </div>
           ) : (
-            <div>없음</div>
+            <div className='BadgeImage'>
+              {" "}
+              <img
+                src={process.env.PUBLIC_URL + "/assets/badges/NoBadge.png"}
+                alt='no Badge'
+              />
+            </div>
           )}
           {badges.birdComplete ? (
-            <div>
+            <div className='BadgeImage'>
               <img
                 src={
                   process.env.PUBLIC_URL + "/assets/badges/EarnDogamBadge.png"
@@ -423,10 +429,16 @@ function MyPagePopup(props) {
               />
             </div>
           ) : (
-            <div>없음</div>
+            <div className='BadgeImage'>
+              {" "}
+              <img
+                src={process.env.PUBLIC_URL + "/assets/badges/NoBadge.png"}
+                alt='no Badge'
+              />
+            </div>
           )}
           {badges.plantComplete ? (
-            <div>
+            <div className='BadgeImage'>
               <img
                 src={
                   process.env.PUBLIC_URL + "/assets/badges/EarnDogamBadge.png"
@@ -435,10 +447,16 @@ function MyPagePopup(props) {
               />
             </div>
           ) : (
-            <div>없음</div>
+            <div className='BadgeImage'>
+              {" "}
+              <img
+                src={process.env.PUBLIC_URL + "/assets/badges/NoBadge.png"}
+                alt='no Badge'
+              />
+            </div>
           )}
           {badges.seaAnimalComplete ? (
-            <div>
+            <div className='BadgeImage'>
               <img
                 src={
                   process.env.PUBLIC_URL + "/assets/badges/EarnDogamBadge.png"
@@ -447,67 +465,109 @@ function MyPagePopup(props) {
               />
             </div>
           ) : (
-            <div>없음</div>
+            <div className='BadgeImage'>
+              {" "}
+              <img
+                src={process.env.PUBLIC_URL + "/assets/badges/NoBadge.png"}
+                alt='no Badge'
+              />
+            </div>
           )}
           {badges.quizFive ? (
-            <div>
+            <div className='BadgeImage'>
               <img
                 src={process.env.PUBLIC_URL + "/assets/badges/3rdBadge.png"}
                 alt='no Badge'
               />
             </div>
           ) : (
-            <div>없음</div>
+            <div className='BadgeImage'>
+              {" "}
+              <img
+                src={process.env.PUBLIC_URL + "/assets/badges/NoBadge.png"}
+                alt='no Badge'
+              />
+            </div>
           )}
           {badges.quizTen ? (
-            <div>
+            <div className='BadgeImage'>
               <img
-                src={process.env.PUBLIC_URL + "/assets/badges/2rdBadge.png"}
+                src={process.env.PUBLIC_URL + "/assets/badges/2ndBadge.png"}
                 alt='no Badge'
               />
             </div>
           ) : (
-            <div>없음</div>
+            <div className='BadgeImage'>
+              {" "}
+              <img
+                src={process.env.PUBLIC_URL + "/assets/badges/NoBadge.png"}
+                alt='no Badge'
+              />
+            </div>
           )}
           {badges.quizFifteen ? (
-            <div>
+            <div className='BadgeImage'>
               <img
                 src={process.env.PUBLIC_URL + "/assets/badges/1rdBadge.png"}
                 alt='no Badge'
               />
             </div>
           ) : (
-            <div>없음</div>
+            <div className='BadgeImage'>
+              {" "}
+              <img
+                src={process.env.PUBLIC_URL + "/assets/badges/NoBadge.png"}
+                alt='no Badge'
+              />
+            </div>
           )}
           {badges.visitBiology ? (
-            <div>
+            <div className='BadgeImage'>
               <img
                 src={process.env.PUBLIC_URL + "/assets/badges/VisitBadge.png"}
                 alt='no Badge'
               />
             </div>
           ) : (
-            <div>없음</div>
+            <div className='BadgeImage'>
+              {" "}
+              <img
+                src={process.env.PUBLIC_URL + "/assets/badges/NoBadge.png"}
+                alt='no Badge'
+              />
+            </div>
           )}
           {badges.visitHistory ? (
-            <div>
+            <div className='BadgeImage'>
               <img
                 src={process.env.PUBLIC_URL + "/assets/badges/VisitBadge.png"}
                 alt='no Badge'
               />
             </div>
           ) : (
-            <div>없음</div>
+            <div className='BadgeImage'>
+              {" "}
+              <img
+                src={process.env.PUBLIC_URL + "/assets/badges/NoBadge.png"}
+                alt='no Badge'
+              />
+            </div>
           )}
           {badges.visitTerrain ? (
-            <div>
+            <div className='BadgeImage'>
               <img
                 src={process.env.PUBLIC_URL + "/assets/badges/VisitBadge.png"}
                 alt='no Badge'
               />
             </div>
           ) : (
-            <div>없음</div>
+            <div className='BadgeImage'>
+              {" "}
+              <img
+                src={process.env.PUBLIC_URL + "/assets/badges/NoBadge.png"}
+                alt='no Badge'
+              />
+            </div>
           )}
         </div>
       </div>
