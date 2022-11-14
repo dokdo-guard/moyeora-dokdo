@@ -1,9 +1,14 @@
 import axios from "axios";
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { checkNPClist } from "../../api/mainApi.js";
 import "../css/MyPagePopup.css";
+import Tooltip from "@mui/material/Tooltip";
 
 function MyPagePopup(props) {
+  // 로그아웃 시 메인으로 이동
+  const navigate = useNavigate();
+
   // 다른 컴포넌트 보여주기 위함
   const [selectCharacterShow, setSelectCharacterShow] = useState(false);
   const [dogamShow, setDogamShow] = useState(false);
@@ -368,14 +373,14 @@ function MyPagePopup(props) {
 
   // 뱃지 화면
   const Badge = () => {
-    const [number, setNumber] = useState([]);
-    checkNPClist()
-      .then((res) => {
-        setNumber(res.data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    // const [number, setNumber] = useState([]);
+    // checkNPClist()
+    //   .then((res) => {
+    //     setNumber(res.data);
+    //   })
+    //   .catch((err) => {
+    //     console.log(err);
+    //   });
 
     return (
       <div className='MyPageRightInnerWrapper'>
@@ -402,13 +407,15 @@ function MyPagePopup(props) {
         <div className='BadgeWrapper'>
           {badges.talkative ? (
             <div className='BadgeImage'>
-              <img
-                src={
-                  process.env.PUBLIC_URL +
-                  "/assets/badges/TooMuchTalkerBadge.png"
-                }
-                alt='no Badge'
-              />
+              <Tooltip title='TooMuchTalker' placement='top'>
+                <img
+                  src={
+                    process.env.PUBLIC_URL +
+                    "/assets/badges/TooMuchTalkerBadge.png"
+                  }
+                  alt='no Badge'
+                />
+              </Tooltip>
             </div>
           ) : (
             <div className='BadgeImage'>
@@ -421,12 +428,14 @@ function MyPagePopup(props) {
           )}
           {badges.birdComplete ? (
             <div className='BadgeImage'>
-              <img
-                src={
-                  process.env.PUBLIC_URL + "/assets/badges/EarnDogamBadge.png"
-                }
-                alt='no Badge'
-              />
+              <Tooltip title='새 도감 완성' placement='top'>
+                <img
+                  src={
+                    process.env.PUBLIC_URL + "/assets/badges/EarnDogamBadge.png"
+                  }
+                  alt='no Badge'
+                />
+              </Tooltip>
             </div>
           ) : (
             <div className='BadgeImage'>
@@ -439,12 +448,14 @@ function MyPagePopup(props) {
           )}
           {badges.plantComplete ? (
             <div className='BadgeImage'>
-              <img
-                src={
-                  process.env.PUBLIC_URL + "/assets/badges/EarnDogamBadge.png"
-                }
-                alt='no Badge'
-              />
+              <Tooltip title='식물 도감 완성' placement='top'>
+                <img
+                  src={
+                    process.env.PUBLIC_URL + "/assets/badges/EarnDogamBadge.png"
+                  }
+                  alt='no Badge'
+                />
+              </Tooltip>
             </div>
           ) : (
             <div className='BadgeImage'>
@@ -457,12 +468,14 @@ function MyPagePopup(props) {
           )}
           {badges.seaAnimalComplete ? (
             <div className='BadgeImage'>
-              <img
-                src={
-                  process.env.PUBLIC_URL + "/assets/badges/EarnDogamBadge.png"
-                }
-                alt='no Badge'
-              />
+              <Tooltip title='해양 도감 완성' placement='top'>
+                <img
+                  src={
+                    process.env.PUBLIC_URL + "/assets/badges/EarnDogamBadge.png"
+                  }
+                  alt='no Badge'
+                />
+              </Tooltip>
             </div>
           ) : (
             <div className='BadgeImage'>
@@ -475,10 +488,12 @@ function MyPagePopup(props) {
           )}
           {badges.quizFive ? (
             <div className='BadgeImage'>
-              <img
-                src={process.env.PUBLIC_URL + "/assets/badges/3rdBadge.png"}
-                alt='no Badge'
-              />
+              <Tooltip title='퀴즈 5문제 만점' placement='top'>
+                <img
+                  src={process.env.PUBLIC_URL + "/assets/badges/3rdBadge.png"}
+                  alt='no Badge'
+                />
+              </Tooltip>
             </div>
           ) : (
             <div className='BadgeImage'>
@@ -491,10 +506,12 @@ function MyPagePopup(props) {
           )}
           {badges.quizTen ? (
             <div className='BadgeImage'>
-              <img
-                src={process.env.PUBLIC_URL + "/assets/badges/2ndBadge.png"}
-                alt='no Badge'
-              />
+              <Tooltip title='퀴즈 10문제 만점' placement='top'>
+                <img
+                  src={process.env.PUBLIC_URL + "/assets/badges/2ndBadge.png"}
+                  alt='no Badge'
+                />
+              </Tooltip>
             </div>
           ) : (
             <div className='BadgeImage'>
@@ -507,10 +524,12 @@ function MyPagePopup(props) {
           )}
           {badges.quizFifteen ? (
             <div className='BadgeImage'>
-              <img
-                src={process.env.PUBLIC_URL + "/assets/badges/1rdBadge.png"}
-                alt='no Badge'
-              />
+              <Tooltip title='퀴즈 15문제 만점' placement='top'>
+                <img
+                  src={process.env.PUBLIC_URL + "/assets/badges/1rdBadge.png"}
+                  alt='no Badge'
+                />
+              </Tooltip>
             </div>
           ) : (
             <div className='BadgeImage'>
@@ -523,10 +542,12 @@ function MyPagePopup(props) {
           )}
           {badges.visitBiology ? (
             <div className='BadgeImage'>
-              <img
-                src={process.env.PUBLIC_URL + "/assets/badges/VisitBadge.png"}
-                alt='no Badge'
-              />
+              <Tooltip title='생태관 방문' placement='top'>
+                <img
+                  src={process.env.PUBLIC_URL + "/assets/badges/VisitBadge.png"}
+                  alt='no Badge'
+                />
+              </Tooltip>
             </div>
           ) : (
             <div className='BadgeImage'>
@@ -539,10 +560,12 @@ function MyPagePopup(props) {
           )}
           {badges.visitHistory ? (
             <div className='BadgeImage'>
-              <img
-                src={process.env.PUBLIC_URL + "/assets/badges/VisitBadge.png"}
-                alt='no Badge'
-              />
+              <Tooltip title='역사관 방문' placement='top'>
+                <img
+                  src={process.env.PUBLIC_URL + "/assets/badges/VisitBadge.png"}
+                  alt='no Badge'
+                />
+              </Tooltip>
             </div>
           ) : (
             <div className='BadgeImage'>
@@ -555,10 +578,12 @@ function MyPagePopup(props) {
           )}
           {badges.visitTerrain ? (
             <div className='BadgeImage'>
-              <img
-                src={process.env.PUBLIC_URL + "/assets/badges/VisitBadge.png"}
-                alt='no Badge'
-              />
+              <Tooltip title='지형관 방문' placement='top'>
+                <img
+                  src={process.env.PUBLIC_URL + "/assets/badges/VisitBadge.png"}
+                  alt='no Badge'
+                />
+              </Tooltip>
             </div>
           ) : (
             <div className='BadgeImage'>
@@ -574,84 +599,70 @@ function MyPagePopup(props) {
     );
   };
   return (
-    <div style={{ position: "relative" }}>
-      <div
-        className='MyPageContainer'
-        style={{ position: "absolute", zIndex: "100" }}
-      >
-        <div className='MyPageTitle'>MY PAGE</div>
-        <div className='MyPageOutBtn'>
-          <div style={{ backgroundColor: "orange" }}>LOGOUT</div>
-          <div style={{ backgroundColor: "rgb(255, 73, 73)" }}>회원탈퇴</div>
-          <img
-            src='/assets/icons/cancel.png'
-            className='quitMyPage'
-            onClick={() => {
-              props.quitMyPage();
-            }}
-            alt='EMPTY'
-          ></img>
-        </div>
-        <div className='MyPageInnerWrapper'>
-          <div className='MyPageInnerLeft'>
-            <img
-              src={
-                process.env.PUBLIC_URL +
-                "/assets/images/characters/" +
-                userCharacter +
-                ".png"
-              }
-              alt='NOIMAGE'
-              className='MyPageCharacterImage'
-            />
-            {/* <div>{sessionStorage.getItem("name").slice(0, 3)}</div> */}
-            <div>{sessionStorage.getItem("email")}</div>
-          </div>
-          <div className='MyPageInnerRight'>
-            {selectCharacterShow || dogamShow || badgeShow ? null : (
-              <div>
-                <div
-                  onClick={() => {
-                    setSelectCharacterShow(true);
-                  }}
-                  className='MyPageMenu'
-                >
-                  캐릭터 선택
-                </div>
-                <div
-                  onClick={() => {
-                    setDogamShow(true);
-                  }}
-                  className='MyPageMenu'
-                >
-                  도감
-                </div>
-                <div
-                  onClick={() => {
-                    setBadgeShow(true);
-                  }}
-                  className='MyPageMenu'
-                >
-                  뱃지
-                </div>
-              </div>
-            )}
-            {selectCharacterShow ? <SelectCharacter /> : null}
-            {dogamShow ? <Dogam /> : null}
-            {badgeShow ? <Badge /> : null}
-          </div>
+    <div className='MyPageContainer'>
+      <div className='MyPageTitle'>MY PAGE</div>
+      <div className='MyPageOutBtn'>
+        <div
+          style={{ backgroundColor: "rgb(255, 73, 73)", cursor: "pointer" }}
+          onClick={() => {
+            if (window.confirm("로그아웃 하시겠습니까?")) {
+              sessionStorage.clear();
+              navigate("/");
+            }
+          }}
+        >
+          로그아웃
         </div>
       </div>
-      <div
-        style={{
-          position: "absolute",
-          width: "100vw",
-          height: "100vh",
-          backgroundColor: "black",
-          opacity: "50%",
-          zIndex: "90",
-        }}
-      ></div>
+      <div className='MyPageInnerWrapper'>
+        <div className='MyPageInnerLeft'>
+          <img
+            src={
+              process.env.PUBLIC_URL +
+              "/assets/images/characters/" +
+              userCharacter +
+              ".png"
+            }
+            alt='NOIMAGE'
+            className='MyPageCharacterImage'
+          />
+          {/* <div>{sessionStorage.getItem("name").slice(0, 3)}</div> */}
+          <div>{sessionStorage.getItem("email")}</div>
+        </div>
+        <div className='MyPageInnerRight'>
+          {selectCharacterShow || dogamShow || badgeShow ? null : (
+            <div>
+              <div
+                onClick={() => {
+                  setSelectCharacterShow(true);
+                }}
+                className='MyPageMenu'
+              >
+                캐릭터 선택
+              </div>
+              <div
+                onClick={() => {
+                  setDogamShow(true);
+                }}
+                className='MyPageMenu'
+              >
+                도감
+              </div>
+              <div
+                onClick={() => {
+                  setBadgeShow(true);
+                }}
+                className='MyPageMenu'
+              >
+                뱃지
+              </div>
+            </div>
+          )}
+          {selectCharacterShow ? <SelectCharacter /> : null}
+          {dogamShow ? <Dogam /> : null}
+          {badgeShow ? <Badge /> : null}
+        </div>
+      </div>
     </div>
   );
 }
