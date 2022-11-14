@@ -1,5 +1,6 @@
 package com.ssafy.dokdo.Entity;
 
+import com.ssafy.dokdo.Model.AllSpecies;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
