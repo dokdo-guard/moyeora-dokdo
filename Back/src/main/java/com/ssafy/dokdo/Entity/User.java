@@ -16,8 +16,7 @@ import java.util.List;
 @Getter
 @Entity
 @Table(name = "user", uniqueConstraints = {
-        @UniqueConstraint(columnNames = "email"),
-        @UniqueConstraint(columnNames = "name")
+        @UniqueConstraint(columnNames = "email")
 })
 public class User {
     @Id
@@ -74,4 +73,6 @@ public class User {
     @JoinColumn(name = "user_id")
     private List<Npc> npcList = new ArrayList<>();
 
+    // 이전접속기록
+    private boolean visitedBefore = false;
 }
