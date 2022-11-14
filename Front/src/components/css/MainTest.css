@@ -138,14 +138,14 @@
 	align-items: center;
 }
  
-.mainPage .quitMyPage {
+/* .mainPage .quitMyPage {
 	width: 100px;
 	z-index: 22;
 	position: absolute;
-	left: 95%;
+	left: 90%;
 	top: 3%;
 	cursor: pointer;
-}
+} */
 
 
 .mainPage .board {
@@ -178,6 +178,7 @@
 	top: 42%;
 	left: 30%;
 	z-index: 100;
+	overflow: hidden;
 }
 
 .mainPage .quitNPCbubble {

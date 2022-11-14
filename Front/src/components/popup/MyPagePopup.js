@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { useState, useEffect } from "react";
 import {checkNPClist} from '../../api/mainApi.js'
 import "../css/MyPagePopup.css";
+import Swal from 'sweetalert2'
 
 function MyPagePopup(props) {
   // 다른 컴포넌트 보여주기 위함
@@ -368,6 +369,7 @@ function MyPagePopup(props) {
 
   // 뱃지 화면
   const Badge = () => {
+    const Swal = require('sweetalert2')
     const [number, setNumber] = useState([])
     checkNPClist()
     .then((res)=> {
@@ -376,6 +378,14 @@ function MyPagePopup(props) {
     .catch((err)=> {
       console.log(err)
     })
+    if (number.length == 10) {
+      // Swal.fire({
+      //   icon: 'success',
+      //   title: 'Your work has been saved',
+      //   showConfirmButton: false,
+      //   timer: 1500
+      // })
+    }
 
 
     return (
@@ -400,66 +410,84 @@ function MyPagePopup(props) {
         >
           Back
         </div>
-        <div className='DogamCategoryWrapper'>TEST</div>
+        {/* <div className='DogamCategoryWrapper'>TEST</div> */}
+        {number.length == 10 ? (
+        <div className="communicationBadge">
+          <img src="/assets/images/badge/communication.png" className="badgeImage"></img>
+          <h3>대화왕 뱃지</h3>
+        </div>
+        ) : (
+        <img src="/assets/images/badge/question.png" className="badgeImage"></img>)}
       </div>
     );
   };
   return (
-    <div className='MyPageContainer'>
-      <div className='MyPageTitle'>MY PAGE</div>
-      <div className='MyPageOutBtn'>
-        <div style={{ backgroundColor: "orange" }}>LOGOUT</div>
-        <div style={{ backgroundColor: "rgb(255, 73, 73)" }}>회원탈퇴</div>
-      </div>
-      <div className='MyPageInnerWrapper'>
-        <div className='MyPageInnerLeft'>
+    <div style={{position:'relative'}}>
+      <div className='MyPageContainer' style={{position:'absolute', zIndex:'100'}}>
+        <div className='MyPageTitle'>MY PAGE</div>
+        <div className='MyPageOutBtn'>
+          <div style={{ backgroundColor: "orange" }}>LOGOUT</div>
+          <div style={{ backgroundColor: "rgb(255, 73, 73)" }}>회원탈퇴</div>
           <img
-            src={
-              process.env.PUBLIC_URL +
-              "/assets/images/characters/" +
-              userCharacter +
-              ".png"
-            }
-            alt='NOIMAGE'
-            className='MyPageCharacterImage'
-          />
-          {/* <div>{sessionStorage.getItem("name").slice(0, 3)}</div> */}
-          <div>{sessionStorage.getItem("email")}</div>
+              src='/assets/icons/cancel.png'
+              className='quitMyPage'
+              onClick={() => {
+                props.quitMyPage();
+              }}
+              alt='EMPTY'
+            ></img>
         </div>
-        <div className='MyPageInnerRight'>
-          {selectCharacterShow || dogamShow || badgeShow ? null : (
-            <div>
-              <div
-                onClick={() => {
-                  setSelectCharacterShow(true);
-                }}
-                className='MyPageMenu'
-              >
-                캐릭터 선택
+        <div className='MyPageInnerWrapper'>
+          <div className='MyPageInnerLeft'>
+            <img
+              src={
+                process.env.PUBLIC_URL +
+                "/assets/images/characters/" +
+                userCharacter +
+                ".png"
+              }
+              alt='NOIMAGE'
+              className='MyPageCharacterImage'
+            />
+            {/* <div>{sessionStorage.getItem("name").slice(0, 3)}</div> */}
+            <div>{sessionStorage.getItem("email")}</div>
+          </div>
+          <div className='MyPageInnerRight'>
+            {selectCharacterShow || dogamShow || badgeShow ? null : (
+              <div>
+                <div
+                  onClick={() => {
+                    setSelectCharacterShow(true);
+                  }}
+                  className='MyPageMenu'
+                >
+                  캐릭터 선택
+                </div>
+                <div
+                  onClick={() => {
+                    setDogamShow(true);
+                  }}
+                  className='MyPageMenu'
+                >
+                  도감
+                </div>
+                <div
+                  onClick={() => {
+                    setBadgeShow(true);
+                  }}
+                  className='MyPageMenu'
+                >
+                  뱃지
+                </div>
               </div>
-              <div
-                onClick={() => {
-                  setDogamShow(true);
-                }}
-                className='MyPageMenu'
-              >
-                도감
-              </div>
-              <div
-                onClick={() => {
-                  setBadgeShow(true);
-                }}
-                className='MyPageMenu'
-              >
-                뱃지
-              </div>
-            </div>
-          )}
-          {selectCharacterShow ? <SelectCharacter /> : null}
-          {dogamShow ? <Dogam /> : null}
-          {badgeShow ? <Badge /> : null}
+            )}
+            {selectCharacterShow ? <SelectCharacter /> : null}
+            {dogamShow ? <Dogam /> : null}
+            {badgeShow ? <Badge /> : null}
+          </div>
         </div>
       </div>
+      <div style={{position:"absolute",width:'100vw',height:'100vh',backgroundColor:'black',opacity:'50%',zIndex:'90'}}></div>
     </div>
   );
 }
