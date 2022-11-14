@@ -84,31 +84,43 @@ public class UserService {
                 userBadge.setTalkative(true);
                 break;
             case "plantComplete":
+            case "plant_complete":
                 userBadge.setPlantComplete(true);
                 break;
             case "birdComplete":
+            case "bird_complete":
                 userBadge.setBirdComplete(true);
                 break;
-            case "SeaAnimalComplete":
+            case "seaAnimalComplete":
+            case "sea_animal_complete":
                 userBadge.setSeaAnimalComplete(true);
                 break;
             case "quizFive":
+            case "quiz_five":
                 userBadge.setQuizFive(true);
                 break;
             case "quizTen":
+            case "quiz_ten":
                 userBadge.setQuizTen(true);
                 break;
             case "quizFifteen":
+            case "quiz_fifteen":
                 userBadge.setQuizFifteen(true);
                 break;
             case "visitBiology":
+            case "visit_biology":
                 userBadge.setVisitBiology(true);
                 break;
             case "visitHistory":
+            case "visit_history":
                 userBadge.setVisitHistory(true);
                 break;
             case "visitTerrain":
+            case "visit_terrain":
                 userBadge.setVisitTerrain(true);
+                break;
+            default:
+                throw new ResourceNotFoundException("Badge", "achivement", badge);
         }
         userBadgeRepository.save(userBadge);
         user.setUserBadge(userBadge);
@@ -133,14 +145,6 @@ public class UserService {
         convertToDto(userRepository.save(user));
     }
 
-//    public List<DogamDto> getDogamList(Long id, String domain) {
-//        User user = userRepository.findById(id)
-//                .orElseThrow(() -> new ResourceNotFoundException("User", "id", id));
-//
-//        List<Dogam> dogamList = user.getDogamList();
-//
-//        return dogamList;
-//    }
 
     public List<DogamDto> getPlantDogam(Long id) {
         User user = userRepository.findById(id)
