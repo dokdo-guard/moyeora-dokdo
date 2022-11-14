@@ -287,10 +287,10 @@ function MainTest() {
     meshes,
     gltfLoader,
     modelSrc: "/assets/glTF/독도새우.glb",
-    x: -42.184,
+    x: -19.18,
     y: 0.5,
-    z: -14.378,
-    rotation: -10,
+    z: -15.894,
+    rotation: -70,
   });
 
   const dog = new NPC({
@@ -437,7 +437,7 @@ function MainTest() {
           (Math.abs(spotMesh4.position.x - player.modelMesh.position.x) < 1.5 &&
             Math.abs(spotMesh4.position.z - player.modelMesh.position.z) < 1.5)
         ) {
-          gsap.to(camera.position, { duration: 1, y: 4 });
+          gsap.to(camera.position, { duration: 1, y: 3 });
           gsap.to(QuizSignMesh.position, {
             y: 1,
             duration: 1,
@@ -959,16 +959,8 @@ function MainTest() {
           </div>
           <div
             id='myPage'
-            style={{ display: "none", marginTop: "40px", marginLeft: "115px" }}
+            style={{ display: "none"}}
           >
-            <img
-              src='/assets/icons/cancel.png'
-              className='quitMyPage'
-              onClick={() => {
-                quitMyPage();
-              }}
-              alt='EMPTY'
-            ></img>
             <MyPagePopup
               changeSojung={changeSojung}
               changeSiryeong={changeSiryeong}
@@ -976,6 +968,7 @@ function MainTest() {
               changeYoungjin={changeYoungjin}
               changeSeongryeong={changeSeongryeong}
               changeChaehyeon={changeChaehyeon}
+              quitMyPage={quitMyPage}
             ></MyPagePopup>
           </div>
 
