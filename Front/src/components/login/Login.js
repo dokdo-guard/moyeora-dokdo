@@ -57,10 +57,6 @@ function Login(props) {
   return (
     <div className='content'>
       <div className='LoginWrapper'>
-        <div className='WhatIsOurServiceBtn' onClick={handleOpen}>
-          <HelpOutlineIcon />
-          모여봐요 우리땅 독도? 이게 뭐야?
-        </div>
         <Dialog
           open={open}
           TransitionComponent={Transition}
@@ -117,7 +113,12 @@ function Login(props) {
             <h1>도</h1>
           </div>
         </div>
-
+        <div className='WhatIsOurServiceBtnWrapper'>
+          <div className='WhatIsOurServiceBtn' onClick={handleOpen}>
+            <HelpOutlineIcon />
+            모여봐요 우리땅 독도? 이게 뭐야?
+          </div>
+        </div>
         <div style={{ textAlign: "center" }}>
           디스플레이 125% 크롬 100%환경에서 최적의 경험을 제공합니다.
         </div>

@@ -128,18 +128,25 @@
   height: 400px;
   object-fit: cover;
 }
-.WhatIsOurServiceBtn {
-  width: 300px;
-  height: 100px;
-  background-color: #c0bab1;
+.WhatIsOurServiceBtnWrapper {
+  width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
+}
+.WhatIsOurServiceBtn {
+  height: 50px;
+  background-color: #c0bab1;
+  display: flex;
+
   border-radius: 10px;
   margin: 5px;
   box-shadow: 10px 10px 20px lightgray;
   cursor: pointer;
   font-size: 20px;
+  width: 30%;
+  align-items: center;
+  justify-content: center;
 }
 .WhatIsOurServiceBtn:hover {
   transform: scale(1.1, 1.1);

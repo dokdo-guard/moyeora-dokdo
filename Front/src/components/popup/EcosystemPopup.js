@@ -91,14 +91,8 @@ function EcoSystemPopup() {
             />
           </div>
           <div className='EcoSystemDetailName'>{selectedData.name}</div>
-          <div>{selectedData.classificationSystem}</div>
-          <div className='EcoSystemDetailSpecies'>
-            {selectedData.speciesInformation}
-          </div>
+
           <div className='EcoSystemDetailSummary'>{selectedData.summary}</div>
-          <div className='EcoSystemDetailSummary'>
-            {selectedData.information}
-          </div>
         </div>
       </div>
     );

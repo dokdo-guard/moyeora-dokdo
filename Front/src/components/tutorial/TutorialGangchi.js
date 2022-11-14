@@ -41,7 +41,7 @@ function TutorialGangchi() {
 
   const nextLine = () => {
     setCharNum(gangchiLine[lineNum].line.length);
-    if (lineNum + 1 > 9) {
+    if (lineNum + 1 > 8) {
       return;
     } else {
       setLineNum((lineNum) => lineNum + 1);
@@ -127,7 +127,7 @@ function TutorialGangchi() {
           justifyContent: "flex-end",
         }}
       >
-        {lineNum === 9 ? (
+        {lineNum === 8 ? (
           <div>
             <div className='LineENDButton' onClick={quitTutorialGangchi}>
               시작하기!
@@ -146,7 +146,7 @@ function TutorialGangchi() {
             <div
               className='LineSkipButton'
               onClick={() => {
-                setLineNum(9);
+                setLineNum(8);
               }}
             >
               SKIP
