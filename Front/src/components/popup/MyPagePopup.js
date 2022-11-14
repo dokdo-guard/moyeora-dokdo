@@ -51,7 +51,7 @@ function MyPagePopup(props) {
       setBadges(badges.data);
     };
     getBadge();
-  }, [isLoaded]);
+  }, [badgeShow]);
 
   useEffect(() => {
     if (userCharacter === "siryeong") {
@@ -342,7 +342,7 @@ function MyPagePopup(props) {
             >
               {" "}
               <img
-                src={process.env.PUBLIC_URL + "/assets/icons/Bird_Icon.png"}
+                src={process.env.PUBLIC_URL + "/assets/icons/bird_Icon.png"}
                 alt=''
               />
             </div>
@@ -399,21 +399,177 @@ function MyPagePopup(props) {
         >
           Back
         </div>
-        {/* <div className='DogamCategoryWrapper'>TEST</div> */}
-        {number.length == 10 ? (
-          <div className='communicationBadge'>
-            <img
-              src='/assets/images/badge/communication.png'
-              className='badgeImage'
-            ></img>
-            <h3>대화왕 뱃지</h3>
-          </div>
-        ) : (
-          <img
-            src='/assets/images/badge/question.png'
-            className='badgeImage'
-          ></img>
-        )}
+        <div className='BadgeWrapper'>
+          {badges.talkative ? (
+            <div className='BadgeImage'>
+              <img
+                src={
+                  process.env.PUBLIC_URL +
+                  "/assets/badges/TooMuchTalkerBadge.png"
+                }
+                alt='no Badge'
+              />
+            </div>
+          ) : (
+            <div className='BadgeImage'>
+              {" "}
+              <img
+                src={process.env.PUBLIC_URL + "/assets/badges/NoBadge.png"}
+                alt='no Badge'
+              />
+            </div>
+          )}
+          {badges.birdComplete ? (
+            <div className='BadgeImage'>
+              <img
+                src={
+                  process.env.PUBLIC_URL + "/assets/badges/EarnDogamBadge.png"
+                }
+                alt='no Badge'
+              />
+            </div>
+          ) : (
+            <div className='BadgeImage'>
+              {" "}
+              <img
+                src={process.env.PUBLIC_URL + "/assets/badges/NoBadge.png"}
+                alt='no Badge'
+              />
+            </div>
+          )}
+          {badges.plantComplete ? (
+            <div className='BadgeImage'>
+              <img
+                src={
+                  process.env.PUBLIC_URL + "/assets/badges/EarnDogamBadge.png"
+                }
+                alt='no Badge'
+              />
+            </div>
+          ) : (
+            <div className='BadgeImage'>
+              {" "}
+              <img
+                src={process.env.PUBLIC_URL + "/assets/badges/NoBadge.png"}
+                alt='no Badge'
+              />
+            </div>
+          )}
+          {badges.seaAnimalComplete ? (
+            <div className='BadgeImage'>
+              <img
+                src={
+                  process.env.PUBLIC_URL + "/assets/badges/EarnDogamBadge.png"
+                }
+                alt='no Badge'
+              />
+            </div>
+          ) : (
+            <div className='BadgeImage'>
+              {" "}
+              <img
+                src={process.env.PUBLIC_URL + "/assets/badges/NoBadge.png"}
+                alt='no Badge'
+              />
+            </div>
+          )}
+          {badges.quizFive ? (
+            <div className='BadgeImage'>
+              <img
+                src={process.env.PUBLIC_URL + "/assets/badges/3rdBadge.png"}
+                alt='no Badge'
+              />
+            </div>
+          ) : (
+            <div className='BadgeImage'>
+              {" "}
+              <img
+                src={process.env.PUBLIC_URL + "/assets/badges/NoBadge.png"}
+                alt='no Badge'
+              />
+            </div>
+          )}
+          {badges.quizTen ? (
+            <div className='BadgeImage'>
+              <img
+                src={process.env.PUBLIC_URL + "/assets/badges/2ndBadge.png"}
+                alt='no Badge'
+              />
+            </div>
+          ) : (
+            <div className='BadgeImage'>
+              {" "}
+              <img
+                src={process.env.PUBLIC_URL + "/assets/badges/NoBadge.png"}
+                alt='no Badge'
+              />
+            </div>
+          )}
+          {badges.quizFifteen ? (
+            <div className='BadgeImage'>
+              <img
+                src={process.env.PUBLIC_URL + "/assets/badges/1rdBadge.png"}
+                alt='no Badge'
+              />
+            </div>
+          ) : (
+            <div className='BadgeImage'>
+              {" "}
+              <img
+                src={process.env.PUBLIC_URL + "/assets/badges/NoBadge.png"}
+                alt='no Badge'
+              />
+            </div>
+          )}
+          {badges.visitBiology ? (
+            <div className='BadgeImage'>
+              <img
+                src={process.env.PUBLIC_URL + "/assets/badges/VisitBadge.png"}
+                alt='no Badge'
+              />
+            </div>
+          ) : (
+            <div className='BadgeImage'>
+              {" "}
+              <img
+                src={process.env.PUBLIC_URL + "/assets/badges/NoBadge.png"}
+                alt='no Badge'
+              />
+            </div>
+          )}
+          {badges.visitHistory ? (
+            <div className='BadgeImage'>
+              <img
+                src={process.env.PUBLIC_URL + "/assets/badges/VisitBadge.png"}
+                alt='no Badge'
+              />
+            </div>
+          ) : (
+            <div className='BadgeImage'>
+              {" "}
+              <img
+                src={process.env.PUBLIC_URL + "/assets/badges/NoBadge.png"}
+                alt='no Badge'
+              />
+            </div>
+          )}
+          {badges.visitTerrain ? (
+            <div className='BadgeImage'>
+              <img
+                src={process.env.PUBLIC_URL + "/assets/badges/VisitBadge.png"}
+                alt='no Badge'
+              />
+            </div>
+          ) : (
+            <div className='BadgeImage'>
+              {" "}
+              <img
+                src={process.env.PUBLIC_URL + "/assets/badges/NoBadge.png"}
+                alt='no Badge'
+              />
+            </div>
+          )}
+        </div>
       </div>
     );
   };

@@ -8,8 +8,8 @@
   background-color: #faffe0;
   box-shadow: 5px 5px 30px lightgray;
   border-radius: 10px;
-  margin-top: 40px; 
-  margin-left: 115px; 
+  margin-top: 40px;
+  margin-left: 115px;
 }
 .MyPageTitle {
   display: flex;
@@ -76,6 +76,11 @@
   box-shadow: 3px 3px 20px lightgray;
   margin: 20px;
   font-size: 30px;
+}
+.MyPageMenu:hover {
+  transform: scale(1.1, 1.1);
+  background-color: #ffce8f;
+  transition: background-color 0.2s;
 }
 .MyPageCharacterImg {
   width: 70px;
@@ -180,9 +185,13 @@
 
 .quitMyPage {
   width: 80px;
-	z-index: 22;
-	position: absolute;
-	left: 90%;
-	top: 3%;
-	cursor: pointer;
+  z-index: 22;
+  position: absolute;
+  left: 90%;
+  top: 3%;
+  cursor: pointer;
+}
+.BadgeImage > img {
+  width: 100px;
+  height: 100px;
 }
