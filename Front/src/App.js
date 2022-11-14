@@ -9,6 +9,7 @@ import {
   LoadingTest,
   NewPage,
   BoardHome,
+  GameTest,
 } from "./pages/index";
 import Login from "./components/login/Login";
 import OauthRedirect from "./components/login/OauthRedirect";
@@ -25,6 +26,7 @@ function App() {
         <Route path='/oauth/redirect' element={<OauthRedirect />} />
         <Route path='/home/board' element={<BoardHome />} />
         <Route path='/new' element={<NewPage />} />
+        <Route path='/gameTest' element={<GameTest />} />
       </Routes>
     </>
   );
