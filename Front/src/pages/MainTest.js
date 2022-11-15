@@ -51,13 +51,8 @@ import {
 import {
   clickMyPage,
   quitMyPage,
-<<<<<<< HEAD
   quitMinimap,
-  mapPopup
-=======
-  clickTutorial,
-  quitTutorial,
->>>>>>> c13a6d2e32370846dedd65f84396d6464faa5e32
+  mapPopup,
 } from "../components/main/PopupButton.js";
 import { NPC } from "../components/glTF/NPC";
 import { Vector3 } from "three";
@@ -1030,26 +1025,6 @@ function MainTest() {
             <div className='ButtonBackGround'></div>
           </div>
 
-
-          <div className='tutorial' onClick={clickTutorial}>
-            <img
-              src='/assets/images/tutorial.png'
-              className='tutorialImage'
-            ></img>
-          </div>
-          <div id='tutorial' style={{ display: "none" }}>
-            <img
-              className='tutorialMark'
-              src='/assets/images/tutorial.png'
-            ></img>
-            <img
-              src='/assets/icons/cancel.png'
-              className='quitTutorial'
-              onClick={quitTutorial}
-            ></img>
-          </div>
-
-
           {/* 플레이어 캐릭터 애니메이션 */}
           <div
             onClick={() => {
@@ -1098,17 +1073,29 @@ function MainTest() {
           <NPCBubble quitNPCbubble={quitNPCbubble}></NPCBubble>
 
           {/* 미니맵 켜기 버튼 */}
-          <div onClick={mapPopup} className="map">
-            <img src="/assets/icons/map.png" style={{width:'30px',marginTop:'5px',marginLeft:'5px'}}></img>
-          </div>
-          <div id="minimap" style={{display:'none'}}>
+          <div onClick={mapPopup} className='map'>
             <img
-                src='/assets/icons/cancel.png'
-                className='quitTutorial'
-                onClick={quitMinimap}
+              src='/assets/icons/map.png'
+              style={{ width: "30px", marginTop: "5px", marginLeft: "5px" }}
             ></img>
-            <img src="/assets/images/minimap.png" className="mapImage"></img>
-            <div style={{width:'100vw',height:'100vh',backgroundColor:'black',opacity:'50%',position:'absolute',zIndex:"10"}}></div>
+          </div>
+          <div id='minimap' style={{ display: "none" }}>
+            <img
+              src='/assets/icons/cancel.png'
+              className='quitTutorial'
+              onClick={quitMinimap}
+            ></img>
+            <img src='/assets/images/minimap.png' className='mapImage'></img>
+            <div
+              style={{
+                width: "100vw",
+                height: "100vh",
+                backgroundColor: "black",
+                opacity: "50%",
+                position: "absolute",
+                zIndex: "10",
+              }}
+            ></div>
           </div>
         </div>
       ) : (
