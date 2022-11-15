@@ -63,19 +63,10 @@ public class UserController {
         userService.updateName(userPrincipal.getId(), user.getName());
     }
 
-    //domain별로 조회되도록 수정성령
-//    @GetMapping("/user/dogams")
-//    public ResponseEntity<?> getDogamList(@CurrentUser UserPrincipal userPrincipal, @RequestParam String domain){
-//        try{
-//            return new ResponseEntity<>(
-//                    userService.getDogamList(userPrincipal.getId(), domain),
-//                    HttpStatus.OK);
-//        } catch (NoSuchElementException noSuchElementException){
-//            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-//        } catch (Exception e) {
-//            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-//        }
-//    }
+    @PutMapping("/user/first-visit")
+    public void updateFirstVisit(@CurrentUser UserPrincipal userPrincipal){
+        userService.updateFirstVisit(userPrincipal.getId());
+    }
 
     @GetMapping("/user/dogams/plant")
     public ResponseEntity<?> getPlantDogam(@CurrentUser UserPrincipal userPrincipal){
