@@ -51,8 +51,13 @@ import {
 import {
   clickMyPage,
   quitMyPage,
+<<<<<<< HEAD
+  quitMinimap,
+  mapPopup
+=======
   clickTutorial,
   quitTutorial,
+>>>>>>> c13a6d2e32370846dedd65f84396d6464faa5e32
 } from "../components/main/PopupButton.js";
 import { NPC } from "../components/glTF/NPC";
 import { Vector3 } from "three";
@@ -1012,7 +1017,7 @@ function MainTest() {
             ></MyPagePopup>
           </div>
 
-          {/* 하단의 스크린샷 버튼과 튜토리얼 버튼 */}
+          {/* 하단의 스크린샷 버튼*/}
           <div
             className='screenShot'
             onClick={clickScreenCapture}
@@ -1024,6 +1029,7 @@ function MainTest() {
             ></img>
             <div className='ButtonBackGround'></div>
           </div>
+
 
           <div className='tutorial' onClick={clickTutorial}>
             <img
@@ -1042,6 +1048,7 @@ function MainTest() {
               onClick={quitTutorial}
             ></img>
           </div>
+
 
           {/* 플레이어 캐릭터 애니메이션 */}
           <div
@@ -1089,6 +1096,20 @@ function MainTest() {
 
           {/* NPC 캐릭터들 말풍선들 */}
           <NPCBubble quitNPCbubble={quitNPCbubble}></NPCBubble>
+
+          {/* 미니맵 켜기 버튼 */}
+          <div onClick={mapPopup} className="map">
+            <img src="/assets/icons/map.png" style={{width:'30px',marginTop:'5px',marginLeft:'5px'}}></img>
+          </div>
+          <div id="minimap" style={{display:'none'}}>
+            <img
+                src='/assets/icons/cancel.png'
+                className='quitTutorial'
+                onClick={quitMinimap}
+            ></img>
+            <img src="/assets/images/minimap.png" className="mapImage"></img>
+            <div style={{width:'100vw',height:'100vh',backgroundColor:'black',opacity:'50%',position:'absolute',zIndex:"10"}}></div>
+          </div>
         </div>
       ) : (
         <LoadingComponent />

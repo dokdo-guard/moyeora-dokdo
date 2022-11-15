@@ -3,10 +3,7 @@ import '../css/Board.css'
 import { useEffect, useState, useRef, useContext } from "react";
 
 const Board = ({quitBoard}) => {
-    const navigate = useNavigate()
-    const goBoard =()=> {
-        navigate('/home/board')
-    }
+
 
     return(
     <div className="boardPage">
