@@ -52,10 +52,9 @@ import {
   clickMyPage,
   quitMyPage,
   clickTutorial,
-  quitTutorial
+  quitTutorial,
 } from "../components/main/PopupButton.js";
 import { NPC } from "../components/glTF/NPC";
-import Tutorial from "../components/tutorial/tutorial";
 import { Vector3 } from "three";
 import { checkNPC } from "../api/mainApi.js";
 
@@ -504,8 +503,8 @@ function MainTest() {
     seagullPop.style.display = "none";
   };
 
-  const touchEffect = new Audio("/assets/audio/ddoing.mp3")
-  const NPCSound = new Audio("/assets/audio/npc.mp3")
+  const touchEffect = new Audio("/assets/audio/ddoing.mp3");
+  const NPCSound = new Audio("/assets/audio/npc.mp3");
 
   // 마우스로 클릭
 
@@ -540,7 +539,7 @@ function MainTest() {
         .catch((err) => {
           console.log(err);
         });
-      NPCSound.play()
+      NPCSound.play();
     }
     if (item.object.name === "SeaLion") {
       player.dontMove(destinationPoint);
@@ -555,7 +554,7 @@ function MainTest() {
         .catch((err) => {
           console.log(err);
         });
-        NPCSound.play()
+      NPCSound.play();
     }
     if (item.object.name === "Flamingo") {
       player.dontMove(destinationPoint);
@@ -570,7 +569,7 @@ function MainTest() {
           console.log(err);
         });
       isPressed = false;
-      NPCSound.play()
+      NPCSound.play();
     }
     if (item.object.name === "Pigeon") {
       player.dontMove(destinationPoint);
@@ -585,7 +584,7 @@ function MainTest() {
         .catch((err) => {
           console.log(err);
         });
-        NPCSound.play()
+      NPCSound.play();
     }
     if (item.object.name === "Seagull") {
       player.dontMove(destinationPoint);
@@ -600,7 +599,7 @@ function MainTest() {
         .catch((err) => {
           console.log(err);
         });
-        NPCSound.play()
+      NPCSound.play();
     }
     if (item.object.name === "Crab") {
       player.dontMove(destinationPoint);
@@ -615,7 +614,7 @@ function MainTest() {
         .catch((err) => {
           console.log(err);
         });
-        NPCSound.play()
+      NPCSound.play();
     }
     if (item.object.name === "Prawn") {
       player.dontMove(destinationPoint);
@@ -630,7 +629,7 @@ function MainTest() {
         .catch((err) => {
           console.log(err);
         });
-        NPCSound.play()
+      NPCSound.play();
     }
     if (item.object.name === "Dog") {
       player.dontMove(destinationPoint);
@@ -645,7 +644,7 @@ function MainTest() {
         .catch((err) => {
           console.log(err);
         });
-        NPCSound.play()
+      NPCSound.play();
     }
     if (item.object.name === "Turtle") {
       player.dontMove(destinationPoint);
@@ -660,7 +659,7 @@ function MainTest() {
         .catch((err) => {
           console.log(err);
         });
-        NPCSound.play()
+      NPCSound.play();
     }
     if (item.object.name === "Penguin") {
       player.dontMove(destinationPoint);
@@ -675,7 +674,7 @@ function MainTest() {
         .catch((err) => {
           console.log(err);
         });
-        NPCSound.play()
+      NPCSound.play();
     }
     if (item.object.name === "ocean") {
       player.moving = false;
@@ -689,7 +688,7 @@ function MainTest() {
         isPressed = false;
       });
       player.moving = false;
-      touchEffect.play()
+      touchEffect.play();
     }
     if (item.object.name == "지질팻말") {
       const TerrianPop = document.getElementById("TerrianPopup");
@@ -712,7 +711,7 @@ function MainTest() {
         visitTerrain();
       });
       mapReLoading();
-      touchEffect.play()
+      touchEffect.play();
       player.moving = false;
     }
     if (item.object.name === "생태팻말") {
@@ -736,7 +735,7 @@ function MainTest() {
         visitEco();
       });
       player.moving = false;
-      touchEffect.play()
+      touchEffect.play();
     }
     if (item.object.name === "역사팻말") {
       const HistoryPop = document.getElementById("HistoryPopup");
@@ -759,14 +758,14 @@ function MainTest() {
         visitHistory();
       });
       player.moving = false;
-      touchEffect.play()
+      touchEffect.play();
     }
     if (item.object.name.includes("land_76002")) {
       const BoardPop = document.getElementById("board");
       isPressed = false;
       BoardPop.style.display = "block";
       player.moving = false;
-      touchEffect.play()
+      touchEffect.play();
     }
   }
 
@@ -1037,7 +1036,6 @@ function MainTest() {
               className='tutorialMark'
               src='/assets/images/tutorial.png'
             ></img>
-            <Tutorial></Tutorial>
             <img
               src='/assets/icons/cancel.png'
               className='quitTutorial'
@@ -1085,7 +1083,7 @@ function MainTest() {
             <div className='actionButton'></div>
           </div>
 
-          <div id='board' style={{display:'none'}}>
+          <div id='board' style={{ display: "none" }}>
             <BoardHome quitBoard={quitBoard}></BoardHome>
           </div>
 
