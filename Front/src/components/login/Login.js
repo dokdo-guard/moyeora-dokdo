@@ -43,6 +43,7 @@ function Login(props) {
             <h1>!</h1>
           </div>
         </div>
+
         <div className='LoginTitle waviy'>
           <div style={{ "--i": 6 }}>
             <h1>우</h1>
