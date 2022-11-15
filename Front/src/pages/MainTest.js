@@ -15,6 +15,8 @@ import TerrianPopup from "../components/popup/TerrianPopup";
 import OXQuizPopup from "../components/popup/OXQuizPopup";
 import EcoSystemPopup from "../components/popup/EcosystemPopup";
 
+import Board from "../components/board/Board.js";
+
 import Stats from "stats.js";
 import { useEffect, useState } from "react";
 
@@ -51,16 +53,22 @@ import {
 import {
   clickMyPage,
   quitMyPage,
-  quitMinimap,
-  mapPopup,
+  clickTutorial,
+  quitTutorial,
+  clickDogam,
+  quitDogam,
+  quitPopup,
+  clickChat,
+  quitChat,
+  clickBoard,
 } from "../components/main/PopupButton.js";
 import { NPC } from "../components/glTF/NPC";
-import { Vector3 } from "three";
+import Tutorial from "../components/tutorial/tutorial";
+import { Vector2, Vector3 } from "three";
 import { checkNPC } from "../api/mainApi.js";
 
 import axios from "axios";
 import NPCBubble from "../components/main/NPCbubble";
-import BoardHome from "./BoardHome";
 
 function MainTest() {
   //#region = 카메라, 빛, 렌더러, 씬
@@ -602,9 +610,6 @@ function MainTest() {
   };
   
 
-  const touchEffect = new Audio("/assets/audio/ddoing.mp3");
-  const NPCSound = new Audio("/assets/audio/npc.mp3");
-
   // 마우스로 클릭
   function moveNPCList(){
 
@@ -710,7 +715,6 @@ function MainTest() {
         .catch((err) => {
           console.log(err);
         });
-      NPCSound.play();
     }
     if (item.object.name === "SeaLion") {
       player.dontMove(destinationPoint);
@@ -724,7 +728,6 @@ function MainTest() {
         .catch((err) => {
           console.log(err);
         });
-      NPCSound.play();
     }
     if (item.object.name === "Flamingo") {
       player.dontMove(destinationPoint);
@@ -738,13 +741,14 @@ function MainTest() {
           console.log(err);
         });
       isPressed = false;
-      NPCSound.play();
     }
     if (item.object.name === "Pigeon") {
       player.dontMove(destinationPoint);
       const pigeonPop = document.getElementById("pigeon");
       pigeonPop.style.display = "block";
+      // pigeonPop.addEventListener("mouseup", () => {
       isPressed = false;
+      // });
       checkNPC(answer)
         .then((res) => {
           console.log("api 연결 성공!");
@@ -752,13 +756,14 @@ function MainTest() {
         .catch((err) => {
           console.log(err);
         });
-      NPCSound.play();
     }
     if (item.object.name === "Seagull") {
       player.dontMove(destinationPoint);
       const seagullPop = document.getElementById("seagull");
       seagullPop.style.display = "block";
+      // seagullPop.addEventListener("mouseup", () => {
       isPressed = false;
+      // });
       checkNPC(answer)
         .then((res) => {
           console.log("api 연결 성공!");
@@ -766,7 +771,6 @@ function MainTest() {
         .catch((err) => {
           console.log(err);
         });
-      NPCSound.play();
     }
     if (item.object.name === "Crab") {
       player.dontMove(destinationPoint);
@@ -780,7 +784,6 @@ function MainTest() {
         .catch((err) => {
           console.log(err);
         });
-      NPCSound.play();
     }
     if (item.object.name === "Prawn") {
       player.dontMove(destinationPoint);
@@ -794,7 +797,6 @@ function MainTest() {
         .catch((err) => {
           console.log(err);
         });
-      NPCSound.play();
     }
     if (item.object.name === "Dog") {
       player.dontMove(destinationPoint);
@@ -808,7 +810,6 @@ function MainTest() {
         .catch((err) => {
           console.log(err);
         });
-      NPCSound.play();
     }
     if (item.object.name === "Turtle") {
       player.dontMove(destinationPoint);
@@ -822,7 +823,6 @@ function MainTest() {
         .catch((err) => {
           console.log(err);
         });
-      NPCSound.play();
     }
     if (item.object.name === "Penguin") {
       player.dontMove(destinationPoint);
@@ -836,7 +836,6 @@ function MainTest() {
         .catch((err) => {
           console.log(err);
         });
-      NPCSound.play();
     }
     if (item.object.name === "ocean") {
       player.moving = false;
@@ -850,7 +849,6 @@ function MainTest() {
         isPressed = false;
       });
       player.moving = false;
-      touchEffect.play();
     }
     if (item.object.name == "지질팻말") {
       const TerrianPop = document.getElementById("TerrianPopup");
@@ -873,7 +871,7 @@ function MainTest() {
         visitTerrain();
       });
       mapReLoading();
-      touchEffect.play();
+
       player.moving = false;
     }
     if (item.object.name === "생태팻말") {
@@ -897,7 +895,6 @@ function MainTest() {
         visitEco();
       });
       player.moving = false;
-      touchEffect.play();
     }
     if (item.object.name === "역사팻말") {
       const HistoryPop = document.getElementById("HistoryPopup");
@@ -920,14 +917,14 @@ function MainTest() {
         visitHistory();
       });
       player.moving = false;
-      touchEffect.play();
     }
     if (item.object.name.includes("land_76002")) {
       const BoardPop = document.getElementById("board");
-      isPressed = false;
+      BoardPop.addEventListener("mouseup", () => {
+        isPressed = false;
+      });
       BoardPop.style.display = "block";
       player.moving = false;
-      touchEffect.play();
     }
   }
 
@@ -988,6 +985,7 @@ function MainTest() {
 
   // 스크린 캡처 코드를 위해 render 함수를 따로 분리해서 설정해줌
   function resizeRendererToDisplaySize(renderer) {
+    // const canvas = renderer.domElement;
     const width = canvas.clientWidth;
     const height = canvas.clientHeight;
     const needResize = canvas.width !== width || canvas.height !== height;
@@ -999,6 +997,7 @@ function MainTest() {
 
   function render() {
     if (resizeRendererToDisplaySize(renderer)) {
+      // const canvas = renderer.domElement;
       camera.aspect = canvas.clientWidth / canvas.clientHeight;
       camera.updateProjectionMatrix();
     }
@@ -1102,8 +1101,12 @@ function MainTest() {
 
   // 플레이어 캐릭터 행동
   const actionHandler = (e) => {
+    const delta = clock.getDelta();
     render();
     if (player.mixer) {
+      // player.mixer.update(delta);
+      // player.actions[e].play();
+
       player.actions[e].setLoop(THREE.LoopOnce);
       player.actions[e].stop();
       player.actions[e].play();
@@ -1122,6 +1125,7 @@ function MainTest() {
           <div className='QuizPopup' id='QuizPopup' style={{ display: "none" }}>
             <OXQuizPopup></OXQuizPopup>
           </div>
+
           <div
             className='TerrianPopup'
             id='TerrianPopup'
@@ -1174,7 +1178,7 @@ function MainTest() {
             ></MyPagePopup>
           </div>
 
-          {/* 하단의 스크린샷 버튼*/}
+          {/* 하단의 스크린샷 버튼과 튜토리얼 버튼 */}
           <div
             className='screenShot'
             onClick={clickScreenCapture}
@@ -1185,6 +1189,25 @@ function MainTest() {
               src='/assets/images/camera.png'
             ></img>
             <div className='ButtonBackGround'></div>
+          </div>
+
+          <div className='tutorial' onClick={clickTutorial}>
+            <img
+              src='/assets/images/tutorial.png'
+              className='tutorialImage'
+            ></img>
+          </div>
+          <div id='tutorial' style={{ display: "none" }}>
+            <img
+              className='tutorialMark'
+              src='/assets/images/tutorial.png'
+            ></img>
+            <Tutorial></Tutorial>
+            <img
+              src='/assets/icons/cancel.png'
+              className='quitTutorial'
+              onClick={quitTutorial}
+            ></img>
           </div>
 
           {/* 플레이어 캐릭터 애니메이션 */}
@@ -1227,38 +1250,13 @@ function MainTest() {
             <div className='actionButton'></div>
           </div>
 
-          <div id='board' style={{ display: "none" }}>
-            <BoardHome quitBoard={quitBoard}></BoardHome>
+          {/* 게시판으로 이동하기 */}
+          <div id='board' className='board'>
+            <Board quitBoard={quitBoard}></Board>
           </div>
 
           {/* NPC 캐릭터들 말풍선들 */}
           <NPCBubble quitNPCbubble={quitNPCbubble}></NPCBubble>
-
-          {/* 미니맵 켜기 버튼 */}
-          <div onClick={mapPopup} className='map'>
-            <img
-              src='/assets/icons/map.png'
-              style={{ width: "30px", marginTop: "5px", marginLeft: "5px" }}
-            ></img>
-          </div>
-          <div id='minimap' style={{ display: "none" }}>
-            <img
-              src='/assets/icons/cancel.png'
-              className='quitTutorial'
-              onClick={quitMinimap}
-            ></img>
-            <img src='/assets/images/minimap.png' className='mapImage'></img>
-            <div
-              style={{
-                width: "100vw",
-                height: "100vh",
-                backgroundColor: "black",
-                opacity: "50%",
-                position: "absolute",
-                zIndex: "10",
-              }}
-            ></div>
-          </div>
         </div>
       ) : (
         <LoadingComponent />

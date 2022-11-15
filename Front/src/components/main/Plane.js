@@ -5,7 +5,7 @@ const eastFloorTexture = textureLoader.load("/assets/images/east.png");
 const westFloorTexture = textureLoader.load("/assets/images/west.png");
 const oceanTexture = textureLoader.load("/assets/images/ocean.png");
 const oceanBlockTexture = textureLoader.load("/assets/images/oceanBlock.png");
- 
+
 export const eastFloorMesh = 
     new THREE.Mesh(
         new THREE.PlaneGeometry(51.38, 87.06),

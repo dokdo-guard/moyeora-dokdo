@@ -90,6 +90,7 @@ const handleSubmit = (e) => {
     .catch((err) => {
       console.log(err);
     });
+  navigate("/home/board");
 };
 
 
@@ -100,7 +101,7 @@ const handleSubmit = (e) => {
         </div>
         <div className="buttons">
           <button onClick={handleSubmit} className="write">작성하기</button>
-          <button  className="goBack">돌아가기</button>
+          <button onClick={()=> navigate('/home/board')} className="goBack">돌아가기</button>
         </div>
         <textarea
         ref={contentRef}

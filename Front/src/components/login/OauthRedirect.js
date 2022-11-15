@@ -31,29 +31,14 @@ const OauthRedirect = (props) => {
             sessionStorage.setItem("name", res.data.name);
             sessionStorage.setItem("email", res.data.email);
             sessionStorage.setItem("userCharacter", res.data.userCharacter);
-            sessionStorage.setItem("visitedBefore", res.data.visitedBefore);
           })
           .catch((err) => {
             console.log("Error in Login OauthRedirect");
             console.log(err);
           });
       };
-
-      const getUserBadge = async (token) => {
-        await axios
-          .get("https://k7d204.p.ssafy.io/api/badge", {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          })
-          .then((res) => {
-            sessionStorage.setItem("badges", JSON.stringify(res.data));
-          });
-      };
-
-      getUserBadge(token);
       getUserInfo(token);
-      navigate("/main/main");
+      navigate("/main/mainTest");
     } else {
       console.log(error);
       navigate("/login");
