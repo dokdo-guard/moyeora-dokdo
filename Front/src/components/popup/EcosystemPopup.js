@@ -17,7 +17,12 @@ function EcoSystemPopup() {
   const [detailSelected, setDetailSelected] = useState(false);
   const [data, setData] = useState([]);
   const accessToken = sessionStorage.getItem("accessToken");
+  const badgeInfo = JSON.parse(sessionStorage.getItem("badges"));
+
   const MySwal = withReactContent(Swal);
+  useEffect(() => {
+    console.log(badgeInfo);
+  });
   useEffect(() => {
     if (category === "bird") {
       getAllBirds()

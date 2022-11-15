@@ -31,12 +31,36 @@ const OauthRedirect = (props) => {
             sessionStorage.setItem("name", res.data.name);
             sessionStorage.setItem("email", res.data.email);
             sessionStorage.setItem("userCharacter", res.data.userCharacter);
+            sessionStorage.setItem("visitedBefore", res.data.visitedBefore);
           })
           .catch((err) => {
             console.log("Error in Login OauthRedirect");
             console.log(err);
           });
       };
+
+      const getUserBadge = async (token) => {
+        await axios
+          .get("https://k7d204.p.ssafy.io/api/badge", {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          })
+          .then((res) => {
+            sessionStorage.setItem("badges", JSON.stringify(res.data));
+          });
+      };
+      const setVisit = async (token) => {
+        console.log("TOKEN IN SETVISIT");
+        console.log(token);
+        await axios.put("https://k7d204.p.ssafy.io/api/user/first-visit", {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+      };
+      setVisit(token);
+      getUserBadge(token);
       getUserInfo(token);
       navigate("/main/main");
     } else {

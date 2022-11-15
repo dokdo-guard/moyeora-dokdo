@@ -1,6 +1,7 @@
 import { useState } from "react";
 import "../css/TutorialGangchi.css";
 import popupStyles from "../css/Tutorial.module.css";
+import axios from "axios";
 
 const gangchiLine = [
   {
@@ -39,6 +40,7 @@ function TutorialGangchi() {
   const [lineNum, setLineNum] = useState(0);
   const [typing, setTyping] = useState(true);
   const [charNum, setCharNum] = useState(0);
+  const accessToken = sessionStorage.getItem("accessToken");
 
   const nextLine = () => {
     setCharNum(gangchiLine[lineNum].line.length);
@@ -52,8 +54,15 @@ function TutorialGangchi() {
       );
     }
   };
-
+  const setVisit = async () => {
+    await axios.put("https://k7d204.p.ssafy.io/api/user/first-visit", {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    });
+  };
   const quitTutorialGangchi = () => {
+    sessionStorage.setItem("visitedBefore", true);
     const tutorialPop = document.getElementById("tutorialGangchi");
     tutorialPop.style.display = "none";
   };
@@ -205,7 +214,12 @@ function TutorialGangchi() {
       >
         {lineNum === 8 ? (
           <div>
-            <div className='LineENDButton' onClick={quitTutorialGangchi}>
+            <div
+              className='LineENDButton'
+              onClick={() => {
+                quitTutorialGangchi();
+              }}
+            >
               시작하기!
             </div>
           </div>
