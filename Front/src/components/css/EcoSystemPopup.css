@@ -25,8 +25,7 @@
   display: grid;
   justify-items: center;
   align-items: center;
-  grid-template-columns: 50% 50%;
-  grid-template-areas: 50% 50%;
+  grid-template-columns: repeat(4, 25%);
   border-radius: 5px;
 }
 .EcosystemSelectBtn {
@@ -40,6 +39,7 @@
   justify-content: center;
   align-items: center;
   cursor: pointer;
+  flex-direction: column;
 }
 .EcosystemSelectBtn:hover {
   background-color: #ffce8f;

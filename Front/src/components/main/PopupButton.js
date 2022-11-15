@@ -75,3 +75,13 @@ export const clickBoard = () => {
   const BoardPop = document.getElementById("board");
   BoardPop.style.display = "block";
 };
+
+export const mapPopup = () => {
+  const mapPopup = document.getElementById('minimap');
+  mapPopup.style.display  = 'block'
+}
+
+export const quitMinimap =() => {
+  const mapPopup = document.getElementById('minimap');
+  mapPopup.style.display  = 'none'
+}
