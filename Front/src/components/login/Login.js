@@ -106,11 +106,14 @@ function Login(props) {
           </div>
           <div style={{ "--i": 8 }}>
             <h1>땅</h1>
-          </div>
+          </div>{" "}
           <div style={{ "--i": 9 }}>
-            <h1>독</h1>
+            <h1>,</h1>
           </div>
           <div style={{ "--i": 10 }}>
+            <h1>독</h1>
+          </div>
+          <div style={{ "--i": 11 }}>
             <h1>도</h1>
           </div>
         </div>

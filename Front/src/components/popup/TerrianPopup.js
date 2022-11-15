@@ -1,7 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import "../css/TerrianPopup.css";
 import { getAllTerrians } from "../../api/terrainApi";
-import axios from "axios";
 
 let map = null;
 
@@ -184,7 +183,7 @@ function TerrianPopup(isShown) {
   return (
     <div style={{ position: "relative" }}>
       <div className='TerrianPopupContainer'>
-        <div className='TerrianPopupTitle'>독도의 지형 및 지리</div>
+        <div className='TerrianPopupTitle'>지형 박물관</div>
         <img
           src='/assets/icons/cancel.png'
           id='quitButton'
