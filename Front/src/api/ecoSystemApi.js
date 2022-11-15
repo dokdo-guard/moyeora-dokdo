@@ -45,3 +45,10 @@ export const getSeaPlant = async (name, success, fail) => {
     .then(success)
     .catch(fail);
 };
+
+
+// 게임을 위한 도감 획득
+export const getRandomDogam = async(number, success,fail) => {
+  return await api.get(`/dogam/random?number=${number}`).then(success).catch(fail);
+}
+
