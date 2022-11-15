@@ -26,14 +26,14 @@
 }
 .LoadingCenter {
   width: 100%;
-  height: 65%;
+  height: 60%;
 }
 .LoadingProgressBar {
   border: 16px solid #c7c7c7; /* Light grey */
   border-top: 16px solid #fff562; /* Blue */
   border-radius: 50%;
-  width: 80px;
-  height: 80px;
+  width: 60px;
+  height: 60px;
   animation: spin 2s linear infinite;
 }
 
