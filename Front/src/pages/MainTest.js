@@ -127,6 +127,7 @@ function MainTest() {
   const meshes = [];
   // components/main/.js 에서 만든 각 scene 컴포넌트들 한번에 다 scene에 넣기
   useEffect(() => {
+    
     scene.add(
       eastFloorMesh,
       westFloorMesh,
@@ -239,6 +240,13 @@ function MainTest() {
     y: 0.5,
     z: -7.829,
     rotation: 30.6,
+    locationXYZ:
+    [
+      new Vector3( -7.793879982719776, 0.3, -4.335895808493318),
+      new Vector3( -15.098891290320271, 0.3, -10.189661513688627),
+      new Vector3( -33.71411221960557, 0.3, -9.995413053675362),
+      new Vector3( -7.793879982719776,0.3, -4.335895808493318)
+    ]
   });
 
   const flamingo = new NPC({
@@ -250,6 +258,14 @@ function MainTest() {
     y: 0.5,
     z: 0.88,
     rotation: 0,
+    locationXYZ:
+    [
+      new Vector3(  -20.78985228460327, 0.3, 0.8874650449536375),
+      new Vector3( -18.58517426468455, 0.3, 13.197882395528888),
+      new Vector3( -35.69741117173259, 0.3, 7.959017812248275),
+      new Vector3( -24.270542972450095, 0.3, 8.552153807754308),
+      new Vector3(  -20.35829170537956, 0.3, 0.9435563546930748),
+    ]
   });
 
   const pigeon = new NPC({
@@ -261,6 +277,14 @@ function MainTest() {
     y: 0.5,
     z: 2.983,
     rotation: -43.4,
+    locationXYZ:
+    [
+      new Vector3(  -39.17420285132829, 0.3, 0.26667655464337836),
+      new Vector3(  -38.290934685955186, 0.3, 8.540109624188446),
+      new Vector3( -35.44825450387899, 0.3, -2.633970430629861),
+      new Vector3( -44.988343955448656, 0.3, 1.5062229992472873),
+      new Vector3(  -20.35829170537956, 0.3, 0.9435563546930748),
+    ]
   });
 
   const seagull = new NPC({
@@ -272,6 +296,14 @@ function MainTest() {
     y: 0.5,
     z: 20.572,
     rotation: 0,
+    locationXYZ:
+    [
+      new Vector3(  -21.95128654903685, 0.3,20.54887665283919),
+      new Vector3( -29.277639441537293, 0.3,21.69096376062519),
+      new Vector3(-36.4953926360427, 0.3, 16.86397474086963),
+      new Vector3( -20.66351602551088, 0.3, 19.574843124467908),
+      new Vector3(  -21.95128654903685, 0.3,20.54887665283919),
+    ]
   });
 
   const 바위게 = new NPC({
@@ -283,6 +315,16 @@ function MainTest() {
     y: 0.5,
     z: 34.239,
     rotation: 130.2,
+    locationXYZ:
+    [
+      new Vector3( -8.662207604417027, 0.3,37.520434937688464),
+      new Vector3( -14.444567550279341, 0.3,44.66351500106057),
+      new Vector3(-22.758423659288347, 0.3, 41.65955859108265),
+      new Vector3( -34.139243955717454, 0.3, 41.9936272890052),
+      new Vector3(-22.758423659288347, 0.3, 41.65955859108265),
+      new Vector3( -14.444567550279341, 0.3,44.66351500106057),
+      new Vector3( -8.662207604417027, 0.3,37.520434937688464),
+    ]
   });
 
   const 독도새우 = new NPC({
@@ -294,6 +336,16 @@ function MainTest() {
     y: 0.5,
     z: -15.894,
     rotation: -70,
+    locationXYZ:
+    [
+      new Vector3( -20.563688953203595, 0.3,-17.624868365657477),
+      new Vector3( -17.61426942287593, 0.3,-13.088261559308728),
+      new Vector3(-14.426756772055207, 0.3, -12.887060434304589),
+      new Vector3(-11.720082443771588, 0.3, -11.688338192772564),
+      new Vector3(-14.426756772055207, 0.3, -12.887060434304589),
+      new Vector3( -17.61426942287593, 0.3,-13.088261559308728),
+      new Vector3( -20.563688953203595, 0.3,-17.624868365657477),
+    ]
   });
 
   const dog = new NPC({
@@ -305,6 +357,13 @@ function MainTest() {
     y: 0.5,
     z: -7.194,
     rotation: 0,
+    locationXYZ:
+    [
+      new Vector3( -25.654239782144444, 0.3, -6.570898297140369),
+      new Vector3( -39.372938533947554, 0.3, -2.1504558660221655),
+      new Vector3( -33.540259477031775, 0.3, -13.93687883852078),
+      new Vector3( -25.654239782144444, 0.3, -6.570898297140369),
+    ]
   });
 
   const turtle = new NPC({
@@ -316,6 +375,14 @@ function MainTest() {
     y: 0.5,
     z: 21.398,
     rotation: -30.6,
+    locationXYZ:
+    [
+      new Vector3( -56.24812784828064, 0.3, 27.3565012342076),
+      new Vector3( -46.53638644943192, 0.3, 19.745347963682683),
+      new Vector3( -50.35414382846983, 0.3, 15.760699502017511),
+      new Vector3(-53.40442694720129, 0.3, 19.91941965445064),
+      new Vector3( -56.24812784828064, 0.3, 27.3565012342076),
+    ]
   });
 
   const 돌고래 = new NPC({
@@ -327,6 +394,16 @@ function MainTest() {
     y: 0.2,
     z: -40.685,
     rotation: 12.8,
+    locationXYZ:
+    [
+      new Vector3( -23.402348999863882, 0.3, -28.9867256675011),
+      new Vector3( -28.486057647570647, 0.3, -39.05552875320193),
+      new Vector3(-37.755218835644754, 0.3, -48.82706185499737),
+      new Vector3(-45.708307627797254, 0.3, -50.820134503513465),
+      new Vector3(-37.755218835644754, 0.3, -48.82706185499737),
+      new Vector3( -28.486057647570647, 0.3, -39.05552875320193),
+      new Vector3( -23.402348999863882, 0.3, -28.9867256675011),
+    ]
   });
 
   const 펭귄 = new NPC({
@@ -338,6 +415,16 @@ function MainTest() {
     y: 0.2,
     z: -27.849,
     rotation: -5,
+    locationXYZ:
+    [
+      new Vector3(-44.75755492546486, 0.3, -31.241182652087332),
+      new Vector3( -42.53105005165799, 0.3,-38.23196622196069),
+      new Vector3( -45.19442414231521, 0.3, -44.57447007930944),
+      new Vector3(-38.41226096365838, 0.3,-41.775847249770585),
+      new Vector3(  -39.166587486133025, 0.3,-35.55406607295245),
+      new Vector3( -31.738155854036886, 0.3,-35.734763552999226),
+      new Vector3(-44.75755492546486, 0.3, -31.241182652087332),
+    ]
   });
 
   const 게시판 = new NPC({
@@ -386,26 +473,27 @@ function MainTest() {
       pigeon.mixer &&
       seagull.mixer
     ) {
-      강치.mixer.update(delta);
-      // 강치.actions[0].play();
-      돌고래.mixer.update(delta);
-      // 돌고래.actions[0].play();
-      turtle.mixer.update(delta);
-      // turtle.actions[0].play();
-      펭귄.mixer.update(delta);
-      // 펭귄.actions[0].play();
-      dog.mixer.update(delta);
-      // dog.actions[0].play();
-      독도새우.mixer.update(delta);
-      // 독도새우.actions[0].play();
-      바위게.mixer.update(delta);
-      // 바위게.actions[0].play();
-      flamingo.mixer.update(delta);
-      // flamingo.actions[0].play();
-      pigeon.mixer.update(delta);
-      // pigeon.actions[0].play();
-      seagull.mixer.update(delta);
-      // seagull.actions[0].play();
+      // 강치.mixer.update(delta);
+      강치.actions[0].play();
+
+      // 돌고래.mixer.update(delta);
+      돌고래.actions[0].play();
+      // turtle.mixer.update(delta);
+      turtle.actions[0].play();
+      // 펭귄.mixer.update(delta);
+      펭귄.actions[0].play();
+      // dog.mixer.update(delta);
+      dog.actions[0].play();
+      // 독도새우.mixer.update(delta);
+      독도새우.actions[0].play();
+      // 바위게.mixer.update(delta);
+      바위게.actions[0].play();
+      // flamingo.mixer.update(delta);
+      flamingo.actions[0].play();
+      // pigeon.mixer.update(delta);
+      pigeon.actions[0].play();
+      // seagull.mixer.update(delta);
+      seagull.actions[0].play();
     }
 
     if (player.modelMesh) {
@@ -415,6 +503,16 @@ function MainTest() {
       }
       // player update
       player.update(delta);
+      강치.update(delta);
+      dog.update(delta);
+      flamingo.update(delta);
+      pigeon.update(delta);
+      seagull.update(delta);
+      바위게.update(delta);
+      turtle.update(delta);
+      돌고래.update(delta);
+      독도새우.update(delta);
+      펭귄.update(delta);
 
       if (player.moving) {
         // 걸어가는 상태
@@ -510,8 +608,76 @@ function MainTest() {
     pigeonPop.style.display = "none";
     seagullPop.style.display = "none";
   };
+  
 
   // 마우스로 클릭
+  function moveNPCList(){
+
+
+
+     setInterval(function() {
+      let npc = 강치;
+      let destinationPoint = npc.locationXYZ[npc.curIdx];
+      npc.curIdx = (npc.curIdx+1)%(npc.locationXYZ.length);
+      npc.moveTo(destinationPoint);
+    },15000);
+      setInterval(function() {
+      let npc = dog;
+      let destinationPoint = npc.locationXYZ[npc.curIdx];
+      npc.curIdx = (npc.curIdx+1)%(npc.locationXYZ.length);
+      npc.moveTo(destinationPoint);
+    },18000);
+      setInterval(function() {
+        let npc = flamingo;
+        let destinationPoint = npc.locationXYZ[npc.curIdx];
+        npc.curIdx = (npc.curIdx+1)%(npc.locationXYZ.length);
+        npc.moveTo(destinationPoint);
+    },19000);
+    setInterval(function() {
+      let npc = pigeon;
+      let destinationPoint = npc.locationXYZ[npc.curIdx];
+      npc.curIdx = (npc.curIdx+1)%(npc.locationXYZ.length);
+      npc.moveTo(destinationPoint);
+    },17000);
+    setInterval(function() {
+      let npc = seagull;
+      let destinationPoint = npc.locationXYZ[npc.curIdx];
+      npc.curIdx = (npc.curIdx+1)%(npc.locationXYZ.length);
+      npc.moveTo(destinationPoint);
+    },13000);
+    setInterval(function() {
+      let npc = 바위게;
+      let destinationPoint = npc.locationXYZ[npc.curIdx];
+      npc.curIdx = (npc.curIdx+1)%(npc.locationXYZ.length);
+      npc.moveTo(destinationPoint);
+    },11000);
+    setInterval(function() {
+      let npc = turtle;
+      let destinationPoint = npc.locationXYZ[npc.curIdx];
+      npc.curIdx = (npc.curIdx+1)%(npc.locationXYZ.length);
+      npc.moveTo(destinationPoint);
+    },13000);
+    setInterval(function() {
+      let npc = 독도새우;
+      let destinationPoint = npc.locationXYZ[npc.curIdx];
+      npc.curIdx = (npc.curIdx+1)%(npc.locationXYZ.length);
+      npc.moveTo(destinationPoint);
+    },11000);
+    setInterval(function() {
+      let npc = 펭귄;
+      let destinationPoint = npc.locationXYZ[npc.curIdx];
+      npc.curIdx = (npc.curIdx+1)%(npc.locationXYZ.length);
+      npc.moveTo(destinationPoint);
+    },17000);
+    setInterval(function() {
+      let npc = 돌고래;
+      let destinationPoint = npc.locationXYZ[npc.curIdx];
+      npc.curIdx = (npc.curIdx+1)%(npc.locationXYZ.length);
+      npc.moveTo(destinationPoint);
+    },9000);
+  }
+  moveNPCList();
+
 
   function checkIntersects() {
     const intersects = raycaster.intersectObjects(meshes);
@@ -525,6 +691,12 @@ function MainTest() {
       "land_79020" ||
       "land_79043"
     ) {
+      const delta = clock.getDelta();
+      // let destinationNPCPoint = new Vector3(item.point.x, 0.3, item.point.z);
+      // 강치.moveTo(destinationNPCPoint);
+
+
+      console.log("로그 ",item.point.x+" x값 "+item.point.z + "y값 ");
       destinationPoint = new Vector3(item.point.x, 0.3, item.point.z);
       player.moveTo(destinationPoint);
 
@@ -533,7 +705,6 @@ function MainTest() {
     }
     if (item.object.name === "Dolphin") {
       player.dontMove(destinationPoint);
-      돌고래.onRaycasted();
       const dolphinPop = document.getElementById("dolphin");
       dolphinPop.style.display = "block";
       isPressed = false;
@@ -547,7 +718,6 @@ function MainTest() {
     }
     if (item.object.name === "SeaLion") {
       player.dontMove(destinationPoint);
-      강치.onRaycasted();
       const 강치Pop = document.getElementById("강치");
       강치Pop.style.display = "block";
       isPressed = false;
@@ -561,7 +731,6 @@ function MainTest() {
     }
     if (item.object.name === "Flamingo") {
       player.dontMove(destinationPoint);
-      flamingo.onRaycasted();
       const flamingoPop = document.getElementById("flamingo");
       flamingoPop.style.display = "block";
       checkNPC(answer)
@@ -575,7 +744,6 @@ function MainTest() {
     }
     if (item.object.name === "Pigeon") {
       player.dontMove(destinationPoint);
-      pigeon.onRaycasted();
       const pigeonPop = document.getElementById("pigeon");
       pigeonPop.style.display = "block";
       // pigeonPop.addEventListener("mouseup", () => {
@@ -591,7 +759,6 @@ function MainTest() {
     }
     if (item.object.name === "Seagull") {
       player.dontMove(destinationPoint);
-      seagull.onRaycasted();
       const seagullPop = document.getElementById("seagull");
       seagullPop.style.display = "block";
       // seagullPop.addEventListener("mouseup", () => {
@@ -607,7 +774,6 @@ function MainTest() {
     }
     if (item.object.name === "Crab") {
       player.dontMove(destinationPoint);
-      바위게.onRaycasted();
       const 바위게Pop = document.getElementById("바위게");
       바위게Pop.style.display = "block";
       isPressed = false;
@@ -621,7 +787,6 @@ function MainTest() {
     }
     if (item.object.name === "Prawn") {
       player.dontMove(destinationPoint);
-      독도새우.onRaycasted();
       const 독도새우Pop = document.getElementById("독도새우");
       독도새우Pop.style.display = "block";
       isPressed = false;
@@ -635,7 +800,6 @@ function MainTest() {
     }
     if (item.object.name === "Dog") {
       player.dontMove(destinationPoint);
-      dog.onRaycasted();
       const dogPop = document.getElementById("dog");
       dogPop.style.display = "block";
       isPressed = false;
@@ -649,7 +813,6 @@ function MainTest() {
     }
     if (item.object.name === "Turtle") {
       player.dontMove(destinationPoint);
-      turtle.onRaycasted();
       const turtlePop = document.getElementById("turtle");
       turtlePop.style.display = "block";
       isPressed = false;
@@ -663,7 +826,6 @@ function MainTest() {
     }
     if (item.object.name === "Penguin") {
       player.dontMove(destinationPoint);
-      펭귄.onRaycasted();
       const penguinPop = document.getElementById("penguin");
       penguinPop.style.display = "block";
       isPressed = false;
