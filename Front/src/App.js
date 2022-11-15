@@ -20,7 +20,7 @@ function App() {
       <Routes>
         <Route path='/popup/popupTest' element={<PopupTest />} />
         <Route path='/mypage/mypageTest' element={<MypageTest />} />
-        <Route path='/main/mainTest' element={<MainTest />} />
+        <Route path='/main/main' element={<MainTest />} />
         <Route path='/LoadingTest' element={<LoadingTest />} />
         <Route path='/' element={<Login />} />
         <Route path='/oauth/redirect' element={<OauthRedirect />} />

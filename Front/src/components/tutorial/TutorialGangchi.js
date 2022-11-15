@@ -1,5 +1,7 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "../css/TutorialGangchi.css";
+import popupStyles from "../css/Tutorial.module.css";
+import axios from "axios";
 
 const gangchiLine = [
   {
@@ -7,6 +9,18 @@ const gangchiLine = [
   },
   {
     line: "여기서는 독도를 탐방하면서 독도에 대한 정보를 얻을 수 있치.",
+  },
+  {
+    line: "화면을 클릭해서 캐릭터를 움직일수 있치",
+  },
+  {
+    line: "오른쪽에는 동도가 있치. 동도에서는 역사관, 지형관, 생태관이 있치. 각 관에서 독도에 대한 다양한 정보를 얻을 수 있치!",
+  },
+  {
+    line: "왼쪽에는 서도가 있치. 서도에서는 다양한 NPC를 만나볼 수 있치! NPC에게서 독도에 대한 정보도 들어볼 수 있치.",
+  },
+  {
+    line: "서도에 대한 설명2",
   },
   {
     line: "독도에 사는 동식물을 만나보고 나만의 도감을 만들 수 있치.",
@@ -24,23 +38,43 @@ const gangchiLine = [
 
 function TutorialGangchi() {
   const [lineNum, setLineNum] = useState(0);
-  const [typing, setTyping] = useState(true);
   const [charNum, setCharNum] = useState(0);
-
+  const accessToken = sessionStorage.getItem("accessToken");
+  useEffect(() => {
+    // console.log("useEffect in TutorialGanchi");
+    // console.log("visited Before");
+    // console.log(typeof(sessionStorage.getItem("visitedBefore")));
+    if (sessionStorage.getItem("visitedBefore") === "true") {
+      quitTutorialGangchi();
+    }
+  }, []);
   const nextLine = () => {
     setCharNum(gangchiLine[lineNum].line.length);
-    if (lineNum + 1 > 4) {
+    if (lineNum + 1 > 8) {
       return;
     } else {
       setLineNum((lineNum) => lineNum + 1);
-      setTimeout(
-        setTyping((typing) => !typing),
-        50,
-      );
     }
+  };
+  const setVisit = async () => {
+    console.log("setVisit Call!!");
+    await axios
+      .put(
+        "https://k7d204.p.ssafy.io/api/user/first-visit",
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        },
+      )
+      .then(() => {});
+    sessionStorage.setItem("visitedBefore", "true");
   };
 
   const quitTutorialGangchi = () => {
+    // console.log("quitTutorial Call");
+    // sessionStorage.setItem("visitedBefore", true);
     const tutorialPop = document.getElementById("tutorialGangchi");
     tutorialPop.style.display = "none";
   };
@@ -56,6 +90,81 @@ function TutorialGangchi() {
         alignItems: "flex-end",
       }}
     >
+      <div className={popupStyles.contents}>
+        {lineNum === 2 && (
+          <div
+            style={{
+              zIndex: "13",
+              position: "absolute",
+              top: "40%",
+              left: "50%",
+              transform: "translate(-40%, -50%)",
+              height: "300px",
+            }}
+          >
+            <div>
+              <img src='/assets/images/characters/siryeong.png' />
+              <img src='/assets/icons/click.png' />
+            </div>
+
+            <div
+              style={{
+                fontSize: "28px",
+                color: "white",
+                textAlign: "center",
+              }}
+            >
+              원하는 위치를 클릭해 <br />
+              캐릭터를 이동할 수 있습니다.
+            </div>
+          </div>
+        )}
+        {lineNum === 4 && (
+          <div
+            style={{
+              zIndex: "13",
+              position: "absolute",
+              top: "40%",
+              left: "50%",
+              transform: "translate(-40%, -50%)",
+              height: "300px",
+            }}
+          >
+            <>
+              <img src='/assets/images/characters/siryeong2.png' />
+              <img
+                style={{
+                  width: 200,
+                  top: 100,
+                }}
+                src='/assets/images/characters/penguin.png'
+              />
+              <div
+                style={{
+                  fontSize: "28px",
+                  color: "white",
+                  textAlign: "center",
+                }}
+              >
+                다양한 NPC들과 상호작용 해보세요!
+              </div>
+            </>
+          </div>
+        )}
+        {lineNum === 6 && (
+          <img
+            src=''
+            alt='NOIMAGE'
+            style={{
+              top: "40%",
+              left: "50%",
+              transform: "translate(-40%, -50%)",
+              width: "300px",
+              height: "300px",
+            }}
+          />
+        )}
+      </div>
       <div
         style={{
           position: "absolute",
@@ -71,8 +180,8 @@ function TutorialGangchi() {
             width: "150px",
             height: "70px",
             position: "absolute",
-            left: "200px",
-            bottom: "270px",
+            left: "210px",
+            bottom: "250px",
             borderRadius: "100px",
             backgroundColor: "lightgray",
             display: "flex",
@@ -90,10 +199,10 @@ function TutorialGangchi() {
           style={{
             zIndex: "8",
             position: "absolute",
-            height: "500px",
-            width: "500px",
-            bottom: "200px",
-            left: "-90px",
+            height: "400px",
+            width: "400px",
+            bottom: "150px",
+            left: "-100px",
           }}
         />
 
@@ -115,9 +224,15 @@ function TutorialGangchi() {
           justifyContent: "flex-end",
         }}
       >
-        {lineNum === 4 ? (
+        {lineNum === 8 ? (
           <div>
-            <div className='LineENDButton' onClick={quitTutorialGangchi}>
+            <div
+              className='LineENDButton'
+              onClick={() => {
+                quitTutorialGangchi();
+                setVisit();
+              }}
+            >
               시작하기!
             </div>
           </div>
@@ -134,7 +249,7 @@ function TutorialGangchi() {
             <div
               className='LineSkipButton'
               onClick={() => {
-                setLineNum(4);
+                setLineNum(8);
               }}
             >
               SKIP

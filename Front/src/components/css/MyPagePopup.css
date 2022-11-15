@@ -141,7 +141,9 @@
   transform: translateY(-5px);
 }
 .DogamList {
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(5, 150px);
+  grid-template-rows: repeat(2, 150px);
   justify-content: center;
   align-items: center;
   flex-wrap: wrap;

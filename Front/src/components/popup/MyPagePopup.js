@@ -4,7 +4,8 @@ import { useNavigate } from "react-router-dom";
 import { checkNPClist } from "../../api/mainApi.js";
 import "../css/MyPagePopup.css";
 import Tooltip from "@mui/material/Tooltip";
- 
+import Swal from "sweetalert2";
+
 function MyPagePopup(props) {
   // 로그아웃 시 메인으로 이동
   const navigate = useNavigate();
@@ -285,7 +286,6 @@ function MyPagePopup(props) {
         </div>
         {categoryShow ? (
           <div className='DogamCategoryWrapper'>
-            {category}
             <div className='DogamList'>
               {dogam.map((val) => {
                 if (val === undefined) {
@@ -312,7 +312,7 @@ function MyPagePopup(props) {
               onClick={() => {
                 setCategoryShow(true);
                 setCategory("plant");
-                setDogamNum(44);
+                setDogamNum(10);
               }}
             >
               {" "}
@@ -326,7 +326,7 @@ function MyPagePopup(props) {
               onClick={() => {
                 setCategoryShow(true);
                 setCategory("sea-animal");
-                setDogamNum(30);
+                setDogamNum(10);
               }}
             >
               {" "}
@@ -342,7 +342,7 @@ function MyPagePopup(props) {
               onClick={() => {
                 setCategoryShow(true);
                 setCategory("bird");
-                setDogamNum(35);
+                setDogamNum(10);
               }}
             >
               {" "}
@@ -356,7 +356,7 @@ function MyPagePopup(props) {
               onClick={() => {
                 setCategoryShow(true);
                 setCategory("sea-plant");
-                setDogamNum(20);
+                setDogamNum(10);
               }}
             >
               {" "}
@@ -606,10 +606,17 @@ function MyPagePopup(props) {
           <div
             style={{ backgroundColor: "rgb(255, 73, 73)", cursor: "pointer" }}
             onClick={() => {
-              if (window.confirm("로그아웃 하시겠습니까?")) {
-                sessionStorage.clear();
-                navigate("/");
-              }
+              Swal.fire({
+                title: "로그아웃 하시겠습니까?",
+                showDenyButton: true,
+                confirmButtonText: "네",
+                denyButtonText: "아니요",
+              }).then((result) => {
+                if (result.isConfirmed) {
+                  sessionStorage.clear();
+                  navigate("/");
+                }
+              });
             }}
           >
             로그아웃
@@ -665,7 +672,16 @@ function MyPagePopup(props) {
           </div>
         </div>
       </div>
-      <div style={{position:"absolute",width:'100vw',height:'100vh',backgroundColor:'black',opacity:'50%',zIndex:'9'}}></div>
+      <div
+        style={{
+          position: "absolute",
+          width: "100vw",
+          height: "100vh",
+          backgroundColor: "black",
+          opacity: "50%",
+          zIndex: "9",
+        }}
+      ></div>
     </div>
   );
 }

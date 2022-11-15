@@ -11,7 +11,8 @@ import { quitPopup } from "../main/PopupButton.js";
 import { getQuiz } from "../../api/quizApi.js";
 import "../css/OXQuizPopup.css";
 import axios from "axios";
-
+import Swal from "sweetalert2";
+import withReactContent from "sweetalert2-react-content";
 // 문제 개수 선택 화면
 function OXQuizPopup() {
   const [quizNum, setQuizNum] = useState(0);
@@ -19,6 +20,7 @@ function OXQuizPopup() {
   const [quiz, setQuiz] = useState([]);
   const [quizProgress, setQuizProgress] = useState(0);
   const [answerCorrect, setAnswerCorrect] = useState(0);
+  const MySwal = withReactContent(Swal);
   useEffect(() => {
     if (quizNum !== 0) {
       getQuiz(quizNum)
@@ -73,45 +75,42 @@ function OXQuizPopup() {
   };
   const accessToken = sessionStorage.getItem("accessToken");
   const setQuizResult = async (result) => {
-    if (
-      window.confirm(
-        sessionStorage.getItem("name").slice(0, 3) +
-          "님 점수를 등록 하시겠습니까?",
-      )
-    ) {
-      if (quizNum === 5) {
-        quizFive();
-      }
-      if (quizNum === 10) {
-        quizTen();
-      }
-      if (quizNum === 15) {
-        quizFifteen();
-      }
-      await axios
-        .put(
-          "https://k7d204.p.ssafy.io/api/quiz",
-          {
-            quiz: result + "",
-          },
-          {
-            headers: {
-              Authorization: `Bearer ${accessToken}`,
-            },
-          },
-        )
-        .then((res) => {
-          console.log(res);
-          alert("점수 등록 완료!");
-          setSelected(false);
-          setQuizNum(0);
-          setQuizProgress(0);
-          setAnswerCorrect(0);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
+    if (quizNum === 5) {
+      quizFive();
     }
+    if (quizNum === 10) {
+      quizTen();
+    }
+    if (quizNum === 15) {
+      quizFifteen();
+    }
+    await axios
+      .put(
+        "https://k7d204.p.ssafy.io/api/quiz",
+        {
+          quiz: result + "",
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        },
+      )
+      .then((res) => {
+        console.log(res);
+        MySwal.fire({
+          title: <h3>점수 등록</h3>,
+          html: <p>점수 등록 완료!</p>,
+          icon: "success",
+        });
+        setSelected(false);
+        setQuizNum(0);
+        setQuizProgress(0);
+        setAnswerCorrect(0);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   const SelectQuizNum = () => {
@@ -180,7 +179,18 @@ function OXQuizPopup() {
             <button
               className='endQuizButton2'
               onClick={() => {
-                setQuizResult(quizNum);
+                Swal.fire({
+                  title:
+                    sessionStorage.getItem("name").slice(0, 3) +
+                    "님 점수를 등록하시겠습니까?",
+                  showDenyButton: true,
+                  confirmButtonText: "네",
+                  denyButtonText: "아니요",
+                }).then((result) => {
+                  if (result.isConfirmed) {
+                    setQuizResult(quizNum);
+                  }
+                });
               }}
             >
               점수 등록
