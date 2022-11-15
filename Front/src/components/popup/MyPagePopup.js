@@ -41,6 +41,9 @@ function MyPagePopup(props) {
         },
       );
       setDogam(dogams.data);
+      if (dogams.data.length === 10) {
+        earnBadge();
+      }
     };
     if (category !== "") {
       getDogam();
@@ -81,6 +84,89 @@ function MyPagePopup(props) {
     setCharacter();
     console.log(userCharacter);
   }, [userCharacter]);
+
+  const earnBadge = async () => {
+    if (category === "sea-animal") {
+      await axios
+        .post(
+          "https://k7d204.p.ssafy.io/api/badge",
+          {
+            badge: "sea_animal_complete",
+          },
+          {
+            headers: {
+              Authorization: `Bearer ${accessToken}`,
+            },
+          },
+        )
+        .then((res) => {
+          console.log(res);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+    if (category === "plant") {
+      await axios
+        .post(
+          "https://k7d204.p.ssafy.io/api/badge",
+          {
+            badge: "plant_complete",
+          },
+          {
+            headers: {
+              Authorization: `Bearer ${accessToken}`,
+            },
+          },
+        )
+        .then((res) => {
+          console.log(res);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+    if (category === "sea-plant") {
+      await axios
+        .post(
+          "https://k7d204.p.ssafy.io/api/badge",
+          {
+            badge: "sea_plant_complete",
+          },
+          {
+            headers: {
+              Authorization: `Bearer ${accessToken}`,
+            },
+          },
+        )
+        .then((res) => {
+          console.log(res);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+    if (category === "bird") {
+      await axios
+        .post(
+          "https://k7d204.p.ssafy.io/api/badge",
+          {
+            badge: "bird_complete",
+          },
+          {
+            headers: {
+              Authorization: `Bearer ${accessToken}`,
+            },
+          },
+        )
+        .then((res) => {
+          console.log(res);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+  };
 
   // 캐릭터 선택 axios api call
   const setCharacter = async () => {
