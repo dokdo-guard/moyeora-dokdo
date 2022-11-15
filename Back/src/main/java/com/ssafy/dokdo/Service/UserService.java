@@ -131,7 +131,7 @@ public class UserService {
         User user = userRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("User", "id", id));
         user.setUserCharacter(userCharacter);
-        convertToDto(userRepository.save(user));
+        userRepository.save(user);
     }
 
     public boolean checkNickName(String nickname){
@@ -142,9 +142,15 @@ public class UserService {
         User user = userRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("User", "id", id));
         user.setName(name);
-        convertToDto(userRepository.save(user));
+        userRepository.save(user);
     }
 
+    public void updateFirstVisit(Long id){
+        User user = userRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("User", "id", id));
+        user.setVisitedBefore(true);
+        userRepository.save(user);
+    }
 
     public List<DogamDto> getPlantDogam(Long id) {
         User user = userRepository.findById(id)
