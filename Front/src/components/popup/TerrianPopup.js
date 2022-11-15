@@ -38,7 +38,7 @@ function TerrianPopup(isShown) {
 
     const location = new kakao.maps.LatLng(
       37.242014789309735,
-      131.86599959590592,
+      131.86599959590592
     );
     const mapOptions = {
       center: location,
@@ -107,12 +107,11 @@ function TerrianPopup(isShown) {
 
   const BaseInfo = () => {
     return (
-      <div className='baseInfoContainer'>
-        <div className='baseInfoTitle'>지리</div>
-        <hr></hr>
-        <div className='baseInfoContent'>
-          <div className='baseInfoContentHeader'>위치</div>
-          <div className='baseInfoDetailt'>
+      <div className="baseInfoContainer">
+        <div className="baseInfoTitle">지리</div>
+        <div className="baseInfoContent">
+          <div className="baseInfoContentHeader">위치</div>
+          <div className="baseInfoDetail">
             동도
             <br />
             북위 37° 14′ 26.8″
@@ -126,22 +125,17 @@ function TerrianPopup(isShown) {
             동경 131° 51′ 54.6″
           </div>
         </div>
-        <hr></hr>
-        <div className='baseInfoContent'>
-          <div className='baseInfoContentHeader'>구성 도서</div>
-          <div className='baseInfoDetail'>91개의 섬</div>
+        <div className="baseInfoContent">
+          <div className="baseInfoContentHeader">구성 도서</div>
+          <div className="baseInfoDetail">91개의 섬</div>
         </div>
-        <hr></hr>
-
-        <div className='baseInfoContent'>
-          <div className='baseInfoContentHeader'>주요 도서</div>
-          <div className='baseInfoDetail'> 동도(東島) · 서도(西島)</div>
+        <div className="baseInfoContent">
+          <div className="baseInfoContentHeader">주요 도서</div>
+          <div className="baseInfoDetail"> 동도(東島) · 서도(西島)</div>
         </div>
-        <hr></hr>
-
-        <div className='baseInfoContent'>
-          <div className='baseInfoContentHeader'>면적</div>
-          <div className='baseInfoDetail'>
+        <div className="baseInfoContent">
+          <div className="baseInfoContentHeader">면적</div>
+          <div className="baseInfoDetail">
             동도 73,297m²
             <br />
             서도 88,740m²
@@ -155,39 +149,39 @@ function TerrianPopup(isShown) {
   };
   const PlaceInfo = () => {
     return (
-      <div className='placeInfoContainer'>
-        <div className='placeInfoTitle'>{curPlace.name}</div>
-        <div className='placeInfoImageContainer'>
-          <div className='placeInfoImageWrapper'>
+      <div className="placeInfoContainer">
+        <div className="placeInfoTitle">{curPlace.name}</div>
+        <div className="placeInfoImageContainer">
+          <div className="placeInfoImageWrapper">
             <img
               src={
                 "https://ssafy-d204-dokdo.s3.ap-northeast-2.amazonaws.com/" +
                 curPlace?.img1
               }
-              alt='NO IMAGE'
+              alt="NO IMAGE"
             />
           </div>
         </div>
-        <div className='placeInfoLocation'>{curPlace.location}</div>
-        <div className='placeInfoSummary'>{curPlace.summary}</div>
+        <div className="placeInfoLocation">{curPlace.location}</div>
+        <div className="placeInfoSummary">{curPlace.summary}</div>
       </div>
     );
   };
 
   return (
     <div style={{ position: "relative" }}>
-      <div className='TerrianPopupContainer'>
-        <div className='TerrianPopupTitle'>지형 박물관</div>
+      <div className="TerrianPopupContainer">
+        <div className="TerrianPopupTitle">지형 박물관</div>
         <div>마커를 누르시면 독도의 지형을 보실 수 있습니다.</div>
         <img
-          src='/assets/icons/cancel.png'
-          id='quitButton'
+          src="/assets/icons/cancel.png"
+          id="quitButton"
           onClick={quitTerrianPopup}
-          className='quitPopup'
+          className="quitPopup"
         ></img>
-        <div className='TerrianPopupWrapper'>
-          <div ref={mapElement} className='TerrianPopupMap'></div>
-          <div className='TerrianPopupInfoTable'>
+        <div className="TerrianPopupWrapper">
+          <div ref={mapElement} className="TerrianPopupMap"></div>
+          <div className="TerrianPopupInfoTable">
             {showPlace ? <PlaceInfo /> : <BaseInfo />}
           </div>
         </div>

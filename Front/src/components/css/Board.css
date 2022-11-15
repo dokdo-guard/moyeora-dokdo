@@ -1,163 +1,165 @@
 /* 가장 처음 보드판으로 가는 버튼들 */
 
 .boardPage {
-    width: 100vw;
-	height: 100vh;
-	position: absolute;
-	z-index: 20;
-	background-color: black;
-	opacity: 60%;
+  width: 100vw;
+  height: 100vh;
+  position: absolute;
+  z-index: 20;
+  background-color: black;
+  opacity: 60%;
 }
 
 .boardPage .goBoard {
-	width: 200px;
-	height: 50px;
-	border: none;
-	border-radius: 15px;
-	background-color: orange;
-	left: 45%;
-	position: absolute;
-	cursor: pointer;
-	box-shadow: 5px 5px 5px rgb(53, 53, 53);
-	top: 45%;
-	color: white;
-	font-size: 120%;
+  width: 200px;
+  height: 50px;
+  border: none;
+  border-radius: 15px;
+  background-color: orange;
+  left: 45%;
+  position: absolute;
+  cursor: pointer;
+  box-shadow: 5px 5px 5px rgb(53, 53, 53);
+  top: 45%;
+  color: white;
+  font-size: 120%;
 }
 
 .boardPage .goBoard:hover {
-	background-color: yellow;
-	color: black;
-	scale: 110%;
+  background-color: yellow;
+  color: black;
+  scale: 110%;
 }
 
 .boardPage .cancelBoard {
-	width: 200px;
-	height: 50px;
-	border: none;
-	border-radius: 15px;
-	background-color:  rgb(149, 5, 5);;
-	left: 45%;
-	position: absolute;
-	cursor: pointer;
-	color: white;
-	box-shadow: 5px 5px 5px rgb(53, 53, 53);
-	top: 55%;
-	font-size: 120%;
+  width: 200px;
+  height: 50px;
+  border: none;
+  border-radius: 15px;
+  background-color: rgb(149, 5, 5);
+  left: 45%;
+  position: absolute;
+  cursor: pointer;
+  color: white;
+  box-shadow: 5px 5px 5px rgb(53, 53, 53);
+  top: 55%;
+  font-size: 120%;
 }
 
 .boardPage .cancelBoard:hover {
-	background-color: red;
-	color: white;
-	scale: 110%;
+  background-color: red;
+  color: white;
+  scale: 110%;
 }
 
 .boardPage .dokdoIllust {
-	margin-left: 36%;
-	margin-top: -3%;
+  margin-left: 36%;
+  margin-top: -3%;
 }
 
 /* 메인 페이지 */
 .boardHome {
-	width: 85vw;
-	height: 85vh;
-	background-color: rgb(173, 202, 236);
-	overflow: auto;
-	position: absolute;
-	z-index: 20;
-	top: 7.5%;
-	left: 7.5%;
-	border-radius: 10px;
+  width: 85vw;
+  height: 85vh;
+  background-color: rgb(173, 202, 236);
+  overflow: auto;
+  position: absolute;
+  z-index: 20;
+  top: 7.5%;
+  left: 7.5%;
+  border-radius: 10px;
 }
 
-.quitBoard{
-	left: 84%;
-	top: 7%;
-	scale: 50%;
-	position: absolute;
-	width: 100px;
-	z-index: 100;
-	cursor: pointer;
+.quitBoard {
+  left: 86%;
+  top: 7%;
+  scale: 50%;
+  position: absolute;
+  width: 100px;
+  z-index: 100;
+  cursor: pointer;
 }
 
 .boardHome .title {
-	display: flex;
-	justify-content: center;
+  display: flex;
+  justify-content: center;
 }
 
 .boardHome .buttons {
-	display: flex;
-	justify-content: center;
-	width: 100%;
-	height: 50px;
-	margin-top: 2%;
-	margin-bottom: 2%;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  height: 50px;
+  margin-top: 2%;
+  margin-bottom: 20px;
 }
 
 .boardHome .writeButton {
-	width: 10%;
-	/* height: 5%; */
-	border: none;
-	border-radius: 10px;
-	background-color: rgb(114, 199, 131);
-	cursor: pointer;
-	margin-right: 1%;
+  width: 10%;
+  /* height: 5%; */
+  border: none;
+  border-radius: 10px;
+  background-color: rgb(114, 199, 131);
+  cursor: pointer;
+  margin-right: 1%;
 }
 
 .boardHome .dokdoButton {
-	width: 10%;
-	/* height: 5%; */
-	border: none;
-	border-radius: 10px;
-	background-color: rgb(255, 191, 0);
-	cursor: pointer;
-	margin-left: 1%;
+  width: 10%;
+  /* height: 5%; */
+  border: none;
+  border-radius: 10px;
+  background-color: rgb(255, 191, 0);
+  cursor: pointer;
+  margin-left: 1%;
 }
-
 
 .boardHome .boardItem {
-	float: left;
+  float: left;
 }
-
-
-
 
 /*  새 글 쓰기 */
 .newPage {
-	width: 85vw;
-	height: 85vh;
-	background-color: rgb(173, 202, 236);
-	position: absolute;
-	z-index: 14;
-	top: 7.5vh;
-	left: 7.5vw;
-	border-radius: 15px;
+  width: 85vw;
+  height: 85vh;
+  background-color: rgb(173, 202, 236);
+  position: absolute;
+  z-index: 14;
+  top: 7.5vh;
+  left: 7.5vw;
+  border-radius: 15px;
 }
 
 .newPage .editorTitle {
-	font-size: 200%;
-	display: flex;
-	justify-content: center;
-	padding-top: 3%;
+  font-size: 200%;
+  display: flex;
+  justify-content: center;
+  padding-top: 3%;
 }
 
 .newPage .textarea {
-	width: 600px;
-	height: 200px;
-	border-radius: 15px;
-	margin-left: 30%;
-	margin-top: 1%;
-	font-size: 130%;
+  width: 600px;
+  height: 200px;
+  border: #292929;
+  border-radius: 13px;
+  margin-top: 1%;
+  font-size: 130%;
+  padding: 10px;
+}
+
+.textareaWrapper {
+  display: flex;
+  justify-content: center;
 }
 
 .newPage .imageUpload {
-	width: 600px;
-	height: 200px;
-	margin-left: 30%;
-	margin-top: 1%;
+  width: 600px;
+  height: 200px;
+  margin-left: 27%;
+  margin-top: 1%;
 }
 
 .newPage .previewImage {
-	height: 200px;
+  height: 200px;
 }
 
 /* .newPage .defaultImage {
@@ -166,107 +168,101 @@
 } */
 
 .newPage .buttons {
-	display: flex;
-	justify-content: center;
-	margin-top: 1%;
-	
+  display: flex;
+  justify-content: center;
+  margin: 16px 0;
 }
 
 .newPage .write {
-	width: 110px;
-	height: 50px;
-	border: none;
-	border-radius: 10px;
-	background-color: rgb(67, 178, 80);
-	margin-right: 1%;
-	cursor: pointer;
-	font-size: 120%;
+  width: 110px;
+  height: 50px;
+  border: none;
+  border-radius: 10px;
+  background-color: rgb(67, 178, 80);
+  margin-right: 1%;
+  cursor: pointer;
+  font-size: 120%;
 }
 
 .newPage .goBack {
-	width: 110px;
-	height: 50px;
-	border: none;
-	border-radius: 10px;
-	background-color: rgb(212, 97, 25);
-	cursor: pointer;
-	font-size: 120%;
+  width: 110px;
+  height: 50px;
+  border: none;
+  border-radius: 10px;
+  background-color: rgb(212, 97, 25);
+  cursor: pointer;
+  font-size: 120%;
 }
 
-
-	/* 아이템 개별 */
+/* 아이템 개별 */
 .uploadedImage {
-	
 }
 
-  figure.snip1332 {
-	position: relative;
-	overflow: hidden;
-	margin: 10px;
-	width: 350px;
-	height: 200px;
-	/* text-align: left; */
-	background-color: #ffffff;
-	font-size: 25px;
-	-webkit-perspective: 50em;
-	/* perspective: 50em; */
-	border-radius: 15px;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	box-shadow: 5px 5px 5px grey;
-  }
-  figure.snip1332 * {
-	-webkit-box-sizing: border-box;
-	box-sizing: border-box;
-	-webkit-transition: all 0.6s ease;
-	transition: all 0.6s ease;
-  }
-  figure.snip1332 figcaption {
-	max-width: 100%;
-	-webkit-transition-delay: 0.2s;
-	/* transition-delay: 0.2s; */
-	backface-visibility: hidden;
-  }
-  figure.snip1332 .img {
-	position: absolute;
-	top: 50%;
-	-webkit-transform: rotateY(90deg) translate(0%, -50%);
-	transform: rotateY(90deg) translate(0%, -50%);
-	-webkit-transform-origin: 50% 0%;
-	-ms-transform-origin: 50% 0%;
-	transform-origin: 50% 0%;
-	z-index: 1;
-	opacity: 0;
-  }
+figure.snip1332 {
+  position: relative;
+  overflow: hidden;
+  margin: 10px;
+  width: 350px;
+  height: 200px;
+  /* text-align: left; */
+  background-color: #ffffff;
+  font-size: 25px;
+  -webkit-perspective: 50em;
+  /* perspective: 50em; */
+  border-radius: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 5px 5px 5px grey;
+}
+figure.snip1332 * {
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  -webkit-transition: all 0.6s ease;
+  transition: all 0.6s ease;
+}
+figure.snip1332 figcaption {
+  max-width: 100%;
+  -webkit-transition-delay: 0.2s;
+  /* transition-delay: 0.2s; */
+  backface-visibility: hidden;
+}
+figure.snip1332 .img {
+  position: absolute;
+  top: 50%;
+  -webkit-transform: rotateY(90deg) translate(0%, -50%);
+  transform: rotateY(90deg) translate(0%, -50%);
+  -webkit-transform-origin: 50% 0%;
+  -ms-transform-origin: 50% 0%;
+  transform-origin: 50% 0%;
+  z-index: 1;
+  opacity: 0;
+}
 
-  figure.snip1332 img {
-	height: 200px;
-  }
+figure.snip1332 img {
+  height: 200px;
+}
 
-  figure.snip1332 p {
-	line-height: 1.5em;
-	font-size: 0.8em;
-	font-weight: 500;
-	margin: 0 0 15px;
-	color: black;
-  }
+figure.snip1332 p {
+  line-height: 1.5em;
+  font-size: 0.8em;
+  font-weight: 500;
+  margin: 0 0 15px;
+  color: black;
+}
 
-  figure.snip1332:hover figcaption {
-	-webkit-transform: rotateY(-180deg);
-	transform: rotateY(-180deg);
-	opacity: 0;
-	-webkit-transition-delay: 0;
-	transition-delay: 0;
-  }
+figure.snip1332:hover figcaption {
+  -webkit-transform: rotateY(-180deg);
+  transform: rotateY(-180deg);
+  opacity: 0;
+  -webkit-transition-delay: 0;
+  transition-delay: 0;
+}
 
-  figure.snip1332:hover .img {
-	-webkit-transform: rotateY(0deg) translate(0, -50%);
-	transform: rotateY(0deg) translate(0, -50%);
-	opacity: 1;
-	-webkit-transition-delay: 0.35s;
-	transition-delay: 0.35s;
-  }
-
-
-
+figure.snip1332:hover .img {
+  -webkit-transform: rotateY(0deg) translate(0, -50%);
+  transform: rotateY(0deg) translate(0, -50%);
+  opacity: 1;
+  -webkit-transition-delay: 0.35s;
+  transition-delay: 0.35s;
+}

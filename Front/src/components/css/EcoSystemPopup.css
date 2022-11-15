@@ -16,7 +16,7 @@
 .EcosystemTitle {
   font-size: 60px;
   font-weight: 700;
-  margin: 10px;
+  margin: 20px 10px 0;
   top: 5px;
 }
 .EcosystemSelectBtnWrapper {
@@ -49,6 +49,9 @@
 .EcosystemSelectBtn > img {
   width: 150px;
   height: 150px;
+}
+.EcosystemSelectBtn > div {
+  margin-top: 16px;
 }
 .EcoSystemListWrapper {
   overflow: auto;
