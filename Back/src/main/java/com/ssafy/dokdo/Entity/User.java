@@ -34,7 +34,7 @@ public class User {
     private String email;
 
     @NotNull
-    private String userCharacter = "default";
+    private String userCharacter = "siryeong";
 
     @NotNull
     @Enumerated(EnumType.STRING)
