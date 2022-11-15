@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "../css/TutorialGangchi.css";
 import popupStyles from "../css/Tutorial.module.css";
 import axios from "axios";
@@ -38,31 +38,43 @@ const gangchiLine = [
 
 function TutorialGangchi() {
   const [lineNum, setLineNum] = useState(0);
-  const [typing, setTyping] = useState(true);
   const [charNum, setCharNum] = useState(0);
   const accessToken = sessionStorage.getItem("accessToken");
-
+  useEffect(() => {
+    // console.log("useEffect in TutorialGanchi");
+    // console.log("visited Before");
+    // console.log(typeof(sessionStorage.getItem("visitedBefore")));
+    if (sessionStorage.getItem("visitedBefore") === "true") {
+      quitTutorialGangchi();
+    }
+  }, []);
   const nextLine = () => {
     setCharNum(gangchiLine[lineNum].line.length);
     if (lineNum + 1 > 8) {
       return;
     } else {
       setLineNum((lineNum) => lineNum + 1);
-      setTimeout(
-        setTyping((typing) => !typing),
-        50,
-      );
     }
   };
   const setVisit = async () => {
-    await axios.put("https://k7d204.p.ssafy.io/api/user/first-visit", {
-      headers: {
-        Authorization: `Bearer ${accessToken}`,
-      },
-    });
+    console.log("setVisit Call!!");
+    await axios
+      .put(
+        "https://k7d204.p.ssafy.io/api/user/first-visit",
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        },
+      )
+      .then(() => {});
+    sessionStorage.setItem("visitedBefore", "true");
   };
+
   const quitTutorialGangchi = () => {
-    sessionStorage.setItem("visitedBefore", true);
+    // console.log("quitTutorial Call");
+    // sessionStorage.setItem("visitedBefore", true);
     const tutorialPop = document.getElementById("tutorialGangchi");
     tutorialPop.style.display = "none";
   };
@@ -218,6 +230,7 @@ function TutorialGangchi() {
               className='LineENDButton'
               onClick={() => {
                 quitTutorialGangchi();
+                setVisit();
               }}
             >
               시작하기!

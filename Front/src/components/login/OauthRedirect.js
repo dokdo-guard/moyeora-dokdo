@@ -50,16 +50,7 @@ const OauthRedirect = (props) => {
             sessionStorage.setItem("badges", JSON.stringify(res.data));
           });
       };
-      const setVisit = async (token) => {
-        console.log("TOKEN IN SETVISIT");
-        console.log(token);
-        await axios.put("https://k7d204.p.ssafy.io/api/user/first-visit", {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
-      };
-      setVisit(token);
+
       getUserBadge(token);
       getUserInfo(token);
       navigate("/main/main");
