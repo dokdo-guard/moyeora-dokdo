@@ -80,7 +80,6 @@ const Editor = ({ originData }) => {
       .catch((err) => {
         console.log(err);
       });
-    navigate("/home/board");
   };
 
   console.log(file)

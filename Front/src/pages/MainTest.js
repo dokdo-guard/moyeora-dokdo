@@ -51,11 +51,10 @@ import {
 import {
   clickMyPage,
   quitMyPage,
-  clickTutorial,
-  quitTutorial
+  quitMinimap,
+  mapPopup
 } from "../components/main/PopupButton.js";
 import { NPC } from "../components/glTF/NPC";
-import Tutorial from "../components/tutorial/tutorial";
 import { Vector3 } from "three";
 import { checkNPC } from "../api/mainApi.js";
 
@@ -1013,7 +1012,7 @@ function MainTest() {
             ></MyPagePopup>
           </div>
 
-          {/* 하단의 스크린샷 버튼과 튜토리얼 버튼 */}
+          {/* 하단의 스크린샷 버튼*/}
           <div
             className='screenShot'
             onClick={clickScreenCapture}
@@ -1024,25 +1023,6 @@ function MainTest() {
               src='/assets/images/camera.png'
             ></img>
             <div className='ButtonBackGround'></div>
-          </div>
-
-          <div className='tutorial' onClick={clickTutorial}>
-            <img
-              src='/assets/images/tutorial.png'
-              className='tutorialImage'
-            ></img>
-          </div>
-          <div id='tutorial' style={{ display: "none" }}>
-            <img
-              className='tutorialMark'
-              src='/assets/images/tutorial.png'
-            ></img>
-            <Tutorial></Tutorial>
-            <img
-              src='/assets/icons/cancel.png'
-              className='quitTutorial'
-              onClick={quitTutorial}
-            ></img>
           </div>
 
           {/* 플레이어 캐릭터 애니메이션 */}
@@ -1091,6 +1071,20 @@ function MainTest() {
 
           {/* NPC 캐릭터들 말풍선들 */}
           <NPCBubble quitNPCbubble={quitNPCbubble}></NPCBubble>
+
+          {/* 미니맵 켜기 버튼 */}
+          <div onClick={mapPopup} className="map">
+            <img src="/assets/icons/map.png" style={{width:'30px',marginTop:'5px',marginLeft:'5px'}}></img>
+          </div>
+          <div id="minimap" style={{display:'none'}}>
+            <img
+                src='/assets/icons/cancel.png'
+                className='quitTutorial'
+                onClick={quitMinimap}
+            ></img>
+            <img src="/assets/images/minimap.png" className="mapImage"></img>
+            <div style={{width:'100vw',height:'100vh',backgroundColor:'black',opacity:'50%',position:'absolute',zIndex:"10"}}></div>
+          </div>
         </div>
       ) : (
         <LoadingComponent />
