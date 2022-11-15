@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { checkNPClist } from "../../api/mainApi.js";
 import "../css/MyPagePopup.css";
 import Tooltip from "@mui/material/Tooltip";
+import Swal from "sweetalert2";
 
 function MyPagePopup(props) {
   // 로그아웃 시 메인으로 이동
@@ -605,10 +606,17 @@ function MyPagePopup(props) {
           <div
             style={{ backgroundColor: "rgb(255, 73, 73)", cursor: "pointer" }}
             onClick={() => {
-              if (window.confirm("로그아웃 하시겠습니까?")) {
-                sessionStorage.clear();
-                navigate("/");
-              }
+              Swal.fire({
+                title: "로그아웃 하시겠습니까?",
+                showDenyButton: true,
+                confirmButtonText: "네",
+                denyButtonText: "아니요",
+              }).then((result) => {
+                if (result.isConfirmed) {
+                  sessionStorage.clear();
+                  navigate("/");
+                }
+              });
             }}
           >
             로그아웃

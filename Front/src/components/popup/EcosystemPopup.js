@@ -8,6 +8,8 @@ import {
 import "../css/EcoSystemPopup.css";
 import axios from "axios";
 import { quitPopup } from "../main/PopupButton.js";
+import Swal from "sweetalert2";
+import withReactContent from "sweetalert2-react-content";
 function EcoSystemPopup() {
   const [isSelected, setIsSelected] = useState(false);
   const [category, setCategory] = useState("");
@@ -15,7 +17,7 @@ function EcoSystemPopup() {
   const [detailSelected, setDetailSelected] = useState(false);
   const [data, setData] = useState([]);
   const accessToken = sessionStorage.getItem("accessToken");
-
+  const MySwal = withReactContent(Swal);
   useEffect(() => {
     if (category === "bird") {
       getAllBirds()
@@ -161,7 +163,11 @@ function EcoSystemPopup() {
       )
       .then((res) => {
         console.log(res);
-        alert(selectedData.name + " 도감 획득 완료!");
+        MySwal.fire({
+          title: <h3>도감 획득</h3>,
+          html: <p>{selectedData.name} 도감 획득 완료!</p>,
+          icon: "success",
+        });
       })
       .catch((err) => {
         console.log(err);
