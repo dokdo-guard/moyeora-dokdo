@@ -1,5 +1,6 @@
 import { useState } from "react";
 import "../css/TutorialGangchi.css";
+import popupStyles from "../css/Tutorial.module.css";
 
 const gangchiLine = [
   {
@@ -68,6 +69,81 @@ function TutorialGangchi() {
         alignItems: "flex-end",
       }}
     >
+      <div className={popupStyles.contents}>
+        {lineNum === 2 && (
+          <div
+            style={{
+              zIndex: "13",
+              position: "absolute",
+              top: "40%",
+              left: "50%",
+              transform: "translate(-40%, -50%)",
+              height: "300px",
+            }}
+          >
+            <div>
+              <img src='/assets/images/characters/siryeong.png' />
+              <img src='/assets/icons/click.png' />
+            </div>
+
+            <div
+              style={{
+                fontSize: "28px",
+                color: "white",
+                textAlign: "center",
+              }}
+            >
+              원하는 위치를 클릭해 <br />
+              캐릭터를 이동할 수 있습니다.
+            </div>
+          </div>
+        )}
+        {lineNum === 4 && (
+          <div
+            style={{
+              zIndex: "13",
+              position: "absolute",
+              top: "40%",
+              left: "50%",
+              transform: "translate(-40%, -50%)",
+              height: "300px",
+            }}
+          >
+            <>
+              <img src='/assets/images/characters/siryeong2.png' />
+              <img
+                style={{
+                  width: 200,
+                  top: 100,
+                }}
+                src='/assets/images/characters/penguin.png'
+              />
+              <div
+                style={{
+                  fontSize: "28px",
+                  color: "white",
+                  textAlign: "center",
+                }}
+              >
+                다양한 NPC들과 상호작용 해보세요!
+              </div>
+            </>
+          </div>
+        )}
+        {lineNum === 6 && (
+          <img
+            src=''
+            alt='NOIMAGE'
+            style={{
+              top: "40%",
+              left: "50%",
+              transform: "translate(-40%, -50%)",
+              width: "300px",
+              height: "300px",
+            }}
+          />
+        )}
+      </div>
       <div
         style={{
           position: "absolute",
@@ -83,8 +159,8 @@ function TutorialGangchi() {
             width: "150px",
             height: "70px",
             position: "absolute",
-            left: "200px",
-            bottom: "270px",
+            left: "210px",
+            bottom: "250px",
             borderRadius: "100px",
             backgroundColor: "lightgray",
             display: "flex",
@@ -102,10 +178,10 @@ function TutorialGangchi() {
           style={{
             zIndex: "8",
             position: "absolute",
-            height: "500px",
-            width: "500px",
-            bottom: "200px",
-            left: "-90px",
+            height: "400px",
+            width: "400px",
+            bottom: "150px",
+            left: "-100px",
           }}
         />
 

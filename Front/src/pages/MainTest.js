@@ -63,7 +63,6 @@ import {
   clickBoard,
 } from "../components/main/PopupButton.js";
 import { NPC } from "../components/glTF/NPC";
-import Tutorial from "../components/tutorial/tutorial";
 import { Vector2, Vector3 } from "three";
 import { checkNPC } from "../api/mainApi.js";
 
@@ -1041,7 +1040,6 @@ function MainTest() {
               className='tutorialMark'
               src='/assets/images/tutorial.png'
             ></img>
-            <Tutorial></Tutorial>
             <img
               src='/assets/icons/cancel.png'
               className='quitTutorial'

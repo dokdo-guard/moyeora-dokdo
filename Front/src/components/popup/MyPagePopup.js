@@ -312,7 +312,7 @@ function MyPagePopup(props) {
               onClick={() => {
                 setCategoryShow(true);
                 setCategory("plant");
-                setDogamNum(44);
+                setDogamNum(10);
               }}
             >
               {" "}
@@ -326,7 +326,7 @@ function MyPagePopup(props) {
               onClick={() => {
                 setCategoryShow(true);
                 setCategory("sea-animal");
-                setDogamNum(30);
+                setDogamNum(10);
               }}
             >
               {" "}
@@ -342,7 +342,7 @@ function MyPagePopup(props) {
               onClick={() => {
                 setCategoryShow(true);
                 setCategory("bird");
-                setDogamNum(35);
+                setDogamNum(10);
               }}
             >
               {" "}
@@ -356,7 +356,7 @@ function MyPagePopup(props) {
               onClick={() => {
                 setCategoryShow(true);
                 setCategory("sea-plant");
-                setDogamNum(20);
+                setDogamNum(10);
               }}
             >
               {" "}
