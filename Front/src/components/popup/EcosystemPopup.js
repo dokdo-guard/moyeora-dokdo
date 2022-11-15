@@ -8,8 +8,6 @@ import {
 import "../css/EcoSystemPopup.css";
 import axios from "axios";
 import { quitPopup } from "../main/PopupButton.js";
-import Swal from "sweetalert2";
-import withReactContent from "sweetalert2-react-content";
 function EcoSystemPopup() {
   const [isSelected, setIsSelected] = useState(false);
   const [category, setCategory] = useState("");
@@ -17,12 +15,7 @@ function EcoSystemPopup() {
   const [detailSelected, setDetailSelected] = useState(false);
   const [data, setData] = useState([]);
   const accessToken = sessionStorage.getItem("accessToken");
-  const badgeInfo = JSON.parse(sessionStorage.getItem("badges"));
 
-  const MySwal = withReactContent(Swal);
-  useEffect(() => {
-    console.log(badgeInfo);
-  });
   useEffect(() => {
     if (category === "bird") {
       getAllBirds()
@@ -168,11 +161,7 @@ function EcoSystemPopup() {
       )
       .then((res) => {
         console.log(res);
-        MySwal.fire({
-          title: <h3>도감 획득</h3>,
-          html: <p>{selectedData.name} 도감 획득 완료!</p>,
-          icon: "success",
-        });
+        alert(selectedData.name + " 도감 획득 완료!");
       })
       .catch((err) => {
         console.log(err);
@@ -183,16 +172,11 @@ function EcoSystemPopup() {
     <div style={{ position: "relative" }}>
       <div className='EcosystemContainer'>
         <div className='EcosystemTitle'>독도의 생태계</div>
-        <div>
-          버튼을 누르시면 해당 카테고리에 해당하는 동식물들을 만나보실 수
-          있습니다{" "}
-        </div>
         <img
           src='/assets/icons/cancel.png'
           id='quitButton'
           onClick={quitPopup}
           className='quitPopup'
-          alt='NOQUITIMAGE'
         ></img>
         {isSelected ? (
           <ShowList />
@@ -209,7 +193,6 @@ function EcoSystemPopup() {
                 src={process.env.PUBLIC_URL + "/assets/icons/plant_Icon.png"}
                 alt=''
               />
-              <div>식물</div>
             </div>
             <div
               className='EcosystemSelectBtn'
@@ -225,7 +208,6 @@ function EcoSystemPopup() {
                 }
                 alt=''
               />
-              <div>해양동물</div>
             </div>
             <div
               className='EcosystemSelectBtn'
@@ -238,7 +220,6 @@ function EcoSystemPopup() {
                 src={process.env.PUBLIC_URL + "/assets/icons/bird_Icon.png"}
                 alt=''
               />
-              <div>조류</div>
             </div>
             <div
               className='EcosystemSelectBtn'
@@ -251,7 +232,6 @@ function EcoSystemPopup() {
                 src={process.env.PUBLIC_URL + "/assets/icons/seaPlant_Icon.png"}
                 alt=''
               />
-              <div>해조류</div>
             </div>
           </div>
         )}

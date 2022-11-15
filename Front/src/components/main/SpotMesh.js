@@ -1,13 +1,11 @@
 import * as THREE from "three";
 
-const portalTexture = new THREE.TextureLoader().load("/assets/images/star.jpg");
-
 export const spotMesh1 = new THREE.Mesh(
     new THREE.PlaneGeometry(3, 3),
     new THREE.MeshStandardMaterial({
-      // opacity: 0.4,
-      map: portalTexture,
+      color: "yellow",
       transparent: true,
+      opacity: 0.4
     }),
   );
   spotMesh1.position.set(27, 0.19, -21);

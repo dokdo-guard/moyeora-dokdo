@@ -20,12 +20,12 @@ function App() {
       <Routes>
         <Route path='/popup/popupTest' element={<PopupTest />} />
         <Route path='/mypage/mypageTest' element={<MypageTest />} />
-        <Route path='/main/main' element={<MainTest />} />
+        <Route path='/main/mainTest' element={<MainTest />} />
         <Route path='/LoadingTest' element={<LoadingTest />} />
         <Route path='/' element={<Login />} />
         <Route path='/oauth/redirect' element={<OauthRedirect />} />
-        {/* <Route path='/home/board' element={<BoardHome />} /> */}
-        {/* <Route path='/new' element={<NewPage />} /> */}
+        <Route path='/home/board' element={<BoardHome />} />
+        <Route path='/new' element={<NewPage />} />
         <Route path='/gameTest' element={<GameTest />} />
       </Routes>
     </>

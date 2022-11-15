@@ -96,7 +96,6 @@ function Login(props) {
             <h1>!</h1>
           </div>
         </div>
-
         <div className='LoginTitle waviy'>
           <div style={{ "--i": 6 }}>
             <h1>우</h1>
@@ -106,21 +105,18 @@ function Login(props) {
           </div>
           <div style={{ "--i": 8 }}>
             <h1>땅</h1>
-          </div>{" "}
-          <div style={{ "--i": 9 }}>
-            <h1>,</h1>
           </div>
-          <div style={{ "--i": 10 }}>
+          <div style={{ "--i": 9 }}>
             <h1>독</h1>
           </div>
-          <div style={{ "--i": 11 }}>
+          <div style={{ "--i": 10 }}>
             <h1>도</h1>
           </div>
         </div>
         <div className='WhatIsOurServiceBtnWrapper'>
           <div className='WhatIsOurServiceBtn' onClick={handleOpen}>
             <HelpOutlineIcon />
-            어떤 서비스 인가요?
+            모여봐요 우리땅 독도? 이게 뭐야?
           </div>
         </div>
         <div style={{ textAlign: "center" }}>
