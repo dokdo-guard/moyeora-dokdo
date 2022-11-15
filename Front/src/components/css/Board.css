@@ -70,8 +70,13 @@
 }
 
 .quitBoard{
-	left: 90%;
+	left: 84%;
+	top: 7%;
 	scale: 50%;
+	position: absolute;
+	width: 100px;
+	z-index: 100;
+	cursor: pointer;
 }
 
 .boardHome .title {
@@ -118,10 +123,14 @@
 
 /*  새 글 쓰기 */
 .newPage {
-	width: 100vw;
-	height: 100vh;
+	width: 85vw;
+	height: 85vh;
 	background-color: rgb(173, 202, 236);
-	position: relative;
+	position: absolute;
+	z-index: 14;
+	top: 7.5vh;
+	left: 7.5vw;
+	border-radius: 15px;
 }
 
 .newPage .editorTitle {
