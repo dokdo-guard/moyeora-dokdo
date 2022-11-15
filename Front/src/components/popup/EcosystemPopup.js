@@ -172,11 +172,16 @@ function EcoSystemPopup() {
     <div style={{ position: "relative" }}>
       <div className='EcosystemContainer'>
         <div className='EcosystemTitle'>독도의 생태계</div>
+        <div>
+          버튼을 누르시면 해당 카테고리에 해당하는 동식물들을 만나보실 수
+          있습니다{" "}
+        </div>
         <img
           src='/assets/icons/cancel.png'
           id='quitButton'
           onClick={quitPopup}
           className='quitPopup'
+          alt='NOQUITIMAGE'
         ></img>
         {isSelected ? (
           <ShowList />
@@ -193,6 +198,7 @@ function EcoSystemPopup() {
                 src={process.env.PUBLIC_URL + "/assets/icons/plant_Icon.png"}
                 alt=''
               />
+              <div>식물</div>
             </div>
             <div
               className='EcosystemSelectBtn'
@@ -208,6 +214,7 @@ function EcoSystemPopup() {
                 }
                 alt=''
               />
+              <div>해양동물</div>
             </div>
             <div
               className='EcosystemSelectBtn'
@@ -220,6 +227,7 @@ function EcoSystemPopup() {
                 src={process.env.PUBLIC_URL + "/assets/icons/bird_Icon.png"}
                 alt=''
               />
+              <div>조류</div>
             </div>
             <div
               className='EcosystemSelectBtn'
@@ -232,6 +240,7 @@ function EcoSystemPopup() {
                 src={process.env.PUBLIC_URL + "/assets/icons/seaPlant_Icon.png"}
                 alt=''
               />
+              <div>해조류</div>
             </div>
           </div>
         )}
