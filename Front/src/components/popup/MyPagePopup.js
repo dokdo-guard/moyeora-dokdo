@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { checkNPClist } from "../../api/mainApi.js";
 import "../css/MyPagePopup.css";
 import Tooltip from "@mui/material/Tooltip";
-
+ 
 function MyPagePopup(props) {
   // 로그아웃 시 메인으로 이동
   const navigate = useNavigate();
@@ -599,70 +599,73 @@ function MyPagePopup(props) {
     );
   };
   return (
-    <div className='MyPageContainer'>
-      <div className='MyPageTitle'>MY PAGE</div>
-      <div className='MyPageOutBtn'>
-        <div
-          style={{ backgroundColor: "rgb(255, 73, 73)", cursor: "pointer" }}
-          onClick={() => {
-            if (window.confirm("로그아웃 하시겠습니까?")) {
-              sessionStorage.clear();
-              navigate("/");
-            }
-          }}
-        >
-          로그아웃
+    <div>
+      <div className='MyPageContainer'>
+        <div className='MyPageTitle'>MY PAGE</div>
+        <div className='MyPageOutBtn'>
+          <div
+            style={{ backgroundColor: "rgb(255, 73, 73)", cursor: "pointer" }}
+            onClick={() => {
+              if (window.confirm("로그아웃 하시겠습니까?")) {
+                sessionStorage.clear();
+                navigate("/");
+              }
+            }}
+          >
+            로그아웃
+          </div>
+        </div>
+        <div className='MyPageInnerWrapper'>
+          <div className='MyPageInnerLeft'>
+            <img
+              src={
+                process.env.PUBLIC_URL +
+                "/assets/images/characters/" +
+                userCharacter +
+                ".png"
+              }
+              alt='NOIMAGE'
+              className='MyPageCharacterImage'
+            />
+            {/* <div>{sessionStorage.getItem("name").slice(0, 3)}</div> */}
+            <div>{sessionStorage.getItem("email")}</div>
+          </div>
+          <div className='MyPageInnerRight'>
+            {selectCharacterShow || dogamShow || badgeShow ? null : (
+              <div>
+                <div
+                  onClick={() => {
+                    setSelectCharacterShow(true);
+                  }}
+                  className='MyPageMenu'
+                >
+                  캐릭터 선택
+                </div>
+                <div
+                  onClick={() => {
+                    setDogamShow(true);
+                  }}
+                  className='MyPageMenu'
+                >
+                  도감
+                </div>
+                <div
+                  onClick={() => {
+                    setBadgeShow(true);
+                  }}
+                  className='MyPageMenu'
+                >
+                  뱃지
+                </div>
+              </div>
+            )}
+            {selectCharacterShow ? <SelectCharacter /> : null}
+            {dogamShow ? <Dogam /> : null}
+            {badgeShow ? <Badge /> : null}
+          </div>
         </div>
       </div>
-      <div className='MyPageInnerWrapper'>
-        <div className='MyPageInnerLeft'>
-          <img
-            src={
-              process.env.PUBLIC_URL +
-              "/assets/images/characters/" +
-              userCharacter +
-              ".png"
-            }
-            alt='NOIMAGE'
-            className='MyPageCharacterImage'
-          />
-          {/* <div>{sessionStorage.getItem("name").slice(0, 3)}</div> */}
-          <div>{sessionStorage.getItem("email")}</div>
-        </div>
-        <div className='MyPageInnerRight'>
-          {selectCharacterShow || dogamShow || badgeShow ? null : (
-            <div>
-              <div
-                onClick={() => {
-                  setSelectCharacterShow(true);
-                }}
-                className='MyPageMenu'
-              >
-                캐릭터 선택
-              </div>
-              <div
-                onClick={() => {
-                  setDogamShow(true);
-                }}
-                className='MyPageMenu'
-              >
-                도감
-              </div>
-              <div
-                onClick={() => {
-                  setBadgeShow(true);
-                }}
-                className='MyPageMenu'
-              >
-                뱃지
-              </div>
-            </div>
-          )}
-          {selectCharacterShow ? <SelectCharacter /> : null}
-          {dogamShow ? <Dogam /> : null}
-          {badgeShow ? <Badge /> : null}
-        </div>
-      </div>
+      <div style={{position:"absolute",width:'100vw',height:'100vh',backgroundColor:'black',opacity:'50%',zIndex:'9'}}></div>
     </div>
   );
 }
