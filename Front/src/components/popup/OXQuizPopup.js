@@ -46,6 +46,11 @@ function OXQuizPopup() {
         },
       },
     );
+    MySwal.fire({
+      title: <h3>뱃지 획득!</h3>,
+      icon: "info",
+      html: <p>퀴즈5 만점 뱃지 획득!</p>,
+    });
   };
   const quizTen = async () => {
     await axios.post(
@@ -59,6 +64,11 @@ function OXQuizPopup() {
         },
       },
     );
+    MySwal.fire({
+      title: <h3>뱃지 획득!</h3>,
+      icon: "info",
+      html: <p>퀴즈10 만점 뱃지 획득!</p>,
+    });
   };
   const quizFifteen = async () => {
     await axios.post(
@@ -72,18 +82,14 @@ function OXQuizPopup() {
         },
       },
     );
+    MySwal.fire({
+      title: <h3>뱃지 획득!</h3>,
+      icon: "info",
+      html: <p>퀴즈15 만점 뱃지 획득!</p>,
+    });
   };
   const accessToken = sessionStorage.getItem("accessToken");
   const setQuizResult = async (result) => {
-    if (quizNum === 5) {
-      quizFive();
-    }
-    if (quizNum === 10) {
-      quizTen();
-    }
-    if (quizNum === 15) {
-      quizFifteen();
-    }
     await axios
       .put(
         "https://k7d204.p.ssafy.io/api/quiz",
@@ -104,13 +110,22 @@ function OXQuizPopup() {
           icon: "success",
         });
         setSelected(false);
-        setQuizNum(0);
-        setQuizProgress(0);
-        setAnswerCorrect(0);
       })
       .catch((err) => {
         console.log(err);
       });
+    if (quizNum === 5) {
+      quizFive();
+    }
+    if (quizNum === 10) {
+      quizTen();
+    }
+    if (quizNum === 15) {
+      quizFifteen();
+    }
+    setQuizNum(0);
+    setQuizProgress(0);
+    setAnswerCorrect(0);
   };
 
   const SelectQuizNum = () => {

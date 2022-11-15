@@ -5,7 +5,7 @@ import {
 } from "react-vertical-timeline-component";
 import "react-vertical-timeline-component/style.min.css";
 import "../css/HistoryPopup.css";
-import { quitPopup } from "../main/PopupButton.js";
+import { quitHistoryPopup } from "../main/PopupButton.js";
 import axios from "axios";
 
 const dummy_data_history = [
@@ -78,7 +78,7 @@ function HistoryPopup() {
         <img
           src='/assets/icons/cancel.png'
           id='quitButton'
-          onClick={quitPopup}
+          onClick={quitHistoryPopup}
           className='quitPopup'
         ></img>
         <div className='HistoryPopupWrapper'>
