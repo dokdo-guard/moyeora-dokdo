@@ -38,7 +38,7 @@ const OauthRedirect = (props) => {
           });
       };
       getUserInfo(token);
-      navigate("/main/mainTest");
+      navigate("/main/main");
     } else {
       console.log(error);
       navigate("/login");
