@@ -120,7 +120,7 @@ function Login(props) {
         <div className='WhatIsOurServiceBtnWrapper'>
           <div className='WhatIsOurServiceBtn' onClick={handleOpen}>
             <HelpOutlineIcon />
-            모여봐요 우리땅 독도? 이게 뭐야?
+            어떤 서비스 인가요?
           </div>
         </div>
         <div style={{ textAlign: "center" }}>
