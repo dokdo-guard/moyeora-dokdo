@@ -262,6 +262,7 @@ public class UserService {
         dto.setName(findUser.getName());
         dto.setEmail(findUser.getEmail());
         dto.setUserCharacter(findUser.getUserCharacter());
+        dto.setVisitedBefore(findUser.isVisitedBefore());
         return dto;
     }
 
