@@ -7,9 +7,19 @@ export class NPC {
 		this.x = info.x;
 		this.y = info.y;
 		this.z = info.z;
-
+		this.moving = false;
 		this.rotation = info.rotation;
+
+		this.locationXYZ = info.locationXYZ;
+		this.time=info.time;
 		
+		this.speed = 1;
+
+
+		//현재 위치 인덱스
+		this.curIdx=0;
+		//위치 바꿀 시간 설정
+
 		info.gltfLoader.load(
 			info.modelSrc,
 			glb => {
@@ -39,12 +49,67 @@ export class NPC {
 				// 	this.actions[0].play();
 				// }
 			}
-		);
+			);
+			this.destinationPoint = info.position;
 	}
 
-	onRaycasted() {
-		this.actions[1].setLoop(THREE.LoopOnce);
-		this.actions[1].stop();
+	moveTo(destinationPoint) {
+		this.destinationPoint = destinationPoint;
+		this.moving = true;
+		this.modelMesh.lookAt(destinationPoint);
+	  }
+	
+	move(delta) {
+	if (!this.destinationPoint) return;
+	if (!this.actions) return;
+
+	if (this.moving) {
+		// 걸어가는 상태
+		let angle = Math.atan2(
+		this.destinationPoint.z - this.modelMesh.position.z,
+		this.destinationPoint.x - this.modelMesh.position.x
+		);
+		this.modelMesh.position.x += Math.cos(angle) *delta*2;
+		this.modelMesh.position.z += Math.sin(angle) *delta*2;
+
+
+		this.actions[0].stop();
 		this.actions[1].play();
+		
+		if (
+
+			Math.abs(this.destinationPoint.x - this.modelMesh.position.x) < 0.22 &&
+			Math.abs(this.destinationPoint.z - this.modelMesh.position.z) < 0.22
+			) {
+			this.moving = false;
+			}
+
+	} else {
+		// 서 있는 상태
+		this.actions[1].stop();
+		this.actions[0].play();
 	}
+
+	// if (this.camera) this.camera.lookAt(this.modelMesh.position);
+	}
+
+	update(delta) {
+	if (!this.modelMesh) return;
+	if (this.mixer) this.mixer.update(delta); // 애니메이션 재생
+	this.move(delta); // 캐릭터 이동
+	}
+
+	dontMove(destinationPoint) {
+		this.destinationPoint = destinationPoint;
+		this.moving = false;
+		this.modelMesh.lookAt(destinationPoint);
+	}
+
+	// onRaycasted() {
+	// 	this.actions[1].setLoop(THREE.LoopOnce);
+	// 	this.actions[1].stop();
+	// 	this.actions[1].play();
+	// 	this.moving =true;
+	// }
+
 }
