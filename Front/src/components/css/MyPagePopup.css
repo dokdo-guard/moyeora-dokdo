@@ -43,8 +43,8 @@
   margin-right: 10px;
 }
 .MyPageCharacterImage {
-  width: 200px;
-  height: 400px;
+  width: 170px;
+  height: 356px;
 }
 .MyPageOutBtn {
   display: flex;
@@ -76,7 +76,7 @@
   justify-content: center;
   align-items: center;
   cursor: pointer;
-  width: 250px;
+  width: 270px;
   height: 100px;
   background-color: white;
   border-radius: 5px;
@@ -90,8 +90,8 @@
   transition: background-color 0.2s;
 }
 .MyPageCharacterImg {
-  width: 70px;
-  height: 120px;
+  width: 68px;
+  height: 122px;
   margin: 20px;
   transition: transform 0.2s;
 }
@@ -209,7 +209,7 @@
   z-index: 22;
   position: absolute;
   left: 87%;
-  top: 7%;
+  top: 8%;
   cursor: pointer;
 }
 .BadgeWrapper {

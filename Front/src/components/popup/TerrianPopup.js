@@ -172,7 +172,7 @@ function TerrianPopup(isShown) {
     <div style={{ position: "relative" }}>
       <div className="TerrianPopupContainer">
         <div className="TerrianPopupTitle">지형 박물관</div>
-        <div>마커를 누르시면 독도의 지형을 보실 수 있습니다.</div>
+        <div style={{margin: "10px 0 5px"}}>마커를 누르시면 독도의 지형을 보실 수 있습니다.</div>
         <img
           src="/assets/icons/cancel.png"
           id="quitButton"

@@ -113,10 +113,11 @@ function MyPagePopup(props) {
           style={{
             display: "flex",
             justifyContent: "center",
-            margin: "10px",
             cursor: "pointer",
             backgroundColor: "orange",
             width: "100px",
+            height: "40px",
+            marginLeft: "30px",
             alignItems: "center",
             borderRadius: "10px",
             boxShadow: "3px 3px 20px lightgray",
@@ -127,7 +128,7 @@ function MyPagePopup(props) {
             setSelectCharacterShow(false);
           }}
         >
-          선택완료
+          Back
         </div>
         <div className="MyPageCharacterList">
           <div
@@ -271,10 +272,11 @@ function MyPagePopup(props) {
           style={{
             display: "flex",
             justifyContent: "center",
-            margin: "10px",
             cursor: "pointer",
             backgroundColor: "orange",
             width: "100px",
+            height: "40px",
+            marginLeft: "30px",
             alignItems: "center",
             borderRadius: "10px",
             boxShadow: "3px 3px 20px lightgray",
@@ -400,10 +402,11 @@ function MyPagePopup(props) {
           style={{
             display: "flex",
             justifyContent: "center",
-            margin: "10px",
             cursor: "pointer",
             backgroundColor: "orange",
             width: "100px",
+            height: "40px",
+            marginLeft: "30px",
             alignItems: "center",
             borderRadius: "10px",
             boxShadow: "3px 3px 20px lightgray",
@@ -614,7 +617,12 @@ function MyPagePopup(props) {
         <div className="MyPageTitle">MY PAGE</div>
         <div className="MyPageOutBtn">
           <div
-            style={{ backgroundColor: "rgb(255, 73, 73)", cursor: "pointer" }}
+            style={{
+              backgroundColor: "rgb(255, 73, 73)",
+              cursor: "pointer",
+              height: "40px",
+              marginRight:"20px"
+            }}
             onClick={() => {
               Swal.fire({
                 title: "로그아웃 하시겠습니까?",
@@ -644,8 +652,8 @@ function MyPagePopup(props) {
               alt="NOIMAGE"
               className="MyPageCharacterImage"
             />
-            {/* <div>{sessionStorage.getItem("name").slice(0, 3)}</div> */}
-            <div>{sessionStorage.getItem("email")}</div>
+            { <div>{sessionStorage.getItem("email")}</div> }
+            <div>{sessionStorage.getItem("name")}</div>
           </div>
           <div className="MyPageInnerRight">
             {selectCharacterShow || dogamShow || badgeShow ? null : (

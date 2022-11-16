@@ -172,7 +172,7 @@ function OXQuizPopup() {
   const EndQuiz = () => {
     return (
       <div>
-        <div className='QuizTitle'>
+        <div className='QuizTitle' style={{marginTop: "-10px 0 10px", fontSize: "70px"}}>
           Score
           {answerCorrect}
         </div>

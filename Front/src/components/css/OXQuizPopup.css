@@ -127,27 +127,33 @@
   align-items: center;
 }
 .endQuizButton {
-  font-size: 40px;
+  font-size: 28px;
   font-weight: 700;
-
-  width: 300px;
-  height: 100px;
-  margin: 10px;
+  width: 230px;
+  height: 80px;
+  margin: 20px;
   background-color: #fff565;
   border: none;
   border-radius: 10px;
   box-shadow: 1px 1px 10px lightgray;
 }
 .endQuizButton2 {
-  font-size: 40px;
+  font-size: 28px;
   font-weight: 700;
-  width: 300px;
-  height: 100px;
-  margin: 10px;
+  width: 230px;
+  height: 80px;
+  margin: 20px;
   background-color: #feb653;
   border-radius: 10px;
   border: none;
   box-shadow: 1px 1px 10px lightgray;
+}
+.endQuizButton:hover,
+.endQuizButton2:hover {
+  transition: background-color 0.2s;
+  transition: font-size 0.2s;
+  transform: translateY(-5px);
+  transform: scale(1.05, 1.05);
 }
 .fadein {
   animation: fadein 1s;

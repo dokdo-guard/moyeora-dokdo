@@ -183,7 +183,7 @@ function EcoSystemPopup() {
     <div style={{ position: "relative" }}>
       <div className="EcosystemContainer">
         <div className="EcosystemTitle">독도의 생태계</div>
-        <div>
+        <div style={{margin: "15px 0"}}>
           버튼을 누르시면 해당 카테고리에 해당하는 동식물들을 만나보실 수
           있습니다{" "}
         </div>
