@@ -56,7 +56,7 @@ const OauthRedirect = (props) => {
       navigate("/main/main");
     } else {
       console.log(error);
-      navigate("/login");
+      navigate("/");
     }
   });
   return (
