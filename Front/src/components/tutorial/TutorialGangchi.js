@@ -44,9 +44,11 @@ function TutorialGangchi() {
     // console.log("useEffect in TutorialGanchi");
     // console.log("visited Before");
     // console.log(typeof(sessionStorage.getItem("visitedBefore")));
-    if (sessionStorage.getItem("visitedBefore") === "true") {
-      quitTutorialGangchi();
-    }
+    
+    // 로그인한 사람은 다시 튜토리얼 볼 수 없게
+    // if (sessionStorage.getItem("visitedBefore") === "true") {
+    //   quitTutorialGangchi();
+    // }
   }, []);
   const nextLine = () => {
     setCharNum(gangchiLine[lineNum].line.length);
