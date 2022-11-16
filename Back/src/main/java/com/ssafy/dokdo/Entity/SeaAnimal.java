@@ -18,4 +18,5 @@ public class SeaAnimal {
     private String summary;
     private String speciesInformation;
     private String img;
+    private String domain;
 }
