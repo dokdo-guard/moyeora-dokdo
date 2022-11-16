@@ -6,23 +6,14 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Getter
-@NoArgsConstructor
 @Document
-public class SeaPlant {
+public class SeaPlant extends AllSpecies {
     @Id
     private String id;
-    private String name;
     private String summary;
     private String speciesInformation;
-    private String img;
-    private String domain;
-    @Builder
-    public SeaPlant(String id, String name, String summary, String speciesInformation, String img) {
-        this.id = id;
-        this.name = name;
-        this.summary = summary;
-        this.speciesInformation = speciesInformation;
-        this.img = img;
-        this.domain = domain;
+
+    public SeaPlant(String name, String domain, String img) {
+        super(name, domain, img);
     }
 }
