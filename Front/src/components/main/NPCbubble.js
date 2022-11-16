@@ -9,7 +9,7 @@ const NPCBubble = (props) => {
     let penguinSrc = '/assets/images/npc/penguin' + number + '.png'
     let 강치Src = '/assets/images/npc/강치' + number + '.png'
     let turtleSrc = '/assets/images/npc/turtle' + number + '.png'
-    let dogSrc = '/assets/images/npc/Dog' + number + '.png'
+    let dogSrc = '/assets/images/npc/dog' + number + '.png'
     let 독도새우Src = '/assets/images/npc/독도새우' + number + '.png'
     let 바위게Src = '/assets/images/npc/바다게' + number + '.png'
     let dolphinSrc = '/assets/images/npc/dolphin' + number + '.png'

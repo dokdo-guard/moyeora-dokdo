@@ -17,8 +17,9 @@ const gangchiLine = [
     line: "오른쪽에는 동도가 있치. 동도에서는 역사관, 지형관, 생태관이 있치. 각 관에서 독도에 대한 다양한 정보를 얻을 수 있치!",
   },
   {
-    line: "왼쪽에는 서도가 있치. 서도에서는 다양한 NPC를 만나볼 수 있치! NPC에게서 독도에 대한 정보도 들어볼 수 있치.",
+    line: "왼쪽에는 서도가 있치. 서도에서는 다양한 NPC를 만나볼 수 있치!",
   },
+  { line: " NPC에게서 독도에 대한 정보도 들어볼 수 있치." },
   {
     line: "서도에서는 게임을 통해 도감을 수집할수도 있치!",
   },
@@ -52,7 +53,7 @@ function TutorialGangchi() {
   }, []);
   const nextLine = () => {
     setCharNum(gangchiLine[lineNum].line.length);
-    if (lineNum + 1 > 8) {
+    if (lineNum + 1 > 9) {
       return;
     } else {
       setLineNum((lineNum) => lineNum + 1);
@@ -121,7 +122,7 @@ function TutorialGangchi() {
             </div>
           </div>
         )}
-        {lineNum === 4 && (
+        {lineNum === 5 && (
           <div
             style={{
               zIndex: "13",
@@ -153,20 +154,53 @@ function TutorialGangchi() {
             </>
           </div>
         )}
-        {lineNum === 6 && (
+        {lineNum === 3 && (
           <img
-            src=''
+            src='/assets/Tutorial/동도focus.png'
             alt='NOIMAGE'
             style={{
-              top: "40%",
-              left: "50%",
-              transform: "translate(-40%, -50%)",
-              width: "300px",
-              height: "300px",
+              position: "absolute",
+              top: "35%",
+              left: "40%",
+              transform: "translate(-35%, -40%)",
+              zIndex: "11",
+              width: "800px",
+              height: "400px",
+            }}
+          />
+        )}
+        {lineNum === 4 && (
+          <img
+            src='/assets/Tutorial/서도focus.png'
+            alt='NOIMAGE'
+            style={{
+              position: "absolute",
+              top: "35%",
+              left: "40%",
+              transform: "translate(-35%, -40%)",
+              zIndex: "11",
+              width: "800px",
+              height: "400px",
+            }}
+          />
+        )}{" "}
+        {lineNum === 6 && (
+          <img
+            src='/assets/Tutorial/서도게임focus.png'
+            alt='NOIMAGE'
+            style={{
+              position: "absolute",
+              top: "35%",
+              left: "40%",
+              transform: "translate(-35%, -40%)",
+              zIndex: "11",
+              width: "800px",
+              height: "400px",
             }}
           />
         )}
       </div>
+
       <div
         style={{
           position: "absolute",
@@ -226,7 +260,7 @@ function TutorialGangchi() {
           justifyContent: "flex-end",
         }}
       >
-        {lineNum === 8 ? (
+        {lineNum === 9 ? (
           <div>
             <div
               className='LineENDButton'
@@ -251,7 +285,7 @@ function TutorialGangchi() {
             <div
               className='LineSkipButton'
               onClick={() => {
-                setLineNum(8);
+                setLineNum(9);
               }}
             >
               SKIP
