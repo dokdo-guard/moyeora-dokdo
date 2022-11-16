@@ -15,9 +15,9 @@
 }
 .MyPageTitle {
   display: flex;
-  font-size: 70px;
+  font-size: 50px;
   font-weight: 700;
-  margin: 10px;
+  margin: 20px 10px 0;
   top: 10px;
 }
 .MyPageInnerWrapper {
@@ -28,17 +28,23 @@
 }
 .MyPageInnerLeft {
   width: 30%;
+  margin-left: 90px;
+  margin-right: 30px;
+}
+.MyPageInnerLeft > div {
+  margin-top: 13px;
 }
 .MyPageInnerRight {
-  height: 450px;
+  height: 480px;
   width: 90%;
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-right: 10px;
 }
 .MyPageCharacterImage {
-  width: 200px;
-  height: 400px;
+  width: 170px;
+  height: 356px;
 }
 .MyPageOutBtn {
   display: flex;
@@ -65,19 +71,18 @@
   border-radius: 10px;
   box-shadow: 3px 3px 20px lightgray;
 }
-
 .MyPageMenu {
   display: flex;
   justify-content: center;
   align-items: center;
   cursor: pointer;
-  width: 300px;
+  width: 270px;
   height: 100px;
   background-color: white;
   border-radius: 5px;
   box-shadow: 3px 3px 20px lightgray;
   margin: 20px;
-  font-size: 30px;
+  font-size: 28px;
 }
 .MyPageMenu:hover {
   transform: scale(1.1, 1.1);
@@ -85,8 +90,8 @@
   transition: background-color 0.2s;
 }
 .MyPageCharacterImg {
-  width: 70px;
-  height: 110px;
+  width: 68px;
+  height: 122px;
   margin: 20px;
   transition: transform 0.2s;
 }
@@ -104,24 +109,32 @@
   justify-content: center;
   align-items: center;
 }
+.MyPageCharacterListElement {
+  margin: 0 30px;
+}
 .MyPageRightTitle {
   font-weight: 700;
-  font-size: 25px;
+  font-size: 28px;
+  margin-top: 20px;
+  margin-top: 20px;
 }
 .choosenCharacter {
   transform: scale(1.2, 1.2);
 }
 .DogamSelectWrapper {
-  width: 100%;
-  display: grid;
+  width: fit-content;
+  height: 80%;
+  display: inline-flex;
   justify-items: center;
   align-items: center;
-  grid-template-columns: 50% 50%;
+  grid-template-columns: repeat(4, 25%);
+  border-radius: 5px;
 }
 .dogamSelectBtn {
   display: flex;
   width: 150px;
   height: 150px;
+  margin: 0 10px 20px;
   background-color: white;
   text-align: center;
   border-radius: 10px;
@@ -129,11 +142,15 @@
   justify-content: center;
   align-items: center;
   cursor: pointer;
-  margin-bottom: 10px;
+  flex-direction: column;
 }
 .dogamSelectBtn > img {
   width: 100px;
   height: 100px;
+}
+.dogamSelectBtn > div {
+  margin-top: 13px;
+  font-size: 13px;
 }
 .dogamSelectBtn:hover {
   background-color: #ffce8f;
@@ -188,11 +205,11 @@
 }
 
 .quitMyPage {
-  width: 80px;
+  width: 60px;
   z-index: 22;
   position: absolute;
-  left: 85%;
-  top: 7%;
+  left: 87%;
+  top: 8%;
   cursor: pointer;
 }
 .BadgeWrapper {

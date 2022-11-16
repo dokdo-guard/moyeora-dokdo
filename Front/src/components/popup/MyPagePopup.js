@@ -166,6 +166,11 @@ function MyPagePopup(props) {
           console.log(err);
         });
     }
+    Swal.fire({
+      title: <h3>뱃지 획득!</h3>,
+      icon: "info",
+      html: <p>도감 완성 뱃지 획득!</p>,
+    });
   };
 
   // 캐릭터 선택 axios api call
@@ -199,10 +204,11 @@ function MyPagePopup(props) {
           style={{
             display: "flex",
             justifyContent: "center",
-            margin: "10px",
             cursor: "pointer",
             backgroundColor: "orange",
             width: "100px",
+            height: "40px",
+            marginLeft: "30px",
             alignItems: "center",
             borderRadius: "10px",
             boxShadow: "3px 3px 20px lightgray",
@@ -213,10 +219,11 @@ function MyPagePopup(props) {
             setSelectCharacterShow(false);
           }}
         >
-          선택완료
+          Back
         </div>
         <div className='MyPageCharacterList'>
           <div
+            className='MyPageCharacterListElement'
             onClick={() => {
               setUserCharacter("siryeong");
             }}
@@ -235,6 +242,7 @@ function MyPagePopup(props) {
             />
           </div>
           <div
+            className='MyPageCharacterListElement'
             onClick={() => {
               setUserCharacter("hyoseon");
             }}
@@ -252,6 +260,7 @@ function MyPagePopup(props) {
             />
           </div>
           <div
+            className='MyPageCharacterListElement'
             onClick={() => {
               setUserCharacter("seongryeong");
             }}
@@ -272,6 +281,7 @@ function MyPagePopup(props) {
         </div>
         <div className='MyPageCharacterList'>
           <div
+            className='MyPageCharacterListElement'
             onClick={() => {
               setUserCharacter("sojung");
             }}
@@ -289,6 +299,7 @@ function MyPagePopup(props) {
             />
           </div>
           <div
+            className='MyPageCharacterListElement'
             onClick={() => {
               setUserCharacter("youngjin");
             }}
@@ -307,6 +318,7 @@ function MyPagePopup(props) {
             />
           </div>
           <div
+            className='MyPageCharacterListElement'
             onClick={() => {
               setUserCharacter("chaehyeon");
             }}
@@ -351,10 +363,11 @@ function MyPagePopup(props) {
           style={{
             display: "flex",
             justifyContent: "center",
-            margin: "10px",
             cursor: "pointer",
             backgroundColor: "orange",
             width: "100px",
+            height: "40px",
+            marginLeft: "30px",
             alignItems: "center",
             borderRadius: "10px",
             boxShadow: "3px 3px 20px lightgray",
@@ -406,6 +419,7 @@ function MyPagePopup(props) {
                 src={process.env.PUBLIC_URL + "/assets/icons/plant_Icon.png"}
                 alt=''
               />
+              <div>식물</div>
             </div>
             <div
               className='dogamSelectBtn'
@@ -422,6 +436,7 @@ function MyPagePopup(props) {
                 }
                 alt=''
               />
+              <div>해양동물</div>
             </div>
             <div
               className='dogamSelectBtn'
@@ -436,6 +451,7 @@ function MyPagePopup(props) {
                 src={process.env.PUBLIC_URL + "/assets/icons/bird_Icon.png"}
                 alt=''
               />
+              <div>조류</div>
             </div>
             <div
               className='dogamSelectBtn'
@@ -450,6 +466,7 @@ function MyPagePopup(props) {
                 src={process.env.PUBLIC_URL + "/assets/icons/seaPlant_Icon.png"}
                 alt=''
               />
+              <div>해조류</div>
             </div>
           </div>
         )}
@@ -476,10 +493,11 @@ function MyPagePopup(props) {
           style={{
             display: "flex",
             justifyContent: "center",
-            margin: "10px",
             cursor: "pointer",
             backgroundColor: "orange",
             width: "100px",
+            height: "40px",
+            marginLeft: "30px",
             alignItems: "center",
             borderRadius: "10px",
             boxShadow: "3px 3px 20px lightgray",
@@ -612,7 +630,7 @@ function MyPagePopup(props) {
             <div className='BadgeImage'>
               <Tooltip title='퀴즈 15문제 만점' placement='top'>
                 <img
-                  src={process.env.PUBLIC_URL + "/assets/badges/1rdBadge.png"}
+                  src={process.env.PUBLIC_URL + "/assets/badges/1stBadge.png"}
                   alt='no Badge'
                 />
               </Tooltip>
@@ -690,7 +708,12 @@ function MyPagePopup(props) {
         <div className='MyPageTitle'>MY PAGE</div>
         <div className='MyPageOutBtn'>
           <div
-            style={{ backgroundColor: "rgb(255, 73, 73)", cursor: "pointer" }}
+            style={{
+              backgroundColor: "rgb(255, 73, 73)",
+              cursor: "pointer",
+              height: "40px",
+              marginRight: "20px",
+            }}
             onClick={() => {
               Swal.fire({
                 title: "로그아웃 하시겠습니까?",
@@ -720,8 +743,8 @@ function MyPagePopup(props) {
               alt='NOIMAGE'
               className='MyPageCharacterImage'
             />
-            {/* <div>{sessionStorage.getItem("name").slice(0, 3)}</div> */}
-            <div>{sessionStorage.getItem("email")}</div>
+            {<div>{sessionStorage.getItem("email")}</div>}
+            <div>{sessionStorage.getItem("name")}</div>
           </div>
           <div className='MyPageInnerRight'>
             {selectCharacterShow || dogamShow || badgeShow ? null : (
