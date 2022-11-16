@@ -29,16 +29,16 @@ public class DogamService {
 
             if(randomElement instanceof Bird){
                 Bird tmp = (Bird)randomElement;
-                randomDogam.add(new AllSpecies(tmp.getName(), tmp.getSummary(),tmp.getImg()));
+                randomDogam.add(new AllSpecies(tmp.getName(), tmp.getDomain(),tmp.getImg()));
             }else if(randomElement instanceof Plant){
                 Plant tmp = (Plant)randomElement;
-                randomDogam.add(new AllSpecies(tmp.getName(), tmp.getSummary(), tmp.getImg()));
+                randomDogam.add(new AllSpecies(tmp.getName(), tmp.getDomain(), tmp.getImg()));
             }else if(randomElement instanceof SeaAnimal){
                 SeaAnimal tmp = (SeaAnimal) randomElement;
-                randomDogam.add(new AllSpecies(tmp.getName(), tmp.getSummary(), tmp.getImg()));
+                randomDogam.add(new AllSpecies(tmp.getName(), tmp.getDomain(), tmp.getImg()));
             }else if(randomElement instanceof SeaPlant){
                 SeaPlant tmp = (SeaPlant) randomElement;
-                randomDogam.add(new AllSpecies(tmp.getName(), tmp.getSummary(), tmp.getImg()));
+                randomDogam.add(new AllSpecies(tmp.getName(), tmp.getDomain(), tmp.getImg()));
             }
         }
         return  randomDogam;
