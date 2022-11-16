@@ -32,7 +32,7 @@ spring:
           google:
             clientId: '837411735395-3m079fdsp3l17j3udu4sdm03kge4kts7.apps.googleusercontent.com'
             clientSecret: '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'
-            redirectUri: "{baseUrl}/oauth2/callback/{registrationId}"
+            redirectUri: "https://k7d204.p.ssafy.io/api/oauth2/callback/{registrationId}"
             scope:
               - email
               - profile
@@ -41,7 +41,7 @@ spring:
             clientSecret: 'ehH3zm_h9U'
             clientAuthenticationMethod: post
             authorizationGrantType: authorization_code
-            redirectUri: "{baseUrl}/oauth2/callback/{registrationId}"
+            redirectUri: "https://k7d204.p.ssafy.io/api/oauth2/callback/{registrationId}"
             scope:
               - nickname
               - email
@@ -51,7 +51,7 @@ spring:
             clientSecret: '9F22srrcwNw2wjvwE4fvdX2JSRjAqPyO'
             clientAuthenticationMethod: post
             authorizationGrantType: authorization_code
-            redirectUri: "{baseUrl}/oauth2/callback/{registrationId}"
+            redirectUri: "https://k7d204.p.ssafy.io/api/oauth2/callback/{registrationId}"
             scope:
               - profile_nickname
               - account_email
@@ -82,6 +82,7 @@ app:
     # We're not using cookies because they won't work well in mobile clients.
     authorizedRedirectUris:
       - http://localhost:3000/oauth2/redirect
+      - https://k7d204.p.ssafy.io/myPage/myPageTest
 
 server:
   port: 8443

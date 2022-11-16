@@ -2,6 +2,7 @@ package com.ssafy.dokdo.Entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.ssafy.dokdo.Model.AuthProvider;
+import com.ssafy.dokdo.Model.NpcDto;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -15,8 +16,7 @@ import java.util.List;
 @Getter
 @Entity
 @Table(name = "user", uniqueConstraints = {
-        @UniqueConstraint(columnNames = "email"),
-        @UniqueConstraint(columnNames = "name")
+        @UniqueConstraint(columnNames = "email")
 })
 public class User {
     @Id
@@ -34,7 +34,7 @@ public class User {
     private String email;
 
     @NotNull
-    private String userCharacter = "default";
+    private String userCharacter = "siryeong";
 
     @NotNull
     @Enumerated(EnumType.STRING)
@@ -54,15 +54,25 @@ public class User {
     @JoinColumn(name = "quiz_id")
     private QuizUser quizUser;
 
+    @OneToOne
+    @JoinColumn(name = "badge_id")
+    private UserBadge userBadge;
+
     //Dogam 참조
     @OneToMany
     @JoinColumn(name = "user_id")
     private List<Dogam> dogamList = new ArrayList<>();
 
-    @ManyToMany
-    @JoinTable(name = "user_badge", // 연결 테이블 지정
-            joinColumns = @JoinColumn(name = "user_id"), // joinColumns: 현재 방향인 회원과 매핑할 조인 컬럼 정보 지정
-            inverseJoinColumns = @JoinColumn(name = "badge_id"))
-    private List<Badge> badgeList = new ArrayList<>();
+//    @ManyToMany
+//    @JoinTable(name = "user_badge", // 연결 테이블 지정
+//            joinColumns = @JoinColumn(name = "user_id"), // joinColumns: 현재 방향인 회원과 매핑할 조인 컬럼 정보 지정
+//            inverseJoinColumns = @JoinColumn(name = "badge_id"))
+//    private List<Badge> badgeList = new ArrayList<>();
 
+    @OneToMany
+    @JoinColumn(name = "user_id")
+    private List<Npc> npcList = new ArrayList<>();
+
+    // 이전접속기록
+    private boolean visitedBefore = false;
 }

@@ -183,7 +183,7 @@ function TutorialGangchi() {
             height: "70px",
             position: "absolute",
             left: "210px",
-            bottom: "250px",
+            bottom: "180px",
             borderRadius: "100px",
             backgroundColor: "lightgray",
             display: "flex",
@@ -203,7 +203,7 @@ function TutorialGangchi() {
             position: "absolute",
             height: "400px",
             width: "400px",
-            bottom: "150px",
+            bottom: "100px",
             left: "-100px",
           }}
         />
