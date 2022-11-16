@@ -1,17 +1,14 @@
 import React, { useEffect, useRef, useState } from "react";
 import "../css/TerrianPopup.css";
 import { getAllTerrians } from "../../api/terrainApi";
+import { quitTerrianPopup } from "../main/PopupButton";
 
+import Swal from "sweetalert2";
+import withReactContent from "sweetalert2-react-content";
+import axios from "axios";
 let map = null;
 
 function TerrianPopup(isShown) {
-  var popUp = false;
-  const TerrianQuitPopup = () => {
-    const TerrianPop = document.getElementById("TerrianPopup");
-    TerrianPop.style.display = "none";
-    popUp = !popUp;
-  };
-
   const mapElement = useRef(null);
   const [places, setPlaces] = useState([]);
   const [isLoaded, setIsLoaded] = useState(false);
@@ -19,6 +16,37 @@ function TerrianPopup(isShown) {
   const [showPlace, setShowPlace] = useState(false);
   const [curPlace, setCurPlace] = useState("");
   const [curMarker, setCurMarker] = useState(null);
+  const [badges, setBadges] = useState([]);
+  const MySwal = withReactContent(Swal);
+  const accessToken = sessionStorage.getItem("accessToken");
+  useEffect(() => {
+    const getBadges = async () => {
+      await axios
+        .get(`https://k7d204.p.ssafy.io/api/badge`, {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        })
+        .then((res) => {
+          setBadges(res.data);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    };
+    getBadges();
+  }, [isLoaded]);
+  const quitTerrianPopup = () => {
+    const TerrianPop = document.getElementById("TerrianPopup");
+    TerrianPop.style.display = "none";
+    if (badges.visitTerrian === false) {
+      MySwal.fire({
+        title: <h3>뱃지 획득!</h3>,
+        icon: "info",
+        html: <p>지형관 방문 뱃지 획득!</p>,
+      });
+    }
+  };
 
   useEffect(() => {
     // console.log("API useEffect Call(TerrianData)");
@@ -115,10 +143,9 @@ function TerrianPopup(isShown) {
     return (
       <div className='baseInfoContainer'>
         <div className='baseInfoTitle'>지리</div>
-        <hr></hr>
         <div className='baseInfoContent'>
           <div className='baseInfoContentHeader'>위치</div>
-          <div className='baseInfoDetailt'>
+          <div className='baseInfoDetail'>
             동도
             <br />
             북위 37° 14′ 26.8″
@@ -132,19 +159,14 @@ function TerrianPopup(isShown) {
             동경 131° 51′ 54.6″
           </div>
         </div>
-        <hr></hr>
         <div className='baseInfoContent'>
           <div className='baseInfoContentHeader'>구성 도서</div>
           <div className='baseInfoDetail'>91개의 섬</div>
         </div>
-        <hr></hr>
-
         <div className='baseInfoContent'>
           <div className='baseInfoContentHeader'>주요 도서</div>
           <div className='baseInfoDetail'> 동도(東島) · 서도(西島)</div>
         </div>
-        <hr></hr>
-
         <div className='baseInfoContent'>
           <div className='baseInfoContentHeader'>면적</div>
           <div className='baseInfoDetail'>
@@ -184,11 +206,13 @@ function TerrianPopup(isShown) {
     <div style={{ position: "relative" }}>
       <div className='TerrianPopupContainer'>
         <div className='TerrianPopupTitle'>지형 박물관</div>
-        <div>마커를 누르시면 독도의 지형을 보실 수 있습니다.</div>
+        <div style={{ margin: "10px 0 5px" }}>
+          마커를 누르시면 독도의 지형을 보실 수 있습니다.
+        </div>
         <img
           src='/assets/icons/cancel.png'
           id='quitButton'
-          onClick={TerrianQuitPopup}
+          onClick={quitTerrianPopup}
           className='quitPopup'
         ></img>
         <div className='TerrianPopupWrapper'>

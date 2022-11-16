@@ -27,7 +27,6 @@ const Editor = ({ originData }) => {
     });
   };
 
-
   // S3에 직접 이미지 올리기
   const region = "ap-northeast-2";
   const bucket = "ssafy-d204-dokdo";
@@ -66,7 +65,7 @@ const Editor = ({ originData }) => {
       function (err) {
         // 이미지 업로드 실패
         console.log("에러ㅠㅠ");
-      },
+      }
     );
 
     // API로 내용, 이미지 저장하기(backend와의 API 상)
@@ -82,38 +81,43 @@ const Editor = ({ originData }) => {
       });
   };
 
-  console.log(file)
+  console.log(file);
 
   return (
     <div className="editor">
       {imageSrc ? (
         <>
-          <div className='preview'>
-            {imageSrc && <img src={imageSrc} alt='preview-img' />}
+          <div className="preview">
+            {imageSrc && <img src={imageSrc} alt="preview-img" />}
           </div>
-          <button onClick={() => {setImageSrc("")}}>이미지 삭제</button>
+          <button
+            onClick={() => {
+              setImageSrc("");
+            }}
+          >
+            이미지 삭제
+          </button>
         </>
       ) : (
         <img src="/assets/images/default.png"></img>
-        )}
-        <input
-          type='file'
-          accept='image/jpg,impge/png,image/jpeg,image/gif'
-          onChange={(e) => {
-            encodeFileToBase64(e.target.files[0]);
-            setFile(e.target.files[0]);
-          }}
-        />
+      )}
+      <input
+        type="file"
+        accept="image/jpg,impge/png,image/jpeg,image/gif"
+        onChange={(e) => {
+          encodeFileToBase64(e.target.files[0]);
+          setFile(e.target.files[0]);
+        }}
+      />
 
-
-        <textarea
-          ref={contentRef}
-          value={content}
-          className="textarea"
-          onChange={(e) => {
-            setContent(e.target.value);
-          }}
-        ></textarea>
+      <textarea
+        ref={contentRef}
+        value={content}
+        className="textarea"
+        onChange={(e) => {
+          setContent(e.target.value);
+        }}
+      ></textarea>
       <button onClick={handleSubmit}>작성하기</button>
     </div>
   );

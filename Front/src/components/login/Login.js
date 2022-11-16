@@ -79,54 +79,56 @@ function Login(props) {
             <button onClick={handleClose}>넵 ! 잘 알겠어요</button>
           </DialogActions>
         </Dialog>
-        <div className='LoginTitle waviy'>
-          <div style={{ "--i": 1 }}>
-            <h1>모</h1>
+        <div className="LoginTitleWrapper">
+          <div className='LoginTitle waviy'>
+            <div style={{ "--i": 1 }}>
+              <h1>모</h1>
+            </div>
+            <div style={{ "--i": 2 }}>
+              <h1>여</h1>
+            </div>
+            <div style={{ "--i": 3 }}>
+              <h1>봐</h1>
+            </div>
+            <div style={{ "--i": 4 }}>
+              <h1>요</h1>
+            </div>
+            <div style={{ "--i": 5 }}>
+              <h1>!</h1>
+            </div>
           </div>
-          <div style={{ "--i": 2 }}>
-            <h1>여</h1>
-          </div>
-          <div style={{ "--i": 3 }}>
-            <h1>봐</h1>
-          </div>
-          <div style={{ "--i": 4 }}>
-            <h1>요</h1>
-          </div>
-          <div style={{ "--i": 5 }}>
-            <h1>!</h1>
-          </div>
-        </div>
 
-        <div className='LoginTitle waviy'>
-          <div style={{ "--i": 6 }}>
-            <h1>우</h1>
-          </div>
-          <div style={{ "--i": 7 }}>
-            <h1>리</h1>
-          </div>
-          <div style={{ "--i": 8 }}>
-            <h1>땅</h1>
-          </div>{" "}
-          <div style={{ "--i": 9 }}>
-            <h1>,</h1>
-          </div>
-          <div style={{ "--i": 10 }}>
-            <h1>독</h1>
-          </div>
-          <div style={{ "--i": 11 }}>
-            <h1>도</h1>
-          </div>
-        </div>
-        <div className='WhatIsOurServiceBtnWrapper'>
-          <div className='WhatIsOurServiceBtn' onClick={handleOpen}>
-            <HelpOutlineIcon />
-            어떤 서비스 인가요?
+          <div className='LoginTitle waviy'>
+            <div style={{ "--i": 6 }}>
+              <h1>우</h1>
+            </div>
+            <div style={{ "--i": 7 }}>
+              <h1>리</h1>
+            </div>
+            <div style={{ "--i": 8 }}>
+              <h1>땅</h1>
+            </div>{" "}
+            <div style={{ "--i": 9 }}>
+              <h1>,</h1>
+            </div>
+            <div style={{ "--i": 10 }}>
+              <h1>독</h1>
+            </div>
+            <div style={{ "--i": 11 }}>
+              <h1>도</h1>
+            </div>
           </div>
         </div>
-        <div style={{ textAlign: "center" }}>
+        <div style={{ textAlign: "center", margin: "10px 0 0" }}>
           디스플레이 125% 크롬 100%환경에서 최적의 경험을 제공합니다.
         </div>
         {loginBtnShow ? <SocialLogin /> : <OnBoard />}
+        <div className='WhatIsOurServiceBtnWrapper'>
+          <div className='WhatIsOurServiceBtn' onClick={handleOpen}>
+            <HelpOutlineIcon />
+            &nbsp;어떤 서비스 인가요?
+          </div>
+        </div>
       </div>
     </div>
   );
