@@ -119,7 +119,7 @@ function Login(props) {
             </div>
           </div>
         </div>
-        <div style={{ textAlign: "center", margin: "10px 0 0" }}>
+        <div style={{ textAlign: "center", margin: "10px 0 5px" }}>
           디스플레이 125% 크롬 100%환경에서 최적의 경험을 제공합니다.
         </div>
         {loginBtnShow ? <SocialLogin /> : <OnBoard />}
