@@ -217,7 +217,6 @@ function OXQuizPopup() {
   };
   const correct = () => {
     setAnswerCorrect((answerCorrect) => answerCorrect + 1);
-
     Swal.fire({
       icon: "success",
       title: "정답!",
