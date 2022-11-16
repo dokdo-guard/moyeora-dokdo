@@ -454,13 +454,13 @@ function MainTest() {
   const clock = new THREE.Clock();
 
   // fps 체크
-  const stats = new Stats();
-  document.body.append(stats.domElement);
+  // const stats = new Stats();
+  // document.body.append(stats.domElement);
 
   //#region = update 함수
   function update() {
     render();
-    stats.update();
+    // stats.update();
     const delta = clock.getDelta();
 
     if (
