@@ -79,7 +79,7 @@ function EcoSystemPopup() {
         </div>
 
         <div className="EcoSystemDetailInfo">
-          <div className="getDogamBtn">
+          {/* <div className="getDogamBtn">
             <button
               onClick={() => {
                 setDogam();
@@ -87,7 +87,7 @@ function EcoSystemPopup() {
             >
               도감 획득 하기!!
             </button>{" "}
-          </div>
+          </div> */}
           <div className="EcoSystemDetailImage">
             <img
               src={
