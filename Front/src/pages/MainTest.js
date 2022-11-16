@@ -55,12 +55,14 @@ import {
   mapPopup,
 } from "../components/main/PopupButton.js";
 import { NPC } from "../components/glTF/NPC";
+import {Buidling, Building} from '../components/glTF/Building'
+
 import { Vector3 } from "three";
 import { checkNPC } from "../api/mainApi.js";
-
 import axios from "axios";
 import NPCBubble from "../components/main/NPCbubble";
 import BoardHome from "./BoardHome";
+import GamePopup from "../components/popup/GamePopup";
 
 // Sweet Alert
 import Swal from "sweetalert2";
@@ -178,7 +180,7 @@ function MainTest() {
   const [isLoaded, setIsLoaded] = useState(false);
 
   // 로딩 페이지 구현 위함
-  gltfLoader.load("/assets/glTF/newScene.glb", function () {
+  gltfLoader.load("/assets/glTF/scene.glb", function () {
     setIsLoaded(true);
   });
 
@@ -189,7 +191,7 @@ function MainTest() {
   const nature = new Nature({
     gltfLoader,
     scene,
-    modelSrc: "/assets/glTF/newScene.glb",
+    modelSrc: "/assets/glTF/scene.glb",
     x: 0,
     y: 0,
     z: 0,
@@ -424,6 +426,18 @@ function MainTest() {
     z: 14.157,
     rotation: -20.2,
   });
+
+  const lightHouse = new Building({
+    scene,
+    meshes,
+    gltfLoader,
+    modelSrc: "/assets/glTF/lighthouse.glb",
+    x: -42,
+    y: 0.3,
+    z: -40,
+  })
+
+
 
   //#endregion
 
@@ -680,7 +694,10 @@ function MainTest() {
       // let destinationNPCPoint = new Vector3(item.point.x, 0.3, item.point.z);
       // 강치.moveTo(destinationNPCPoint);
 
-      console.log("로그 ", item.point.x + " x값 " + item.point.z + "y값 ");
+
+
+      // console.log("로그 ",item.point.x+" x값 "+item.point.z + "y값 ");
+
       destinationPoint = new Vector3(item.point.x, 0.3, item.point.z);
       player.moveTo(destinationPoint);
 
@@ -917,6 +934,16 @@ function MainTest() {
       const BoardPop = document.getElementById("board");
       isPressed = false;
       BoardPop.style.display = "block";
+      player.moving = false;
+      touchEffect.play();
+    }
+    console.log(item)
+    if (item.object.name.includes('land_490')) {
+      const gamePop = document.getElementById('gamePopup')
+      gamePop.addEventListener("mouseup", () => {
+        isPressed = false;
+      });
+      gamePop.style.display = "block";
       player.moving = false;
       touchEffect.play();
     }
@@ -1163,6 +1190,12 @@ function MainTest() {
               changeChaehyeon={changeChaehyeon}
               quitMyPage={quitMyPage}
             ></MyPagePopup>
+          </div>
+
+
+          {/*  게임 팝업창 */}
+          <div id='gamePopup' style={{display:'none'}}>
+            <GamePopup></GamePopup>
           </div>
 
           {/* 하단의 스크린샷 버튼*/}
