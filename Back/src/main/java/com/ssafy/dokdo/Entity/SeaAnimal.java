@@ -8,15 +8,14 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Getter
-@NoArgsConstructor
-@AllArgsConstructor
 @Document
-public class SeaAnimal {
+public class SeaAnimal extends AllSpecies {
     @Id
     private String id;
-    private String name;
     private String summary;
     private String speciesInformation;
-    private String img;
-    private String domain;
+
+    public SeaAnimal(String name, String domain, String img) {
+        super(name, domain, img);
+    }
 }

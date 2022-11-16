@@ -1,8 +1,10 @@
 package com.ssafy.dokdo.Model;
 
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 
-public  class AllSpecies {
+@Getter
+public class AllSpecies {
     public String name;
     public String domain;
     public String img;

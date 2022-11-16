@@ -8,7 +8,6 @@ import com.ssafy.dokdo.Model.AllSpecies;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Random;
@@ -27,19 +26,7 @@ public class DogamService {
             int randomIndex = rand.nextInt(allDogamList.size());
             Object randomElement = allDogamList.get(randomIndex);
 
-            if(randomElement instanceof Bird){
-                Bird tmp = (Bird)randomElement;
-                randomDogam.add(new AllSpecies(tmp.getName(), tmp.getDomain(),tmp.getImg()));
-            }else if(randomElement instanceof Plant){
-                Plant tmp = (Plant)randomElement;
-                randomDogam.add(new AllSpecies(tmp.getName(), tmp.getDomain(), tmp.getImg()));
-            }else if(randomElement instanceof SeaAnimal){
-                SeaAnimal tmp = (SeaAnimal) randomElement;
-                randomDogam.add(new AllSpecies(tmp.getName(), tmp.getDomain(), tmp.getImg()));
-            }else if(randomElement instanceof SeaPlant){
-                SeaPlant tmp = (SeaPlant) randomElement;
-                randomDogam.add(new AllSpecies(tmp.getName(), tmp.getDomain(), tmp.getImg()));
-            }
+            randomDogam.add((AllSpecies) randomElement);
         }
         return  randomDogam;
     }
