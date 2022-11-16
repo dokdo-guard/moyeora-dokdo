@@ -9,7 +9,8 @@
   transition: background-color 0.3s;
   font-weight: 700;
   cursor: pointer;
-  margin-right: 40px;
+  margin-right: 90px;
+  margin-bottom: 10px;
 }
 .LineSkipButton {
   margin-bottom: 50px;
@@ -49,17 +50,17 @@
   background-color: #ff9500;
 }
 .LineENDButton:hover {
-  transform: scale(1.2, 1.2);
+  transform: scale(1.1, 1.1);
   background: #ff9500;
 }
 .LineContext {
   background-color: #fff;
   width: 90%;
   padding: 50px;
-  height: 160px;
+  height: 200px;
   margin: 10px;
   border-radius: 20px;
-  font-size: 30px;
+  font-size: 20px;
 }
 .InnerContextNone {
   animation: "none";
