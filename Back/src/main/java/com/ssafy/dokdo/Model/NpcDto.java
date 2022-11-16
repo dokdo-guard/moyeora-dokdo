@@ -1,15 +1,14 @@
 package com.ssafy.dokdo.Model;
 
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-@Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserDto {
+@Getter
+@Setter
+public class NpcDto {
     private String name;
-    private String email;
-    private String userCharacter;
-    private boolean visitedBefore;
 }

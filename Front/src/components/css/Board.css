@@ -68,7 +68,10 @@
   left: 7.5%;
   border-radius: 10px;
 }
-
+.boardHome::-webkit-scrollbar {
+  display: none;
+  width: 0;
+}
 .quitBoard {
   left: 86%;
   top: 7%;
@@ -79,7 +82,8 @@
   cursor: pointer;
 }
 
-.boardHome .title {
+.boardHome > .title {
+  margin-top: 10px;
   display: flex;
   justify-content: center;
 }
@@ -93,16 +97,21 @@
   margin-bottom: 20px;
 }
 
-.boardHome .writeButton {
-  width: 10%;
+.boardHome > .writeButton {
+  width: 15%;
   /* height: 5%; */
   border: none;
   border-radius: 10px;
   background-color: rgb(114, 199, 131);
   cursor: pointer;
-  margin-right: 1%;
+  margin-left: 10px;
+  height: 50px;
+  box-shadow: 1px 1px 20px lightgray;
 }
-
+.boardHome > .writeButton:hover {
+  transition: background-color 0.3s;
+  background-color: rgb(61, 182, 85);
+}
 .boardHome .dokdoButton {
   width: 10%;
   /* height: 5%; */
@@ -121,7 +130,7 @@
 .newPage {
   width: 85vw;
   height: 85vh;
-  background-color: rgb(173, 202, 236);
+  background-color: rgb(213, 231, 252);
   position: absolute;
   z-index: 14;
   top: 7.5vh;

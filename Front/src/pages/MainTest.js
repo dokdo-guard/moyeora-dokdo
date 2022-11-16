@@ -2,6 +2,7 @@ import * as THREE from "three";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 import { DRACOLoader } from "three/examples/jsm/loaders/DRACOLoader";
 import gsap from "gsap";
+import { Howl, Howler } from "howler";
 
 import "../components/css/MainTest.css";
 
@@ -55,7 +56,7 @@ import {
   mapPopup,
 } from "../components/main/PopupButton.js";
 import { NPC } from "../components/glTF/NPC";
-import {Buidling, Building} from '../components/glTF/Building'
+import { Building} from '../components/glTF/Building'
 
 import { Vector3 } from "three";
 import { checkNPC } from "../api/mainApi.js";
@@ -226,7 +227,7 @@ function MainTest() {
     scene,
     modelSrc: "/assets/glTF/ecosystem.glb",
     x: 15,
-    y: -2.25,
+    y: 2.3,
     z: 12,
   });
 
@@ -560,18 +561,12 @@ function MainTest() {
             duration: 1,
             ease: "Bounce.eastOut",
           });
-          gsap.to(ecosystem.modelMesh.position, {
-            y: 2.3,
-            duration: 1,
-            ease: "Bounce.eastOut",
-          });
         } else {
           gsap.to(camera.position, { duration: 1, y: 5 });
           gsap.to(QuizSignMesh.position, { y: -4, duration: 1 });
           gsap.to(TerritorySignMesh.position, { y: -4, duration: 1 });
           gsap.to(EcoSignMesh.position, { y: -4, duration: 1 });
           gsap.to(HistorySignMesh.position, { y: -4, duration: 1 });
-          gsap.to(ecosystem.modelMesh.position, { y: -2.16, duration: 1 });
         }
       } else {
         // 서 있는 상태
@@ -610,7 +605,14 @@ function MainTest() {
     seagullPop.style.display = "none";
   };
 
-  const touchEffect = new Audio("/assets/audio/ddoing.mp3");
+  const touchEffect = new Howl({
+    src: ["/assets/audio/ddoing.mp3"],
+    volume: 1.5,
+  });
+  const popupSound = new Howl({
+    src: ["/assets/audio/mario.mp3"],
+    volume: 1.5,
+  });
   const NPCSound = new Audio("/assets/audio/npc.mp3");
 
   // 마우스로 클릭
@@ -703,6 +705,9 @@ function MainTest() {
 
       pointerMesh.position.x = destinationPoint.x;
       pointerMesh.position.z = destinationPoint.z;
+
+      // footSound.stop()
+      // footSound.play()
     }
     if (item.object.name === "Dolphin") {
       player.dontMove(destinationPoint);
@@ -856,7 +861,7 @@ function MainTest() {
         isPressed = false;
       });
       player.moving = false;
-      touchEffect.play();
+      popupSound.play();
     }
     if (item.object.name == "지질팻말") {
       const TerrianPop = document.getElementById("TerrianPopup");
@@ -880,7 +885,7 @@ function MainTest() {
       });
 
       mapReLoading();
-      touchEffect.play();
+      popupSound.play();
       player.moving = false;
     }
     if (item.object.name === "생태팻말") {
@@ -904,7 +909,7 @@ function MainTest() {
         visitEco();
       });
       player.moving = false;
-      touchEffect.play();
+      popupSound.play();
     }
     if (item.object.name === "역사팻말") {
       const HistoryPop = document.getElementById("HistoryPopup");
@@ -928,14 +933,14 @@ function MainTest() {
       });
 
       player.moving = false;
-      touchEffect.play();
+      popupSound.play();
     }
     if (item.object.name.includes("land_76002")) {
       const BoardPop = document.getElementById("board");
       isPressed = false;
       BoardPop.style.display = "block";
       player.moving = false;
-      touchEffect.play();
+      popupSound.play();
     }
     console.log(item)
     if (item.object.name.includes('land_490')) {
@@ -945,7 +950,7 @@ function MainTest() {
       });
       gamePop.style.display = "block";
       player.moving = false;
-      touchEffect.play();
+      popupSound.play();
     }
   }
 
@@ -956,6 +961,7 @@ function MainTest() {
     TerrianPop.style.display = "none";
     // setPopUp(!popUp);
     popUp = !popUp;
+    touchEffect.play()
   };
 
   function setSize() {
@@ -1130,10 +1136,22 @@ function MainTest() {
 
   update();
 
+  const dokdoSound = new Howl({
+    src: ["/assets/audio/dokdo.mp3"],
+    volume: 1.5,
+    // autoplay: true,
+    loop : true,
+    // onend: () => {},
+  });
+  useEffect(()=> {
+    dokdoSound.play()
+  },[])
+
   return (
     <>
       {isLoaded ? (
         <div className='mainPage'>
+
           {/* 맨 처음 강치의 튜토리얼 소개 페이지 */}
           <TutorialGangchi></TutorialGangchi>
           {/* 팝업 컴포넌트들 */}
@@ -1262,7 +1280,7 @@ function MainTest() {
           <div onClick={mapPopup} className='map'>
             <img
               src='/assets/icons/map.png'
-              style={{ width: "30px", marginTop: "5px", marginLeft: "5px" }}
+              style={{ width: "30px", marginTop: "10px", marginLeft: "10px" }}
             ></img>
           </div>
           <div id='minimap' style={{ display: "none" }}>
