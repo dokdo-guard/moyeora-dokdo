@@ -217,7 +217,19 @@ function OXQuizPopup() {
   };
   const correct = () => {
     setAnswerCorrect((answerCorrect) => answerCorrect + 1);
-    // alert("correct!");
+
+    Swal.fire({
+      icon: "success",
+      title: "정답!",
+      text: "정답입니다!",
+    });
+  };
+  const notCorrect = () => {
+    Swal.fire({
+      icon: "error",
+      title: "오답!",
+      text: "땡! 틀렸습니다!",
+    });
   };
 
   // Custom Progress Bar
@@ -267,17 +279,14 @@ function OXQuizPopup() {
               </div>
               <div className='QuizText'>{quiz[quizProgress]?.quizText}</div>
 
-              {/* 나중에 삭제할 것 */}
-              {/* <div>{quiz[quizProgress]?.answer.slice(0, 1)}</div>
-              <div>{answerCorrect}</div> */}
-              {/* 나중에 삭제할 것 */}
-
               <div className='QuizOX'>
                 <button
                   className='OX_O'
                   onClick={() => {
                     if (quiz[quizProgress]?.answer.slice(0, 1) === "O") {
                       correct();
+                    } else {
+                      notCorrect();
                     }
                     setQuizProgress((quizProgress) => quizProgress + 1);
                   }}
@@ -289,6 +298,8 @@ function OXQuizPopup() {
                   onClick={() => {
                     if (quiz[quizProgress]?.answer.slice(0, 1) === "X") {
                       correct();
+                    } else {
+                      notCorrect();
                     }
                     setQuizProgress((quizProgress) => quizProgress + 1);
                   }}
