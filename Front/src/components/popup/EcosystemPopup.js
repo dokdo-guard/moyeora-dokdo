@@ -7,7 +7,7 @@ import {
 } from "../../api/ecoSystemApi";
 import "../css/EcoSystemPopup.css";
 import axios from "axios";
-import { quitPopup } from "../main/PopupButton.js";
+import { quitEcoPopup } from "../main/PopupButton.js";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 function EcoSystemPopup() {
@@ -190,7 +190,7 @@ function EcoSystemPopup() {
         <img
           src='/assets/icons/cancel.png'
           id='quitButton'
-          onClick={quitPopup}
+          onClick={quitEcoPopup}
           className='quitPopup'
           alt='NOQUITIMAGE'
         ></img>

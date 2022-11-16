@@ -1,17 +1,11 @@
 import React, { useEffect, useRef, useState } from "react";
 import "../css/TerrianPopup.css";
 import { getAllTerrians } from "../../api/terrainApi";
+import { quitTerrianPopup } from "../main/PopupButton";
 
 let map = null;
 
 function TerrianPopup(isShown) {
-  var popUp = false;
-  const TerrianQuitPopup = () => {
-    const TerrianPop = document.getElementById("TerrianPopup");
-    TerrianPop.style.display = "none";
-    popUp = !popUp;
-  };
-
   const mapElement = useRef(null);
   const [places, setPlaces] = useState([]);
   const [isLoaded, setIsLoaded] = useState(false);
@@ -188,7 +182,7 @@ function TerrianPopup(isShown) {
         <img
           src='/assets/icons/cancel.png'
           id='quitButton'
-          onClick={TerrianQuitPopup}
+          onClick={quitTerrianPopup}
           className='quitPopup'
         ></img>
         <div className='TerrianPopupWrapper'>
