@@ -56,6 +56,9 @@ const dummy_data_history = [
       "1946년 일본을 통치하던 연합군 최고사령부는 지시령(SCAPIN) 제677호에 일본의 영토를 다음과 같이 지정했습니다. (b)에 명시된 섬은 이후에 다시 일본으로 반환됐지만, 독도와 함께 (a)에 명시되어 있는 울릉도와 제주도는 조선의 영토였기 때문에 대한민국 정부가 수립되고 나서도 계속 영유권을 갖게 되었습니다.",
     quotation:
       "본 지령의 목적상, 일본은 일본 열도를 구성하는 4개의 주요 도서(홋카이도, 혼슈, 규슈, 시코쿠)와, 1000여개의 작은 인접 도서를 포함하는 것으로 정의한다. 여기에는 (a) 우츠료 섬(울릉도), 리앙쿠르 암초(독도)와 쿠엘파트 섬(제주), (b) 북위 30도 이남의 류큐 제도, 이즈 제도, 난포 제도, 오가사와라 제도, 그리고 기타 모든 태평양 부속제도(다이토 제도, 오키노토리시마, 미나미토리시마, 나카노토리시마 포함), (c) 쿠릴 열도, 하보마이 군도(탄필레바섬, 유리섬, 아누치나섬, 젤레니섬, 폴론스코고섬 포함), 시코탄섬은 제외한다.",
+    img: "1946년.png",
+    description:
+      "지시령 677호에 KOREA라는 이름과 라인 안에 독도가 포함되어 있다.",
   },
   {
     era: "1948년 ~ 1950년",
@@ -66,20 +69,25 @@ const dummy_data_history = [
     era: "1951년 ~ 1952년",
     content:
       "1951년 9월 8일 일본과 연합국은 샌프란시스코 조약을 조인하며 일본이 권리를 포기해야 하는 한반도의 섬으로 제주도, 거문도, 울릉도를 명시하였습니다.\n1952년 1월 18일에 대한민국 정부는 ‘인접 해양 주권에 관한 대통령 선언'을 발표하면서 독도를 평화선 안에 포함시켜 보호하도록 했습니다. 일본 측은 이에 항의하며 대한민국 측에 독도에 대한 한국 영유권을 부정하는 외교 문서를 보냈고 이후부터 독도는 국제 사회에서 분쟁 지역으로 보이기 시작하였습니다.",
+    img: "독도평화선.png",
   },
   {
     era: "1953년 ~ 1960년",
     content:
       "1953년 4월 27일 울릉도 주민 홍순칠을 중심으로 33명의 독도의용수비대가 결성되었습니다. 6월 27일에는 미국 선박으로 위장한 배를 타고 상륙한 일본인이 조난어민 위령비를 파괴하고 ‘일본 시마네현 오키군 고카 촌’이라는 내용의 영토 표식을 하면서 대한민국에 항의하였습니다. 이에 따라 7월 12일 대한민국 국회는 독도를 일본으로부터 지킬 것을 결의했고, 독도 의용 수비대는 1956년 12월 30일 대한민국 경찰이 경비 임무를 인수할 때까지 독도에 상주하게 되었습니다.\n1954년 9월 25일에는 일본 정부가 국제사법재판소에 영유권 분쟁의 최종 결정을 위임하자고 대한민국 정부에 제안했지만, 대한민국 정부는 “독도는 명백히 대한민국의 영토인데 국제사법재판소에 위임하는 것은 현명치 못한 일”이라고 하며 거부하는 서한을 발표했습니다.",
+    img: "독도의용수비대.png",
+    description:
+      "1954년 8월 28일 독도에서 열린 경비 막사 제막식에 참여한 독도의용수비대의 모습이다.",
   },
   {
-    era: "1961년 ~ 현재",
+    era: "1990년 ~ 현재",
     content:
       "1998년 한국은 일본과 한일어업협정을 맺었는데, 그 결과 독도는 한일 배타적 경제 수역 안에 놓이게 되었습니다.\n2000년 울릉군 의회가 독도의 행정구역을 변경하는 내용의 조례를 통과시키며 이에 따라 2000년 4월 1일부터 독도의 행정구역이 “경상북도 울릉군 울릉읍 독도리 산 1-37번지”로 바뀌었습니다.\n2005년 일본 시마네현 의회는 100년 전 독도를 일본 영토로 편입함을 고시한 2월 22일을 다케시마의 날로 정하는 조례안을 제정하여 의회에 상정했고, 3월 16일에 이 안을 최종 통과하였습니다. 대한민국 정부는 이에 항의하였고, 경상북도 도의회는 2005년 6월 9일, 10월을 독도의 달로 하는 조례안을 가결하였습니다.",
+    img: "경상북도의회.png",
+    description: "독도의 달을 기념하는 경상북도 의회",
   },
 ];
 
-const dummy_data_information = [];
 function HistoryPopup() {
   const MySwal = withReactContent(Swal);
   const [badges, setBadges] = useState([]);
@@ -127,7 +135,7 @@ function HistoryPopup() {
         ></img>
         <div className='HistoryPopupWrapper'>
           <div className='HistoryYear'>
-            <VerticalTimeline>
+            <VerticalTimeline layout='1-column-left'>
               {/* <VerticalTimelineElement
                 className='vertical-timeline-element--work'
                 date='2011 - present'
@@ -144,31 +152,39 @@ function HistoryPopup() {
               </VerticalTimelineElement> */}
               {historyData.map((data) => {
                 return (
-                  <VerticalTimelineElement
-                    className='vertical-timeline-element--work'
-                    date={data.era}
-                    iconStyle={{ background: "#FFF562", color: "#fff" }}
-                    key={data.era}
-                  >
-                    <h3 className='vertical-timeline-element-title'>
-                      {data.era}
-                    </h3>
-                    <div
-                      className={
-                        data.img === undefined
-                          ? "hidden"
-                          : "historyTimelineImage"
-                      }
+                  <>
+                    <VerticalTimelineElement
+                      className='vertical-timeline-element--work'
+                      date={data.era}
+                      iconStyle={{ background: "#FFF562", color: "#fff" }}
+                      key={data.era}
                     >
-                      <img
-                        src={
-                          "https://ssafy-d204-dokdo.s3.ap-northeast-2.amazonaws.com/" +
-                          data?.img
-                        }
-                      />
-                    </div>
-                    <p>{data.content}</p>
-                  </VerticalTimelineElement>
+                      <h3 className='vertical-timeline-element-title'>
+                        {data.era}
+                      </h3>
+                      <div className='historyTimeLineElement'>
+                        <div
+                          className={
+                            data.img === undefined
+                              ? "hidden"
+                              : "historyTimelineImage"
+                          }
+                        >
+                          <img
+                            src={
+                              "https://ssafy-d204-dokdo.s3.ap-northeast-2.amazonaws.com/" +
+                              data?.img
+                            }
+                            alt='이미지가 없습니다'
+                          />
+                          <div>* {data.description}</div>
+                        </div>
+                        <div className='historyTimeLineContent'>
+                          {data.content}
+                        </div>
+                      </div>
+                    </VerticalTimelineElement>
+                  </>
                 );
               })}
             </VerticalTimeline>
