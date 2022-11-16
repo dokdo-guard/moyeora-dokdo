@@ -15,9 +15,9 @@
 }
 
 .selectQuizButton {
-  font-size: 50px;
-  width: 450px;
-  height: 150px;
+  font-size: 40px;
+  width: 400px;
+  height: 130px;
   margin: 10px;
   border-radius: 5px;
   background-color: #ffe3bb;
@@ -33,9 +33,9 @@
 }
 .QuizTitle {
   display: fix;
-  font-size: 70px;
+  font-size: 50px;
   font-weight: 700;
-  margin: 10px;
+  margin: 20px 10px 0;
   top: 10px;
 }
 .QuizProgressBar {
@@ -46,24 +46,24 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 150px;
+  height: 100px;
   width: 80%;
   background-color: white;
   border-radius: 5px;
   border: none;
   box-shadow: 1px 1px 10px lightgray;
-  font-size: 30px;
-  margin: 10px;
-  padding: 20px;
+  font-size: 28px;
+  margin: 15px;
+  padding: 15px;
 }
 .QuizOX {
-  margin: 5px;
+  margin: 20px 0;
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  height: 65%;
-  width: 60%;
+  width: 45%;
+  height: 45%;
 }
 .QuizOX button {
   border-radius: 10px;
@@ -75,16 +75,15 @@
 }
 .OX_O {
   font-weight: 700;
-  font-size: 200px;
+  font-size: 150px;
   color: blue;
   box-shadow: 1px 1px 10px lightgray;
   border: none;
   transition: transform 250ms;
 }
-
 .OX_X {
   font-weight: 700;
-  font-size: 200px;
+  font-size: 150px;
   color: red;
   box-shadow: 1px 1px 10px lightgray;
   border: none;
@@ -93,7 +92,7 @@
 .OX_O:hover,
 .OX_X:hover {
   background-color: #ffce8a;
-  font-size: 230px;
+  font-size: 180px;
   transition: background-color 0.2s;
   transition: font-size 0.2s;
   transform: translateY(-5px);
@@ -128,27 +127,33 @@
   align-items: center;
 }
 .endQuizButton {
-  font-size: 40px;
+  font-size: 28px;
   font-weight: 700;
-
-  width: 300px;
-  height: 100px;
-  margin: 10px;
+  width: 230px;
+  height: 80px;
+  margin: 20px;
   background-color: #fff565;
   border: none;
   border-radius: 10px;
   box-shadow: 1px 1px 10px lightgray;
 }
 .endQuizButton2 {
-  font-size: 40px;
+  font-size: 28px;
   font-weight: 700;
-  width: 300px;
-  height: 100px;
-  margin: 10px;
+  width: 230px;
+  height: 80px;
+  margin: 20px;
   background-color: #feb653;
   border-radius: 10px;
   border: none;
   box-shadow: 1px 1px 10px lightgray;
+}
+.endQuizButton:hover,
+.endQuizButton2:hover {
+  transition: background-color 0.2s;
+  transition: font-size 0.2s;
+  transform: translateY(-5px);
+  transform: scale(1.05, 1.05);
 }
 .fadein {
   animation: fadein 1s;

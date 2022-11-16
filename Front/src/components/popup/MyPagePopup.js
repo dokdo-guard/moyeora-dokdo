@@ -24,7 +24,7 @@ function MyPagePopup(props) {
   const [badgeShow, setBadgeShow] = useState(false);
   // 유저 캐릭터
   const [userCharacter, setUserCharacter] = useState(
-    sessionStorage.getItem("userCharacter"),
+    sessionStorage.getItem("userCharacter")
   );
 
   // 세션스토리지에서 accessToken 받아옴
@@ -38,7 +38,7 @@ function MyPagePopup(props) {
           headers: {
             Authorization: `Bearer ${accessToken}`,
           },
-        },
+        }
       );
       setDogam(dogams.data);
       if (dogams.data.length === 10) {
@@ -178,7 +178,7 @@ function MyPagePopup(props) {
           headers: {
             Authorization: `Bearer ${accessToken}`,
           },
-        },
+        }
       )
       .then((res) => {
         console.log(res);
@@ -193,16 +193,17 @@ function MyPagePopup(props) {
   // 캐릭터 선택 화면
   const SelectCharacter = () => {
     return (
-      <div className='MyPageRightInnerWrapper'>
-        <div className='MyPageRightTitle'>캐릭터 선택</div>
+      <div className="MyPageRightInnerWrapper">
+        <div className="MyPageRightTitle">캐릭터 선택</div>
         <div
           style={{
             display: "flex",
             justifyContent: "center",
-            margin: "10px",
             cursor: "pointer",
             backgroundColor: "orange",
             width: "100px",
+            height: "40px",
+            marginLeft: "30px",
             alignItems: "center",
             borderRadius: "10px",
             boxShadow: "3px 3px 20px lightgray",
@@ -213,10 +214,11 @@ function MyPagePopup(props) {
             setSelectCharacterShow(false);
           }}
         >
-          선택완료
+          Back
         </div>
-        <div className='MyPageCharacterList'>
+        <div className="MyPageCharacterList">
           <div
+            className="MyPageCharacterListElement"
             onClick={() => {
               setUserCharacter("siryeong");
             }}
@@ -226,7 +228,7 @@ function MyPagePopup(props) {
                 process.env.PUBLIC_URL +
                 "/assets/images/characters/siryeong.png"
               }
-              alt='No SiryeonCharacter'
+              alt="No SiryeonCharacter"
               className={
                 userCharacter === "siryeong"
                   ? "MyPageCharacterImg choosenCharacter"
@@ -235,6 +237,7 @@ function MyPagePopup(props) {
             />
           </div>
           <div
+            className="MyPageCharacterListElement"
             onClick={() => {
               setUserCharacter("hyoseon");
             }}
@@ -243,7 +246,7 @@ function MyPagePopup(props) {
               src={
                 process.env.PUBLIC_URL + "/assets/images/characters/hyoseon.png"
               }
-              alt='No hyoseonCharacter'
+              alt="No hyoseonCharacter"
               className={
                 userCharacter === "hyoseon"
                   ? "MyPageCharacterImg choosenCharacter"
@@ -252,6 +255,7 @@ function MyPagePopup(props) {
             />
           </div>
           <div
+            className="MyPageCharacterListElement"
             onClick={() => {
               setUserCharacter("seongryeong");
             }}
@@ -261,7 +265,7 @@ function MyPagePopup(props) {
                 process.env.PUBLIC_URL +
                 "/assets/images/characters/seongryeong.png"
               }
-              alt='No seongryeongCharacter'
+              alt="No seongryeongCharacter"
               className={
                 userCharacter === "seongryeong"
                   ? "MyPageCharacterImg choosenCharacter"
@@ -270,8 +274,9 @@ function MyPagePopup(props) {
             />
           </div>
         </div>
-        <div className='MyPageCharacterList'>
+        <div className="MyPageCharacterList">
           <div
+            className="MyPageCharacterListElement"
             onClick={() => {
               setUserCharacter("sojung");
             }}
@@ -280,7 +285,7 @@ function MyPagePopup(props) {
               src={
                 process.env.PUBLIC_URL + "/assets/images/characters/sojung.png"
               }
-              alt='No sojungCharacter'
+              alt="No sojungCharacter"
               className={
                 userCharacter === "sojung"
                   ? "MyPageCharacterImg choosenCharacter"
@@ -289,6 +294,7 @@ function MyPagePopup(props) {
             />
           </div>
           <div
+            className="MyPageCharacterListElement"
             onClick={() => {
               setUserCharacter("youngjin");
             }}
@@ -298,7 +304,7 @@ function MyPagePopup(props) {
                 process.env.PUBLIC_URL +
                 "/assets/images/characters/youngjin.png"
               }
-              alt='No youngjinCharacter'
+              alt="No youngjinCharacter"
               className={
                 userCharacter === "youngjin"
                   ? "MyPageCharacterImg choosenCharacter"
@@ -307,6 +313,7 @@ function MyPagePopup(props) {
             />
           </div>
           <div
+            className="MyPageCharacterListElement"
             onClick={() => {
               setUserCharacter("chaehyeon");
             }}
@@ -316,7 +323,7 @@ function MyPagePopup(props) {
                 process.env.PUBLIC_URL +
                 "/assets/images/characters/chaehyeon.png"
               }
-              alt='No chaehyeonCharacter'
+              alt="No chaehyeonCharacter"
               className={
                 userCharacter === "chaehyeon"
                   ? "MyPageCharacterImg choosenCharacter"
@@ -335,9 +342,9 @@ function MyPagePopup(props) {
     let array = [];
     for (let i = 0; i < maxNum - dogam.length; i++) {
       array.push(
-        <div className='DogamItem' key={i}>
+        <div className="DogamItem" key={i}>
           ?
-        </div>,
+        </div>
       );
     }
     return array;
@@ -345,16 +352,17 @@ function MyPagePopup(props) {
   // 도감 화면
   const Dogam = () => {
     return (
-      <div className='MyPageRightInnerWrapper'>
-        <div className='MyPageRightTitle'>도감</div>
+      <div className="MyPageRightInnerWrapper">
+        <div className="MyPageRightTitle">도감</div>
         <div
           style={{
             display: "flex",
             justifyContent: "center",
-            margin: "10px",
             cursor: "pointer",
             backgroundColor: "orange",
             width: "100px",
+            height: "40px",
+            marginLeft: "30px",
             alignItems: "center",
             borderRadius: "10px",
             boxShadow: "3px 3px 20px lightgray",
@@ -371,18 +379,18 @@ function MyPagePopup(props) {
           Back
         </div>
         {categoryShow ? (
-          <div className='DogamCategoryWrapper'>
-            <div className='DogamList'>
+          <div className="DogamCategoryWrapper">
+            <div className="DogamList">
               {dogam.map((val) => {
                 if (val === undefined) {
                   return <></>;
                 }
                 return (
-                  <div key={val.name} className='DogamItem'>
+                  <div key={val.name} className="DogamItem">
                     <img
                       src={`	
                       https://ssafy-d204-dokdo.s3.ap-northeast-2.amazonaws.com/${val.image}`}
-                      alt='no'
+                      alt="no"
                     />{" "}
                     {val.name}
                   </div>
@@ -392,9 +400,9 @@ function MyPagePopup(props) {
             </div>
           </div>
         ) : (
-          <div className='DogamSelectWrapper'>
+          <div className="DogamSelectWrapper">
             <div
-              className='dogamSelectBtn'
+              className="dogamSelectBtn"
               onClick={() => {
                 setCategoryShow(true);
                 setCategory("plant");
@@ -404,11 +412,12 @@ function MyPagePopup(props) {
               {" "}
               <img
                 src={process.env.PUBLIC_URL + "/assets/icons/plant_Icon.png"}
-                alt=''
+                alt=""
               />
+              <div>식물</div>
             </div>
             <div
-              className='dogamSelectBtn'
+              className="dogamSelectBtn"
               onClick={() => {
                 setCategoryShow(true);
                 setCategory("sea-animal");
@@ -420,11 +429,12 @@ function MyPagePopup(props) {
                 src={
                   process.env.PUBLIC_URL + "/assets/icons/seaAnimal_Icon.png"
                 }
-                alt=''
+                alt=""
               />
+              <div>해양동물</div>
             </div>
             <div
-              className='dogamSelectBtn'
+              className="dogamSelectBtn"
               onClick={() => {
                 setCategoryShow(true);
                 setCategory("bird");
@@ -434,11 +444,12 @@ function MyPagePopup(props) {
               {" "}
               <img
                 src={process.env.PUBLIC_URL + "/assets/icons/bird_Icon.png"}
-                alt=''
+                alt=""
               />
+              <div>조류</div>
             </div>
             <div
-              className='dogamSelectBtn'
+              className="dogamSelectBtn"
               onClick={() => {
                 setCategoryShow(true);
                 setCategory("sea-plant");
@@ -448,8 +459,9 @@ function MyPagePopup(props) {
               {" "}
               <img
                 src={process.env.PUBLIC_URL + "/assets/icons/seaPlant_Icon.png"}
-                alt=''
+                alt=""
               />
+              <div>해조류</div>
             </div>
           </div>
         )}
@@ -469,17 +481,18 @@ function MyPagePopup(props) {
     //   });
 
     return (
-      <div className='MyPageRightInnerWrapper'>
+      <div className="MyPageRightInnerWrapper">
         {" "}
-        <div className='MyPageRightTitle'>뱃지</div>
+        <div className="MyPageRightTitle">뱃지</div>
         <div
           style={{
             display: "flex",
             justifyContent: "center",
-            margin: "10px",
             cursor: "pointer",
             backgroundColor: "orange",
             width: "100px",
+            height: "40px",
+            marginLeft: "30px",
             alignItems: "center",
             borderRadius: "10px",
             boxShadow: "3px 3px 20px lightgray",
@@ -490,193 +503,193 @@ function MyPagePopup(props) {
         >
           Back
         </div>
-        <div className='BadgeWrapper'>
+        <div className="BadgeWrapper">
           {badges.talkative ? (
-            <div className='BadgeImage'>
-              <Tooltip title='TooMuchTalker' placement='top'>
+            <div className="BadgeImage">
+              <Tooltip title="TooMuchTalker" placement="top">
                 <img
                   src={
                     process.env.PUBLIC_URL +
                     "/assets/badges/TooMuchTalkerBadge.png"
                   }
-                  alt='no Badge'
+                  alt="no Badge"
                 />
               </Tooltip>
             </div>
           ) : (
-            <div className='BadgeImage'>
+            <div className="BadgeImage">
               {" "}
               <img
                 src={process.env.PUBLIC_URL + "/assets/badges/NoBadge.png"}
-                alt='no Badge'
+                alt="no Badge"
               />
             </div>
           )}
           {badges.birdComplete ? (
-            <div className='BadgeImage'>
-              <Tooltip title='새 도감 완성' placement='top'>
+            <div className="BadgeImage">
+              <Tooltip title="새 도감 완성" placement="top">
                 <img
                   src={
                     process.env.PUBLIC_URL + "/assets/badges/EarnDogamBadge.png"
                   }
-                  alt='no Badge'
+                  alt="no Badge"
                 />
               </Tooltip>
             </div>
           ) : (
-            <div className='BadgeImage'>
+            <div className="BadgeImage">
               {" "}
               <img
                 src={process.env.PUBLIC_URL + "/assets/badges/NoBadge.png"}
-                alt='no Badge'
+                alt="no Badge"
               />
             </div>
           )}
           {badges.plantComplete ? (
-            <div className='BadgeImage'>
-              <Tooltip title='식물 도감 완성' placement='top'>
+            <div className="BadgeImage">
+              <Tooltip title="식물 도감 완성" placement="top">
                 <img
                   src={
                     process.env.PUBLIC_URL + "/assets/badges/EarnDogamBadge.png"
                   }
-                  alt='no Badge'
+                  alt="no Badge"
                 />
               </Tooltip>
             </div>
           ) : (
-            <div className='BadgeImage'>
+            <div className="BadgeImage">
               {" "}
               <img
                 src={process.env.PUBLIC_URL + "/assets/badges/NoBadge.png"}
-                alt='no Badge'
+                alt="no Badge"
               />
             </div>
           )}
           {badges.seaAnimalComplete ? (
-            <div className='BadgeImage'>
-              <Tooltip title='해양 도감 완성' placement='top'>
+            <div className="BadgeImage">
+              <Tooltip title="해양 도감 완성" placement="top">
                 <img
                   src={
                     process.env.PUBLIC_URL + "/assets/badges/EarnDogamBadge.png"
                   }
-                  alt='no Badge'
+                  alt="no Badge"
                 />
               </Tooltip>
             </div>
           ) : (
-            <div className='BadgeImage'>
+            <div className="BadgeImage">
               {" "}
               <img
                 src={process.env.PUBLIC_URL + "/assets/badges/NoBadge.png"}
-                alt='no Badge'
+                alt="no Badge"
               />
             </div>
           )}
           {badges.quizFive ? (
-            <div className='BadgeImage'>
-              <Tooltip title='퀴즈 5문제 만점' placement='top'>
+            <div className="BadgeImage">
+              <Tooltip title="퀴즈 5문제 만점" placement="top">
                 <img
                   src={process.env.PUBLIC_URL + "/assets/badges/3rdBadge.png"}
-                  alt='no Badge'
+                  alt="no Badge"
                 />
               </Tooltip>
             </div>
           ) : (
-            <div className='BadgeImage'>
+            <div className="BadgeImage">
               {" "}
               <img
                 src={process.env.PUBLIC_URL + "/assets/badges/NoBadge.png"}
-                alt='no Badge'
+                alt="no Badge"
               />
             </div>
           )}
           {badges.quizTen ? (
-            <div className='BadgeImage'>
-              <Tooltip title='퀴즈 10문제 만점' placement='top'>
+            <div className="BadgeImage">
+              <Tooltip title="퀴즈 10문제 만점" placement="top">
                 <img
                   src={process.env.PUBLIC_URL + "/assets/badges/2ndBadge.png"}
-                  alt='no Badge'
+                  alt="no Badge"
                 />
               </Tooltip>
             </div>
           ) : (
-            <div className='BadgeImage'>
+            <div className="BadgeImage">
               {" "}
               <img
                 src={process.env.PUBLIC_URL + "/assets/badges/NoBadge.png"}
-                alt='no Badge'
+                alt="no Badge"
               />
             </div>
           )}
           {badges.quizFifteen ? (
-            <div className='BadgeImage'>
-              <Tooltip title='퀴즈 15문제 만점' placement='top'>
+            <div className="BadgeImage">
+              <Tooltip title="퀴즈 15문제 만점" placement="top">
                 <img
-                  src={process.env.PUBLIC_URL + "/assets/badges/1rdBadge.png"}
-                  alt='no Badge'
+                  src={process.env.PUBLIC_URL + "/assets/badges/1stBadge.png"}
+                  alt="no Badge"
                 />
               </Tooltip>
             </div>
           ) : (
-            <div className='BadgeImage'>
+            <div className="BadgeImage">
               {" "}
               <img
                 src={process.env.PUBLIC_URL + "/assets/badges/NoBadge.png"}
-                alt='no Badge'
+                alt="no Badge"
               />
             </div>
           )}
           {badges.visitBiology ? (
-            <div className='BadgeImage'>
-              <Tooltip title='생태관 방문' placement='top'>
+            <div className="BadgeImage">
+              <Tooltip title="생태관 방문" placement="top">
                 <img
                   src={process.env.PUBLIC_URL + "/assets/badges/VisitBadge.png"}
-                  alt='no Badge'
+                  alt="no Badge"
                 />
               </Tooltip>
             </div>
           ) : (
-            <div className='BadgeImage'>
+            <div className="BadgeImage">
               {" "}
               <img
                 src={process.env.PUBLIC_URL + "/assets/badges/NoBadge.png"}
-                alt='no Badge'
+                alt="no Badge"
               />
             </div>
           )}
           {badges.visitHistory ? (
-            <div className='BadgeImage'>
-              <Tooltip title='역사관 방문' placement='top'>
+            <div className="BadgeImage">
+              <Tooltip title="역사관 방문" placement="top">
                 <img
                   src={process.env.PUBLIC_URL + "/assets/badges/VisitBadge.png"}
-                  alt='no Badge'
+                  alt="no Badge"
                 />
               </Tooltip>
             </div>
           ) : (
-            <div className='BadgeImage'>
+            <div className="BadgeImage">
               {" "}
               <img
                 src={process.env.PUBLIC_URL + "/assets/badges/NoBadge.png"}
-                alt='no Badge'
+                alt="no Badge"
               />
             </div>
           )}
           {badges.visitTerrain ? (
-            <div className='BadgeImage'>
-              <Tooltip title='지형관 방문' placement='top'>
+            <div className="BadgeImage">
+              <Tooltip title="지형관 방문" placement="top">
                 <img
                   src={process.env.PUBLIC_URL + "/assets/badges/VisitBadge.png"}
-                  alt='no Badge'
+                  alt="no Badge"
                 />
               </Tooltip>
             </div>
           ) : (
-            <div className='BadgeImage'>
+            <div className="BadgeImage">
               {" "}
               <img
                 src={process.env.PUBLIC_URL + "/assets/badges/NoBadge.png"}
-                alt='no Badge'
+                alt="no Badge"
               />
             </div>
           )}
@@ -686,11 +699,16 @@ function MyPagePopup(props) {
   };
   return (
     <div>
-      <div className='MyPageContainer'>
-        <div className='MyPageTitle'>MY PAGE</div>
-        <div className='MyPageOutBtn'>
+      <div className="MyPageContainer">
+        <div className="MyPageTitle">MY PAGE</div>
+        <div className="MyPageOutBtn">
           <div
-            style={{ backgroundColor: "rgb(255, 73, 73)", cursor: "pointer" }}
+            style={{
+              backgroundColor: "rgb(255, 73, 73)",
+              cursor: "pointer",
+              height: "40px",
+              marginRight:"20px"
+            }}
             onClick={() => {
               Swal.fire({
                 title: "로그아웃 하시겠습니까?",
@@ -708,8 +726,8 @@ function MyPagePopup(props) {
             로그아웃
           </div>
         </div>
-        <div className='MyPageInnerWrapper'>
-          <div className='MyPageInnerLeft'>
+        <div className="MyPageInnerWrapper">
+          <div className="MyPageInnerLeft">
             <img
               src={
                 process.env.PUBLIC_URL +
@@ -717,20 +735,20 @@ function MyPagePopup(props) {
                 userCharacter +
                 ".png"
               }
-              alt='NOIMAGE'
-              className='MyPageCharacterImage'
+              alt="NOIMAGE"
+              className="MyPageCharacterImage"
             />
-            {/* <div>{sessionStorage.getItem("name").slice(0, 3)}</div> */}
-            <div>{sessionStorage.getItem("email")}</div>
+            { <div>{sessionStorage.getItem("email")}</div> }
+            <div>{sessionStorage.getItem("name")}</div>
           </div>
-          <div className='MyPageInnerRight'>
+          <div className="MyPageInnerRight">
             {selectCharacterShow || dogamShow || badgeShow ? null : (
               <div>
                 <div
                   onClick={() => {
                     setSelectCharacterShow(true);
                   }}
-                  className='MyPageMenu'
+                  className="MyPageMenu"
                 >
                   캐릭터 선택
                 </div>
@@ -738,7 +756,7 @@ function MyPagePopup(props) {
                   onClick={() => {
                     setDogamShow(true);
                   }}
-                  className='MyPageMenu'
+                  className="MyPageMenu"
                 >
                   도감
                 </div>
@@ -746,7 +764,7 @@ function MyPagePopup(props) {
                   onClick={() => {
                     setBadgeShow(true);
                   }}
-                  className='MyPageMenu'
+                  className="MyPageMenu"
                 >
                   뱃지
                 </div>

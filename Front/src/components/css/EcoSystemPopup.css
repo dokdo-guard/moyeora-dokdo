@@ -16,12 +16,12 @@
 .EcosystemTitle {
   font-size: 60px;
   font-weight: 700;
-  margin: 10px;
+  margin: 20px 10px 0;
   top: 5px;
 }
 .EcosystemSelectBtnWrapper {
   width: 80%;
-  height: 80%;
+  height: 75%;
   display: grid;
   justify-items: center;
   align-items: center;
@@ -50,15 +50,16 @@
   width: 150px;
   height: 150px;
 }
+.EcosystemSelectBtn > div {
+  margin-top: 16px;
+}
 .EcoSystemListWrapper {
   overflow: auto;
-  display: flex;
   width: 90%;
   height: 80%;
   background-color: white;
   border-radius: 5px;
   box-shadow: 5px 5px 20px lightgray;
-  justify-content: flex-start;
 }
 .EcoSystemListWrapper::-webkit-scrollbar {
   display: none;
@@ -76,8 +77,10 @@
 .EcoSystemListData {
   display: flex;
   flex-direction: column;
-  width: 100%;
-  margin: 30px;
+  width: 80%;
+  height: fit-content;
+  margin: 5px 17px;
+  padding: 10px;
   box-shadow: 2px 2px 30px lightgray;
   justify-content: center;
   align-items: center;
@@ -101,11 +104,13 @@
   margin: 10px;
   object-fit: cover;
 }
+.EcoSystemBackBtn{
+  width: fit-content;
+  margin: 20px 0 10px 25px;
+}
 .EcoSystemBackBtn > button {
-  position: fixed;
-  height: 20px;
   width: 100px;
-  margin: 10px;
+  height: 40px;
   border-radius: 10px;
   background-color: #feb653;
   border: 1px solid lightgray;
