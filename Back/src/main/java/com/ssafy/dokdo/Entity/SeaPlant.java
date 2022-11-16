@@ -15,6 +15,7 @@ public class SeaPlant {
     private String summary;
     private String speciesInformation;
     private String img;
+    private String domain;
     @Builder
     public SeaPlant(String id, String name, String summary, String speciesInformation, String img) {
         this.id = id;
@@ -22,5 +23,6 @@ public class SeaPlant {
         this.summary = summary;
         this.speciesInformation = speciesInformation;
         this.img = img;
+        this.domain = domain;
     }
 }

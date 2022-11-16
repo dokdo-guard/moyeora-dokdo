@@ -18,4 +18,5 @@ public class Plant {
     private String summary;
     private String speciesInformation;
     private String img;
+    private String domain;
 }
