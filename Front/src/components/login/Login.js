@@ -79,7 +79,7 @@ function Login(props) {
             <button onClick={handleClose}>넵 ! 잘 알겠어요</button>
           </DialogActions>
         </Dialog>
-        <div className="LoginTitleWrapper">
+        <div className='LoginTitleWrapper'>
           <div className='LoginTitle waviy'>
             <div style={{ "--i": 1 }}>
               <h1>모</h1>

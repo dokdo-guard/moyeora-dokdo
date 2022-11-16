@@ -160,6 +160,12 @@ function HistoryPopup() {
                       date={data.era}
                       iconStyle={{ background: "#FFF562", color: "#fff" }}
                       key={data.era}
+                      contentStyle={{ width: "80%" }}
+                      style={{
+                        display: "flex",
+                        justifyContent: "center",
+                        alignItems: "center",
+                      }}
                     >
                       <h3 className='vertical-timeline-element-title'>
                         {data.era}
