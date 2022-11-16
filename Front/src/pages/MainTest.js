@@ -1280,7 +1280,7 @@ function MainTest() {
           <div onClick={mapPopup} className='map'>
             <img
               src='/assets/icons/map.png'
-              style={{ width: "30px", marginTop: "5px", marginLeft: "5px" }}
+              style={{ width: "30px", marginTop: "10px", marginLeft: "10px" }}
             ></img>
           </div>
           <div id='minimap' style={{ display: "none" }}>
