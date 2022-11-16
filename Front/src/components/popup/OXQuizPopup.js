@@ -6,7 +6,7 @@ import LinearProgress, {
 } from "@mui/material/LinearProgress";
 // import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
-import { quitPopup } from "../main/PopupButton.js";
+// import { quitPopup } from "../main/PopupButton.js";
 
 import { getQuiz } from "../../api/quizApi.js";
 import "../css/OXQuizPopup.css";
@@ -15,12 +15,43 @@ import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 // 문제 개수 선택 화면
 function OXQuizPopup() {
+  const quitPopup = () => {
+    const QuizPop = document.getElementById("QuizPopup");
+    // const EcoPop = document.getElementById("EcoPopup");
+    // const HistoryPop = document.getElementById("HistoryPopup");
+    QuizPop.style.display = "none";
+    // EcoPop.style.display = "none";
+    // HistoryPop.style.display = "none";
+    setQuizNum(0);
+    setQuizProgress(0);
+    setAnswerCorrect(0);
+    setSelected(false);
+    setQuizNum(0);
+  };
   const [quizNum, setQuizNum] = useState(0);
   const [selected, setSelected] = useState(false);
   const [quiz, setQuiz] = useState([]);
   const [quizProgress, setQuizProgress] = useState(0);
   const [answerCorrect, setAnswerCorrect] = useState(0);
   const MySwal = withReactContent(Swal);
+  const [badges, setBadges] = useState([]);
+  useEffect(() => {
+    const getBadges = async () => {
+      await axios
+        .get(`https://k7d204.p.ssafy.io/api/badge`, {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        })
+        .then((res) => {
+          setBadges(res.data);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    };
+    getBadges();
+  }, [quizNum]);
   useEffect(() => {
     if (quizNum !== 0) {
       getQuiz(quizNum)
@@ -35,58 +66,64 @@ function OXQuizPopup() {
   }, [quizNum]);
 
   const quizFive = async () => {
-    await axios.post(
-      `https://k7d204.p.ssafy.io/api/badge`,
-      {
-        badge: "quizFive",
-      },
-      {
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
+    if (badges.quizFive === false) {
+      await axios.post(
+        `https://k7d204.p.ssafy.io/api/badge`,
+        {
+          badge: "quizFive",
         },
-      },
-    );
-    MySwal.fire({
-      title: <h3>뱃지 획득!</h3>,
-      icon: "info",
-      html: <p>퀴즈5 만점 뱃지 획득!</p>,
-    });
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        },
+      );
+      MySwal.fire({
+        title: <h3>뱃지 획득!</h3>,
+        icon: "info",
+        html: <p>퀴즈5 만점 뱃지 획득!</p>,
+      });
+    }
   };
   const quizTen = async () => {
-    await axios.post(
-      `https://k7d204.p.ssafy.io/api/badge`,
-      {
-        badge: "quizTen",
-      },
-      {
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
+    if (badges.quizTen === false) {
+      await axios.post(
+        `https://k7d204.p.ssafy.io/api/badge`,
+        {
+          badge: "quizTen",
         },
-      },
-    );
-    MySwal.fire({
-      title: <h3>뱃지 획득!</h3>,
-      icon: "info",
-      html: <p>퀴즈10 만점 뱃지 획득!</p>,
-    });
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        },
+      );
+      MySwal.fire({
+        title: <h3>뱃지 획득!</h3>,
+        icon: "info",
+        html: <p>퀴즈10 만점 뱃지 획득!</p>,
+      });
+    }
   };
   const quizFifteen = async () => {
-    await axios.post(
-      `https://k7d204.p.ssafy.io/api/badge`,
-      {
-        badge: "quizFifteen",
-      },
-      {
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
+    if (badges.quizFifteen === false) {
+      await axios.post(
+        `https://k7d204.p.ssafy.io/api/badge`,
+        {
+          badge: "quizFifteen",
         },
-      },
-    );
-    MySwal.fire({
-      title: <h3>뱃지 획득!</h3>,
-      icon: "info",
-      html: <p>퀴즈15 만점 뱃지 획득!</p>,
-    });
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        },
+      );
+      MySwal.fire({
+        title: <h3>뱃지 획득!</h3>,
+        icon: "info",
+        html: <p>퀴즈15 만점 뱃지 획득!</p>,
+      });
+    }
   };
   const accessToken = sessionStorage.getItem("accessToken");
   const setQuizResult = async (result) => {
@@ -104,11 +141,6 @@ function OXQuizPopup() {
       )
       .then((res) => {
         console.log(res);
-        MySwal.fire({
-          title: <h3>점수 등록</h3>,
-          html: <p>점수 등록 완료!</p>,
-          icon: "success",
-        });
         setSelected(false);
       })
       .catch((err) => {
@@ -172,7 +204,10 @@ function OXQuizPopup() {
   const EndQuiz = () => {
     return (
       <div>
-        <div className='QuizTitle' style={{marginTop: "-10px 0 10px", fontSize: "70px"}}>
+        <div
+          className='QuizTitle'
+          style={{ marginTop: "-10px 0 10px", fontSize: "70px" }}
+        >
           Score
           {answerCorrect}
         </div>
@@ -217,11 +252,6 @@ function OXQuizPopup() {
   };
   const correct = () => {
     setAnswerCorrect((answerCorrect) => answerCorrect + 1);
-    Swal.fire({
-      icon: "success",
-      title: "정답!",
-      text: "정답입니다!",
-    });
   };
   const notCorrect = () => {
     Swal.fire({

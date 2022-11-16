@@ -15,11 +15,16 @@ const GamePopup = () => {
   const accessToken = sessionStorage.getItem("accessToken");
 
   const EarnDogam = async (dogam) => {
-    await axios.post(`https://k7d204.p.ssafy.io/api/dogam`, dogam, {
-      headers: {
-        Authorization: `Bearer ${accessToken}`,
-      },
-    });
+    await axios
+      .post(`https://k7d204.p.ssafy.io/api/dogam`, dogam, {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      })
+      .then((res) => {})
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   const getRandomDogam = async (number) => {
@@ -159,6 +164,9 @@ const GamePopup = () => {
                   cancelButtonText: "아니요(정말?)",
                 }).then((result) => {
                   if (result.isConfirmed) {
+                    random.map((val) => {
+                      EarnDogam({ domain: val.domain, mongo_id: val.name });
+                    });
                     Swal.fire({
                       title: "도감 획득!",
                       text: "도감을 획득하셨습니다!",

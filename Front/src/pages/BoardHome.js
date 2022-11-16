@@ -1,9 +1,9 @@
 import { useContext, useEffect, useState, useRef } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import BoardItem from "../components/board/BoardItem";
-import { getBoard } from "../api/board";
 import { createBoard } from "../api/board.js";
 import "../../src/components/css/Board.css";
+import axios from "axios";
 
 const BoardHome = ({ quitBoard }) => {
   const [page, setPage] = useState(false);
@@ -77,7 +77,7 @@ const BoardHome = ({ quitBoard }) => {
         function (err) {
           // 이미지 업로드 실패
           console.log("에러ㅠㅠ");
-        }
+        },
       );
 
       // API로 내용, 이미지 저장하기(backend와의 API 상)
@@ -94,14 +94,14 @@ const BoardHome = ({ quitBoard }) => {
     };
 
     return (
-      <div className="newPage">
-        <div className="editorTitle">독도 소통의 공간</div>
-        <div className="buttons">
-          <button onClick={handleSubmit} className="write">
+      <div className='newPage'>
+        <div className='editorTitle'>독도 소통의 공간</div>
+        <div className='buttons'>
+          <button onClick={handleSubmit} className='write'>
             작성하기
           </button>
           <button
-            className="goBack"
+            className='goBack'
             onClick={() => {
               setPage(!page);
             }}
@@ -110,26 +110,26 @@ const BoardHome = ({ quitBoard }) => {
           </button>
         </div>
 
-        <div className="textareaWrapper">
+        <div className='textareaWrapper'>
           <textarea
             ref={contentRef}
             value={content}
-            className="textarea"
-            placeholder="독도에 대해 한 마디 작성해 보세요"
+            className='textarea'
+            placeholder='독도에 대해 한 마디 작성해 보세요'
             onChange={(e) => {
               setContent(e.target.value);
             }}
           ></textarea>
         </div>
-        <div className="imageUpload">
+        <div className='imageUpload'>
           {imageSrc ? (
             <>
-              <div className="preview">
+              <div className='preview'>
                 {imageSrc && (
                   <img
                     src={imageSrc}
-                    alt="preview-img"
-                    className="previewImage"
+                    alt='preview-img'
+                    className='previewImage'
                   />
                 )}
               </div>
@@ -146,8 +146,8 @@ const BoardHome = ({ quitBoard }) => {
             // <img src="/assets/images/default.png" className="defaultImage"></img>
           )}
           <input
-            type="file"
-            accept="image/jpg,impge/png,image/jpeg,image/gif"
+            type='file'
+            accept='image/jpg,impge/png,image/jpeg,image/gif'
             onChange={(e) => {
               encodeFileToBase64(e.target.files[0]);
               setFile(e.target.files[0]);
@@ -157,26 +157,34 @@ const BoardHome = ({ quitBoard }) => {
       </div>
     );
   };
-
+  const accessToken = sessionStorage.getItem("accessToken");
   const BoardList = () => {
     const [board, setBoard] = useState([]);
-    useEffect(() => {
-      getBoard()
+    const getBoard = async () => {
+      await axios
+        .get(`https://k7d204.p.ssafy.io/api/board`, {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        })
         .then((res) => {
           setBoard(res.data);
         })
-        .catch((err) => {
+        .then((err) => {
           console.log(err);
         });
+    };
+    useEffect(() => {
+      getBoard();
     }, [board.length]);
 
     let boardList = board.reverse();
 
     return (
-      <div className="boardHome">
-        <h1 className="title">여러분의 독도를 꾸며주세요</h1>
+      <div className='boardHome'>
+        <h1 className='title'>여러분의 독도를 꾸며주세요</h1>
         <button
-          className="writeButton"
+          className='writeButton'
           onClick={() => {
             setPage(!page);
           }}
@@ -186,7 +194,7 @@ const BoardHome = ({ quitBoard }) => {
 
         {boardList.map((it) => (
           <div style={{ marginLeft: "2%" }}>
-            <BoardItem key={it.id} {...it} className="boardItem"></BoardItem>
+            <BoardItem key={it.id} {...it} className='boardItem'></BoardItem>
           </div>
         ))}
       </div>
@@ -206,9 +214,9 @@ const BoardHome = ({ quitBoard }) => {
       )}
 
       <img
-        src="/assets/icons/cancel.png"
+        src='/assets/icons/cancel.png'
         onClick={quitBoard}
-        className="quitBoard"
+        className='quitBoard'
       ></img>
       <div
         style={{

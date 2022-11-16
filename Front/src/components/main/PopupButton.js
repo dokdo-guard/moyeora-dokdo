@@ -111,13 +111,12 @@ export const mapPopup = () => {
   mapPopup.style.display = "block";
 };
 
-export const quitMinimap =() => {
-  const mapPopup = document.getElementById('minimap');
-  mapPopup.style.display  = 'none'
-}
+export const quitMinimap = () => {
+  const mapPopup = document.getElementById("minimap");
+  mapPopup.style.display = "none";
+};
 
 export const quitGamePopup = () => {
-  const GamePopup = document.getElementById('gamePopup')
-  GamePopup.style.display = 'none'
-}
-
+  const GamePopup = document.getElementById("gamePopup");
+  GamePopup.style.display = "none";
+};
