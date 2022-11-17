@@ -102,3 +102,21 @@
     background: transparent;
   }
 }
+
+.mouseCursor {
+  /* width: 30px; */
+  position: absolute;
+  z-index: 1;
+  margin-top: 14vh;
+  margin-left: 2vw;
+  animation: cursor 500ms linear alternate infinite;
+}
+
+@keyframes cursor {
+  from {
+    width: 60px;
+  }
+  to {
+    width: 50px;
+  }
+}
