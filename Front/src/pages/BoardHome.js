@@ -26,8 +26,7 @@ const BoardHome = ({ quitBoard }) => {
     const encodeFileToBase64 = (fileBlob) => {
       const reader = new FileReader();
       reader.readAsDataURL(fileBlob);
-      console.log("fileBlob name");
-      console.log(fileBlob.name);
+
       setImage_url(fileBlob.name);
       return new Promise((resolve) => {
         reader.onload = () => {

@@ -54,7 +54,6 @@ function TutorialGangchi() {
     }
   };
   const setVisit = async () => {
-    console.log("setVisit Call!!");
     await axios
       .put(
         "https://k7d204.p.ssafy.io/api/user/first-visit",
