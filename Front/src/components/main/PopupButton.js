@@ -15,7 +15,7 @@ export const clickMyPage = () => {
   // MyPagePop.addEventListener("mouseup", () => {
   //   isPressed = false;
   // });
-  touchEffect.play()
+  touchEffect.play();
 };
 
 // 마이페이지 나가기 버튼
@@ -25,7 +25,7 @@ export const quitMyPage = () => {
   // MyPagePop.addEventListener("mouseup", () => {
   //   isPressed = false;
   // });
-  touchEffect.play()
+  touchEffect.play();
 };
 
 // 튜토리얼 호출 버튼
@@ -35,7 +35,7 @@ export const clickTutorial = () => {
   // tutorial.addEventListener("mouseup", () => {
   //   isPressed = false;
   // });
-  touchEffect.play()
+  touchEffect.play();
 };
 
 // 튜토리얼 나가기 버튼
@@ -45,7 +45,7 @@ export const quitTutorial = () => {
   // tutorial.addEventListener("mouseup", () => {
   //   isPressed = false;
   // });
-  touchEffect.play()
+  touchEffect.play();
 };
 
 // 도감 호출 버튼
@@ -55,7 +55,7 @@ export const clickDogam = () => {
   // dogam.addEventListener("mouseup", () => {
   //   isPressed = false;
   // });
-  touchEffect.play()
+  touchEffect.play();
 };
 
 // 도감 나가기 버튼
@@ -65,7 +65,7 @@ export const quitDogam = () => {
   // dogam.addEventListener("mouseup", () => {
   //   isPressed = false;
   // });
-  touchEffect.play()
+  touchEffect.play();
 };
 
 export const quitPopup = () => {
@@ -75,7 +75,7 @@ export const quitPopup = () => {
   QuizPop.style.display = "none";
   // EcoPop.style.display = "none";
   // HistoryPop.style.display = "none";
-  touchEffect.play()
+  touchEffect.play();
 };
 export const quitEcoPopup = () => {
   const EcoPop = document.getElementById("EcoPopup");
@@ -85,7 +85,7 @@ export const quitEcoPopup = () => {
     icon: "info",
     html: <p>생태관 방문 뱃지 획득!</p>,
   });
-  touchEffect.play()
+  touchEffect.play();
 };
 export const quitHistoryPopup = () => {
   const HistoryPop = document.getElementById("HistoryPopup");
@@ -95,7 +95,7 @@ export const quitHistoryPopup = () => {
     icon: "info",
     html: <p>역사관 방문 뱃지 획득!</p>,
   });
-  touchEffect.play()
+  touchEffect.play();
 };
 export const quitTerrianPopup = () => {
   const TerrianPop = document.getElementById("TerrianPopup");
@@ -110,36 +110,35 @@ export const quitTerrianPopup = () => {
 export const clickChat = () => {
   const ChatPop = document.getElementById("chat");
   ChatPop.style.display = "block";
-  touchEffect.play()
+  touchEffect.play();
 };
 
 export const quitChat = () => {
   const ChatPop = document.getElementById("chat");
   ChatPop.style.display = "none";
-  touchEffect.play()
+  touchEffect.play();
 };
 
 export const clickBoard = () => {
   const BoardPop = document.getElementById("board");
   BoardPop.style.display = "block";
-  touchEffect.play()
+  touchEffect.play();
 };
 
 export const mapPopup = () => {
   const mapPopup = document.getElementById("minimap");
   mapPopup.style.display = "block";
-  touchEffect.play()
+  touchEffect.play();
 };
 
-export const quitMinimap =() => {
-  const mapPopup = document.getElementById('minimap');
-  mapPopup.style.display  = 'none'
-  touchEffect.play()
-}
+export const quitMinimap = () => {
+  const mapPopup = document.getElementById("minimap");
+  mapPopup.style.display = "none";
+  touchEffect.play();
+};
 
 export const quitGamePopup = () => {
-  const GamePopup = document.getElementById('gamePopup')
-  GamePopup.style.display = 'none'
-  touchEffect.play()
-}
-
+  const GamePopup = document.getElementById("gamePopup");
+  GamePopup.style.display = "none";
+  touchEffect.play();
+};

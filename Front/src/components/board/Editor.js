@@ -3,6 +3,8 @@ import { useNavigate } from "react-router-dom";
 
 import { createBoard } from "../../api/board.js";
 
+import axios from "axios";
+
 const Editor = ({ originData }) => {
   var AWS = require("aws-sdk");
   const contentRef = useRef();
@@ -65,26 +67,27 @@ const Editor = ({ originData }) => {
       function (err) {
         // 이미지 업로드 실패
         console.log("에러ㅠㅠ");
-      }
-    );
-
-
-// 코드 수정 시도
-const createBoard = async () => {
-  await axios.post(
-    `https://k7d204.p.ssafy.io/api/board`,
-    { info : {
-      content, image_url
-    } },
-    {
-      headers: {
-        Authorization: `Bearer ${accessToken}`,
       },
-    },
-  );
-};
-createBoard()
-
+    );
+    const accessToken = sessionStorage.getItem("accessToken");
+    // 코드 수정 시도
+    const createBoard = async () => {
+      await axios.post(
+        `https://k7d204.p.ssafy.io/api/board`,
+        {
+          info: {
+            content,
+            image_url,
+          },
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        },
+      );
+    };
+    createBoard();
 
     // API로 내용, 이미지 저장하기(backend와의 API 상)
     // let info = {
@@ -99,13 +102,12 @@ createBoard()
     //   });
   };
 
-
   return (
-    <div className="editor">
+    <div className='editor'>
       {imageSrc ? (
         <>
-          <div className="preview">
-            {imageSrc && <img src={imageSrc} alt="preview-img" />}
+          <div className='preview'>
+            {imageSrc && <img src={imageSrc} alt='preview-img' />}
           </div>
           <button
             onClick={() => {
@@ -116,11 +118,11 @@ createBoard()
           </button>
         </>
       ) : (
-        <img src="/assets/images/default.png"></img>
+        <img src='/assets/images/default.png'></img>
       )}
       <input
-        type="file"
-        accept="image/jpg,impge/png,image/jpeg,image/gif"
+        type='file'
+        accept='image/jpg,impge/png,image/jpeg,image/gif'
         onChange={(e) => {
           encodeFileToBase64(e.target.files[0]);
           setFile(e.target.files[0]);
@@ -130,7 +132,7 @@ createBoard()
       <textarea
         ref={contentRef}
         value={content}
-        className="textarea"
+        className='textarea'
         onChange={(e) => {
           setContent(e.target.value);
         }}
