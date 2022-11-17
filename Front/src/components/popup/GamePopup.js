@@ -1,10 +1,10 @@
-import { quitGamePopup } from "../main/PopupButton";
 import React, { useEffect, useState } from "react";
 // import { CreateMatrix } from './game/Shuffle';
 // import MemoryCard from './game/MemoryCard';
 import "../css/game.css";
 import Logo from "./game/logo.png";
 import axios from "axios";
+import { touchEffect } from "../main/PopupButton";
 
 import Swal from "sweetalert2";
 
@@ -13,6 +13,13 @@ const GamePopup = () => {
   const [isLoaded, setIsLoaded] = useState(false);
   const [random, setRandom] = useState([]);
   const accessToken = sessionStorage.getItem("accessToken");
+  const quitGamePopup = () => {
+    const GamePopup = document.getElementById("gamePopup");
+    GamePopup.style.display = "none";
+    touchEffect.play();
+    setGameStart(true);
+    setRandom([]);
+  };
 
   const EarnDogam = async (dogam) => {
     await axios

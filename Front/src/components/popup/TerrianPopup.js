@@ -1,7 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import "../css/TerrianPopup.css";
 import { getAllTerrians } from "../../api/terrainApi";
-import { quitTerrianPopup } from "../main/PopupButton";
 
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
@@ -46,6 +45,9 @@ function TerrianPopup(isShown) {
         html: <p>지형관 방문 뱃지 획득!</p>,
       });
     }
+    setShowPlace(false);
+    setCurPlace("");
+    setCurMarker(null);
   };
 
   useEffect(() => {
