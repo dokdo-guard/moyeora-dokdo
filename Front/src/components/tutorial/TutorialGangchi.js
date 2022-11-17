@@ -44,11 +44,11 @@ function TutorialGangchi() {
     // console.log("useEffect in TutorialGanchi");
     // console.log("visited Before");
     // console.log(typeof(sessionStorage.getItem("visitedBefore")));
-    
+
     // 로그인한 사람은 다시 튜토리얼 볼 수 없게
-    // if (sessionStorage.getItem("visitedBefore") === "true") {
-    //   quitTutorialGangchi();
-    // }
+    if (sessionStorage.getItem("visitedBefore") === "true") {
+      quitTutorialGangchi();
+    }
   }, []);
   const nextLine = () => {
     if (lineNum + 1 > 9) {
@@ -259,15 +259,15 @@ function TutorialGangchi() {
         }}
       >
         {lineNum === 9 ? (
-            <div
-              className='LineENDButton'
-              onClick={() => {
-                quitTutorialGangchi();
-                setVisit();
-              }}
-            >
-              시작하기!
-            </div>
+          <div
+            className='LineENDButton'
+            onClick={() => {
+              quitTutorialGangchi();
+              setVisit();
+            }}
+          >
+            시작하기!
+          </div>
         ) : (
           <div>
             <div
