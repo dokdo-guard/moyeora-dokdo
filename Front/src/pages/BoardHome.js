@@ -193,7 +193,7 @@ const BoardHome = ({ quitBoard }) => {
         </button>
 
         {boardList.map((it) => (
-          <div style={{ marginLeft: "2%" }}>
+          <div style={{ marginLeft: "7%" }}>
             <BoardItem key={it.id} {...it} className='boardItem'></BoardItem>
           </div>
         ))}
