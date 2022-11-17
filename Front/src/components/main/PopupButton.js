@@ -12,13 +12,7 @@ export const touchEffect = new Howl({
 export const clickMyPage = () => {
   const MyPagePop = document.getElementById("myPage");
   MyPagePop.style.display = "block";
-<<<<<<< HEAD
-  // MyPagePop.addEventListener("mouseup", () => {
-  //   isPressed = false;
-  // });
-=======
 
->>>>>>> FEDevelop
   touchEffect.play();
 };
 
@@ -26,13 +20,7 @@ export const clickMyPage = () => {
 export const quitMyPage = () => {
   const MyPagePop = document.getElementById("myPage");
   MyPagePop.style.display = "none";
-<<<<<<< HEAD
-  // MyPagePop.addEventListener("mouseup", () => {
-  //   isPressed = false;
-  // });
-=======
 
->>>>>>> FEDevelop
   touchEffect.play();
 };
 
@@ -40,13 +28,7 @@ export const quitMyPage = () => {
 export const clickTutorial = () => {
   const tutorial = document.getElementById("tutorial");
   tutorial.style.display = "block";
-<<<<<<< HEAD
-  // tutorial.addEventListener("mouseup", () => {
-  //   isPressed = false;
-  // });
-=======
 
->>>>>>> FEDevelop
   touchEffect.play();
 };
 
@@ -54,13 +36,7 @@ export const clickTutorial = () => {
 export const quitTutorial = () => {
   const tutorial = document.getElementById("tutorial");
   tutorial.style.display = "none";
-<<<<<<< HEAD
-  // tutorial.addEventListener("mouseup", () => {
-  //   isPressed = false;
-  // });
-=======
 
->>>>>>> FEDevelop
   touchEffect.play();
 };
 
@@ -68,12 +44,7 @@ export const quitTutorial = () => {
 export const clickDogam = () => {
   const dogam = document.getElementById("dogam");
   dogam.style.display = "block";
-<<<<<<< HEAD
-  // dogam.addEventListener("mouseup", () => {
-  //   isPressed = false;
-  // });
-=======
->>>>>>> FEDevelop
+
   touchEffect.play();
 };
 
@@ -81,24 +52,14 @@ export const clickDogam = () => {
 export const quitDogam = () => {
   const dogam = document.getElementById("dogam");
   dogam.style.display = "none";
-<<<<<<< HEAD
-  // dogam.addEventListener("mouseup", () => {
-  //   isPressed = false;
-  // });
-=======
->>>>>>> FEDevelop
+
   touchEffect.play();
 };
 
 export const quitPopup = () => {
   const QuizPop = document.getElementById("QuizPopup");
   QuizPop.style.display = "none";
-<<<<<<< HEAD
-  // EcoPop.style.display = "none";
-  // HistoryPop.style.display = "none";
-=======
 
->>>>>>> FEDevelop
   touchEffect.play();
 };
 export const quitEcoPopup = () => {
