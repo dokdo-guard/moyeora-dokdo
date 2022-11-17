@@ -6,6 +6,8 @@ import "../../src/components/css/Board.css";
 import axios from "axios";
 
 const BoardHome = ({ quitBoard }) => {
+  const accessToken = sessionStorage.getItem("accessToken");
+
   const [page, setPage] = useState(false);
 
   const NewPage = () => {
@@ -18,7 +20,6 @@ const BoardHome = ({ quitBoard }) => {
     var AWS = require("aws-sdk");
     const contentRef = useRef();
     const [content, setContent] = useState("");
-    const navigate = useNavigate();
 
     const [imageSrc, setImageSrc] = useState("");
     const [image_url, setImage_url] = useState("");
@@ -66,48 +67,34 @@ const BoardHome = ({ quitBoard }) => {
       });
 
       const promise = upload.promise();
-      promise.then(
-        function () {
+      promise
+        .then(function () {
           // 이미지 업로드 성공
           window.setTimeout(function () {
             window.location.reload();
           }, 2000);
           console.log("성공!");
-        },
-        function (err) {
+        })
+        .catch(function (err) {
           // 이미지 업로드 실패
           console.log("에러ㅠㅠ");
-        },
-      );
-
-
-// 코드 수정 시도
-// const createBoard = async () => {
-//   await axios.post(
-//     `https://k7d204.p.ssafy.io/api/board`,
-//     { badge: "visitTerrain" },
-//     {
-//       headers: {
-//         Authorization: `Bearer ${accessToken}`,
-//       },
-//     },
-//   );
-// };
-// createBoard()
-
-
+          console.log(err);
+        });
 
       // API로 내용, 이미지 저장하기(backend와의 API 상)
       let info = {
-        content,
-        image_url,
+        content: content,
+        img_url: image_url,
       };
 
-      createBoard(info)
-        .then((res) => {})
-        .catch((err) => {
-          console.log(err);
+      const createBoard = async (info) => {
+        await axios.post(`https://k7d204.p.ssafy.io/api/board`, info, {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
         });
+      };
+      createBoard(info);
     };
 
     return (
@@ -174,7 +161,6 @@ const BoardHome = ({ quitBoard }) => {
       </div>
     );
   };
-  const accessToken = sessionStorage.getItem("accessToken");
   const BoardList = () => {
     const [board, setBoard] = useState([]);
     const getBoard = async () => {
@@ -187,7 +173,7 @@ const BoardHome = ({ quitBoard }) => {
         .then((res) => {
           setBoard(res.data);
         })
-        .then((err) => {
+        .catch((err) => {
           console.log(err);
         });
     };

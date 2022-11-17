@@ -154,7 +154,7 @@ function HistoryPopup() {
               </VerticalTimelineElement> */}
               {historyData.map((data) => {
                 return (
-                  <>
+                  <div key={data.era}>
                     <VerticalTimelineElement
                       className='vertical-timeline-element--work'
                       date={data.era}
@@ -192,7 +192,7 @@ function HistoryPopup() {
                         </div>
                       </div>
                     </VerticalTimelineElement>
-                  </>
+                  </div>
                 );
               })}
             </VerticalTimeline>
