@@ -98,17 +98,22 @@ function TutorialGangchi() {
               zIndex: "13",
               position: "absolute",
               top: "40%",
-              left: "50%",
+              left: "38%",
               transform: "translate(-40%, -50%)",
               height: "300px",
             }}
           >
             <div>
-              <img src='/assets/images/characters/siryeong.png' />
-              <img src='/assets/icons/click.png' />
+              {/* <img src='/assets/images/characters/siryeong.png' /> */}
+              <img src='/assets/icons/click.png' 
+              className="mouseCursor"
+              />
+              <img src='/assets/Tutorial/tutorial.gif'
+                style={{position:'absolute',width:'30vw',borderRadius:'18px'}}
+              ></img>
             </div>
 
-            <div
+            {/* <div
               style={{
                 fontSize: "28px",
                 color: "white",
@@ -117,7 +122,7 @@ function TutorialGangchi() {
             >
               원하는 위치를 클릭해 <br />
               캐릭터를 이동할 수 있습니다.
-            </div>
+            </div> */}
           </div>
         )}
         {lineNum === 5 && (
