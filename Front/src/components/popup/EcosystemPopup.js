@@ -87,7 +87,6 @@ function EcoSystemPopup() {
           console.log(err);
         });
     } else {
-      console.log("no category");
       setData([]);
     }
   }, [category]);
@@ -175,29 +174,6 @@ function EcoSystemPopup() {
     } else {
       return <ShowDetail />;
     }
-  };
-  const setDogam = () => {
-    axios
-      .post(
-        "https://k7d204.p.ssafy.io/api/dogam",
-        { domain: category, mongo_id: selectedData.name },
-        {
-          headers: {
-            Authorization: `Bearer ${accessToken}`,
-          },
-        },
-      )
-      .then((res) => {
-        console.log(res);
-        MySwal.fire({
-          title: <h3>도감 획득</h3>,
-          html: <p>{selectedData.name} 도감 획득 완료!</p>,
-          icon: "success",
-        });
-      })
-      .catch((err) => {
-        console.log(err);
-      });
   };
 
   return (

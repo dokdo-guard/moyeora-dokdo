@@ -105,7 +105,6 @@ function HistoryPopup() {
       });
     }
   };
-  const [historyData, setHistoryData] = useState(dummy_data_history);
 
   const accessToken = sessionStorage.getItem("accessToken");
   useEffect(() => {
@@ -134,25 +133,12 @@ function HistoryPopup() {
           id='quitButton'
           onClick={quitHistoryPopup}
           className='quitPopup'
+          alt='NOIMAGE'
         ></img>
         <div className='HistoryPopupWrapper'>
           <div className='HistoryYear'>
             <VerticalTimeline layout='1-column-left'>
-              {/* <VerticalTimelineElement
-                className='vertical-timeline-element--work'
-                date='2011 - present'
-                iconStyle={{ background: "rgb(33, 150, 243)", color: "#fff" }}
-              >
-                <h3 className='vertical-timeline-element-title'>
-                  Creative Director
-                </h3>
-                <h4 className='vertical-timeline-element-subtitle'>Miami, FL</h4>
-                <p>
-                  Creative Direction, User Experience, Visual Design, Project
-                  Management, Team Leading
-                </p>
-              </VerticalTimelineElement> */}
-              {historyData.map((data) => {
+              {dummy_data_history.map((data) => {
                 return (
                   <div key={data.era}>
                     <VerticalTimelineElement

@@ -10,7 +10,6 @@ import Swal from "sweetalert2";
 
 const GamePopup = () => {
   const [gameStart, setGameStart] = useState(true);
-  const [isLoaded, setIsLoaded] = useState(false);
   const [random, setRandom] = useState([]);
   const accessToken = sessionStorage.getItem("accessToken");
   const quitGamePopup = () => {
@@ -43,8 +42,6 @@ const GamePopup = () => {
       })
       .then((res) => {
         setRandom(res.data);
-        setIsLoaded(true);
-        console.log(res.data);
       })
       .catch((err) => {
         console.log(err);
@@ -266,6 +263,7 @@ const GamePopup = () => {
         src='/assets/icons/cancel.png'
         onClick={quitGamePopup}
         className='quitGame'
+        alt='NOIMAGE'
       ></img>
       <div
         style={{

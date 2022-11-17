@@ -1,9 +1,5 @@
 import { React, useState, forwardRef } from "react";
-import {
-  GOOGLE_AUTH_URL,
-  NAVER_AUTH_URL,
-  KAKAO_AUTH_URL,
-} from "../../api/Oauth/uri";
+import { GOOGLE_AUTH_URL, KAKAO_AUTH_URL } from "../../api/Oauth/uri";
 import "../css/Login.css";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
@@ -11,6 +7,7 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
 import Slide from "@mui/material/Slide";
 import HelpOutlineIcon from "@mui/icons-material/HelpOutline";
+
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 

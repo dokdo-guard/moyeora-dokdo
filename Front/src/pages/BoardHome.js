@@ -1,5 +1,4 @@
-import { useContext, useEffect, useState, useRef } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useEffect, useState, useRef } from "react";
 import BoardItem from "../components/board/BoardItem";
 import "../../src/components/css/Board.css";
 import axios from "axios";
@@ -70,14 +69,8 @@ const BoardHome = ({ quitBoard }) => {
       promise
         .then(function () {
           // 이미지 업로드 성공
-          // window.setTimeout(function () {
-          //   window.location.reload();
-          // }, 2000);
-          console.log("성공!");
         })
-        .catch(function (err) {
-          // 이미지 업로드 실패
-          console.log("에러ㅠㅠ");
+        .catch((err) => {
           console.log(err);
         });
 
@@ -220,6 +213,7 @@ const BoardHome = ({ quitBoard }) => {
         src='/assets/icons/cancel.png'
         onClick={quitBoard}
         className='quitBoard'
+        alt='NOIMAGE'
       ></img>
       <div
         style={{

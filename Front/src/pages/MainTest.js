@@ -2,7 +2,7 @@ import * as THREE from "three";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 import { DRACOLoader } from "three/examples/jsm/loaders/DRACOLoader";
 import gsap from "gsap";
-import { Howl, Howler } from "howler";
+import { Howl } from "howler";
 
 import "../components/css/MainTest.css";
 
@@ -16,7 +16,6 @@ import TerrianPopup from "../components/popup/TerrianPopup";
 import OXQuizPopup from "../components/popup/OXQuizPopup";
 import EcoSystemPopup from "../components/popup/EcosystemPopup";
 
-import Stats from "stats.js";
 import { useEffect, useState } from "react";
 
 import { mapReLoading } from "../components/popup/TerrianPopup";
@@ -65,13 +64,7 @@ import NPCBubble from "../components/main/NPCbubble";
 import BoardHome from "./BoardHome";
 import GamePopup from "../components/popup/GamePopup";
 
-// Sweet Alert
-import Swal from "sweetalert2";
-import withReactContent from "sweetalert2-react-content";
 function MainTest() {
-  // Sweet Alert
-  const MySwal = withReactContent(Swal);
-
   //#region = 카메라, 빛, 렌더러, 씬
   // Renderer
   const canvas = document.querySelector("#three-canvas");
@@ -694,8 +687,6 @@ function MainTest() {
       // let destinationNPCPoint = new Vector3(item.point.x, 0.3, item.point.z);
       // 강치.moveTo(destinationNPCPoint);
 
-      // console.log("로그 ",item.point.x+" x값 "+item.point.z + "y값 ");
-
       destinationPoint = new Vector3(item.point.x, 0.3, item.point.z);
       player.moveTo(destinationPoint);
 
@@ -711,9 +702,7 @@ function MainTest() {
       dolphinPop.style.display = "block";
       isPressed = false;
       checkNPC(answer)
-        .then((res) => {
-          console.log("api 연결 성공!");
-        })
+        .then((res) => {})
         .catch((err) => {
           console.log(err);
         });
@@ -725,9 +714,7 @@ function MainTest() {
       강치Pop.style.display = "block";
       isPressed = false;
       checkNPC(answer)
-        .then((res) => {
-          console.log("api 연결 성공!");
-        })
+        .then((res) => {})
         .catch((err) => {
           console.log(err);
         });
@@ -738,9 +725,7 @@ function MainTest() {
       const flamingoPop = document.getElementById("flamingo");
       flamingoPop.style.display = "block";
       checkNPC(answer)
-        .then((res) => {
-          console.log("api 연결 성공!");
-        })
+        .then((res) => {})
         .catch((err) => {
           console.log(err);
         });
@@ -753,9 +738,7 @@ function MainTest() {
       pigeonPop.style.display = "block";
       isPressed = false;
       checkNPC(answer)
-        .then((res) => {
-          console.log("api 연결 성공!");
-        })
+        .then((res) => {})
         .catch((err) => {
           console.log(err);
         });
@@ -767,9 +750,7 @@ function MainTest() {
       seagullPop.style.display = "block";
       isPressed = false;
       checkNPC(answer)
-        .then((res) => {
-          console.log("api 연결 성공!");
-        })
+        .then((res) => {})
         .catch((err) => {
           console.log(err);
         });
@@ -781,9 +762,7 @@ function MainTest() {
       바위게Pop.style.display = "block";
       isPressed = false;
       checkNPC(answer)
-        .then((res) => {
-          console.log("api 연결 성공!");
-        })
+        .then((res) => {})
         .catch((err) => {
           console.log(err);
         });
@@ -795,9 +774,7 @@ function MainTest() {
       독도새우Pop.style.display = "block";
       isPressed = false;
       checkNPC(answer)
-        .then((res) => {
-          console.log("api 연결 성공!");
-        })
+        .then((res) => {})
         .catch((err) => {
           console.log(err);
         });
@@ -809,9 +786,7 @@ function MainTest() {
       dogPop.style.display = "block";
       isPressed = false;
       checkNPC(answer)
-        .then((res) => {
-          console.log("api 연결 성공!");
-        })
+        .then((res) => {})
         .catch((err) => {
           console.log(err);
         });
@@ -823,9 +798,7 @@ function MainTest() {
       turtlePop.style.display = "block";
       isPressed = false;
       checkNPC(answer)
-        .then((res) => {
-          console.log("api 연결 성공!");
-        })
+        .then((res) => {})
         .catch((err) => {
           console.log(err);
         });
@@ -837,9 +810,7 @@ function MainTest() {
       penguinPop.style.display = "block";
       isPressed = false;
       checkNPC(answer)
-        .then((res) => {
-          console.log("api 연결 성공!");
-        })
+        .then((res) => {})
         .catch((err) => {
           console.log(err);
         });
@@ -859,7 +830,7 @@ function MainTest() {
       player.moving = false;
       popupSound.play();
     }
-    if (item.object.name == "지질팻말") {
+    if (item.object.name === "지질팻말") {
       const TerrianPop = document.getElementById("TerrianPopup");
       TerrianPop.style.display = "block";
       TerrianPop.addEventListener("mouseup", () => {
@@ -938,8 +909,8 @@ function MainTest() {
       player.moving = false;
       popupSound.play();
     }
-    if (item.object.name.includes('land_490')) {
-      const gamePop = document.getElementById('gamePopup')
+    if (item.object.name.includes("land_490")) {
+      const gamePop = document.getElementById("gamePopup");
       gamePop.addEventListener("mouseup", () => {
         isPressed = false;
       });
@@ -1210,6 +1181,7 @@ function MainTest() {
             <img
               className='screenShotButton'
               src='/assets/images/camera.png'
+              alt='NOIMAGE'
             ></img>
             <div className='ButtonBackGround'></div>
           </div>
@@ -1224,6 +1196,7 @@ function MainTest() {
             <img
               className='actionImage'
               src='/assets/images/emotions/dance.png'
+              alt='NOIMAGE'
             ></img>
             <div className='actionButton'></div>
           </div>
@@ -1237,6 +1210,7 @@ function MainTest() {
             <img
               className='actionImage'
               src='/assets/images/emotions/hurray.png'
+              alt='NOIMAGE'
             ></img>
             <div className='actionButton'></div>
           </div>
@@ -1250,6 +1224,7 @@ function MainTest() {
             <img
               className='actionImage'
               src='/assets/images/emotions/sad.png'
+              alt='NOIMAGE'
             ></img>
             <div className='actionButton'></div>
           </div>
@@ -1266,6 +1241,7 @@ function MainTest() {
             <img
               src='/assets/icons/map.png'
               style={{ width: "30px", marginTop: "10px", marginLeft: "10px" }}
+              alt='NOIMAGE'
             ></img>
           </div>
           <div id='minimap' style={{ display: "none" }}>
@@ -1273,8 +1249,13 @@ function MainTest() {
               src='/assets/icons/cancel.png'
               className='quitTutorial'
               onClick={quitMinimap}
+              alt='NOIMAGE'
             ></img>
-            <img src='/assets/images/minimap.png' className='mapImage'></img>
+            <img
+              src='/assets/images/minimap.png'
+              className='mapImage'
+              alt='NOIMAGE'
+            ></img>
             <div
               style={{
                 width: "100vw",
