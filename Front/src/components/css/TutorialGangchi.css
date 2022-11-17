@@ -1,44 +1,46 @@
 .LineNextButton {
   border-radius: 20px;
   background-color: #fff562;
-  height: 40px;
-  width: 100px;
+  height: fit-content;
+  width: 130px;
+  padding: 15px 0;
   display: flex;
   align-items: center;
   justify-content: center;
   transition: background-color 0.3s;
   font-weight: 700;
   cursor: pointer;
-  margin-right: 90px;
-  margin-bottom: 10px;
+  margin-right: 150px;
+  margin-bottom: 15px;
+  font-size: 20px;
 }
 .LineSkipButton {
   margin-bottom: 50px;
   border-radius: 20px;
   background-color: #feb653;
-  height: 40px;
-  width: 100px;
+  width: 130px;
+  padding: 15px 0;
   display: flex;
   align-items: center;
   justify-content: center;
   font-weight: 700;
   transition: background-color 0.3s;
   cursor: pointer;
+  font-size: 20px;
 }
 .LineENDButton {
-  margin: 50px;
-  margin-right: 100px;
+  margin: 0 140px 55px 0;
   border-radius: 20px;
   background-color: #feb653;
-  height: 100px;
-  width: 400px;
+  height: 90px;
+  width: 230px;
   display: flex;
   align-items: center;
   justify-content: center;
   font-weight: 700;
   transition: transform 250ms;
   box-shadow: 3px 3px 20px lightgray;
-  font-size: 40px;
+  font-size: 28px;
   cursor: pointer;
 }
 
@@ -56,8 +58,8 @@
 .LineContext {
   background-color: #fff;
   width: 90%;
-  padding: 50px;
-  height: 200px;
+  padding: 70px;
+  height: 230px;
   margin: 10px;
   border-radius: 20px;
   font-size: 20px;

@@ -83,7 +83,7 @@
 }
 
 .boardHome > .title {
-  margin-top: 10px;
+  margin-top: 30px;
   display: flex;
   justify-content: center;
 }
@@ -98,13 +98,14 @@
 }
 
 .boardHome > .writeButton {
-  width: 15%;
+  width: fit-content;
   /* height: 5%; */
+  margin: 10px 30px;
+  padding: 20px 35px;
   border: none;
   border-radius: 10px;
   background-color: rgb(114, 199, 131);
   cursor: pointer;
-  margin-left: 10px;
   height: 50px;
   box-shadow: 1px 1px 20px lightgray;
 }
@@ -210,7 +211,8 @@
 figure.snip1332 {
   position: relative;
   overflow: hidden;
-  margin: 10px;
+  margin: 12px;
+  padding: 20px;
   width: 350px;
   height: 200px;
   /* text-align: left; */
