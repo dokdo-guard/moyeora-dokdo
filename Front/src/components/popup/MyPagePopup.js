@@ -521,13 +521,12 @@ function MyPagePopup(props) {
           Back
         </div>
         <div className='BadgeWrapper'>
-          {badges.talkative ? (
+          {badges.seaPlantComplete ? (
             <div className='BadgeImage'>
-              <Tooltip title='TooMuchTalker' placement='top'>
+              <Tooltip title='해양 식물 도감 완성' placement='top'>
                 <img
                   src={
-                    process.env.PUBLIC_URL +
-                    "/assets/badges/TooMuchTalkerBadge.png"
+                    process.env.PUBLIC_URL + "/assets/badges/earnSeaPlant.png"
                   }
                   alt='no Badge'
                 />
@@ -546,9 +545,7 @@ function MyPagePopup(props) {
             <div className='BadgeImage'>
               <Tooltip title='새 도감 완성' placement='top'>
                 <img
-                  src={
-                    process.env.PUBLIC_URL + "/assets/badges/EarnDogamBadge.png"
-                  }
+                  src={process.env.PUBLIC_URL + "/assets/badges/eranBird.png"}
                   alt='no Badge'
                 />
               </Tooltip>
@@ -566,9 +563,7 @@ function MyPagePopup(props) {
             <div className='BadgeImage'>
               <Tooltip title='식물 도감 완성' placement='top'>
                 <img
-                  src={
-                    process.env.PUBLIC_URL + "/assets/badges/EarnDogamBadge.png"
-                  }
+                  src={process.env.PUBLIC_URL + "/assets/badges/earnPlant.png"}
                   alt='no Badge'
                 />
               </Tooltip>
@@ -587,7 +582,7 @@ function MyPagePopup(props) {
               <Tooltip title='해양 도감 완성' placement='top'>
                 <img
                   src={
-                    process.env.PUBLIC_URL + "/assets/badges/EarnDogamBadge.png"
+                    process.env.PUBLIC_URL + "/assets/badges/earnSeaAnimal.png"
                   }
                   alt='no Badge'
                 />
@@ -660,7 +655,7 @@ function MyPagePopup(props) {
             <div className='BadgeImage'>
               <Tooltip title='생태관 방문' placement='top'>
                 <img
-                  src={process.env.PUBLIC_URL + "/assets/badges/VisitBadge.png"}
+                  src={process.env.PUBLIC_URL + "/assets/badges/visitEco.png"}
                   alt='no Badge'
                 />
               </Tooltip>
@@ -678,7 +673,9 @@ function MyPagePopup(props) {
             <div className='BadgeImage'>
               <Tooltip title='역사관 방문' placement='top'>
                 <img
-                  src={process.env.PUBLIC_URL + "/assets/badges/VisitBadge.png"}
+                  src={
+                    process.env.PUBLIC_URL + "/assets/badges/visitHistory.png"
+                  }
                   alt='no Badge'
                 />
               </Tooltip>
@@ -696,7 +693,9 @@ function MyPagePopup(props) {
             <div className='BadgeImage'>
               <Tooltip title='지형관 방문' placement='top'>
                 <img
-                  src={process.env.PUBLIC_URL + "/assets/badges/VisitBadge.png"}
+                  src={
+                    process.env.PUBLIC_URL + "/assets/badges/visitTerrain.png"
+                  }
                   alt='no Badge'
                 />
               </Tooltip>
