@@ -105,11 +105,14 @@ function TutorialGangchi() {
           >
             <div>
               {/* <img src='/assets/images/characters/siryeong.png' /> */}
-              <img src='/assets/icons/click.png' 
-              className="mouseCursor"
-              />
-              <img src='/assets/Tutorial/tutorial.gif'
-                style={{position:'absolute',width:'30vw',borderRadius:'18px'}}
+              <img src='/assets/icons/click.png' className='mouseCursor' />
+              <img
+                src='/assets/Tutorial/tutorial.gif'
+                style={{
+                  position: "absolute",
+                  width: "30vw",
+                  borderRadius: "18px",
+                }}
               ></img>
             </div>
 
