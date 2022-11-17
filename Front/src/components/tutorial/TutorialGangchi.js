@@ -41,14 +41,10 @@ function TutorialGangchi() {
   const [lineNum, setLineNum] = useState(0);
   const accessToken = sessionStorage.getItem("accessToken");
   useEffect(() => {
-    // console.log("useEffect in TutorialGanchi");
-    // console.log("visited Before");
-    // console.log(typeof(sessionStorage.getItem("visitedBefore")));
-    
     // 로그인한 사람은 다시 튜토리얼 볼 수 없게
-    // if (sessionStorage.getItem("visitedBefore") === "true") {
-    //   quitTutorialGangchi();
-    // }
+    if (sessionStorage.getItem("visitedBefore") === "true") {
+      quitTutorialGangchi();
+    }
   }, []);
   const nextLine = () => {
     if (lineNum + 1 > 9) {
@@ -74,8 +70,6 @@ function TutorialGangchi() {
   };
 
   const quitTutorialGangchi = () => {
-    // console.log("quitTutorial Call");
-    // sessionStorage.setItem("visitedBefore", true);
     const tutorialPop = document.getElementById("tutorialGangchi");
     tutorialPop.style.display = "none";
   };
@@ -105,11 +99,19 @@ function TutorialGangchi() {
           >
             <div>
               {/* <img src='/assets/images/characters/siryeong.png' /> */}
-              <img src='/assets/icons/click.png' 
-              className="mouseCursor"
+              <img
+                src='/assets/icons/click.png'
+                className='mouseCursor'
+                alt='NOIMAGE'
               />
-              <img src='/assets/Tutorial/tutorial.gif'
-                style={{position:'absolute',width:'30vw',borderRadius:'18px'}}
+              <img
+                src='/assets/Tutorial/tutorial.gif'
+                style={{
+                  position: "absolute",
+                  width: "30vw",
+                  borderRadius: "18px",
+                }}
+                alt='NOIMAGE'
               ></img>
             </div>
 
@@ -137,13 +139,17 @@ function TutorialGangchi() {
             }}
           >
             <>
-              <img src='/assets/images/characters/siryeong2.png' />
+              <img
+                src='/assets/images/characters/siryeong2.png'
+                alt='NOIMAGE'
+              />
               <img
                 style={{
                   width: 200,
                   top: 100,
                 }}
                 src='/assets/images/characters/penguin.png'
+                alt='NOIMAGE'
               />
               <div
                 style={{
@@ -264,15 +270,15 @@ function TutorialGangchi() {
         }}
       >
         {lineNum === 9 ? (
-            <div
-              className='LineENDButton'
-              onClick={() => {
-                quitTutorialGangchi();
-                setVisit();
-              }}
-            >
-              시작하기!
-            </div>
+          <div
+            className='LineENDButton'
+            onClick={() => {
+              quitTutorialGangchi();
+              setVisit();
+            }}
+          >
+            시작하기!
+          </div>
         ) : (
           <div>
             <div

@@ -51,7 +51,6 @@ function TerrianPopup(isShown) {
   };
 
   useEffect(() => {
-    // console.log("API useEffect Call(TerrianData)");
     getAllTerrians()
       .then((res) => {
         setPlaces(res.data);
@@ -66,8 +65,6 @@ function TerrianPopup(isShown) {
     }
   }, [mapLoaded]);
   useEffect(() => {
-    // console.log("MAP useEffect Call(TerrianData)");
-    // console.log(isShown);
     // kakao map Start
     const { kakao } = window;
     if (!mapElement.current || !kakao) return;
@@ -114,7 +111,6 @@ function TerrianPopup(isShown) {
       kakao.maps.event.addListener(marker, "mouseout", function () {
         infowindow.close();
       });
-      // console.log(marker);
     }
     // 현재 선택된 위치 마커 위 인포윈도우 올려두기
     // Load Kakao Map
@@ -132,11 +128,6 @@ function TerrianPopup(isShown) {
     if (curMarker !== null) {
       infowindow.open(map, curMarker);
     }
-
-    // // 중심좌표 이동시 중심 좌표 콘솔에 출력
-    // kakao.maps.event.addListener(map, "center_changed", function () {
-    //   console.log(map.getCenter());
-    // });
 
     // kakao map End
   }, [isShown, isLoaded]);
@@ -194,7 +185,7 @@ function TerrianPopup(isShown) {
                 "https://ssafy-d204-dokdo.s3.ap-northeast-2.amazonaws.com/" +
                 curPlace?.img1
               }
-              alt='NO IMAGE'
+              alt='NOIMAGE'
             />
           </div>
         </div>
@@ -216,6 +207,7 @@ function TerrianPopup(isShown) {
           id='quitButton'
           onClick={quitTerrianPopup}
           className='quitPopup'
+          alt='NOIMAGE'
         ></img>
         <div className='TerrianPopupWrapper'>
           <div ref={mapElement} className='TerrianPopupMap'></div>

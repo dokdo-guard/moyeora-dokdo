@@ -140,7 +140,6 @@ function OXQuizPopup() {
         },
       )
       .then((res) => {
-        console.log(res);
         setSelected(false);
       })
       .catch((err) => {
@@ -297,6 +296,7 @@ function OXQuizPopup() {
           id='quitButton'
           onClick={quitPopup}
           className='quitPopup'
+          alt='NOIMAGE'
         ></img>
         {selected ? (
           <div className='OXQuizInWrapper'>

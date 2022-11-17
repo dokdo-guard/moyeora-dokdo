@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
-const OauthRedirect = (props) => {
+const OauthRedirect = () => {
   const navigate = useNavigate();
   const getUrlParameter = (keyVal) => {
     keyVal = keyVal.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
@@ -34,7 +34,6 @@ const OauthRedirect = (props) => {
             sessionStorage.setItem("visitedBefore", res.data.visitedBefore);
           })
           .catch((err) => {
-            console.log("Error in Login OauthRedirect");
             console.log(err);
           });
       };

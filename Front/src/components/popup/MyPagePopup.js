@@ -28,8 +28,6 @@ function MyPagePopup(props) {
   const [dogamShow, setDogamShow] = useState(false);
   const [categoryShow, setCategoryShow] = useState(false);
 
-  const [isLoaded, setIsLoaded] = useState(false);
-
   const [category, setCategory] = useState("plant");
   const [dogamNum, setDogamNum] = useState(0);
   const [dogam, setDogam] = useState([]);
@@ -95,7 +93,6 @@ function MyPagePopup(props) {
       props.changeChaehyeon();
     }
     setCharacter();
-    console.log(userCharacter);
   }, [userCharacter]);
 
   const earnBadge = async () => {
@@ -112,9 +109,7 @@ function MyPagePopup(props) {
             },
           },
         )
-        .then((res) => {
-          console.log(res);
-        })
+        .then((res) => {})
         .catch((err) => {
           console.log(err);
         });
@@ -132,9 +127,7 @@ function MyPagePopup(props) {
             },
           },
         )
-        .then((res) => {
-          console.log(res);
-        })
+        .then((res) => {})
         .catch((err) => {
           console.log(err);
         });
@@ -152,9 +145,7 @@ function MyPagePopup(props) {
             },
           },
         )
-        .then((res) => {
-          console.log(res);
-        })
+        .then((res) => {})
         .catch((err) => {
           console.log(err);
         });
@@ -172,9 +163,7 @@ function MyPagePopup(props) {
             },
           },
         )
-        .then((res) => {
-          console.log(res);
-        })
+        .then((res) => {})
         .catch((err) => {
           console.log(err);
         });
@@ -199,7 +188,6 @@ function MyPagePopup(props) {
         },
       )
       .then((res) => {
-        console.log(res);
         sessionStorage.setItem("userCharacter", userCharacter);
       })
       .catch((err) => {
@@ -488,15 +476,6 @@ function MyPagePopup(props) {
 
   // 뱃지 화면
   const Badge = () => {
-    // const [number, setNumber] = useState([]);
-    // checkNPClist()
-    //   .then((res) => {
-    //     setNumber(res.data);
-    //   })
-    //   .catch((err) => {
-    //     console.log(err);
-    //   });
-
     return (
       <div className='MyPageRightInnerWrapper'>
         {" "}

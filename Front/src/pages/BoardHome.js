@@ -1,5 +1,4 @@
-import { useContext, useEffect, useState, useRef } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useEffect, useState, useRef } from "react";
 import BoardItem from "../components/board/BoardItem";
 import { createBoard } from "../api/board.js";
 import "../../src/components/css/Board.css";
@@ -18,7 +17,6 @@ const BoardHome = ({ quitBoard }) => {
     var AWS = require("aws-sdk");
     const contentRef = useRef();
     const [content, setContent] = useState("");
-    const navigate = useNavigate();
 
     const [imageSrc, setImageSrc] = useState("");
     const [image_url, setImage_url] = useState("");
@@ -66,36 +64,27 @@ const BoardHome = ({ quitBoard }) => {
       });
 
       const promise = upload.promise();
-      promise.then(
-        function () {
+      promise
+        .then(function () {
           // 이미지 업로드 성공
-          window.setTimeout(function () {
-            window.location.reload();
-          }, 2000);
-          console.log("성공!");
-        },
-        function (err) {
-          // 이미지 업로드 실패
-          console.log("에러ㅠㅠ");
-        },
-      );
+        })
+        .catch((err) => {
+          console.log(err);
+        });
 
-
-// 코드 수정 시도
-// const createBoard = async () => {
-//   await axios.post(
-//     `https://k7d204.p.ssafy.io/api/board`,
-//     { badge: "visitTerrain" },
-//     {
-//       headers: {
-//         Authorization: `Bearer ${accessToken}`,
-//       },
-//     },
-//   );
-// };
-// createBoard()
-
-
+      // 코드 수정 시도
+      // const createBoard = async () => {
+      //   await axios.post(
+      //     `https://k7d204.p.ssafy.io/api/board`,
+      //     { badge: "visitTerrain" },
+      //     {
+      //       headers: {
+      //         Authorization: `Bearer ${accessToken}`,
+      //       },
+      //     },
+      //   );
+      // };
+      // createBoard()
 
       // API로 내용, 이미지 저장하기(backend와의 API 상)
       let info = {
@@ -234,6 +223,7 @@ const BoardHome = ({ quitBoard }) => {
         src='/assets/icons/cancel.png'
         onClick={quitBoard}
         className='quitBoard'
+        alt='NOIMAGE'
       ></img>
       <div
         style={{
