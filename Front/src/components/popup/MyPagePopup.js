@@ -5,8 +5,21 @@ import { checkNPClist } from "../../api/mainApi.js";
 import "../css/MyPagePopup.css";
 import Tooltip from "@mui/material/Tooltip";
 import Swal from "sweetalert2";
+import { touchEffect } from "../main/PopupButton.js";
 
 function MyPagePopup(props) {
+  // 끄기
+  const quitMyPage = () => {
+    const MyPagePop = document.getElementById("myPage");
+    MyPagePop.style.display = "none";
+    setDogamShow(false);
+    setCategoryShow(false);
+    setSelectCharacterShow(false);
+    setCategory("plant");
+    setBadgeShow(false);
+    touchEffect.play();
+  };
+
   // 로그아웃 시 메인으로 이동
   const navigate = useNavigate();
 
@@ -215,7 +228,6 @@ function MyPagePopup(props) {
           }}
           onClick={() => {
             setCharacter();
-            setSelectCharacterShow(false);
             setSelectCharacterShow(false);
           }}
         >
@@ -781,6 +793,14 @@ function MyPagePopup(props) {
           </div>
         </div>
       </div>
+      <img
+        src='/assets/icons/cancel.png'
+        className='quitMyPage'
+        onClick={() => {
+          quitMyPage();
+        }}
+        alt='EMPTY'
+      ></img>
       <div
         style={{
           position: "absolute",

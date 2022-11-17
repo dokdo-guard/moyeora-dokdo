@@ -39,7 +39,6 @@ const gangchiLine = [
 
 function TutorialGangchi() {
   const [lineNum, setLineNum] = useState(0);
-  const [charNum, setCharNum] = useState(0);
   const accessToken = sessionStorage.getItem("accessToken");
   useEffect(() => {
     // console.log("useEffect in TutorialGanchi");
@@ -50,7 +49,6 @@ function TutorialGangchi() {
     }
   }, []);
   const nextLine = () => {
-    setCharNum(gangchiLine[lineNum].line.length);
     if (lineNum + 1 > 9) {
       return;
     } else {

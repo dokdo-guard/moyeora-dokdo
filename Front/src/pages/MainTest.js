@@ -56,7 +56,7 @@ import {
   mapPopup,
 } from "../components/main/PopupButton.js";
 import { NPC } from "../components/glTF/NPC";
-import { Building} from '../components/glTF/Building'
+import { Building } from "../components/glTF/Building";
 
 import { Vector3 } from "three";
 import { checkNPC } from "../api/mainApi.js";
@@ -436,9 +436,7 @@ function MainTest() {
     x: -42,
     y: 0.3,
     z: -40,
-  })
-
-
+  });
 
   //#endregion
 
@@ -696,8 +694,6 @@ function MainTest() {
       // let destinationNPCPoint = new Vector3(item.point.x, 0.3, item.point.z);
       // 강치.moveTo(destinationNPCPoint);
 
-
-
       // console.log("로그 ",item.point.x+" x값 "+item.point.z + "y값 ");
 
       destinationPoint = new Vector3(item.point.x, 0.3, item.point.z);
@@ -942,9 +938,9 @@ function MainTest() {
       player.moving = false;
       popupSound.play();
     }
-    console.log(item)
-    if (item.object.name.includes('land_490')) {
-      const gamePop = document.getElementById('gamePopup')
+    console.log(item);
+    if (item.object.name.includes("land_490")) {
+      const gamePop = document.getElementById("gamePopup");
       gamePop.addEventListener("mouseup", () => {
         isPressed = false;
       });
@@ -961,7 +957,7 @@ function MainTest() {
     TerrianPop.style.display = "none";
     // setPopUp(!popUp);
     popUp = !popUp;
-    touchEffect.play()
+    touchEffect.play();
   };
 
   function setSize() {
@@ -1140,18 +1136,17 @@ function MainTest() {
     src: ["/assets/audio/dokdo.mp3"],
     volume: 1.5,
     // autoplay: true,
-    loop : true,
+    loop: true,
     // onend: () => {},
   });
-  useEffect(()=> {
-    dokdoSound.play()
-  },[])
+  useEffect(() => {
+    dokdoSound.play();
+  }, []);
 
   return (
     <>
       {isLoaded ? (
         <div className='mainPage'>
-
           {/* 맨 처음 강치의 튜토리얼 소개 페이지 */}
           <TutorialGangchi></TutorialGangchi>
           {/* 팝업 컴포넌트들 */}
@@ -1191,14 +1186,6 @@ function MainTest() {
             My Page
           </div>
           <div id='myPage' style={{ display: "none" }}>
-            <img
-              src='/assets/icons/cancel.png'
-              className='quitMyPage'
-              onClick={() => {
-                quitMyPage();
-              }}
-              alt='EMPTY'
-            ></img>
             <MyPagePopup
               changeSojung={changeSojung}
               changeSiryeong={changeSiryeong}
@@ -1210,9 +1197,8 @@ function MainTest() {
             ></MyPagePopup>
           </div>
 
-
           {/*  게임 팝업창 */}
-          <div id='gamePopup' style={{display:'none'}}>
+          <div id='gamePopup' style={{ display: "none" }}>
             <GamePopup></GamePopup>
           </div>
 
