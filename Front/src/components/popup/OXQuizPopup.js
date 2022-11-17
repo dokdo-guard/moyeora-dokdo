@@ -208,9 +208,17 @@ function OXQuizPopup() {
           className='QuizTitle'
           style={{ marginTop: "-10px 0 10px", fontSize: "70px" }}
         >
-          Score
+          점수
           {answerCorrect}
         </div>
+        {quizNum === answerCorrect ? (
+          <div
+            className='QuizTitle'
+            style={{ marginTop: "-10px 0 10px", fontSize: "70px" }}
+          >
+            축하합니다! 모든 문제를 맞추셨습니다
+          </div>
+        ) : null}
         <div>
           {/* 처음으로 돌아가기 버튼 */}
           <button
@@ -229,21 +237,11 @@ function OXQuizPopup() {
             <button
               className='endQuizButton2'
               onClick={() => {
-                Swal.fire({
-                  title:
-                    sessionStorage.getItem("name").slice(0, 3) +
-                    "님 점수를 등록하시겠습니까?",
-                  showDenyButton: true,
-                  confirmButtonText: "네",
-                  denyButtonText: "아니요",
-                }).then((result) => {
-                  if (result.isConfirmed) {
-                    setQuizResult(quizNum);
-                  }
-                });
+                setQuizResult(quizNum);
+                quitPopup();
               }}
             >
-              점수 등록
+              종료하기
             </button>
           ) : null}
         </div>
