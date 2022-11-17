@@ -39,7 +39,6 @@ const gangchiLine = [
 
 function TutorialGangchi() {
   const [lineNum, setLineNum] = useState(0);
-  const [charNum, setCharNum] = useState(0);
   const accessToken = sessionStorage.getItem("accessToken");
   useEffect(() => {
     // console.log("useEffect in TutorialGanchi");
@@ -52,7 +51,6 @@ function TutorialGangchi() {
     // }
   }, []);
   const nextLine = () => {
-    setCharNum(gangchiLine[lineNum].line.length);
     if (lineNum + 1 > 9) {
       return;
     } else {
@@ -216,15 +214,15 @@ function TutorialGangchi() {
             width: "150px",
             height: "70px",
             position: "absolute",
-            left: "210px",
-            bottom: "180px",
+            left: "220px",
+            bottom: "200px",
             borderRadius: "100px",
             backgroundColor: "lightgray",
             display: "flex",
             justifyContent: "center",
             alignItems: "center",
             fontWeight: "700",
-            fontSize: "36px",
+            fontSize: "33px",
           }}
         >
           강치
@@ -261,7 +259,6 @@ function TutorialGangchi() {
         }}
       >
         {lineNum === 9 ? (
-          <div>
             <div
               className='LineENDButton'
               onClick={() => {
@@ -271,7 +268,6 @@ function TutorialGangchi() {
             >
               시작하기!
             </div>
-          </div>
         ) : (
           <div>
             <div
