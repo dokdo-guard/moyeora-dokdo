@@ -1,7 +1,6 @@
 import { useContext, useEffect, useState, useRef } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import BoardItem from "../components/board/BoardItem";
-import { createBoard } from "../api/board.js";
 import "../../src/components/css/Board.css";
 import axios from "axios";
 
@@ -28,7 +27,8 @@ const BoardHome = ({ quitBoard }) => {
     const encodeFileToBase64 = (fileBlob) => {
       const reader = new FileReader();
       reader.readAsDataURL(fileBlob);
-
+      console.log("fileBlob name");
+      console.log(fileBlob.name);
       setImage_url(fileBlob.name);
       return new Promise((resolve) => {
         reader.onload = () => {
@@ -70,9 +70,9 @@ const BoardHome = ({ quitBoard }) => {
       promise
         .then(function () {
           // 이미지 업로드 성공
-          window.setTimeout(function () {
-            window.location.reload();
-          }, 2000);
+          // window.setTimeout(function () {
+          //   window.location.reload();
+          // }, 2000);
           console.log("성공!");
         })
         .catch(function (err) {
@@ -84,7 +84,7 @@ const BoardHome = ({ quitBoard }) => {
       // API로 내용, 이미지 저장하기(backend와의 API 상)
       let info = {
         content: content,
-        img_url: image_url,
+        image_url: image_url,
       };
 
       const createBoard = async (info) => {
