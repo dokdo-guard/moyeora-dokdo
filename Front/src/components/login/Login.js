@@ -11,20 +11,9 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
 import Slide from "@mui/material/Slide";
 import HelpOutlineIcon from "@mui/icons-material/HelpOutline";
-import Icon from "@mui/material/Icon";
-const style = {
-  position: "absolute",
-  top: "50%",
-  left: "50%",
-  transform: "translate(-50%, -50%)",
-  width: 400,
-  bgcolor: "background.paper",
-  border: "2px solid #000",
-  boxShadow: 24,
-  pt: 2,
-  px: 4,
-  pb: 3,
-};
+import Swal from "sweetalert2";
+import withReactContent from "sweetalert2-react-content";
+
 const Transition = forwardRef(function Transition(props, ref) {
   return <Slide direction='up' ref={ref} {...props} />;
 });
@@ -65,18 +54,31 @@ function Login(props) {
           aria-describedby='alert-dialog-slide-description'
         >
           <DialogTitle>
-            <div>{"모여봐요 우리땅 독도는 어떤 사이트인가요?"}</div>
+            <div style={{ fontWeight: "700" }}>
+              <h2>{"모여봐요 우리땅 독도는 어떤 사이트인가요?"}</h2>
+            </div>
           </DialogTitle>
           <DialogContent>
-            <div style={{ fontWeight: "300" }}>
+            <div style={{ fontWeight: "300", fontSize: "20px" }}>
               모여봐요 우리땅 독도(모우독)은 우리 땅 독도를 다양한 컨텐츠로
-              알아갈 수 있는 웹서비스입니다. 캐릭터를 움직여 서도, 동도를 오가며
-              다양한 컨텐츠를 즐기며 독도에 대해 더 깊이 알아갈 수 있는 시간을
-              가져봐요!
+              알아갈 수 있는 웹서비스입니다. <br />
+              캐릭터를 움직여 서도, 동도를 오가며 다양한 컨텐츠를 즐기며 독도에
+              대해 더 깊이 알아갈 수 있는 시간을 가져봐요!
             </div>
           </DialogContent>
           <DialogActions>
-            <button onClick={handleClose}>넵 ! 잘 알겠어요</button>
+            <button
+              onClick={handleClose}
+              style={{
+                borderRadius: "10px",
+                backgroundColor: "#ffce8f",
+                boxShadow: "3px 3px 10px lightgray",
+                border: "none",
+                padding: "10px",
+              }}
+            >
+              넵 ! 잘 알겠어요
+            </button>
           </DialogActions>
         </Dialog>
         <div className='LoginTitleWrapper'>
@@ -135,15 +137,25 @@ function Login(props) {
 }
 
 const SocialLogin = (props) => {
+  const MySwal = withReactContent(Swal);
   return (
     <div className='socialLogin'>
       <a className='' href={GOOGLE_AUTH_URL}>
         <img src='/assets/icons/google-logo.png' alt='Google' /> Log in with
         Google
       </a>
-      <a className='' href={NAVER_AUTH_URL}>
+      <p
+        className=''
+        onClick={() => {
+          MySwal.fire({
+            title: <h3>서비스 준비중입니다.</h3>,
+            icon: "error",
+            html: <p>죄송합니다. 빠른 시일 내에 정상화 하겠습니다.</p>,
+          });
+        }}
+      >
         <img src='/assets/icons/naver-logo.png' alt='Naver' /> Log in with Naver
-      </a>
+      </p>
       <a className='' href={KAKAO_AUTH_URL}>
         <img src='/assets/icons/kakao-logo.png' alt='Kakao' /> Log in with Kakao
       </a>

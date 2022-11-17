@@ -11,7 +11,7 @@
   background-repeat: no-repeat;
 }
 
-.LoginTitleWrapper{
+.LoginTitleWrapper {
   margin-top: 40px;
 }
 
@@ -37,6 +37,20 @@
 }
 
 .socialLogin a {
+  cursor: pointer;
+  display: block;
+  width: 300px;
+  margin: 8px 0 4px;
+  text-decoration: none;
+  color: black;
+  box-shadow: 0px 0px 15px lightgrey;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: box-shadow 0.3s;
+}
+.socialLogin > p {
   cursor: pointer;
   display: block;
   width: 300px;
@@ -81,7 +95,7 @@
   background-color: white;
 }
 
-.socialLogin a:nth-child(2) {
+.socialLogin > p {
   background-color: #03c75a;
 }
 
@@ -90,6 +104,10 @@
 }
 
 .socialLogin a img {
+  width: 50px;
+  border-radius: 25%;
+}
+.socialLogin p img {
   width: 50px;
   border-radius: 25%;
 }
