@@ -1,7 +1,7 @@
 export const API_BASE_URL = "https://k7d204.p.ssafy.io/api/oauth2/authorize/";
 
-// export const OAUTH2_REDIRECT_URI = "http://localhost:3000/oauth/redirect";
-export const OAUTH2_REDIRECT_URI = "https://k7d204.p.ssafy.io/oauth/redirect";
+export const OAUTH2_REDIRECT_URI = "http://localhost:3000/oauth/redirect";
+// export const OAUTH2_REDIRECT_URI = "https://k7d204.p.ssafy.io/oauth/redirect";
 
 export const GOOGLE_AUTH_URL =
   API_BASE_URL + "google?redirect_uri=" + OAUTH2_REDIRECT_URI;

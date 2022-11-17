@@ -104,7 +104,9 @@
   border-radius: 10px;
   background-color: rgb(114, 199, 131);
   cursor: pointer;
-  margin-left: 10px;
+  margin-left: 35vw;
+  margin-top: 3vh;
+  margin-bottom: 3vh;
   height: 50px;
   box-shadow: 1px 1px 20px lightgray;
 }
