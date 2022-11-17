@@ -180,15 +180,15 @@ function TutorialGangchi() {
             width: "150px",
             height: "70px",
             position: "absolute",
-            left: "210px",
-            bottom: "180px",
+            left: "220px",
+            bottom: "200px",
             borderRadius: "100px",
             backgroundColor: "lightgray",
             display: "flex",
             justifyContent: "center",
             alignItems: "center",
             fontWeight: "700",
-            fontSize: "36px",
+            fontSize: "33px",
           }}
         >
           강치
@@ -225,7 +225,6 @@ function TutorialGangchi() {
         }}
       >
         {lineNum === 8 ? (
-          <div>
             <div
               className='LineENDButton'
               onClick={() => {
@@ -235,7 +234,6 @@ function TutorialGangchi() {
             >
               시작하기!
             </div>
-          </div>
         ) : (
           <div>
             <div
