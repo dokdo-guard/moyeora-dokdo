@@ -942,7 +942,6 @@ function MainTest() {
       player.moving = false;
       popupSound.play();
     }
-    console.log(item)
     if (item.object.name.includes('land_490')) {
       const gamePop = document.getElementById('gamePopup')
       gamePop.addEventListener("mouseup", () => {
