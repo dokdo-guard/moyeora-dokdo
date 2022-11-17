@@ -106,6 +106,9 @@
   border-radius: 10px;
   background-color: rgb(114, 199, 131);
   cursor: pointer;
+  margin-left: 35vw;
+  margin-top: 3vh;
+  margin-bottom: 3vh;
   height: 50px;
   box-shadow: 1px 1px 20px lightgray;
 }
@@ -205,38 +208,32 @@
 }
 
 /* 아이템 개별 */
-.uploadedImage {
-}
-
 figure.snip1332 {
   position: relative;
-  overflow: hidden;
-  margin: 12px;
-  padding: 20px;
+  overflow: auto;
+  margin: 10px;
   width: 350px;
   height: 200px;
-  /* text-align: left; */
   background-color: #ffffff;
   font-size: 25px;
   -webkit-perspective: 50em;
-  /* perspective: 50em; */
   border-radius: 15px;
   display: flex;
   justify-content: center;
   align-items: center;
   box-shadow: 5px 5px 5px grey;
 }
+
+figure.snip1332::-webkit-scrollbar {
+  display: none;
+}
+
 figure.snip1332 * {
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
-  -webkit-transition: all 0.6s ease;
-  transition: all 0.6s ease;
 }
 figure.snip1332 figcaption {
   max-width: 100%;
-  -webkit-transition-delay: 0.2s;
-  /* transition-delay: 0.2s; */
-  backface-visibility: hidden;
 }
 figure.snip1332 .img {
   position: absolute;
@@ -252,6 +249,8 @@ figure.snip1332 .img {
 
 figure.snip1332 img {
   height: 200px;
+  display: flex;
+  justify-content: center;
 }
 
 figure.snip1332 p {
@@ -260,20 +259,4 @@ figure.snip1332 p {
   font-weight: 500;
   margin: 0 0 15px;
   color: black;
-}
-
-figure.snip1332:hover figcaption {
-  -webkit-transform: rotateY(-180deg);
-  transform: rotateY(-180deg);
-  opacity: 0;
-  -webkit-transition-delay: 0;
-  transition-delay: 0;
-}
-
-figure.snip1332:hover .img {
-  -webkit-transform: rotateY(0deg) translate(0, -50%);
-  transform: rotateY(0deg) translate(0, -50%);
-  opacity: 1;
-  -webkit-transition-delay: 0.35s;
-  transition-delay: 0.35s;
 }

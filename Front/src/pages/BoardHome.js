@@ -80,6 +80,23 @@ const BoardHome = ({ quitBoard }) => {
         },
       );
 
+
+// 코드 수정 시도
+// const createBoard = async () => {
+//   await axios.post(
+//     `https://k7d204.p.ssafy.io/api/board`,
+//     { badge: "visitTerrain" },
+//     {
+//       headers: {
+//         Authorization: `Bearer ${accessToken}`,
+//       },
+//     },
+//   );
+// };
+// createBoard()
+
+
+
       // API로 내용, 이미지 저장하기(backend와의 API 상)
       let info = {
         content,
@@ -193,7 +210,7 @@ const BoardHome = ({ quitBoard }) => {
         </button>
 
         {boardList.map((it) => (
-          <div style={{ marginLeft: "7%" }}>
+          <div style={{ marginLeft: "6vw" }}>
             <BoardItem key={it.id} {...it} className='boardItem'></BoardItem>
           </div>
         ))}
@@ -203,7 +220,7 @@ const BoardHome = ({ quitBoard }) => {
 
   return (
     <div>
-      {page ? (
+      {!page ? (
         <>
           <BoardList></BoardList>
         </>

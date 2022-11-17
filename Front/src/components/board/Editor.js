@@ -68,20 +68,37 @@ const Editor = ({ originData }) => {
       }
     );
 
-    // API로 내용, 이미지 저장하기(backend와의 API 상)
-    let info = {
-      content,
-      image_url,
-    };
 
-    createBoard(info)
-      .then((res) => {})
-      .catch((err) => {
-        console.log(err);
-      });
+// 코드 수정 시도
+const createBoard = async () => {
+  await axios.post(
+    `https://k7d204.p.ssafy.io/api/board`,
+    { info : {
+      content, image_url
+    } },
+    {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    },
+  );
+};
+createBoard()
+
+
+    // API로 내용, 이미지 저장하기(backend와의 API 상)
+    // let info = {
+    //   content,
+    //   image_url,
+    // };
+
+    // createBoard(info)
+    //   .then((res) => {})
+    //   .catch((err) => {
+    //     console.log(err);
+    //   });
   };
 
-  console.log(file);
 
   return (
     <div className="editor">
