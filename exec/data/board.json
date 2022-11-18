@@ -1,0 +1,397 @@
+[{
+  "_id": {
+    "$oid": "6375820059f387268b58fb7f"
+  },
+  "writer": "구미_2반_박소정",
+  "content": "우와 독도에 대해 잘 알 수 있었던 좋은 기회이자 시간이었습니다!! 앞으로도 모우독 많이 이용하겠습니다 ㅎㅎ 파이팅!!!",
+  "image_url": "",
+  "created_at": "2022/11/17",
+  "_class": "com.ssafy.dokdo.Entity.Board"
+},{
+  "_id": {
+    "$oid": "6375825e59f387268b58fb80"
+  },
+  "writer": "구미_2반_박소정",
+  "content": "우와 진짜 유익한 시간이었습니다 앞으로도 모.우.독 이용 많이 하겠습니다!! 모우독 파이팅!! 독도는 우리땅~",
+  "image_url": "WIFI사용법.jpg",
+  "created_at": "2022/11/17",
+  "_class": "com.ssafy.dokdo.Entity.Board"
+},{
+  "_id": {
+    "$oid": "6375829359f387268b58fb81"
+  },
+  "writer": "구미_2반_박소정",
+  "content": "독도는 우리 땅입니다! 독도 파이팅~",
+  "image_url": "",
+  "created_at": "2022/11/17",
+  "_class": "com.ssafy.dokdo.Entity.Board"
+},{
+  "_id": {
+    "$oid": "6375878f59f387268b58fb85"
+  },
+  "writer": "구미_2반_박소정",
+  "content": "아기자기하고 이뻐요!",
+  "image_url": "",
+  "created_at": "2022/11/17",
+  "_class": "com.ssafy.dokdo.Entity.Board"
+},{
+  "_id": {
+    "$oid": "63758f8259f387268b58fb86"
+  },
+  "writer": "구미_2반_박소정",
+  "content": "너무 아기자기하고 귀여워용\n독도수비대 화이팅 독도 화이팅!!\n독도는 우리땅",
+  "image_url": "",
+  "created_at": "2022/11/17",
+  "_class": "com.ssafy.dokdo.Entity.Board"
+},{
+  "_id": {
+    "$oid": "6375945c59f387268b58fb87"
+  },
+  "writer": "구미_2반_박소정",
+  "content": "캐릭터가 너무 귀여워요~~!!!!!!!!!!!",
+  "image_url": "",
+  "created_at": "2022/11/17",
+  "_class": "com.ssafy.dokdo.Entity.Board"
+},{
+  "_id": {
+    "$oid": "637594de59f387268b58fb88"
+  },
+  "writer": "구미_2반_박소정",
+  "content": "히히",
+  "image_url": "screencapture-3072x1508 (3).png",
+  "created_at": "2022/11/17",
+  "_class": "com.ssafy.dokdo.Entity.Board"
+},{
+  "_id": {
+    "$oid": "6375990db5e47a0a853874a4"
+  },
+  "writer": "구미_2반_박소정",
+  "content": "게임 재밌습니다!",
+  "image_url": "WIFI사용법.jpg",
+  "created_at": "2022/11/17",
+  "_class": "com.ssafy.dokdo.Entity.Board"
+},{
+  "_id": {
+    "$oid": "6375aa9cdb05d121f16d6888"
+  },
+  "writer": "구미_2반_박소정",
+  "content": "독도는 우리땅!!!",
+  "image_url": "",
+  "created_at": "2022/11/17",
+  "_class": "com.ssafy.dokdo.Entity.Board"
+},{
+  "_id": {
+    "$oid": "6375b3787b2abb01448ad7d2"
+  },
+  "writer": "구미_2반_박소정",
+  "content": "키키",
+  "image_url": "",
+  "created_at": "2022/11/17",
+  "_class": "com.ssafy.dokdo.Entity.Board"
+},{
+  "_id": {
+    "$oid": "6375b3e27b2abb01448ad7d3"
+  },
+  "writer": "구미_2반_박소정",
+  "content": "히히히",
+  "image_url": "",
+  "created_at": "2022/11/17",
+  "_class": "com.ssafy.dokdo.Entity.Board"
+},{
+  "_id": {
+    "$oid": "6375b4037b2abb01448ad7d4"
+  },
+  "writer": "구미_2반_박소정",
+  "content": "모우독 재밌다!!!!",
+  "image_url": "",
+  "created_at": "2022/11/17",
+  "_class": "com.ssafy.dokdo.Entity.Board"
+},{
+  "_id": {
+    "$oid": "6375b5e07b2abb01448ad7d5"
+  },
+  "writer": "구미_2반_박소정",
+  "created_at": "2022/11/17",
+  "_class": "com.ssafy.dokdo.Entity.Board"
+},{
+  "_id": {
+    "$oid": "6375b65f7b2abb01448ad7d6"
+  },
+  "writer": "구미_2반_박소정",
+  "created_at": "2022/11/17",
+  "_class": "com.ssafy.dokdo.Entity.Board"
+},{
+  "_id": {
+    "$oid": "6375c7407bf65a03dbaee3ba"
+  },
+  "writer": "구미_2반_박소정",
+  "created_at": "2022/11/17",
+  "_class": "com.ssafy.dokdo.Entity.Board"
+},{
+  "_id": {
+    "$oid": "6375c79a7bf65a03dbaee3bb"
+  },
+  "writer": "구미_2반_박소정",
+  "created_at": "2022/11/17",
+  "_class": "com.ssafy.dokdo.Entity.Board"
+},{
+  "_id": {
+    "$oid": "6375c7a77bf65a03dbaee3bc"
+  },
+  "writer": "구미_2반_박소정",
+  "created_at": "2022/11/17",
+  "_class": "com.ssafy.dokdo.Entity.Board"
+},{
+  "_id": {
+    "$oid": "6375c7bf7bf65a03dbaee3bd"
+  },
+  "writer": "구미_2반_박소정",
+  "created_at": "2022/11/17",
+  "_class": "com.ssafy.dokdo.Entity.Board"
+},{
+  "_id": {
+    "$oid": "6375c7dc7bf65a03dbaee3be"
+  },
+  "writer": "구미_2반_박소정",
+  "created_at": "2022/11/17",
+  "_class": "com.ssafy.dokdo.Entity.Board"
+},{
+  "_id": {
+    "$oid": "6375cadf7bf65a03dbaee3bf"
+  },
+  "writer": "구미_2반_박소정",
+  "created_at": "2022/11/17",
+  "_class": "com.ssafy.dokdo.Entity.Board"
+},{
+  "_id": {
+    "$oid": "6375cd257bf65a03dbaee3c0"
+  },
+  "writer": "임채현",
+  "content": "TEST",
+  "created_at": "2022/11/17",
+  "_class": "com.ssafy.dokdo.Entity.Board"
+},{
+  "_id": {
+    "$oid": "6375d08e7bf65a03dbaee3c1"
+  },
+  "writer": "임채현",
+  "content": "cvfgfsdgdv",
+  "created_at": "2022/11/17",
+  "_class": "com.ssafy.dokdo.Entity.Board"
+},{
+  "_id": {
+    "$oid": "6375d0c77bf65a03dbaee3c2"
+  },
+  "writer": "임채현",
+  "content": "fasddasfafsd",
+  "created_at": "2022/11/17",
+  "_class": "com.ssafy.dokdo.Entity.Board"
+},{
+  "_id": {
+    "$oid": "6375d0f47bf65a03dbaee3c3"
+  },
+  "writer": "임채현",
+  "content": ";lmnbnm,kjhghjk",
+  "created_at": "2022/11/17",
+  "_class": "com.ssafy.dokdo.Entity.Board"
+},{
+  "_id": {
+    "$oid": "6375d36f7bf65a03dbaee3c4"
+  },
+  "writer": "임채현",
+  "content": "affasdadsfadsfasdf",
+  "created_at": "2022/11/17",
+  "_class": "com.ssafy.dokdo.Entity.Board"
+},{
+  "_id": {
+    "$oid": "6375d6187bf65a03dbaee3c5"
+  },
+  "writer": "최영진",
+  "content": "독도최고!",
+  "image_url": "로고.jpg",
+  "created_at": "2022/11/17",
+  "_class": "com.ssafy.dokdo.Entity.Board"
+},{
+  "_id": {
+    "$oid": "6375d77f7bf65a03dbaee3c6"
+  },
+  "writer": "임채현",
+  "content": "asdf",
+  "created_at": "2022/11/17",
+  "_class": "com.ssafy.dokdo.Entity.Board"
+},{
+  "_id": {
+    "$oid": "6375db457bf65a03dbaee3c7"
+  },
+  "writer": "임채현",
+  "content": "새 글 테스트 1",
+  "created_at": "2022/11/17",
+  "_class": "com.ssafy.dokdo.Entity.Board"
+},{
+  "_id": {
+    "$oid": "6375db4f7bf65a03dbaee3c8"
+  },
+  "writer": "임채현",
+  "content": "이미지 업로드 테스트",
+  "created_at": "2022/11/17",
+  "_class": "com.ssafy.dokdo.Entity.Board"
+},{
+  "_id": {
+    "$oid": "6375dbfd7bf65a03dbaee3c9"
+  },
+  "writer": "임채현",
+  "content": "ㅇ미ㅣ지 업롣를은두루루루루룰",
+  "created_at": "2022/11/17",
+  "_class": "com.ssafy.dokdo.Entity.Board"
+},{
+  "_id": {
+    "$oid": "6375dc487bf65a03dbaee3ca"
+  },
+  "writer": "임채현",
+  "content": "123456uiop[",
+  "created_at": "2022/11/17",
+  "_class": "com.ssafy.dokdo.Entity.Board"
+},{
+  "_id": {
+    "$oid": "6375ddd7cf0d564f5be6d4cf"
+  },
+  "writer": "임채현",
+  "content": "efasd",
+  "created_at": "2022/11/17",
+  "_class": "com.ssafy.dokdo.Entity.Board"
+},{
+  "_id": {
+    "$oid": "6375ddfbcf0d564f5be6d4d0"
+  },
+  "writer": "임채현",
+  "content": "asfdaDASFDGSWASDFGWERDFGWERF",
+  "image_url": "Background.jpg",
+  "created_at": "2022/11/17",
+  "_class": "com.ssafy.dokdo.Entity.Board"
+},{
+  "_id": {
+    "$oid": "6375df0fcf0d564f5be6d4d1"
+  },
+  "writer": "임채현",
+  "content": "제발 ~~ PLEASE ~~~~~~~~~~~~~~~~~~~~~~~`",
+  "image_url": "Background.jpg",
+  "created_at": "2022/11/17",
+  "_class": "com.ssafy.dokdo.Entity.Board"
+},{
+  "_id": {
+    "$oid": "6375df8bcf0d564f5be6d4d2"
+  },
+  "writer": "임채현",
+  "content": "PLEASE PLEASE PLEASE PLEASE PLEASE PLEASE PLEASE PLEASE PLEASE PLEASE PLEASE PLEASE PLEASE PLEASE PLEASE PLEASE PLEASE PLEASE PLEASE PLEASE PLEASE ",
+  "image_url": "다운로드.jpg",
+  "created_at": "2022/11/17",
+  "_class": "com.ssafy.dokdo.Entity.Board"
+},{
+  "_id": {
+    "$oid": "6375dfaacf0d564f5be6d4d3"
+  },
+  "writer": "임채현",
+  "content": "다시한번~",
+  "image_url": "다운로드.jpg",
+  "created_at": "2022/11/17",
+  "_class": "com.ssafy.dokdo.Entity.Board"
+},{
+  "_id": {
+    "$oid": "6375dfcbcf0d564f5be6d4d4"
+  },
+  "writer": "임채현",
+  "content": "ㅅㄷㅅㄷㄴㅅ",
+  "image_url": "Background.jpg",
+  "created_at": "2022/11/17",
+  "_class": "com.ssafy.dokdo.Entity.Board"
+},{
+  "_id": {
+    "$oid": "6375e031cf0d564f5be6d4d5"
+  },
+  "writer": "임채현",
+  "content": "ㄴㄷㅅ",
+  "image_url": "Background.jpg",
+  "created_at": "2022/11/17",
+  "_class": "com.ssafy.dokdo.Entity.Board"
+},{
+  "_id": {
+    "$oid": "6375e05dcf0d564f5be6d4d6"
+  },
+  "writer": "임채현",
+  "content": "새로운 글",
+  "image_url": "This setup has more wood than you can shake a stick at [Setups].jpg",
+  "created_at": "2022/11/17",
+  "_class": "com.ssafy.dokdo.Entity.Board"
+},{
+  "_id": {
+    "$oid": "6375edc4c56ab13a3f494a2b"
+  },
+  "writer": "임채현",
+  "content": "마지막 테스트 입니다.",
+  "image_url": "earnPlant.png",
+  "created_at": "2022/11/17",
+  "_class": "com.ssafy.dokdo.Entity.Board"
+},{
+  "_id": {
+    "$oid": "6375f0c35f96231b3a7722e0"
+  },
+  "writer": "임채현",
+  "content": "진짜마지막",
+  "image_url": "visitEco.png",
+  "created_at": "2022/11/17",
+  "_class": "com.ssafy.dokdo.Entity.Board"
+},{
+  "_id": {
+    "$oid": "6375f38b5f96231b3a7722e1"
+  },
+  "writer": "최영진",
+  "content": "독도좋아",
+  "image_url": "로고.jpg",
+  "created_at": "2022/11/17",
+  "_class": "com.ssafy.dokdo.Entity.Board"
+},{
+  "_id": {
+    "$oid": "637645b65f96231b3a7722e2"
+  },
+  "writer": "박경열",
+  "content": "왔다갑니다~",
+  "image_url": "pexels-photo-666870.jpeg",
+  "created_at": "2022/11/17",
+  "_class": "com.ssafy.dokdo.Entity.Board"
+},{
+  "_id": {
+    "$oid": "637646dd5f96231b3a7722e3"
+  },
+  "writer": "Siryeong",
+  "content": "진짜 대박이에요",
+  "image_url": "",
+  "created_at": "2022/11/17",
+  "_class": "com.ssafy.dokdo.Entity.Board"
+},{
+  "_id": {
+    "$oid": "6376470e5f96231b3a7722e4"
+  },
+  "writer": "Siryeong",
+  "content": "도중에 탈주해서 죄송합니다.. 진짜 결과물 너무 감동적이네요 독도방범대 짱짱! 최고!! 화이팅!!!",
+  "image_url": "",
+  "created_at": "2022/11/17",
+  "_class": "com.ssafy.dokdo.Entity.Board"
+},{
+  "_id": {
+    "$oid": "6376487a5f96231b3a7722e5"
+  },
+  "writer": "Siryeong",
+  "content": "얏호~",
+  "image_url": "KakaoTalk_20221117_234217964.jpg",
+  "created_at": "2022/11/17",
+  "_class": "com.ssafy.dokdo.Entity.Board"
+},{
+  "_id": {
+    "$oid": "637648a45f96231b3a7722e6"
+  },
+  "writer": "Siryeong",
+  "content": "바나나를 먹으면 나한테 바나나?",
+  "image_url": "KakaoTalk_20221116_143148144.png",
+  "created_at": "2022/11/17",
+  "_class": "com.ssafy.dokdo.Entity.Board"
+}]
