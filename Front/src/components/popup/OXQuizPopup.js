@@ -6,19 +6,52 @@ import LinearProgress, {
 } from "@mui/material/LinearProgress";
 // import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
+// import { quitPopup } from "../main/PopupButton.js";
 
 import { getQuiz } from "../../api/quizApi.js";
 import "../css/OXQuizPopup.css";
 import axios from "axios";
-import { useSelector } from "react-redux";
-
+import Swal from "sweetalert2";
+import withReactContent from "sweetalert2-react-content";
 // 문제 개수 선택 화면
 function OXQuizPopup() {
+  const quitPopup = () => {
+    const QuizPop = document.getElementById("QuizPopup");
+    // const EcoPop = document.getElementById("EcoPopup");
+    // const HistoryPop = document.getElementById("HistoryPopup");
+    QuizPop.style.display = "none";
+    // EcoPop.style.display = "none";
+    // HistoryPop.style.display = "none";
+    setQuizNum(0);
+    setQuizProgress(0);
+    setAnswerCorrect(0);
+    setSelected(false);
+    setQuizNum(0);
+  };
   const [quizNum, setQuizNum] = useState(0);
   const [selected, setSelected] = useState(false);
   const [quiz, setQuiz] = useState([]);
   const [quizProgress, setQuizProgress] = useState(0);
   const [answerCorrect, setAnswerCorrect] = useState(0);
+  const MySwal = withReactContent(Swal);
+  const [badges, setBadges] = useState([]);
+  useEffect(() => {
+    const getBadges = async () => {
+      await axios
+        .get(`https://k7d204.p.ssafy.io/api/badge`, {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        })
+        .then((res) => {
+          setBadges(res.data);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    };
+    getBadges();
+  }, [quizNum]);
   useEffect(() => {
     if (quizNum !== 0) {
       getQuiz(quizNum)
@@ -32,39 +65,98 @@ function OXQuizPopup() {
     return () => {};
   }, [quizNum]);
 
-  // useEffect(() => {
-  //   // console.log(quiz);
-  // }, [quiz]);
-  const user = useSelector((state) => state.user.value);
-  const setQuizResult = async (result) => {
-    if (
-      window.confirm(user.name.slice(0, 3) + "님 점수를 등록 하시겠습니까?")
-    ) {
-      await axios
-        .put(
-          "https://k7d204.p.ssafy.io/api/quiz",
-          {
-            quiz: result + "",
+  const quizFive = async () => {
+    if (badges.quizFive === false) {
+      await axios.post(
+        `https://k7d204.p.ssafy.io/api/badge`,
+        {
+          badge: "quizFive",
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
           },
-          {
-            headers: {
-              Authorization: `Bearer ${user.accessToken}`,
-            },
-          },
-        )
-        .then((res) => {
-          console.log(res);
-          alert("점수 등록 완료!");
-          setSelected(false);
-          setQuizNum(0);
-          setQuizProgress(0);
-          setAnswerCorrect(0);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
+        },
+      );
+      MySwal.fire({
+        title: <h3>뱃지 획득!</h3>,
+        icon: "info",
+        html: <p>퀴즈5 만점 뱃지 획득!</p>,
+      });
     }
-    // alert(result);
+  };
+  const quizTen = async () => {
+    if (badges.quizTen === false) {
+      await axios.post(
+        `https://k7d204.p.ssafy.io/api/badge`,
+        {
+          badge: "quizTen",
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        },
+      );
+      MySwal.fire({
+        title: <h3>뱃지 획득!</h3>,
+        icon: "info",
+        html: <p>퀴즈10 만점 뱃지 획득!</p>,
+      });
+    }
+  };
+  const quizFifteen = async () => {
+    if (badges.quizFifteen === false) {
+      await axios.post(
+        `https://k7d204.p.ssafy.io/api/badge`,
+        {
+          badge: "quizFifteen",
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        },
+      );
+      MySwal.fire({
+        title: <h3>뱃지 획득!</h3>,
+        icon: "info",
+        html: <p>퀴즈15 만점 뱃지 획득!</p>,
+      });
+    }
+  };
+  const accessToken = sessionStorage.getItem("accessToken");
+  const setQuizResult = async (result) => {
+    await axios
+      .put(
+        "https://k7d204.p.ssafy.io/api/quiz",
+        {
+          quiz: result + "",
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        },
+      )
+      .then((res) => {
+        setSelected(false);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+    if (quizNum === 5) {
+      quizFive();
+    }
+    if (quizNum === 10) {
+      quizTen();
+    }
+    if (quizNum === 15) {
+      quizFifteen();
+    }
+    setQuizNum(0);
+    setQuizProgress(0);
+    setAnswerCorrect(0);
   };
 
   const SelectQuizNum = () => {
@@ -111,10 +203,21 @@ function OXQuizPopup() {
   const EndQuiz = () => {
     return (
       <div>
-        <div className='QuizTitle'>
-          Score
+        <div
+          className='QuizTitle'
+          style={{ marginTop: "-10px 0 10px", fontSize: "70px" }}
+        >
+          점수
           {answerCorrect}
         </div>
+        {quizNum === answerCorrect ? (
+          <div
+            className='QuizTitle'
+            style={{ marginTop: "-10px 0 10px", fontSize: "70px" }}
+          >
+            축하합니다! 모든 문제를 맞추셨습니다
+          </div>
+        ) : null}
         <div>
           {/* 처음으로 돌아가기 버튼 */}
           <button
@@ -134,9 +237,10 @@ function OXQuizPopup() {
               className='endQuizButton2'
               onClick={() => {
                 setQuizResult(quizNum);
+                quitPopup();
               }}
             >
-              점수 등록
+              종료하기
             </button>
           ) : null}
         </div>
@@ -145,7 +249,13 @@ function OXQuizPopup() {
   };
   const correct = () => {
     setAnswerCorrect((answerCorrect) => answerCorrect + 1);
-    // alert("correct!");
+  };
+  const notCorrect = () => {
+    Swal.fire({
+      icon: "error",
+      title: "오답!",
+      text: "땡! 틀렸습니다!",
+    });
   };
 
   // Custom Progress Bar
@@ -176,9 +286,16 @@ function OXQuizPopup() {
     value: PropTypes.number.isRequired,
   };
   return (
-    <>
+    <div style={{ position: "relative" }}>
       <div className='OXQuizContainer'>
         <div className='QuizTitle'>Quiz</div>
+        <img
+          src='/assets/icons/cancel.png'
+          id='quitButton'
+          onClick={quitPopup}
+          className='quitPopup'
+          alt='NOIMAGE'
+        ></img>
         {selected ? (
           <div className='OXQuizInWrapper'>
             <div className={quizProgress < quizNum ? "notHidden" : "hidden"}>
@@ -189,17 +306,14 @@ function OXQuizPopup() {
               </div>
               <div className='QuizText'>{quiz[quizProgress]?.quizText}</div>
 
-              {/* 나중에 삭제할 것 */}
-              {/* <div>{quiz[quizProgress]?.answer.slice(0, 1)}</div>
-              <div>{answerCorrect}</div> */}
-              {/* 나중에 삭제할 것 */}
-
               <div className='QuizOX'>
                 <button
                   className='OX_O'
                   onClick={() => {
                     if (quiz[quizProgress]?.answer.slice(0, 1) === "O") {
                       correct();
+                    } else {
+                      notCorrect();
                     }
                     setQuizProgress((quizProgress) => quizProgress + 1);
                   }}
@@ -211,6 +325,8 @@ function OXQuizPopup() {
                   onClick={() => {
                     if (quiz[quizProgress]?.answer.slice(0, 1) === "X") {
                       correct();
+                    } else {
+                      notCorrect();
                     }
                     setQuizProgress((quizProgress) => quizProgress + 1);
                   }}
@@ -227,7 +343,17 @@ function OXQuizPopup() {
           <SelectQuizNum />
         )}
       </div>
-    </>
+      <div
+        style={{
+          width: "100vw",
+          height: "100vh",
+          backgroundColor: "black",
+          position: "absolute",
+          opacity: "30%",
+          zIndex: "9",
+        }}
+      ></div>
+    </div>
   );
 }
 export default OXQuizPopup;

@@ -1,8 +1,8 @@
 import * as THREE from "three";
-import * as CANNON from "cannon-es";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 import { DRACOLoader } from "three/examples/jsm/loaders/DRACOLoader";
 import gsap from "gsap";
+import { Howl } from "howler";
 
 import "../components/css/MainTest.css";
 
@@ -16,18 +16,15 @@ import TerrianPopup from "../components/popup/TerrianPopup";
 import OXQuizPopup from "../components/popup/OXQuizPopup";
 import EcoSystemPopup from "../components/popup/EcosystemPopup";
 
-import Board from "../components/board/Board.js";
-
-import Popup from "../components/mypage/selectCharacter";
-import Dictionary from "../components/mypage/dictionary.js";
-
-import Stats from "stats.js";
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
 
 import { mapReLoading } from "../components/popup/TerrianPopup";
 
-import { LoadingComponent } from "../components/index";
+import {
+  LoadingComponent,
+  MyPagePopup,
+  TutorialGangchi,
+} from "../components/index";
 
 import {
   eastFloorMesh,
@@ -54,26 +51,20 @@ import {
 import {
   clickMyPage,
   quitMyPage,
-  clickTutorial,
-  quitTutorial,
-  clickDogam,
-  quitDogam,
-  quitPopup,
-  clickChat,
-  quitChat,
-  clickBoard,
-
+  quitMinimap,
+  mapPopup,
 } from "../components/main/PopupButton.js";
 import { NPC } from "../components/glTF/NPC";
-import Tutorial from "../components/tutorial/tutorial";
-import { Vector2, Vector3 } from "three";
+import { Building } from "../components/glTF/Building";
 
-
-import { useSelector, useDispatch } from "react-redux";
+import { Vector3 } from "three";
+import { checkNPC } from "../api/mainApi.js";
 import axios from "axios";
+import NPCBubble from "../components/main/NPCbubble";
+import BoardHome from "./BoardHome";
+import GamePopup from "../components/popup/GamePopup";
 
 function MainTest() {
-
   //#region = 카메라, 빛, 렌더러, 씬
   // Renderer
   const canvas = document.querySelector("#three-canvas");
@@ -98,14 +89,18 @@ function MainTest() {
     1000,
   );
   camera.position.set(1, 5, 5);
-  camera.zoom = 0.13;
+  camera.zoom = 0.14;
   camera.updateProjectionMatrix();
 
   const ambientLight = new THREE.AmbientLight("white", 0.7);
 
   const directionalLight = new THREE.DirectionalLight("white", 0.5);
   const directionalLightOriginPosition = new THREE.Vector3(0.5, 1, 1);
-  directionalLight.position.set(directionalLightOriginPosition.x,directionalLightOriginPosition.y,directionalLightOriginPosition.z)
+  directionalLight.position.set(
+    directionalLightOriginPosition.x,
+    directionalLightOriginPosition.y,
+    directionalLightOriginPosition.z,
+  );
   directionalLight.castShadow = true;
 
   // mapSize 세팅으로 그림자 퀄리티 설정
@@ -177,16 +172,11 @@ function MainTest() {
   gltfLoader.setDRACOLoader(dracoLoader);
 
   const [isLoaded, setIsLoaded] = useState(false);
-  // 유저 캐릭터 커스텀
-  const user = useSelector((state) => state.user.value);
-  const accessToken = user.accessToken;
-  const [userCharacter, setUserCharacter] = useState(user.userCharacter);
+
   // 로딩 페이지 구현 위함
   gltfLoader.load("/assets/glTF/scene.glb", function () {
-    console.log("ISLOADED");
     setIsLoaded(true);
   });
-
 
   // 캐릭터 변경 핸들러
 
@@ -213,28 +203,6 @@ function MainTest() {
     // z : 0
   });
 
-  let users = [
-    new Player({
-      scene,
-      meshes,
-      gltfLoader,
-      modelSrc: "/assets/glTF/character/sojung.glb",
-      x: -5,
-      y: 0.3,
-      z: 0,
-    }),
-    new Player({
-      scene,
-      meshes,
-      gltfLoader,
-
-      modelSrc: "/assets/glTF/character/youngjin.glb",
-      x: 5,
-      y: 0.3,
-      z: 0,
-    }),
-  ];
-
   // 다리
   const bridge = new Bridge({
     gltfLoader,
@@ -252,7 +220,7 @@ function MainTest() {
     scene,
     modelSrc: "/assets/glTF/ecosystem.glb",
     x: 15,
-    y: -2.25,
+    y: 2.3,
     z: 12,
   });
 
@@ -261,39 +229,206 @@ function MainTest() {
     meshes,
     gltfLoader,
     modelSrc: "/assets/glTF/강치.gltf",
-    x: -10,
+    x: -7.429,
     y: 0.5,
-    z: 0,
+    z: -7.829,
+    rotation: 30.6,
+    locationXYZ: [
+      new Vector3(-7.793879982719776, 0.3, -4.335895808493318),
+      new Vector3(-15.098891290320271, 0.3, -10.189661513688627),
+      new Vector3(-33.71411221960557, 0.3, -9.995413053675362),
+      new Vector3(-7.793879982719776, 0.3, -4.335895808493318),
+    ],
+  });
+
+  const flamingo = new NPC({
+    scene,
+    meshes,
+    gltfLoader,
+    modelSrc: "/assets/glTF/Flamingo.glb",
+    x: -20.196,
+    y: 0.5,
+    z: 0.88,
+    rotation: 0,
+    locationXYZ: [
+      new Vector3(-20.78985228460327, 0.3, 0.8874650449536375),
+      new Vector3(-18.58517426468455, 0.3, 13.197882395528888),
+      new Vector3(-35.69741117173259, 0.3, 7.959017812248275),
+      new Vector3(-24.270542972450095, 0.3, 8.552153807754308),
+      new Vector3(-20.35829170537956, 0.3, 0.9435563546930748),
+    ],
+  });
+
+  const pigeon = new NPC({
+    scene,
+    meshes,
+    gltfLoader,
+    modelSrc: "/assets/glTF/Pigeon.glb",
+    x: -39.411,
+    y: 0.5,
+    z: 2.983,
+    rotation: -43.4,
+    locationXYZ: [
+      new Vector3(-39.17420285132829, 0.3, 0.26667655464337836),
+      new Vector3(-38.290934685955186, 0.3, 8.540109624188446),
+      new Vector3(-35.44825450387899, 0.3, -2.633970430629861),
+      new Vector3(-44.988343955448656, 0.3, 1.5062229992472873),
+      new Vector3(-20.35829170537956, 0.3, 0.9435563546930748),
+    ],
+  });
+
+  const seagull = new NPC({
+    scene,
+    meshes,
+    gltfLoader,
+    modelSrc: "/assets/glTF/Seagull.glb",
+    x: -19.82,
+    y: 0.5,
+    z: 20.572,
+    rotation: 0,
+    locationXYZ: [
+      new Vector3(-21.95128654903685, 0.3, 20.54887665283919),
+      new Vector3(-29.277639441537293, 0.3, 21.69096376062519),
+      new Vector3(-36.4953926360427, 0.3, 16.86397474086963),
+      new Vector3(-20.66351602551088, 0.3, 19.574843124467908),
+      new Vector3(-21.95128654903685, 0.3, 20.54887665283919),
+    ],
+  });
+
+  const 바위게 = new NPC({
+    scene,
+    meshes,
+    gltfLoader,
+    modelSrc: "/assets/glTF/바위게.glb",
+    x: -7.77,
+    y: 0.5,
+    z: 34.239,
+    rotation: 130.2,
+    locationXYZ: [
+      new Vector3(-8.662207604417027, 0.3, 37.520434937688464),
+      new Vector3(-14.444567550279341, 0.3, 44.66351500106057),
+      new Vector3(-22.758423659288347, 0.3, 41.65955859108265),
+      new Vector3(-34.139243955717454, 0.3, 41.9936272890052),
+      new Vector3(-22.758423659288347, 0.3, 41.65955859108265),
+      new Vector3(-14.444567550279341, 0.3, 44.66351500106057),
+      new Vector3(-8.662207604417027, 0.3, 37.520434937688464),
+    ],
+  });
+
+  const 독도새우 = new NPC({
+    scene,
+    meshes,
+    gltfLoader,
+    modelSrc: "/assets/glTF/독도새우.glb",
+    x: -19.18,
+    y: 0.5,
+    z: -15.894,
+    rotation: -70,
+    locationXYZ: [
+      new Vector3(-20.563688953203595, 0.3, -17.624868365657477),
+      new Vector3(-17.61426942287593, 0.3, -13.088261559308728),
+      new Vector3(-14.426756772055207, 0.3, -12.887060434304589),
+      new Vector3(-11.720082443771588, 0.3, -11.688338192772564),
+      new Vector3(-14.426756772055207, 0.3, -12.887060434304589),
+      new Vector3(-17.61426942287593, 0.3, -13.088261559308728),
+      new Vector3(-20.563688953203595, 0.3, -17.624868365657477),
+    ],
+  });
+
+  const dog = new NPC({
+    scene,
+    meshes,
+    gltfLoader,
+    modelSrc: "/assets/glTF/Dog.gltf",
+    x: -25.785,
+    y: 0.5,
+    z: -7.194,
+    rotation: 0,
+    locationXYZ: [
+      new Vector3(-25.654239782144444, 0.3, -6.570898297140369),
+      new Vector3(-39.372938533947554, 0.3, -2.1504558660221655),
+      new Vector3(-33.540259477031775, 0.3, -13.93687883852078),
+      new Vector3(-25.654239782144444, 0.3, -6.570898297140369),
+    ],
+  });
+
+  const turtle = new NPC({
+    scene,
+    meshes,
+    gltfLoader,
+    modelSrc: "/assets/glTF/Turtle.glb",
+    x: -47.657,
+    y: 0.5,
+    z: 21.398,
+    rotation: -30.6,
+    locationXYZ: [
+      new Vector3(-56.24812784828064, 0.3, 27.3565012342076),
+      new Vector3(-46.53638644943192, 0.3, 19.745347963682683),
+      new Vector3(-50.35414382846983, 0.3, 15.760699502017511),
+      new Vector3(-53.40442694720129, 0.3, 19.91941965445064),
+      new Vector3(-56.24812784828064, 0.3, 27.3565012342076),
+    ],
   });
 
   const 돌고래 = new NPC({
     scene,
     meshes,
     gltfLoader,
-    modelSrc: "/assets/glTF/돌고래.gltf",
-    x: -30,
+    modelSrc: "/assets/glTF/돌고래.glb",
+    x: -29.973,
     y: 0.2,
-    z: -40,
+    z: -40.685,
+    rotation: 12.8,
+    locationXYZ: [
+      new Vector3(-23.402348999863882, 0.3, -28.9867256675011),
+      new Vector3(-28.486057647570647, 0.3, -39.05552875320193),
+      new Vector3(-37.755218835644754, 0.3, -48.82706185499737),
+      new Vector3(-45.708307627797254, 0.3, -50.820134503513465),
+      new Vector3(-37.755218835644754, 0.3, -48.82706185499737),
+      new Vector3(-28.486057647570647, 0.3, -39.05552875320193),
+      new Vector3(-23.402348999863882, 0.3, -28.9867256675011),
+    ],
   });
 
-  const 달고기 = new NPC({
+  const 펭귄 = new NPC({
     scene,
     meshes,
     gltfLoader,
-    modelSrc: "/assets/glTF/달고기.gltf",
-    x: -50,
+    modelSrc: "/assets/glTF/Penguin.glb",
+    x: -41.336,
     y: 0.2,
-    z: 23,
+    z: -27.849,
+    rotation: -5,
+    locationXYZ: [
+      new Vector3(-44.75755492546486, 0.3, -31.241182652087332),
+      new Vector3(-42.53105005165799, 0.3, -38.23196622196069),
+      new Vector3(-45.19442414231521, 0.3, -44.57447007930944),
+      new Vector3(-38.41226096365838, 0.3, -41.775847249770585),
+      new Vector3(-39.166587486133025, 0.3, -35.55406607295245),
+      new Vector3(-31.738155854036886, 0.3, -35.734763552999226),
+      new Vector3(-44.75755492546486, 0.3, -31.241182652087332),
+    ],
   });
 
   const 게시판 = new NPC({
     scene,
     meshes,
     gltfLoader,
-    modelSrc: "/assets/glTF/Alligator.gltf",
-    x: 0,
-    y: 0.2,
-    z: 0,
+    modelSrc: "/assets/glTF/board.glb",
+    x: -28.221,
+    y: -0.6,
+    z: 14.157,
+    rotation: -20.2,
+  });
+
+  const lightHouse = new Building({
+    scene,
+    meshes,
+    gltfLoader,
+    modelSrc: "/assets/glTF/lighthouse.glb",
+    x: -42,
+    y: 0.3,
+    z: -40,
   });
 
   //#endregion
@@ -310,35 +445,67 @@ function MainTest() {
   const clock = new THREE.Clock();
 
   // fps 체크
-  const stats = new Stats();
-  document.body.append(stats.domElement);
+  // const stats = new Stats();
+  // document.body.append(stats.domElement);
 
   //#region = update 함수
   function update() {
     render();
-    stats.update();
+    // stats.update();
     const delta = clock.getDelta();
 
-    if (강치.mixer && 돌고래.mixer && 달고기.mixer) {
-      강치.mixer.update(delta);
+    if (
+      강치.mixer &&
+      돌고래.mixer &&
+      turtle.mixer &&
+      펭귄.mixer &&
+      dog.mixer &&
+      독도새우.mixer &&
+      바위게.mixer &&
+      flamingo.mixer &&
+      pigeon.mixer &&
+      seagull.mixer
+    ) {
+      // 강치.mixer.update(delta);
       강치.actions[0].play();
-      돌고래.mixer.update(delta);
+
+      // 돌고래.mixer.update(delta);
       돌고래.actions[0].play();
-      달고기.mixer.update(delta);
-      달고기.actions[0].play();
+      // turtle.mixer.update(delta);
+      turtle.actions[0].play();
+      // 펭귄.mixer.update(delta);
+      펭귄.actions[0].play();
+      // dog.mixer.update(delta);
+      dog.actions[0].play();
+      // 독도새우.mixer.update(delta);
+      독도새우.actions[0].play();
+      // 바위게.mixer.update(delta);
+      바위게.actions[0].play();
+      // flamingo.mixer.update(delta);
+      flamingo.actions[0].play();
+      // pigeon.mixer.update(delta);
+      pigeon.actions[0].play();
+      // seagull.mixer.update(delta);
+      seagull.actions[0].play();
     }
 
     if (player.modelMesh) {
       camera.lookAt(player.modelMesh.position);
       if (isPressed) {
         raycasting();
-
       }
       // player update
       player.update(delta);
-      users.forEach((user) => {
-        user.update(delta);
-      });
+      강치.update(delta);
+      dog.update(delta);
+      flamingo.update(delta);
+      pigeon.update(delta);
+      seagull.update(delta);
+      바위게.update(delta);
+      turtle.update(delta);
+      돌고래.update(delta);
+      독도새우.update(delta);
+      펭귄.update(delta);
 
       if (player.moving) {
         // 걸어가는 상태
@@ -347,8 +514,6 @@ function MainTest() {
           destinationPoint.x - player.modelMesh.position.x,
         );
 
-        player.speed = 7;
-
         camera.position.x = 1 + player.modelMesh.position.x;
         camera.position.z = 5 + player.modelMesh.position.z;
 
@@ -356,17 +521,17 @@ function MainTest() {
         if (
           (Math.abs(spotMesh1.position.x - player.modelMesh.position.x) < 1.5 &&
             Math.abs(spotMesh1.position.z - player.modelMesh.position.z) <
-            1.5) ||
+              1.5) ||
           (Math.abs(spotMesh2.position.x - player.modelMesh.position.x) < 1.5 &&
             Math.abs(spotMesh2.position.z - player.modelMesh.position.z) <
-            1.5) ||
+              1.5) ||
           (Math.abs(spotMesh3.position.x - player.modelMesh.position.x) < 1.5 &&
             Math.abs(spotMesh3.position.z - player.modelMesh.position.z) <
-            1.5) ||
+              1.5) ||
           (Math.abs(spotMesh4.position.x - player.modelMesh.position.x) < 1.5 &&
             Math.abs(spotMesh4.position.z - player.modelMesh.position.z) < 1.5)
         ) {
-          gsap.to(camera.position, { duration: 1, y: 4 });
+          gsap.to(camera.position, { duration: 1, y: 3 });
           gsap.to(QuizSignMesh.position, {
             y: 1,
             duration: 1,
@@ -387,18 +552,12 @@ function MainTest() {
             duration: 1,
             ease: "Bounce.eastOut",
           });
-          gsap.to(ecosystem.modelMesh.position, {
-            y: 2.3,
-            duration: 1,
-            ease: "Bounce.eastOut",
-          });
         } else {
           gsap.to(camera.position, { duration: 1, y: 5 });
           gsap.to(QuizSignMesh.position, { y: -4, duration: 1 });
           gsap.to(TerritorySignMesh.position, { y: -4, duration: 1 });
           gsap.to(EcoSignMesh.position, { y: -4, duration: 1 });
           gsap.to(HistorySignMesh.position, { y: -4, duration: 1 });
-          gsap.to(ecosystem.modelMesh.position, { y: -2.16, duration: 1 });
         }
       } else {
         // 서 있는 상태
@@ -414,12 +573,110 @@ function MainTest() {
   }
   //#endregion
 
+  const quitNPCbubble = () => {
+    const 강치Pop = document.getElementById("강치");
+    const penguinPop = document.getElementById("penguin");
+    const turtlePop = document.getElementById("turtle");
+    const dogPop = document.getElementById("dog");
+    const 독도새우Pop = document.getElementById("독도새우");
+    const dophinPop = document.getElementById("dolphin");
+    const 바위게Pop = document.getElementById("바위게");
+    const flamingoPop = document.getElementById("flamingo");
+    const pigeonPop = document.getElementById("pigeon");
+    const seagullPop = document.getElementById("seagull");
+    penguinPop.style.display = "none";
+    강치Pop.style.display = "none";
+    turtlePop.style.display = "none";
+    dogPop.style.display = "none";
+    dophinPop.style.display = "none";
+    바위게Pop.style.display = "none";
+    독도새우Pop.style.display = "none";
+    flamingoPop.style.display = "none";
+    pigeonPop.style.display = "none";
+    seagullPop.style.display = "none";
+  };
+
+  const touchEffect = new Howl({
+    src: ["/assets/audio/ddoing.mp3"],
+    volume: 1.5,
+  });
+  const popupSound = new Howl({
+    src: ["/assets/audio/mario.mp3"],
+    volume: 1.5,
+  });
+  const NPCSound = new Audio("/assets/audio/npc.mp3");
+
   // 마우스로 클릭
+  function moveNPCList() {
+    setInterval(function () {
+      let npc = 강치;
+      let destinationPoint = npc.locationXYZ[npc.curIdx];
+      npc.curIdx = (npc.curIdx + 1) % npc.locationXYZ.length;
+      npc.moveTo(destinationPoint);
+    }, 15000);
+    setInterval(function () {
+      let npc = dog;
+      let destinationPoint = npc.locationXYZ[npc.curIdx];
+      npc.curIdx = (npc.curIdx + 1) % npc.locationXYZ.length;
+      npc.moveTo(destinationPoint);
+    }, 18000);
+    setInterval(function () {
+      let npc = flamingo;
+      let destinationPoint = npc.locationXYZ[npc.curIdx];
+      npc.curIdx = (npc.curIdx + 1) % npc.locationXYZ.length;
+      npc.moveTo(destinationPoint);
+    }, 19000);
+    setInterval(function () {
+      let npc = pigeon;
+      let destinationPoint = npc.locationXYZ[npc.curIdx];
+      npc.curIdx = (npc.curIdx + 1) % npc.locationXYZ.length;
+      npc.moveTo(destinationPoint);
+    }, 17000);
+    setInterval(function () {
+      let npc = seagull;
+      let destinationPoint = npc.locationXYZ[npc.curIdx];
+      npc.curIdx = (npc.curIdx + 1) % npc.locationXYZ.length;
+      npc.moveTo(destinationPoint);
+    }, 13000);
+    setInterval(function () {
+      let npc = 바위게;
+      let destinationPoint = npc.locationXYZ[npc.curIdx];
+      npc.curIdx = (npc.curIdx + 1) % npc.locationXYZ.length;
+      npc.moveTo(destinationPoint);
+    }, 11000);
+    setInterval(function () {
+      let npc = turtle;
+      let destinationPoint = npc.locationXYZ[npc.curIdx];
+      npc.curIdx = (npc.curIdx + 1) % npc.locationXYZ.length;
+      npc.moveTo(destinationPoint);
+    }, 13000);
+    setInterval(function () {
+      let npc = 독도새우;
+      let destinationPoint = npc.locationXYZ[npc.curIdx];
+      npc.curIdx = (npc.curIdx + 1) % npc.locationXYZ.length;
+      npc.moveTo(destinationPoint);
+    }, 11000);
+    setInterval(function () {
+      let npc = 펭귄;
+      let destinationPoint = npc.locationXYZ[npc.curIdx];
+      npc.curIdx = (npc.curIdx + 1) % npc.locationXYZ.length;
+      npc.moveTo(destinationPoint);
+    }, 17000);
+    setInterval(function () {
+      let npc = 돌고래;
+      let destinationPoint = npc.locationXYZ[npc.curIdx];
+      npc.curIdx = (npc.curIdx + 1) % npc.locationXYZ.length;
+      npc.moveTo(destinationPoint);
+    }, 9000);
+  }
+  moveNPCList();
 
   function checkIntersects() {
     const intersects = raycaster.intersectObjects(meshes);
     const item = intersects[0];
     if (!item) return;
+    let name = item.object.name;
+    let answer = { name };
     if (
       item.object.name === "floor" ||
       "land_79030" ||
@@ -432,38 +689,163 @@ function MainTest() {
       pointerMesh.position.x = destinationPoint.x;
       pointerMesh.position.z = destinationPoint.z;
     }
-    if (
-      item.object.name === "SeaLion" ||
-      item.object.name === "Dolphin" ||
-      item.object.name === "Catfish"
-    ) {
-
+    if (item.object.name === "Dolphin") {
       player.dontMove(destinationPoint);
-      강치.onRaycasted();
-      돌고래.onRaycasted();
-      달고기.onRaycasted();
+      const dolphinPop = document.getElementById("dolphin");
+      dolphinPop.style.display = "block";
+      isPressed = false;
+      checkNPC(answer)
+        .then((res) => {})
+        .catch((err) => {
+          console.log(err);
+        });
+      NPCSound.play();
+    }
+    if (item.object.name === "SeaLion") {
+      player.dontMove(destinationPoint);
+      const 강치Pop = document.getElementById("강치");
+      강치Pop.style.display = "block";
+      isPressed = false;
+      checkNPC(answer)
+        .then((res) => {})
+        .catch((err) => {
+          console.log(err);
+        });
+      NPCSound.play();
+    }
+    if (item.object.name === "Flamingo") {
+      player.dontMove(destinationPoint);
+      const flamingoPop = document.getElementById("flamingo");
+      flamingoPop.style.display = "block";
+      checkNPC(answer)
+        .then((res) => {})
+        .catch((err) => {
+          console.log(err);
+        });
+      isPressed = false;
+      NPCSound.play();
+    }
+    if (item.object.name === "Pigeon") {
+      player.dontMove(destinationPoint);
+      const pigeonPop = document.getElementById("pigeon");
+      pigeonPop.style.display = "block";
+      isPressed = false;
+      checkNPC(answer)
+        .then((res) => {})
+        .catch((err) => {
+          console.log(err);
+        });
+      NPCSound.play();
+    }
+    if (item.object.name === "Seagull") {
+      player.dontMove(destinationPoint);
+      const seagullPop = document.getElementById("seagull");
+      seagullPop.style.display = "block";
+      isPressed = false;
+      checkNPC(answer)
+        .then((res) => {})
+        .catch((err) => {
+          console.log(err);
+        });
+      NPCSound.play();
+    }
+    if (item.object.name === "Crab") {
+      player.dontMove(destinationPoint);
+      const 바위게Pop = document.getElementById("바위게");
+      바위게Pop.style.display = "block";
+      isPressed = false;
+      checkNPC(answer)
+        .then((res) => {})
+        .catch((err) => {
+          console.log(err);
+        });
+      NPCSound.play();
+    }
+    if (item.object.name === "Prawn") {
+      player.dontMove(destinationPoint);
+      const 독도새우Pop = document.getElementById("독도새우");
+      독도새우Pop.style.display = "block";
+      isPressed = false;
+      checkNPC(answer)
+        .then((res) => {})
+        .catch((err) => {
+          console.log(err);
+        });
+      NPCSound.play();
+    }
+    if (item.object.name === "Dog") {
+      player.dontMove(destinationPoint);
+      const dogPop = document.getElementById("dog");
+      dogPop.style.display = "block";
+      isPressed = false;
+      checkNPC(answer)
+        .then((res) => {})
+        .catch((err) => {
+          console.log(err);
+        });
+      NPCSound.play();
+    }
+    if (item.object.name === "Turtle") {
+      player.dontMove(destinationPoint);
+      const turtlePop = document.getElementById("turtle");
+      turtlePop.style.display = "block";
+      isPressed = false;
+      checkNPC(answer)
+        .then((res) => {})
+        .catch((err) => {
+          console.log(err);
+        });
+      NPCSound.play();
+    }
+    if (item.object.name === "Penguin") {
+      player.dontMove(destinationPoint);
+      const penguinPop = document.getElementById("penguin");
+      penguinPop.style.display = "block";
+      isPressed = false;
+      checkNPC(answer)
+        .then((res) => {})
+        .catch((err) => {
+          console.log(err);
+        });
+      NPCSound.play();
     }
     if (item.object.name === "ocean") {
       player.moving = false;
     }
-
-
+    const accessToken = sessionStorage.getItem("accessToken");
+    // --관 입장 팻말
     if (item.object.name === "퀴즈팻말") {
       const QuizPop = document.getElementById("QuizPopup");
       QuizPop.style.display = "block";
       QuizPop.addEventListener("mouseup", () => {
         isPressed = false;
       });
-      player.moving = false
+      player.moving = false;
+      popupSound.play();
     }
-    if (item.object.name == "지질팻말") {
+    if (item.object.name === "지질팻말") {
       const TerrianPop = document.getElementById("TerrianPopup");
       TerrianPop.style.display = "block";
       TerrianPop.addEventListener("mouseup", () => {
         isPressed = false;
       });
-      mapReLoading();
+      TerrianPop.addEventListener("click", () => {
+        const visitTerrain = async () => {
+          await axios.post(
+            `https://k7d204.p.ssafy.io/api/badge`,
+            { badge: "visitTerrain" },
+            {
+              headers: {
+                Authorization: `Bearer ${accessToken}`,
+              },
+            },
+          );
+        };
+        visitTerrain();
+      });
 
+      mapReLoading();
+      popupSound.play();
       player.moving = false;
     }
     if (item.object.name === "생태팻말") {
@@ -472,7 +854,22 @@ function MainTest() {
       EcoPop.addEventListener("mouseup", () => {
         isPressed = false;
       });
-      player.moving = false
+      EcoPop.addEventListener("click", () => {
+        const visitEco = async () => {
+          await axios.post(
+            `https://k7d204.p.ssafy.io/api/badge`,
+            { badge: "visitBiology" },
+            {
+              headers: {
+                Authorization: `Bearer ${accessToken}`,
+              },
+            },
+          );
+        };
+        visitEco();
+      });
+      player.moving = false;
+      popupSound.play();
     }
     if (item.object.name === "역사팻말") {
       const HistoryPop = document.getElementById("HistoryPopup");
@@ -480,34 +877,40 @@ function MainTest() {
       HistoryPop.addEventListener("mouseup", () => {
         isPressed = false;
       });
-      player.moving = false
-    }
-    if (item.object.name === 'Alligator') {
-      const BoardPop = document.getElementById('board');
-      BoardPop.addEventListener("mouseup", () => {
-        isPressed = false;
+      HistoryPop.addEventListener("click", () => {
+        const visitHistory = async () => {
+          await axios.post(
+            `https://k7d204.p.ssafy.io/api/badge`,
+            { badge: "visitHistory" },
+            {
+              headers: {
+                Authorization: `Bearer ${accessToken}`,
+              },
+            },
+          );
+        };
+        visitHistory();
       });
-      BoardPop.style.display = 'block';
-      player.moving = false
-    }
 
-    if (item.object.name === "Alligator") {
+      player.moving = false;
+      popupSound.play();
+    }
+    if (item.object.name.includes("land_76002")) {
       const BoardPop = document.getElementById("board");
-      BoardPop.addEventListener("mouseup", () => {
-        isPressed = false;
-      });
+      isPressed = false;
       BoardPop.style.display = "block";
       player.moving = false;
+      popupSound.play();
     }
-    if (item.object.name === "Alligator") {
-      const BoardPop = document.getElementById("board");
-      BoardPop.addEventListener("mouseup", () => {
+    if (item.object.name.includes("land_490")) {
+      const gamePop = document.getElementById("gamePopup");
+      gamePop.addEventListener("mouseup", () => {
         isPressed = false;
       });
-      BoardPop.style.display = "block";
+      gamePop.style.display = "block";
       player.moving = false;
+      popupSound.play();
     }
-
   }
 
   // 지형관 상태 변경 감지 코드
@@ -517,6 +920,7 @@ function MainTest() {
     TerrianPop.style.display = "none";
     // setPopUp(!popUp);
     popUp = !popUp;
+    touchEffect.play();
   };
 
   function setSize() {
@@ -529,6 +933,12 @@ function MainTest() {
     renderer.setSize(window.innerWidth, window.innerHeight);
     renderer.render(scene, camera);
   }
+
+  // 게시판 안보이는 함수
+  const quitBoard = () => {
+    const BoardPop = document.getElementById("board");
+    BoardPop.style.display = "none";
+  };
 
   // 이벤트
   window.addEventListener("resize", setSize);
@@ -561,7 +971,6 @@ function MainTest() {
 
   // 스크린 캡처 코드를 위해 render 함수를 따로 분리해서 설정해줌
   function resizeRendererToDisplaySize(renderer) {
-    const canvas = renderer.domElement;
     const width = canvas.clientWidth;
     const height = canvas.clientHeight;
     const needResize = canvas.width !== width || canvas.height !== height;
@@ -573,7 +982,6 @@ function MainTest() {
 
   function render() {
     if (resizeRendererToDisplaySize(renderer)) {
-      const canvas = renderer.domElement;
       camera.aspect = canvas.clientWidth / canvas.clientHeight;
       camera.updateProjectionMatrix();
     }
@@ -674,63 +1082,60 @@ function MainTest() {
     });
   };
   //#endregion
+
+  // 플레이어 캐릭터 행동
+  const actionHandler = (e) => {
+    render();
+    if (player.mixer) {
+      player.actions[e].setLoop(THREE.LoopOnce);
+      player.actions[e].stop();
+      player.actions[e].play();
+    }
+  };
+
   update();
+
+  const dokdoSound = new Howl({
+    src: ["/assets/audio/dokdo.mp3"],
+    volume: 1.5,
+    // autoplay: true,
+    loop: true,
+    // onend: () => {},
+  });
+  useEffect(() => {
+    dokdoSound.play();
+  }, []);
 
   return (
     <>
       {isLoaded ? (
         <div className='mainPage'>
+          {/* 맨 처음 강치의 튜토리얼 소개 페이지 */}
+          <TutorialGangchi></TutorialGangchi>
           {/* 팝업 컴포넌트들 */}
-          <div
-            className='QuizPopup'
-            id='QuizPopup'
-            style={{ display: "none", marginTop: "40px", marginLeft: "115px" }}
-          >
-            <img
-              src='/assets/icons/cancel.png'
-              id='quitButton'
-              onClick={quitPopup}
-            ></img>
+          <div className='QuizPopup' id='QuizPopup' style={{ display: "none" }}>
             <OXQuizPopup></OXQuizPopup>
           </div>
-
           <div
             className='TerrianPopup'
             id='TerrianPopup'
-            style={{ display: "none", marginTop: "40px", marginLeft: "115px" }}
+            style={{ display: "none" }}
           >
-            <img
-              src='/assets/icons/cancel.png'
-              id='quitButton'
-              onClick={TerrianQuitPopup}
-            ></img>
-            <TerrianPopup isShown={popUp}></TerrianPopup>
+            <TerrianPopup
+              isShown={popUp}
+              TerrianQuitPopup={TerrianQuitPopup}
+            ></TerrianPopup>
           </div>
 
-          <div
-            className='EcoPopup'
-            id='EcoPopup'
-            style={{ display: "none", marginTop: "40px", marginLeft: "115px" }}
-          >
-            <img
-              src='/assets/icons/cancel.png'
-              id='quitButton'
-              onClick={quitPopup}
-            ></img>
+          <div className='EcoPopup' id='EcoPopup' style={{ display: "none" }}>
             <EcoSystemPopup></EcoSystemPopup>
           </div>
 
           <div
             className='HistoryPopup'
             id='HistoryPopup'
-            style={{ display: "none", marginTop: "40px", marginLeft: "115px" }}
+            style={{ display: "none" }}
           >
-            <img
-              src='/assets/icons/cancel.png'
-              id='quitButton'
-              onClick={quitPopup}
-              alt='EMPTY'
-            ></img>
             <HistoryPopup></HistoryPopup>
           </div>
 
@@ -741,41 +1146,26 @@ function MainTest() {
               clickMyPage();
             }}
           >
-            캐릭터 변경
+            My Page
           </div>
           <div id='myPage' style={{ display: "none" }}>
-            <img
-              src='/assets/icons/cancel.png'
-              className='quitMyPage'
-              onClick={() => {
-                quitMyPage();
-              }}
-              alt='EMPTY'
-            ></img>
-            <Popup
+            <MyPagePopup
               changeSojung={changeSojung}
               changeSiryeong={changeSiryeong}
               changeHyoseon={changeHyoseon}
               changeYoungjin={changeYoungjin}
               changeSeongryeong={changeSeongryeong}
               changeChaehyeon={changeChaehyeon}
-            ></Popup>
+              quitMyPage={quitMyPage}
+            ></MyPagePopup>
           </div>
 
-          {/* 생태도감 버튼 */}
-          <div className='dogamButton' onClick={clickDogam}>
-            생태도감
-          </div>
-          <div style={{ display: "none" }} id='dogam' className='dogamMark'>
-            <Dictionary></Dictionary>
-            <img
-              src='/assets/icons/cancel.png'
-              className='quitDogam'
-              onClick={quitDogam}
-            ></img>
+          {/*  게임 팝업창 */}
+          <div id='gamePopup' style={{ display: "none" }}>
+            <GamePopup></GamePopup>
           </div>
 
-          {/* 하단의 스크린샷 버튼과 튜토리얼 버튼 */}
+          {/* 하단의 스크린샷 버튼*/}
           <div
             className='screenShot'
             onClick={clickScreenCapture}
@@ -784,41 +1174,91 @@ function MainTest() {
             <img
               className='screenShotButton'
               src='/assets/images/camera.png'
+              alt='NOIMAGE'
             ></img>
             <div className='ButtonBackGround'></div>
           </div>
 
-          <div className='tutorial' onClick={clickTutorial}>
+          {/* 플레이어 캐릭터 애니메이션 */}
+          <div
+            onClick={() => {
+              actionHandler(3);
+            }}
+            className='dance'
+          >
             <img
-              src='/assets/images/tutorial.png'
-              className='tutorialImage'
+              className='actionImage'
+              src='/assets/images/emotions/dance.png'
+              alt='NOIMAGE'
+            ></img>
+            <div className='actionButton'></div>
+          </div>
+
+          <div
+            onClick={() => {
+              actionHandler(2);
+            }}
+            className='victory'
+          >
+            <img
+              className='actionImage'
+              src='/assets/images/emotions/hurray.png'
+              alt='NOIMAGE'
+            ></img>
+            <div className='actionButton'></div>
+          </div>
+
+          <div
+            onClick={() => {
+              actionHandler(4);
+            }}
+            className='sad'
+          >
+            <img
+              className='actionImage'
+              src='/assets/images/emotions/sad.png'
+              alt='NOIMAGE'
+            ></img>
+            <div className='actionButton'></div>
+          </div>
+
+          <div id='board' style={{ display: "none" }}>
+            <BoardHome quitBoard={quitBoard}></BoardHome>
+          </div>
+
+          {/* NPC 캐릭터들 말풍선들 */}
+          <NPCBubble quitNPCbubble={quitNPCbubble}></NPCBubble>
+
+          {/* 미니맵 켜기 버튼 */}
+          <div onClick={mapPopup} className='map'>
+            <img
+              src='/assets/icons/map.png'
+              style={{ width: "30px", marginTop: "10px", marginLeft: "10px" }}
+              alt='NOIMAGE'
             ></img>
           </div>
-          <div id='tutorial' style={{ display: "none" }}>
-            <img
-              className='tutorialMark'
-              src='/assets/images/tutorial.png'
-            ></img>
-            <Tutorial></Tutorial>
+          <div id='minimap' style={{ display: "none" }}>
             <img
               src='/assets/icons/cancel.png'
               className='quitTutorial'
-              onClick={quitTutorial}
+              onClick={quitMinimap}
+              alt='NOIMAGE'
             ></img>
-          </div>
-          <div className='chatButton' onClick={clickChat}>
-            <img src='/assets/icons/chat.png' className='chatImage'></img>
-          </div>
-          <div id='chat' className='chatCancel'>
-            <input className='chat'></input>
             <img
-              src='/assets/icons/cancel.png'
-              onClick={quitChat}
-              className='cancelImage'
+              src='/assets/images/minimap.png'
+              className='mapImage'
+              alt='NOIMAGE'
             ></img>
-          </div>
-          <div id='board' className='board'>
-            <Board></Board>
+            <div
+              style={{
+                width: "100vw",
+                height: "100vh",
+                backgroundColor: "black",
+                opacity: "50%",
+                position: "absolute",
+                zIndex: "10",
+              }}
+            ></div>
           </div>
         </div>
       ) : (

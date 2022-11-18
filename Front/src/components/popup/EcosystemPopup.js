@@ -6,16 +6,53 @@ import {
   getAllSeaPlants,
 } from "../../api/ecoSystemApi";
 import "../css/EcoSystemPopup.css";
-import { useSelector } from "react-redux";
 import axios from "axios";
+
+import Swal from "sweetalert2";
+import withReactContent from "sweetalert2-react-content";
 function EcoSystemPopup() {
+  const quitEcoPopup = () => {
+    const EcoPop = document.getElementById("EcoPopup");
+    EcoPop.style.display = "none";
+    if (badges.visitBiology === false) {
+      MySwal.fire({
+        title: <h3>뱃지 획득!</h3>,
+        icon: "info",
+        html: <p>생태관 방문 뱃지 획득!</p>,
+      });
+    }
+    setIsSelected(false);
+    setDetailSelected(false);
+    setData([]);
+    setSelectedData([]);
+    setCategory("");
+  };
+  const [badges, setBadges] = useState([]);
   const [isSelected, setIsSelected] = useState(false);
   const [category, setCategory] = useState("");
   const [selectedData, setSelectedData] = useState([]);
   const [detailSelected, setDetailSelected] = useState(false);
   const [data, setData] = useState([]);
-  const user = useSelector((state) => state.user.value);
+  const accessToken = sessionStorage.getItem("accessToken");
 
+  const MySwal = withReactContent(Swal);
+  useEffect(() => {
+    const getBadges = async () => {
+      await axios
+        .get(`https://k7d204.p.ssafy.io/api/badge`, {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        })
+        .then((res) => {
+          setBadges(res.data);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    };
+    getBadges();
+  }, [category]);
   useEffect(() => {
     if (category === "bird") {
       getAllBirds()
@@ -50,7 +87,6 @@ function EcoSystemPopup() {
           console.log(err);
         });
     } else {
-      console.log("no category");
       setData([]);
     }
   }, [category]);
@@ -72,33 +108,18 @@ function EcoSystemPopup() {
         </div>
 
         <div className='EcoSystemDetailInfo'>
-          <div className='getDogamBtn'>
-            <button
-              onClick={() => {
-                setDogam();
-              }}
-            >
-              도감 획득 하기!!
-            </button>{" "}
-          </div>
           <div className='EcoSystemDetailImage'>
             <img
               src={
                 "https://ssafy-d204-dokdo.s3.ap-northeast-2.amazonaws.com/" +
                 selectedData.img
               }
-              alt='NO IMAGE'
+              alt='NO '
             />
           </div>
           <div className='EcoSystemDetailName'>{selectedData.name}</div>
-          <div>{selectedData.classificationSystem}</div>
-          <div className='EcoSystemDetailSpecies'>
-            {selectedData.speciesInformation}
-          </div>
+
           <div className='EcoSystemDetailSummary'>{selectedData.summary}</div>
-          <div className='EcoSystemDetailSummary'>
-            {selectedData.information}
-          </div>
         </div>
       </div>
     );
@@ -123,7 +144,7 @@ function EcoSystemPopup() {
           <div className='EcoSystemDataList'>
             {data.map((data) => {
               if (data === undefined) {
-                return;
+                return <></>;
               }
               return (
                 <div
@@ -154,30 +175,22 @@ function EcoSystemPopup() {
       return <ShowDetail />;
     }
   };
-  const setDogam = () => {
-    axios
-      .post(
-        "https://k7d204.p.ssafy.io/api/dogam",
-        { domain: category, mongo_id: selectedData.name },
-        {
-          headers: {
-            Authorization: `Bearer ${user.accessToken}`,
-          },
-        },
-      )
-      .then((res) => {
-        console.log(res);
-        alert(selectedData.name + " 도감 획득 완료!");
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
 
   return (
-    <>
+    <div style={{ position: "relative" }}>
       <div className='EcosystemContainer'>
         <div className='EcosystemTitle'>독도의 생태계</div>
+        <div style={{ margin: "15px 0" }}>
+          버튼을 누르시면 해당 카테고리에 해당하는 동식물들을 만나보실 수
+          있습니다{" "}
+        </div>
+        <img
+          src='/assets/icons/cancel.png'
+          id='quitButton'
+          onClick={quitEcoPopup}
+          className='quitPopup'
+          alt='NOQUITIMAGE'
+        ></img>
         {isSelected ? (
           <ShowList />
         ) : (
@@ -193,6 +206,7 @@ function EcoSystemPopup() {
                 src={process.env.PUBLIC_URL + "/assets/icons/plant_Icon.png"}
                 alt=''
               />
+              <div>식물</div>
             </div>
             <div
               className='EcosystemSelectBtn'
@@ -208,6 +222,7 @@ function EcoSystemPopup() {
                 }
                 alt=''
               />
+              <div>해양동물</div>
             </div>
             <div
               className='EcosystemSelectBtn'
@@ -217,9 +232,10 @@ function EcoSystemPopup() {
               }}
             >
               <img
-                src={process.env.PUBLIC_URL + "/assets/icons/Bird_Icon.png"}
+                src={process.env.PUBLIC_URL + "/assets/icons/bird_Icon.png"}
                 alt=''
               />
+              <div>조류</div>
             </div>
             <div
               className='EcosystemSelectBtn'
@@ -232,11 +248,22 @@ function EcoSystemPopup() {
                 src={process.env.PUBLIC_URL + "/assets/icons/seaPlant_Icon.png"}
                 alt=''
               />
+              <div>해조류</div>
             </div>
           </div>
         )}
       </div>
-    </>
+      <div
+        style={{
+          width: "100vw",
+          height: "100vh",
+          backgroundColor: "black",
+          position: "absolute",
+          opacity: "30%",
+          zIndex: "9",
+        }}
+      ></div>
+    </div>
   );
 }
 export default EcoSystemPopup;

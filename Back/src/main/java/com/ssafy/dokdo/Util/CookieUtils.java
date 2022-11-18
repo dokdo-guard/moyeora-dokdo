@@ -1,5 +1,6 @@
 package com.ssafy.dokdo.Util;
 
+import lombok.NoArgsConstructor;
 import org.springframework.util.SerializationUtils;
 
 import javax.servlet.http.Cookie;
@@ -8,6 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.Base64;
 import java.util.Optional;
 
+@NoArgsConstructor
 public class CookieUtils {
 
     public static Optional<Cookie> getCookie(HttpServletRequest request, String name) {

@@ -8,6 +8,10 @@
   background-color: #faffe0;
   box-shadow: 5px 5px 30px lightgray;
   border-radius: 10px;
+  margin-top: 40px;
+  margin-left: 115px;
+  position: absolute;
+  z-index: 10;
 }
 .HistoryPopupWrapper {
   display: flex;
@@ -30,10 +34,27 @@
 .vertical-timeline-element-subtitle {
   font-weight: 300;
 }
+.historyTimelineImage {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
 .historyTimelineImage > img {
+  margin: 10px;
   width: 300px;
   height: 300px;
 }
 .vertical-timeline-element--work {
   text-align: start;
+}
+.historyTimeLineElement {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+.historyTimeLineContent {
+  font-size: 20px;
+  margin: 20px;
+  letter-spacing: 0.1em;
 }

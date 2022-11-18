@@ -2,9 +2,11 @@ package com.ssafy.dokdo.Security.oauth2.user;
 
 import com.ssafy.dokdo.Exception.OAuth2AuthenticationProcessingException;
 import com.ssafy.dokdo.Model.AuthProvider;
+import lombok.NoArgsConstructor;
 
 import java.util.Map;
 
+@NoArgsConstructor
 public class OAuth2UserInfoFactory {
 
     public static OAuth2UserInfo getOAuth2UserInfo(String registrationId, Map<String, Object> attributes) {

@@ -8,21 +8,24 @@
   background-color: #faffe0;
   box-shadow: 5px 5px 30px lightgray;
   border-radius: 10px;
+  margin-top: 40px;
+  margin-left: 115px;
+  position: absolute;
+  z-index: 10;
 }
 .EcosystemTitle {
   font-size: 60px;
   font-weight: 700;
-  margin: 10px;
+  margin: 20px 10px 0;
   top: 5px;
 }
 .EcosystemSelectBtnWrapper {
   width: 80%;
-  height: 80%;
+  height: 75%;
   display: grid;
   justify-items: center;
   align-items: center;
-  grid-template-columns: 50% 50%;
-  grid-template-areas: 50% 50%;
+  grid-template-columns: repeat(4, 25%);
   border-radius: 5px;
 }
 .EcosystemSelectBtn {
@@ -36,6 +39,7 @@
   justify-content: center;
   align-items: center;
   cursor: pointer;
+  flex-direction: column;
 }
 .EcosystemSelectBtn:hover {
   background-color: #ffce8f;
@@ -46,15 +50,16 @@
   width: 150px;
   height: 150px;
 }
+.EcosystemSelectBtn > div {
+  margin-top: 16px;
+}
 .EcoSystemListWrapper {
   overflow: auto;
-  display: flex;
   width: 90%;
-  height: 80%;
+  height: 75%;
   background-color: white;
   border-radius: 5px;
   box-shadow: 5px 5px 20px lightgray;
-  justify-content: flex-start;
 }
 .EcoSystemListWrapper::-webkit-scrollbar {
   display: none;
@@ -62,19 +67,20 @@
 }
 
 .EcoSystemDataList {
-  display: grid;
   width: 100%;
-  margin: 10px;
-  grid-template-columns: 40% 40%;
+  display: grid;
+  padding: 15px;
+  grid-template-columns: repeat(4, 1fr);
   justify-content: center;
   row-gap: 10px;
 }
 .EcoSystemListData {
   display: flex;
   flex-direction: column;
-  width: 100%;
-  height: 400px;
-  margin: 30px;
+  width: 90%;
+  height: fit-content;
+  margin: 5px 17px;
+  padding: 10px;
   box-shadow: 2px 2px 30px lightgray;
   justify-content: center;
   align-items: center;
@@ -89,20 +95,22 @@
 }
 .EcoSystemListName {
   font-weight: 700;
-  font-size: 30px;
-  margin: 10px;
+  font-size: 23px;
+  margin: 8px 0;
 }
 .EcoSystemListImage img {
-  width: 400px;
-  height: 300px;
-  margin: 10px;
+  width: 200px;
+  height: 140px;
+  margin: 10px 0 5px;
   object-fit: cover;
 }
+.EcoSystemBackBtn{
+  width: fit-content;
+  margin: 20px 25px 0;
+}
 .EcoSystemBackBtn > button {
-  position: fixed;
-  height: 100px;
   width: 100px;
-  margin: 10px;
+  height: 40px;
   border-radius: 10px;
   background-color: #feb653;
   border: 1px solid lightgray;
@@ -115,9 +123,8 @@
 .EcoSystemDetailInfo {
   display: flex;
   flex-direction: column;
-  margin: 20px 20px 20px 150px;
-  width: 100%;
-  height: 90%;
+  padding: 0 50px;
+  height: inherit;
 }
 .EcoSystemDetailImage img {
   width: 100%;
@@ -126,9 +133,9 @@
   object-fit: contain;
 }
 .EcoSystemDetailName {
-  margin: 10px;
+  margin: 0 10px 10px;
   font-weight: 700;
-  font-size: 40px;
+  font-size: 35px;
   text-align: start;
 }
 .EcoSystemDetailSummary {

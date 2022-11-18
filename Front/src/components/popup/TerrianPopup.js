@@ -2,6 +2,9 @@ import React, { useEffect, useRef, useState } from "react";
 import "../css/TerrianPopup.css";
 import { getAllTerrians } from "../../api/terrainApi";
 
+import Swal from "sweetalert2";
+import withReactContent from "sweetalert2-react-content";
+import axios from "axios";
 let map = null;
 
 function TerrianPopup(isShown) {
@@ -12,9 +15,42 @@ function TerrianPopup(isShown) {
   const [showPlace, setShowPlace] = useState(false);
   const [curPlace, setCurPlace] = useState("");
   const [curMarker, setCurMarker] = useState(null);
+  const [badges, setBadges] = useState([]);
+  const MySwal = withReactContent(Swal);
+  const accessToken = sessionStorage.getItem("accessToken");
+  useEffect(() => {
+    const getBadges = async () => {
+      await axios
+        .get(`https://k7d204.p.ssafy.io/api/badge`, {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        })
+        .then((res) => {
+          setBadges(res.data);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    };
+    getBadges();
+  }, [isLoaded]);
+  const quitTerrianPopup = () => {
+    const TerrianPop = document.getElementById("TerrianPopup");
+    TerrianPop.style.display = "none";
+    if (badges.visitTerrian === false) {
+      MySwal.fire({
+        title: <h3>뱃지 획득!</h3>,
+        icon: "info",
+        html: <p>지형관 방문 뱃지 획득!</p>,
+      });
+    }
+    setShowPlace(false);
+    setCurPlace("");
+    setCurMarker(null);
+  };
 
   useEffect(() => {
-    // console.log("API useEffect Call(TerrianData)");
     getAllTerrians()
       .then((res) => {
         setPlaces(res.data);
@@ -29,8 +65,6 @@ function TerrianPopup(isShown) {
     }
   }, [mapLoaded]);
   useEffect(() => {
-    // console.log("MAP useEffect Call(TerrianData)");
-    // console.log(isShown);
     // kakao map Start
     const { kakao } = window;
     if (!mapElement.current || !kakao) return;
@@ -77,7 +111,6 @@ function TerrianPopup(isShown) {
       kakao.maps.event.addListener(marker, "mouseout", function () {
         infowindow.close();
       });
-      // console.log(marker);
     }
     // 현재 선택된 위치 마커 위 인포윈도우 올려두기
     // Load Kakao Map
@@ -96,11 +129,6 @@ function TerrianPopup(isShown) {
       infowindow.open(map, curMarker);
     }
 
-    // // 중심좌표 이동시 중심 좌표 콘솔에 출력
-    // kakao.maps.event.addListener(map, "center_changed", function () {
-    //   console.log(map.getCenter());
-    // });
-
     // kakao map End
   }, [isShown, isLoaded]);
 
@@ -108,10 +136,9 @@ function TerrianPopup(isShown) {
     return (
       <div className='baseInfoContainer'>
         <div className='baseInfoTitle'>지리</div>
-        <hr></hr>
         <div className='baseInfoContent'>
           <div className='baseInfoContentHeader'>위치</div>
-          <div className='baseInfoDetailt'>
+          <div className='baseInfoDetail'>
             동도
             <br />
             북위 37° 14′ 26.8″
@@ -125,19 +152,14 @@ function TerrianPopup(isShown) {
             동경 131° 51′ 54.6″
           </div>
         </div>
-        <hr></hr>
         <div className='baseInfoContent'>
           <div className='baseInfoContentHeader'>구성 도서</div>
           <div className='baseInfoDetail'>91개의 섬</div>
         </div>
-        <hr></hr>
-
         <div className='baseInfoContent'>
           <div className='baseInfoContentHeader'>주요 도서</div>
           <div className='baseInfoDetail'> 동도(東島) · 서도(西島)</div>
         </div>
-        <hr></hr>
-
         <div className='baseInfoContent'>
           <div className='baseInfoContentHeader'>면적</div>
           <div className='baseInfoDetail'>
@@ -148,7 +170,7 @@ function TerrianPopup(isShown) {
             부속도서 25,517m²
           </div>
         </div>
-        <div className='baseInfoTitle'>왼쪽 마커를 클릭해보세요!</div>
+        {/* <div className='baseInfoTitle'>왼쪽 마커를 클릭해보세요!</div> */}
       </div>
     );
   };
@@ -163,7 +185,7 @@ function TerrianPopup(isShown) {
                 "https://ssafy-d204-dokdo.s3.ap-northeast-2.amazonaws.com/" +
                 curPlace?.img1
               }
-              alt='NO IMAGE'
+              alt='NOIMAGE'
             />
           </div>
         </div>
@@ -174,14 +196,36 @@ function TerrianPopup(isShown) {
   };
 
   return (
-    <div className='TerrianPopupContainer'>
-      <div className='TerrianPopupTitle'>독도의 지리 및 지리</div>
-      <div className='TerrianPopupWrapper'>
-        <div ref={mapElement} className='TerrianPopupMap'></div>
-        <div className='TerrianPopupInfoTable'>
-          {showPlace ? <PlaceInfo /> : <BaseInfo />}
+    <div style={{ position: "relative" }}>
+      <div className='TerrianPopupContainer'>
+        <div className='TerrianPopupTitle'>지형 박물관</div>
+        <div style={{ margin: "10px 0 5px" }}>
+          마커를 누르시면 독도의 지형을 보실 수 있습니다.
+        </div>
+        <img
+          src='/assets/icons/cancel.png'
+          id='quitButton'
+          onClick={quitTerrianPopup}
+          className='quitPopup'
+          alt='NOIMAGE'
+        ></img>
+        <div className='TerrianPopupWrapper'>
+          <div ref={mapElement} className='TerrianPopupMap'></div>
+          <div className='TerrianPopupInfoTable'>
+            {showPlace ? <PlaceInfo /> : <BaseInfo />}
+          </div>
         </div>
       </div>
+      <div
+        style={{
+          width: "100vw",
+          height: "100vh",
+          backgroundColor: "black",
+          position: "absolute",
+          opacity: "30%",
+          zIndex: "9",
+        }}
+      ></div>
     </div>
   );
 }

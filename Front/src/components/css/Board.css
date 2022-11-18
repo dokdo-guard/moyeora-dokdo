@@ -1,140 +1,262 @@
+/* 가장 처음 보드판으로 가는 버튼들 */
+
 .boardPage {
-    width: 1400px;
-	height: 650px;
-	position: absolute;
-	z-index: 20;
-	background-color: white;
-    border-radius: 20px;
-    left: 65px;
-    top: 35px;
-    box-shadow: 7px 7px 7px grey;
+  width: 100vw;
+  height: 100vh;
+  position: absolute;
+  z-index: 20;
+  background-color: black;
+  opacity: 60%;
+}
+
+.boardPage .goBoard {
+  width: 200px;
+  height: 50px;
+  border: none;
+  border-radius: 15px;
+  background-color: orange;
+  left: 45%;
+  position: absolute;
+  cursor: pointer;
+  box-shadow: 5px 5px 5px rgb(53, 53, 53);
+  top: 45%;
+  color: white;
+  font-size: 120%;
+}
+
+.boardPage .goBoard:hover {
+  background-color: yellow;
+  color: black;
+  scale: 110%;
+}
+
+.boardPage .cancelBoard {
+  width: 200px;
+  height: 50px;
+  border: none;
+  border-radius: 15px;
+  background-color: rgb(149, 5, 5);
+  left: 45%;
+  position: absolute;
+  cursor: pointer;
+  color: white;
+  box-shadow: 5px 5px 5px rgb(53, 53, 53);
+  top: 55%;
+  font-size: 120%;
+}
+
+.boardPage .cancelBoard:hover {
+  background-color: red;
+  color: white;
+  scale: 110%;
+}
+
+.boardPage .dokdoIllust {
+  margin-left: 36%;
+  margin-top: -3%;
 }
 
 /* 메인 페이지 */
 .boardHome {
-	width: 100vw;
-	height: 100vh;
-	background-color: rgb(119, 153, 192);
-	position: relative;
+  width: 85vw;
+  height: 85vh;
+  background-color: rgb(173, 202, 236);
+  overflow: auto;
+  position: absolute;
+  z-index: 20;
+  top: 7.5%;
+  left: 7.5%;
+  border-radius: 10px;
+}
+.boardHome::-webkit-scrollbar {
+  display: none;
+  width: 0;
+}
+.quitBoard {
+  left: 86%;
+  top: 7%;
+  scale: 50%;
+  position: absolute;
+  width: 100px;
+  z-index: 100;
+  cursor: pointer;
 }
 
-.boardHome .title {
-	padding-top: 4%;
-	/* background-color: yellow; */
+.boardHome > .title {
+  margin-top: 30px;
+  display: flex;
+  justify-content: center;
 }
 
-.boardHome .writeButton {
-	width: 10%;
-	height: 5%;
-	border: none;
-	border-radius: 10px;
-	background-color: yellow;
-	cursor: pointer;
+.boardHome .buttons {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  height: 50px;
+  margin-top: 2%;
+  margin-bottom: 20px;
 }
 
+.boardHome > .writeButton {
+  width: fit-content;
+  /* height: 5%; */
+  margin: 10px 30px;
+  padding: 20px 35px;
+  border: none;
+  border-radius: 10px;
+  background-color: rgb(114, 199, 131);
+  cursor: pointer;
+  margin-left: 35vw;
+  margin-top: 3vh;
+  margin-bottom: 3vh;
+  height: 50px;
+  box-shadow: 1px 1px 20px lightgray;
+}
+.boardHome > .writeButton:hover {
+  transition: background-color 0.3s;
+  background-color: rgb(61, 182, 85);
+}
 .boardHome .dokdoButton {
-	width: 10%;
-	height: 5%;
-	border: none;
-	border-radius: 10px;
-	background-color: green;
-	cursor: pointer;
+  width: 10%;
+  /* height: 5%; */
+  border: none;
+  border-radius: 10px;
+  background-color: rgb(255, 191, 0);
+  cursor: pointer;
+  margin-left: 1%;
 }
-
 
 .boardHome .boardItem {
-	float: left;
+  float: left;
 }
-
 
 /*  새 글 쓰기 */
 .newPage {
-	width: 100vw;
-	height: 100vh;
-	background-color: white;
+  width: 85vw;
+  height: 85vh;
+  background-color: rgb(213, 231, 252);
+  position: absolute;
+  z-index: 14;
+  top: 7.5vh;
+  left: 7.5vw;
+  border-radius: 15px;
 }
 
+.newPage .editorTitle {
+  font-size: 200%;
+  display: flex;
+  justify-content: center;
+  padding-top: 3%;
+}
 
-/*  디테일 페이지 */
-.detail {
-	width: 100vw;
-	height: 100vh;
-	background-color: white;
+.newPage .textarea {
+  width: 600px;
+  height: 200px;
+  border: #292929;
+  border-radius: 13px;
+  margin-top: 1%;
+  font-size: 130%;
+  padding: 20px;
+}
+
+.textareaWrapper {
+  display: flex;
+  justify-content: center;
+}
+
+.newPage .imageUpload {
+  width: 600px;
+  height: 200px;
+  margin-left: 26%;
+  margin-top: 1%;
+}
+
+.newPage .previewImage {
+  height: 200px;
+}
+
+/* .newPage .defaultImage {
+	width: 400px;
+	height: 300px;
+} */
+
+.newPage .buttons {
+  display: flex;
+  justify-content: center;
+  margin: 16px 0;
+}
+
+.newPage .write {
+  width: 110px;
+  height: 50px;
+  border: none;
+  border-radius: 10px;
+  background-color: rgb(67, 178, 80);
+  margin-right: 1%;
+  cursor: pointer;
+  font-size: 120%;
+}
+
+.newPage .goBack {
+  width: 110px;
+  height: 50px;
+  border: none;
+  border-radius: 10px;
+  background-color: rgb(212, 97, 25);
+  cursor: pointer;
+  font-size: 120%;
 }
 
 /* 아이템 개별 */
-.boardItem {
-	width: 20%;
-	background-color: white;
-	margin-top: 3px;
-	border-radius: 10px;
+figure.snip1332 {
+  position: relative;
+  overflow: auto;
+  margin: 10px;
+  width: 350px;
+  height: 200px;
+  background-color: #ffffff;
+  font-size: 25px;
+  -webkit-perspective: 50em;
+  border-radius: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 5px 5px 5px grey;
 }
 
-.boardItem .image {
-	width: 60%;
+figure.snip1332::-webkit-scrollbar {
+  display: none;
 }
 
+figure.snip1332 * {
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+figure.snip1332 figcaption {
+  max-width: 100%;
+}
+figure.snip1332 .img {
+  position: absolute;
+  top: 50%;
+  -webkit-transform: rotateY(90deg) translate(0%, -50%);
+  transform: rotateY(90deg) translate(0%, -50%);
+  -webkit-transform-origin: 50% 0%;
+  -ms-transform-origin: 50% 0%;
+  transform-origin: 50% 0%;
+  z-index: 1;
+  opacity: 0;
+}
 
+figure.snip1332 img {
+  height: 200px;
+  display: flex;
+  justify-content: center;
+}
 
-
-/* 코드펜 긁어온 코드 */
-figure.snip1419 {
-	position: relative;
-	margin: 10px;
-	min-width: 230px;
-	max-width: 315px;
-	min-height: 220px;
-	width: 100%;
-	color: #ffffff;
-	text-align: center;
-	line-height: 1.4em;
-	background-color: #ededed;
-	font-size: 16px;
-	border-radius: 10px;
-	box-shadow: 5px 5px 5px grey;
-  }
-  figure.snip1419 * {
-	-webkit-box-sizing: border-box;
-	box-sizing: border-box;
-	-webkit-transition: all 0.35s ease;
-	transition: all 0.35s ease;
-  }
-  figure.snip1419 img {
-	position: absolute;
-	bottom: 0%;
-	left: 50%;
-	opacity: 1;
-	width: 50%;
-	-webkit-transform: translate(-50%, 0%);
-	transform: translate(-50%, 0%);
-  }
-  figure.snip1419 figcaption {
-	z-index: 2;
-	padding: 20px 30px;
-  }
-  figure.snip1419 p {
-	margin: 0;
-	width: 100%;
-	-webkit-transform: translateY(20px);
-	transform: translateY(20px);
-	opacity: 1;
-  }
-  figure.snip1419 p {
-	font-size: 0.8em;
-	color: black
-  }
-  figure.snip1419:hover img {
-	width: 100%;
-	bottom: 0%;
-	border-radius: 10px;
-  }
-  figure.snip1419:hover figcaption h2,
-  figure.snip1419.hover figcaption h2,
-  figure.snip1419:hover figcaption p,
-  figure.snip1419.hover figcaption p {
-	-webkit-transform: translateY(0px);
-	transform: translateY(0px);
-	opacity: 1;
-  }
-
-
+figure.snip1332 p {
+  line-height: 1.5em;
+  font-size: 0.8em;
+  font-weight: 500;
+  margin: 0 0 15px;
+  color: black;
+}
