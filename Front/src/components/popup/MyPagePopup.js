@@ -176,11 +176,13 @@ function MyPagePopup(props) {
 
   // 캐릭터 선택 axios api call
   const setCharacter = async () => {
-    Swal.fire({
-      icon: "info",
-      title: "캐릭터 변경",
-      text: "캐릭터가 변경되었습니다!",
-    });
+    if (selectCharacterShow === true) {
+      Swal.fire({
+        icon: "info",
+        title: "캐릭터 변경",
+        text: "캐릭터가 변경되었습니다!",
+      });
+    }
     await axios
       .put(
         "https://k7d204.p.ssafy.io/api/character",
