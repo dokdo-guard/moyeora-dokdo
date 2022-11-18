@@ -13,6 +13,7 @@
 Three.js를 활용한 게임을 만들어 독도를 홍보하고, 사용자가 독도에 대해 자세하게 알 수 있도록 한다.
 
 ### 1 - 3. 포팅 메뉴얼
+[포팅 메뉴얼 바로가기](https://lab.ssafy.com/s07-final/S07P31D204/-/blob/master/exec/README.md).
 
 ## 2. 팀원별 담당 역할
 
