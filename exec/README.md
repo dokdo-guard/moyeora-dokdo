@@ -33,6 +33,129 @@
         	testImplementation 'org.springframework.boot:spring-boot-starter-test'
         }
         ```
+    
+    - Oauth 2.0
+        ```java
+        /* SecurityConfig.java */
+        @Override
+        protected void configure(HttpSecurity http) throws Exception {
+            http
+                .cors()
+                    .configurationSource(corsConfigurationSource())
+                    .and()
+                .sessionManagement()
+                    .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                    .and()
+                .csrf()
+                    .disable()
+                .formLogin()
+                    .disable()
+                .httpBasic()
+                    .disable()
+                .exceptionHandling()
+                    .authenticationEntryPoint(new RestAuthenticationEntryPoint())
+                    .and()
+                .authorizeRequests()
+                    .antMatchers("/auth/**", "/oauth2/**")
+                        .permitAll()
+                    .antMatchers("/",
+                        "/error",
+                        "/favicon.ico",
+                        "/**/*.png",
+                        "/**/*.gif",
+                        "/**/*.svg",
+                        "/**/*.jpg",
+                        "/**/*.html",
+                        "/**/*.css",
+                        "/**/*.js")
+                        .permitAll()
+                    .antMatchers("/info/**")
+                        .permitAll()
+                    .antMatchers("/swagger-resources/**","/configuration/ui","/configuration/security", "/v2/api-docs", "/swagger-ui.html","/webjars/**").permitAll()
+                    .anyRequest()
+                        .authenticated()
+                    .and()
+                .oauth2Login()
+                    .authorizationEndpoint()
+                        .baseUri("/oauth2/authorize/**")
+                        .authorizationRequestRepository(cookieAuthorizationRequestRepository())
+                        .and()
+                    .redirectionEndpoint()
+                        .baseUri("/oauth2/callback/**")
+                        .and()
+                    .userInfoEndpoint()
+                        .userService(customOAuth2UserService)
+                        .and()
+                    .successHandler(oAuth2AuthenticationSuccessHandler)
+                    .failureHandler(oAuth2AuthenticationFailureHandler);
+
+            // Add our custom Token based authentication filter
+            http.addFilterBefore(tokenAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
+        }
+        ```
+
+        ```yml
+        # application.yml
+        security:
+            oauth2:
+            client:
+                registration:
+                google:
+                    clientId: '{google_client_id}'
+                    clientSecret: '{google_client_secret}'
+                    redirectUri: "https://k7d204.p.ssafy.io/api/oauth2/callback/{registrationId}"
+                    scope:
+                    - email
+                    - profile
+                naver:
+                    clientId: '{naver_client_id}'
+                    clientSecret: '{naver_client_secret}'
+                    clientAuthenticationMethod: post
+                    authorizationGrantType: authorization_code
+                    redirectUri: "https://k7d204.p.ssafy.io/api/oauth2/callback/{registrationId}"
+                    scope:
+                    - nickname
+                    - email
+                    clientName: Naver
+                kakao:
+                    clientId: '{kakao_client_id}'
+                    clientSecret: '{kakao_client_secret}'
+                    clientAuthenticationMethod: post
+                    authorizationGrantType: authorization_code
+                    redirectUri: "https://k7d204.p.ssafy.io/api/oauth2/callback/{registrationId}"
+                    scope:
+                    - profile_nickname
+                    - account_email
+                    clientName: Kakao
+
+                # Provider ??
+                provider:
+                naver:
+                    authorizationUri: https://nid.naver.com/oauth2.0/authorize
+                    tokenUri: https://nid.naver.com/oauth2.0/token
+                    userInfoUri: https://openapi.naver.com/v1/nid/me
+                    userNameAttribute: response
+                kakao:
+                    authorizationUri: https://kauth.kakao.com/oauth/authorize
+                    tokenUri: https://kauth.kakao.com/oauth/token
+                    userInfoUri: https://kapi.kakao.com/v2/user/me
+                    userNameAttribute: id
+            app:
+            auth:
+                tokenSecret: {token}
+                tokenExpirationMsec: 864000000
+            cors:
+                allowedOrigins: http://localhost:3000/*, http://localhost:8443/*
+            oauth2:
+                # After successfully authenticating with the OAuth2 Provider,
+                # we'll be generating an auth token for the user and sending the token to the
+                # redirectUri mentioned by the client in the /oauth2/authorize request.
+                # We're not using cookies because they won't work well in mobile clients.
+                authorizedRedirectUris:
+                - http://localhost:3000/oauth2/redirect
+                - https://k7d204.p.ssafy.io/oauth2/redirect
+      ```
+    
         
     - MySQL
         

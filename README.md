@@ -59,7 +59,7 @@ FE : React / Three.js / Javascript / Adobe Illustrator
 
 ### [BackEnd]
 
-BE : Java8 / SpringBoot / MongoDB(6.0.2) / MySQL (8.0.31 for Linux)/ JPA/ Auth 2.0
+BE : Java8 / SpringBoot / MongoDB(6.0.2) / MySQL (8.0.31 for Linux)/ JPA/ OAuth 2.0
 
 1. NoSQL (MongoDB) // RDBMS (MySQL)
 
@@ -75,7 +75,11 @@ BE : Java8 / SpringBoot / MongoDB(6.0.2) / MySQL (8.0.31 for Linux)/ JPA/ Auth 2
 
    ![Untitled](resources/Untitled%203.png)
 
-2. Auth 2.0 (소셜 로그인)
+2. OAuth 2.0 (소셜 로그인)
+
+    Oauth를 통해 사용자에게 특별한 정보 요구 없이 권한을 부여하고 권한을 가진 사용자의 접근만을 허용하여 보안적으로 더 안전한 서비스를 유지할 수 있었다.
+
+    구글, 네이버, 카카오 소셜 로그인 서비스를 사용하였다.
 
 ### [Infra]
 
