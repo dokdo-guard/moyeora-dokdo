@@ -683,18 +683,11 @@ function MainTest() {
       "land_79020" ||
       "land_79043"
     ) {
-      const delta = clock.getDelta();
-      // let destinationNPCPoint = new Vector3(item.point.x, 0.3, item.point.z);
-      // 강치.moveTo(destinationNPCPoint);
-
       destinationPoint = new Vector3(item.point.x, 0.3, item.point.z);
       player.moveTo(destinationPoint);
 
       pointerMesh.position.x = destinationPoint.x;
       pointerMesh.position.z = destinationPoint.z;
-
-      // footSound.stop()
-      // footSound.play()
     }
     if (item.object.name === "Dolphin") {
       player.dontMove(destinationPoint);

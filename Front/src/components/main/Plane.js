@@ -47,7 +47,7 @@ export const oceanBlock1Mesh = new THREE.Mesh(
     map: oceanBlockTexture,
   }),
 );
-oceanBlock1Mesh.name = "";
+oceanBlock1Mesh.name = "ocean";
 oceanBlock1Mesh.rotation.set(-Math.PI / 2, oceanBlock1Mesh.rotation.y, 2);
 oceanBlock1Mesh.position.set(-60, 2, -22);
 oceanBlock1Mesh.visible = false;
