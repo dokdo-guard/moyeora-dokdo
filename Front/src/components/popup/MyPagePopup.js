@@ -1,7 +1,6 @@
 import axios from "axios";
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { checkNPClist } from "../../api/mainApi.js";
 import "../css/MyPagePopup.css";
 import Tooltip from "@mui/material/Tooltip";
 import Swal from "sweetalert2";
@@ -177,6 +176,11 @@ function MyPagePopup(props) {
 
   // 캐릭터 선택 axios api call
   const setCharacter = async () => {
+    Swal.fire({
+      icon: "info",
+      title: "캐릭터 변경",
+      text: "캐릭터가 변경되었습니다!",
+    });
     await axios
       .put(
         "https://k7d204.p.ssafy.io/api/character",
