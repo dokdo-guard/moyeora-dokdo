@@ -146,7 +146,7 @@ function HistoryPopup() {
                       date={data.era}
                       iconStyle={{ background: "#FFF562", color: "#fff" }}
                       key={data.era}
-                      contentStyle={{ width: "80%" }}
+                      contentStyle={{ width: "80%",marginTop:'4vh' }}
                       style={{
                         display: "flex",
                         justifyContent: "center",
