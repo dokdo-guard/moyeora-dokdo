@@ -35,10 +35,26 @@ function TerrianPopup(isShown) {
     };
     getBadges();
   }, [isLoaded]);
+  const getBadges = async () => {
+    await axios
+      .get(`https://k7d204.p.ssafy.io/api/badge`, {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      })
+      .then((res) => {
+        setBadges(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
   const quitTerrianPopup = () => {
     const TerrianPop = document.getElementById("TerrianPopup");
     TerrianPop.style.display = "none";
-    if (badges.visitTerrian === false) {
+    console.log(badges);
+    getBadges();
+    if (badges.visitTerrain === false) {
       MySwal.fire({
         title: <h3>뱃지 획득!</h3>,
         icon: "info",

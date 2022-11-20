@@ -93,10 +93,25 @@ const dummy_data_history = [
 function HistoryPopup() {
   const MySwal = withReactContent(Swal);
   const [badges, setBadges] = useState([]);
+  const getBadges = async () => {
+    await axios
+      .get(`https://k7d204.p.ssafy.io/api/badge`, {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      })
+      .then((res) => {
+        setBadges(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
   const quitHistoryPopup = () => {
     const HistoryPop = document.getElementById("HistoryPopup");
     HistoryPop.style.display = "none";
-
+    getBadges();
+    console.log(badges);
     if (badges.visitHistory === false) {
       MySwal.fire({
         title: <h3>뱃지 획득!</h3>,
@@ -146,7 +161,7 @@ function HistoryPopup() {
                       date={data.era}
                       iconStyle={{ background: "#FFF562", color: "#fff" }}
                       key={data.era}
-                      contentStyle={{ width: "80%",marginTop:'4vh' }}
+                      contentStyle={{ width: "80%", marginTop: "4vh" }}
                       style={{
                         display: "flex",
                         justifyContent: "center",

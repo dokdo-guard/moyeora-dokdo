@@ -11,7 +11,23 @@ import axios from "axios";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 function EcoSystemPopup() {
+  const getBadges = async () => {
+    await axios
+      .get(`https://k7d204.p.ssafy.io/api/badge`, {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      })
+      .then((res) => {
+        setBadges(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
   const quitEcoPopup = () => {
+    console.log(badges);
+    getBadges();
     const EcoPop = document.getElementById("EcoPopup");
     EcoPop.style.display = "none";
     if (badges.visitBiology === false) {
