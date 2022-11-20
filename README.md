@@ -79,6 +79,7 @@ BE : Java8 / SpringBoot / MongoDB(6.0.2) / MySQL (8.0.31 for Linux)/ JPA/ OAuth 
    ![Untitled](resources/Untitled%203.png)
 
 2. OAuth 2.0, JWT (소셜 로그인)
+   ![home](resources/home.PNG)
 
    Oauth를 통해 사용자에게 특별한 정보 요구 없이 권한을 부여하고 권한을 가진 사용자의 접근만을 허용하여 보안적으로 더 안전한 서비스를 유지하기 위해 사용했다. 또한 access token으로 JWT를 사용하여 서버와 클라이언트 사이의 정보 교환을 더 안전하게 만들었다.
 
