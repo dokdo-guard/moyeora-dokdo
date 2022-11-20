@@ -18,6 +18,22 @@ USE `ssafy`;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
+-- Table structure for table `badge`
+--
+
+DROP TABLE IF EXISTS `badge`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `badge` (
+  `badge_id` bigint NOT NULL AUTO_INCREMENT,
+  `achievement` varchar(255) DEFAULT NULL,
+  `image` varchar(255) DEFAULT NULL,
+  `name` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`badge_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
 -- Dumping data for table `badge`
 --
 
@@ -25,6 +41,24 @@ LOCK TABLES `badge` WRITE;
 /*!40000 ALTER TABLE `badge` DISABLE KEYS */;
 /*!40000 ALTER TABLE `badge` ENABLE KEYS */;
 UNLOCK TABLES;
+
+--
+-- Table structure for table `dogam`
+--
+
+DROP TABLE IF EXISTS `dogam`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `dogam` (
+  `dogam_id` bigint NOT NULL AUTO_INCREMENT,
+  `domain` varchar(255) DEFAULT NULL,
+  `mongo_id` varchar(255) DEFAULT NULL,
+  `user_id` bigint DEFAULT NULL,
+  PRIMARY KEY (`dogam_id`),
+  KEY `FK8k6fdoqfi1wyptipymhgyi5sy` (`user_id`),
+  CONSTRAINT `FK8k6fdoqfi1wyptipymhgyi5sy` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=118 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Dumping data for table `dogam`
@@ -37,6 +71,23 @@ INSERT INTO `dogam` VALUES (1,'seaAnimal','파랑돔',8),(2,'seaAnimal','돌고�
 UNLOCK TABLES;
 
 --
+-- Table structure for table `npc`
+--
+
+DROP TABLE IF EXISTS `npc`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `npc` (
+  `id` bigint NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) NOT NULL,
+  `user_id` bigint DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `FK22nm5h2efk5bt9w4pn8rlsxth` (`user_id`),
+  CONSTRAINT `FK22nm5h2efk5bt9w4pn8rlsxth` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=81 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
 -- Dumping data for table `npc`
 --
 
@@ -45,6 +96,22 @@ LOCK TABLES `npc` WRITE;
 INSERT INTO `npc` VALUES (26,'Crab',2),(27,'Dolphin',2),(28,'Dog',2),(33,'Flamingo',10),(40,'Pigeon',10),(41,'SeaLion',10),(42,'Dog',10),(43,'Penguin',10),(44,'Dolphin',10),(45,'Prawn',10),(46,'Turtle',10),(47,'Seagull',10),(48,'Crab',10),(49,'Seagull',3),(50,'Dog',3),(51,'Pigeon',3),(52,'Turtle',3),(53,'SeaLion',2),(54,'Flamingo',2),(55,'Turtle',2),(56,'Crab',3),(57,'Flamingo',3),(58,'Flamingo',12),(59,'SeaLion',12),(60,'Pigeon',12),(61,'Pigeon',2),(62,'Penguin',2),(63,'Dog',12),(64,'Dolphin',3),(65,'Prawn',3),(66,'Turtle',12),(67,'Dolphin',12),(68,'Flamingo',16),(69,'Penguin',8),(70,'Pigeon',8),(71,'Seagull',8),(72,'SeaLion',8),(73,'Crab',12),(74,'land_79030',10),(75,'land_79030',10),(76,'land_79030',10),(77,'floor',10),(78,'ocean',10),(79,'Flamingo',8),(80,'Dog',8);
 /*!40000 ALTER TABLE `npc` ENABLE KEYS */;
 UNLOCK TABLES;
+
+--
+-- Table structure for table `quiz_user`
+--
+
+DROP TABLE IF EXISTS `quiz_user`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `quiz_user` (
+  `quiz_id` bigint NOT NULL AUTO_INCREMENT,
+  `fifteen` bit(1) NOT NULL,
+  `five` bit(1) NOT NULL,
+  `ten` bit(1) NOT NULL,
+  PRIMARY KEY (`quiz_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=85 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Dumping data for table `quiz_user`
@@ -57,6 +124,35 @@ INSERT INTO `quiz_user` VALUES (1,_binary '\0',_binary '\0',_binary '\0'),(2,_bi
 UNLOCK TABLES;
 
 --
+-- Table structure for table `user`
+--
+
+DROP TABLE IF EXISTS `user`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `user` (
+  `user_id` bigint NOT NULL AUTO_INCREMENT,
+  `email` varchar(255) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `provider` varchar(255) NOT NULL,
+  `provider_id` varchar(255) DEFAULT NULL,
+  `user_character` varchar(255) NOT NULL DEFAULT 'siryeong',
+  `quiz_id` bigint DEFAULT NULL,
+  `visited_id` bigint DEFAULT NULL,
+  `badge_id` bigint DEFAULT NULL,
+  `visited_before` bit(1) NOT NULL,
+  PRIMARY KEY (`user_id`),
+  UNIQUE KEY `UKob8kqyqqgmefl0aco34akdtpe` (`email`),
+  KEY `FKprdbl3x4egjsmu1vmc6qo6k6y` (`quiz_id`),
+  KEY `FK2djnfyf4s6asestuqh1nli0vj` (`visited_id`),
+  KEY `FKqvb2vi208l09iuvb2qmqvwnww` (`badge_id`),
+  CONSTRAINT `FK2djnfyf4s6asestuqh1nli0vj` FOREIGN KEY (`visited_id`) REFERENCES `visited` (`visited_id`),
+  CONSTRAINT `FKprdbl3x4egjsmu1vmc6qo6k6y` FOREIGN KEY (`quiz_id`) REFERENCES `quiz_user` (`quiz_id`),
+  CONSTRAINT `FKqvb2vi208l09iuvb2qmqvwnww` FOREIGN KEY (`badge_id`) REFERENCES `user_badge` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
 -- Dumping data for table `user`
 --
 
@@ -67,6 +163,29 @@ INSERT INTO `user` VALUES (1,'ip951122@naver.com','ip95****','naver','HtGdXKZa1v
 UNLOCK TABLES;
 
 --
+-- Table structure for table `user_badge`
+--
+
+DROP TABLE IF EXISTS `user_badge`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `user_badge` (
+  `id` bigint NOT NULL AUTO_INCREMENT,
+  `sea_animal_complete` bit(1) DEFAULT NULL,
+  `bird_complete` bit(1) DEFAULT NULL,
+  `plant_complete` bit(1) DEFAULT NULL,
+  `quiz_fifteen` bit(1) DEFAULT NULL,
+  `quiz_five` bit(1) DEFAULT NULL,
+  `quiz_ten` bit(1) DEFAULT NULL,
+  `talkative` bit(1) DEFAULT NULL,
+  `visit_biology` bit(1) DEFAULT NULL,
+  `visit_history` bit(1) DEFAULT NULL,
+  `visit_terrain` bit(1) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
 -- Dumping data for table `user_badge`
 --
 
@@ -75,6 +194,22 @@ LOCK TABLES `user_badge` WRITE;
 INSERT INTO `user_badge` VALUES (1,_binary '\0',_binary '\0',_binary '\0',_binary '\0',_binary '\0',_binary '\0',_binary '\0',_binary '\0',_binary '\0',_binary '\0'),(2,_binary '\0',_binary '\0',_binary '\0',_binary '\0',_binary '',_binary '\0',_binary '\0',_binary '',_binary '',_binary ''),(3,_binary '',_binary '',_binary '',_binary '',_binary '',_binary '\0',_binary '\0',_binary '',_binary '',_binary ''),(4,_binary '\0',_binary '\0',_binary '\0',_binary '\0',_binary '\0',_binary '\0',_binary '\0',_binary '',_binary '\0',_binary ''),(5,_binary '\0',_binary '\0',_binary '\0',_binary '\0',_binary '\0',_binary '\0',_binary '\0',_binary '',_binary '',_binary ''),(6,_binary '\0',_binary '\0',_binary '\0',_binary '\0',_binary '\0',_binary '\0',_binary '\0',_binary '\0',_binary '\0',_binary '\0'),(7,_binary '\0',_binary '\0',_binary '\0',_binary '\0',_binary '\0',_binary '\0',_binary '\0',_binary '\0',_binary '\0',_binary '\0'),(8,_binary '\0',_binary '\0',_binary '\0',_binary '',_binary '',_binary '',_binary '\0',_binary '',_binary '',_binary ''),(9,_binary '\0',_binary '\0',_binary '\0',_binary '\0',_binary '\0',_binary '\0',_binary '\0',_binary '\0',_binary '\0',_binary '\0'),(10,_binary '\0',_binary '\0',_binary '\0',_binary '\0',_binary '',_binary '\0',_binary '\0',_binary '',_binary '',_binary ''),(11,_binary '\0',_binary '\0',_binary '\0',_binary '\0',_binary '\0',_binary '\0',_binary '\0',_binary '',_binary '',_binary ''),(12,_binary '\0',_binary '\0',_binary '\0',_binary '\0',_binary '',_binary '\0',_binary '\0',_binary '',_binary '',_binary ''),(13,_binary '\0',_binary '\0',_binary '\0',_binary '\0',_binary '\0',_binary '\0',_binary '\0',_binary '\0',_binary '\0',_binary '\0'),(14,_binary '\0',_binary '\0',_binary '\0',_binary '\0',_binary '',_binary '\0',_binary '\0',_binary '',_binary '',_binary ''),(15,_binary '\0',_binary '\0',_binary '\0',_binary '\0',_binary '\0',_binary '\0',_binary '\0',_binary '\0',_binary '\0',_binary '\0'),(16,_binary '\0',_binary '\0',_binary '\0',_binary '\0',_binary '\0',_binary '\0',_binary '\0',_binary '\0',_binary '\0',_binary '\0'),(18,_binary '\0',_binary '\0',_binary '\0',_binary '\0',_binary '\0',_binary '\0',_binary '\0',_binary '\0',_binary '\0',_binary '\0'),(19,_binary '\0',_binary '\0',_binary '\0',_binary '\0',_binary '\0',_binary '\0',_binary '\0',_binary '\0',_binary '\0',_binary '\0'),(20,_binary '\0',_binary '\0',_binary '\0',_binary '\0',_binary '\0',_binary '\0',_binary '\0',_binary '',_binary '',_binary ''),(22,_binary '\0',_binary '\0',_binary '\0',_binary '\0',_binary '\0',_binary '\0',_binary '\0',_binary '\0',_binary '\0',_binary '\0'),(23,_binary '\0',_binary '\0',_binary '\0',_binary '\0',_binary '\0',_binary '\0',_binary '\0',_binary '\0',_binary '\0',_binary ''),(24,_binary '\0',_binary '\0',_binary '\0',_binary '\0',_binary '\0',_binary '\0',_binary '\0',_binary '\0',_binary '',_binary ''),(25,_binary '\0',_binary '\0',_binary '\0',_binary '\0',_binary '\0',_binary '\0',_binary '\0',_binary '\0',_binary '\0',_binary '\0'),(26,_binary '\0',_binary '\0',_binary '\0',_binary '\0',_binary '\0',_binary '\0',_binary '\0',_binary '\0',_binary '\0',_binary '\0'),(27,_binary '\0',_binary '\0',_binary '\0',_binary '\0',_binary '\0',_binary '\0',_binary '\0',_binary '\0',_binary '\0',_binary '\0'),(28,_binary '\0',_binary '\0',_binary '\0',_binary '\0',_binary '\0',_binary '\0',_binary '\0',_binary '',_binary '',_binary ''),(29,_binary '\0',_binary '\0',_binary '\0',_binary '\0',_binary '\0',_binary '\0',_binary '\0',_binary '',_binary '',_binary ''),(30,_binary '\0',_binary '\0',_binary '\0',_binary '\0',_binary '\0',_binary '\0',_binary '\0',_binary '\0',_binary '\0',_binary '\0'),(31,_binary '\0',_binary '\0',_binary '\0',_binary '\0',_binary '\0',_binary '\0',_binary '\0',_binary '\0',_binary '\0',_binary '\0'),(32,_binary '\0',_binary '\0',_binary '\0',_binary '\0',_binary '\0',_binary '\0',_binary '\0',_binary '\0',_binary '\0',_binary '\0'),(33,_binary '\0',_binary '\0',_binary '\0',_binary '\0',_binary '\0',_binary '\0',_binary '\0',_binary '',_binary '',_binary '');
 /*!40000 ALTER TABLE `user_badge` ENABLE KEYS */;
 UNLOCK TABLES;
+
+--
+-- Table structure for table `visited`
+--
+
+DROP TABLE IF EXISTS `visited`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `visited` (
+  `visited_id` bigint NOT NULL AUTO_INCREMENT,
+  `biology` bit(1) NOT NULL,
+  `history` bit(1) NOT NULL,
+  `terrain` bit(1) NOT NULL,
+  PRIMARY KEY (`visited_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=85 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Dumping data for table `visited`
@@ -95,4 +230,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-11-20 17:53:50
+-- Dump completed on 2022-11-20 18:00:10
