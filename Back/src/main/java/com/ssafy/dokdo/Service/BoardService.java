@@ -31,4 +31,8 @@ public class BoardService {
         board.setCreated_at(simpleDateFormat.format(new Date()));
         boardRepository.save(board);
     }
+
+    public void deleteBoard(String cardId){
+        boardRepository.deleteById(cardId);
+    }
 }

@@ -88,3 +88,7 @@ server:
   port: 8443
   servlet:
     context-path: /api
+
+logging:
+  level:
+    root=info:
