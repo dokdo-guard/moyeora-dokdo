@@ -1,0 +1,3 @@
+ERROR 23-01-25 17:13:35[http-nio-8443-exec-3] [RestAuthenticationEntryPoint:19] - Responding with unauthorized error. Message - Full authentication is required to access this resource
+ERROR 23-01-25 17:15:48[http-nio-8443-exec-2] [RestAuthenticationEntryPoint:19] - Responding with unauthorized error. Message - Full authentication is required to access this resource
+ERROR 23-01-25 17:17:48[http-nio-8443-exec-2] [RestAuthenticationEntryPoint:19] - Responding with unauthorized error. Message - Full authentication is required to access this resource

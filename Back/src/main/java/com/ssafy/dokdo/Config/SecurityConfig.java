@@ -115,8 +115,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         "/**/*.css",
                         "/**/*.js")
                         .permitAll()
-//                    .antMatchers("/info/**")
-//                        .permitAll()
+                    .antMatchers("/info/**")
+                        .permitAll()
                     .antMatchers("/swagger-resources/**","/configuration/ui","/configuration/security", "/v2/api-docs", "/swagger-ui.html","/webjars/**").permitAll()
                     .anyRequest()
                         .authenticated()
