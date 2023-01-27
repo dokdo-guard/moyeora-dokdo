@@ -1,7 +1,8 @@
 // import baseAxios from "axios";
 import axios from 'axios';
 const api = axios.create({
-  baseURL: 'https://k7d204.p.ssafy.io/api/',
+  baseURL: 'http://localhost:8443/api/',
+  // baseURL: 'http://localhost:8443/api/',
   headers: {
     'Content-Type': 'application/json',
     // access_token 넣어 줄 것

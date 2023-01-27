@@ -157,7 +157,7 @@ function EcoSystemPopup() {
   const setDogam = () => {
     axios
       .post(
-        "https://k7d204.p.ssafy.io/api/dogam",
+        "http://localhost:8443/api/dogam",
         { domain: category, mongo_id: selectedData.name },
         {
           headers: {

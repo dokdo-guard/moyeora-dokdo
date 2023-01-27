@@ -46,11 +46,20 @@ dependencies {
 	annotationProcessor 'org.projectlombok:lombok'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	// logback
-	testImplementation group: 'ch.qos.logback', name: 'logback-classic', version: '1.4.5'
+//	compileOnly "org.slf4j:slf4j-simple:2.0.6"
+//	compileOnly "org.slf4j:slf4j-simple:1.6.1"
+//	testImplementation group: 'ch.qos.logback', name: 'logback-classic', version: '1.4.5'
+	// Junit5
+	testImplementation 'org.junit.jupiter:junit-jupiter'
+	testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
+	testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
 }
 
-tasks.named('test') {
-	useJUnitPlatform()
+test {
+	useJUnitPlatform {
+		includeTags 'fast'
+		excludeTags 'slow'
+	}
 }
 
 tasks.withType(JavaCompile) {

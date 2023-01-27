@@ -42,7 +42,7 @@ function OXQuizPopup() {
     ) {
       await axios
         .put(
-          "https://k7d204.p.ssafy.io/api/quiz",
+          "http://localhost:8443/api/quiz",
           {
             quiz: result + "",
           },
@@ -65,7 +65,7 @@ function OXQuizPopup() {
         });
 
       await axios.post(
-        "https://k7d204.p.ssafy.io/api/badge",
+        "http://localhost:8443/api/badge",
         {
           achievement: "",
           image: "",

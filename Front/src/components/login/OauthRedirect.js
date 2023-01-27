@@ -21,7 +21,7 @@ const OauthRedirect = (props) => {
       sessionStorage.setItem("accessToken", token);
       const getUserInfo = async (token) => {
         await axios
-          .get("https://k7d204.p.ssafy.io/api/user", {
+          .get("http://localhost:8443/api/user", {
             headers: {
               "content-type": "application/json",
               Authorization: `Bearer ${token}`,

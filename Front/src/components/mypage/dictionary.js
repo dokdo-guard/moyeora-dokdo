@@ -16,7 +16,7 @@ const Dictionary = (props) => {
 
   const getEarnedDogam = async () => {
     await axios
-      .get("https://k7d204.p.ssafy.io/api/user/dogams", {
+      .get("http://localhost:8443/api/user/dogams", {
         headers: { Authorization: `Bearer ${accessToken}` },
       })
       .then((res) => {

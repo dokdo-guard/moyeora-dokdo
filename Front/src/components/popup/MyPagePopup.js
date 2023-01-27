@@ -26,7 +26,7 @@ function MyPagePopup(props) {
     // 도감 조회
     const getDogam = async () => {
       const dogams = await axios.get(
-        `https://k7d204.p.ssafy.io/api/user/dogams/${category}`,
+        `http://localhost:8443/api/user/dogams/${category}`,
         {
           headers: {
             Authorization: `Bearer ${accessToken}`,
@@ -42,7 +42,7 @@ function MyPagePopup(props) {
 
   useEffect(() => {
     const getBadge = async () => {
-      const badges = await axios.get(`https://k7d204.p.ssafy.io/api/badge`, {
+      const badges = await axios.get(`http://localhost:8443/api/badge`, {
         headers: {
           Authorization: `Bearer ${accessToken}`,
         },
@@ -79,7 +79,7 @@ function MyPagePopup(props) {
   const setCharacter = async () => {
     await axios
       .put(
-        "https://k7d204.p.ssafy.io/api/character",
+        "http://localhost:8443/api/character",
         { userCharacter: userCharacter },
         {
           headers: {

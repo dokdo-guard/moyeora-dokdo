@@ -2,11 +2,10 @@ spring:
   data:
     mongodb:
       uri: mongodb://localhost:27017/
-      database: debug
+      database: ssafy
   output:
     ansi:
       enabled: always
-
   datasource:
     url: jdbc:mysql://localhost:3306/ssafy?useSSL=false&useUnicode=true&serverTimezone=Asia/Seoul
     username: root
@@ -83,7 +82,6 @@ app:
     # redirectUri mentioned by the client in the /oauth2/authorize request.
     # We're not using cookies because they won't work well in mobile clients.
     authorizedRedirectUris:
-      - http://localhost:3000/oauth2/redirect
       - http://localhost:8443/oauth/redirect
       - http://localhost:3000/oauth/redirect
       - https://k7d204.p.ssafy.io/myPage/myPageTest

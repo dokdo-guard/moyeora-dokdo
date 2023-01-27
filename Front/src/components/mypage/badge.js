@@ -16,7 +16,7 @@ const Badge = () => {
 
   const getBadge = async () => {
     await api
-      .get("https://k7d204.p.ssafy.io/api/badge", {
+      .get("http://localhost:8443/api/badge", {
         headers: {
           Authorization: `Bearer ${accessToken}`,
         },

@@ -86,7 +86,7 @@ const Popup = (props) => {
     const accessToken = sessionStorage.getItem("accessToken");
     axios
       .put(
-        "https://k7d204.p.ssafy.io/api/character",
+        "http://localhost:8443/api/character",
         { userCharacter: myCharacter },
         {
           headers: {

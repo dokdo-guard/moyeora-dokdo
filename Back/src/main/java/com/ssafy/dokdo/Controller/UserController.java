@@ -8,6 +8,8 @@ import com.ssafy.dokdo.Security.CurrentUser;
 import com.ssafy.dokdo.Security.UserPrincipal;
 import com.ssafy.dokdo.Service.UserService;
 import lombok.RequiredArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -19,56 +21,62 @@ import java.util.NoSuchElementException;
 @RestController
 @PreAuthorize("hasRole('USER')")
 @RequiredArgsConstructor
+@RequestMapping("user")
 public class UserController {
 
     private final UserService userService;
+    private static final Logger logger = LoggerFactory.getLogger(BoardController.class);
 
-    @GetMapping("user")
+    // Todo: 내가 수정
+    @GetMapping()
     public UserDto getCurrentUser(@CurrentUser UserPrincipal userPrincipal) {
+        logger.info("getCurrentUser - name: " + userPrincipal.getUsername());
         return userService.getCurrentUser(userPrincipal.getId());
     }
 
-    @GetMapping("quiz")
+    @GetMapping("/quiz")
     public QuizUser getQuiz(@CurrentUser UserPrincipal userPrincipal) {
         return userService.getQuizResult(userPrincipal.getId());
     }
 
-    @PutMapping("quiz")
+    @PutMapping("/quiz")
     public void setQuiz(@CurrentUser UserPrincipal userPrincipal, @RequestBody Map<String, Integer> body) {
         userService.updateQuizResult(userPrincipal.getId(), body.get("quiz"));
     }
 
-    @GetMapping("badge")
+    @GetMapping("/badge")
     public UserBadge getUserBadge(@CurrentUser UserPrincipal userPrincipal) {
         return userService.getUserBadge(userPrincipal.getId());
     }
 
-    @PostMapping("badge")
+    @PostMapping("/badge")
     public void setUserBadge(@CurrentUser UserPrincipal userPrincipal, @RequestBody Map<String, String> body) {
         userService.updateUserBadge(userPrincipal.getId(), body.get("badge"));
     }
 
-    @PutMapping("character")
+    @PutMapping("/character")
     public void setCharacter(@CurrentUser UserPrincipal userPrincipal, @RequestBody User user) {
         userService.updateUserCharacter(userPrincipal.getId(), user.getUserCharacter());
     }
 
-    @PostMapping("check/nickname")
+    @PostMapping("/check/nickname")
     public Boolean checkNickName(@RequestBody Map<String, String> body){
         return userService.checkNickName(body.get("name"));
     }
 
-    @PutMapping("nickname")
+    @PutMapping("/nickname")
     public void setNickname(@CurrentUser UserPrincipal userPrincipal, @RequestBody User user) {
         userService.updateName(userPrincipal.getId(), user.getName());
     }
 
-    @PutMapping("/user/first-visit")
+    // Todo: 내가 수정
+    @PutMapping("/first-visit")
     public void updateFirstVisit(@CurrentUser UserPrincipal userPrincipal){
+        logger.info("updateFirstVisit");
         userService.updateFirstVisit(userPrincipal.getId());
     }
 
-    @GetMapping("/user/dogams/plant")
+    @GetMapping("/dogams/plant")
     public ResponseEntity<?> getPlantDogam(@CurrentUser UserPrincipal userPrincipal){
         try{
             return new ResponseEntity<>(
@@ -81,7 +89,7 @@ public class UserController {
         }
     }
 
-    @GetMapping("/user/dogams/bird")
+    @GetMapping("/dogams/bird")
     public ResponseEntity<?> getBirdDogam(@CurrentUser UserPrincipal userPrincipal){
         try{
             return new ResponseEntity<>(
@@ -94,7 +102,7 @@ public class UserController {
         }
     }
 
-    @GetMapping("/user/dogams/sea-plant")
+    @GetMapping("/dogams/sea-plant")
     public ResponseEntity<?> getSeaPlantDogam(@CurrentUser UserPrincipal userPrincipal){
         try{
             return new ResponseEntity<>(
@@ -107,7 +115,7 @@ public class UserController {
         }
     }
 
-    @GetMapping("/user/dogams/sea-animal")
+    @GetMapping("/dogams/sea-animal")
     public ResponseEntity<?> getSeaAnimalDogam(@CurrentUser UserPrincipal userPrincipal){
         try{
             return new ResponseEntity<>(
@@ -120,7 +128,7 @@ public class UserController {
         }
     }
 
-    @GetMapping("/user/dogam")
+    @GetMapping("/dogam")
     public ResponseEntity<Boolean> getDogamList(@CurrentUser UserPrincipal userPrincipal, @RequestParam String domain, @RequestParam(name = "mongo_id") String mongoId){
         try{
             return new ResponseEntity<>(
@@ -133,7 +141,7 @@ public class UserController {
         }
     }
 
-    @PostMapping("/user/talk")
+    @PostMapping("/talk")
     public ResponseEntity<?> saveNpcTalk(@CurrentUser UserPrincipal userPrincipal, @RequestBody Map<String, String> npcName) {
         try{
             return new ResponseEntity<>(
@@ -146,7 +154,7 @@ public class UserController {
         }
     }
 
-    @GetMapping("/user/talk")
+    @GetMapping("/talk")
     public ResponseEntity<?> getNpcTalk(@CurrentUser UserPrincipal userPrincipal) {
         try{
             return new ResponseEntity<>(
