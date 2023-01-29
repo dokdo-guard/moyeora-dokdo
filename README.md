@@ -47,6 +47,10 @@ BE : Java8 / SpringBoot / MongoDB(6.0.2) / MySQL (8.0.31 for Linux)/ JPA/ OAuth 
 
    구글, 네이버, 카카오 소셜 로그인 서비스를 사용하였다.
 
+
+   **구조**
+   ![login](resources/social-login.PNG)
+
    **redirect url**
 
    - 구글
